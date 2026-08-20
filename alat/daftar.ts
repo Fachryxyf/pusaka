@@ -14,6 +14,8 @@ import KodePos from '@/alat/kodepos'
 import { meta as metaKodePos } from '@/alat/kodepos/meta'
 import Quran from '@/alat/quran'
 import { meta as metaQuran } from '@/alat/quran/meta'
+import Sekolah from '@/alat/sekolah'
+import { meta as metaSekolah } from '@/alat/sekolah/meta'
 import Sholat from '@/alat/sholat'
 import { meta as metaSholat } from '@/alat/sholat/meta'
 import Wilayah from '@/alat/wilayah'
@@ -29,6 +31,7 @@ export const DAFTAR_ALAT: Alat[] = [
   { ...metaKodePos, Komponen: KodePos },
   { ...metaBerita, Komponen: Berita },
   { ...metaHargaEmas, Komponen: HargaEmas },
+  { ...metaSekolah, Komponen: Sekolah },
 ]
 
 // Komponen tidak bisa diserialisasi ke Client Component, jadi metadatanya dipisah.
@@ -42,6 +45,7 @@ export const DAFTAR_META: MetaAlat[] = [
   metaKodePos,
   metaBerita,
   metaHargaEmas,
+  metaSekolah,
 ]
 
 export function cariAlat(slug: string): Alat | undefined {

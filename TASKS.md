@@ -1012,17 +1012,49 @@ Alasan itu **salah**, dan probe 2026-08-21 membuktikannya: `logam-mulia-api` mem
 Alat juga menyatakan terus terang bahwa harganya bisa berbeda dari gerai, dan bahwa ini bukan
 penawaran maupun saran investasi.
 
+**Alat Data Sekolah: SELESAI.** `alat/sekolah/index.tsx`. 215.373 sekolah, dicari lewat
+nama atau NPSN.
+
+Probe ulang menemukan tiga hal yang mengubah rancangan alatnya:
+
+1. **Galat dibalas dengan HTTP 200.** Endpoint yang tidak ada — `/provinsi`,
+   `/kabupaten?kode_prop=` — membalas **200** dengan `status: "failed"` dan
+   `message: "Error 404 Not Found!"` di dalam body. Jadi pemeriksaan status HTTP tidak cukup;
+   alat wajib memeriksa `status === "success"` sendiri, dan menanganinya terpisah dari galat
+   jaringan.
+2. **Filter di query diabaikan tanpa galat.** `?bentuk=SMA` mengembalikan hasil **identik**
+   dengan tanpa filter, dan `total_data` tetap 215.373. Begitu juga `?propinsi=`, `?status=`,
+   `?kabupaten_kota=`. Karena itu alat **tidak menawarkan** filter provinsi maupun jenjang —
+   menawarkannya berarti berpura-pura menyaring. Yang benar-benar bekerja hanya
+   `/sekolah/s?sekolah=` dan `/sekolah?npsn=`.
+3. **`/sekolah/npsn?npsn=` membalas `status: "success"` dengan `dataSekolah: []`** meski NPSN-nya
+   ada. Bentuk yang benar `/sekolah?npsn=`. Registry sekarang mendaftarkan yang benar dan
+   mencatat yang menjebak.
+
+Ditambah dua jebakan tipe: `kode_prop` berakhiran **dua spasi** (`"010000  "`), dan `status`
+muncul dua kali dengan arti berbeda — `"success"`/`"failed"` di akar, `"N"`/`"S"` di dalam
+`dataSekolah[]`. Jebakan yang sama seperti `code` di kodepos.vercel.app.
+
+Satu keputusan soal privasi: setiap response menyertakan `Donate` berisi **nomor telepon
+pribadi** pengembangnya. Nomor itu tidak ditampilkan di alat dan tidak dicatat sebagai contoh
+nilai di `REFERENCE.md`.
+
 **Yang masih tertahan:**
 
 | Kandidat | Penahan |
 |---|---|
 | Doa Harian | **Hak pakai**, bukan teknis. Repo sumbernya sudah 404 di GitHub, jadi lisensinya tidak bisa diperiksa. `provenance.lisensi: unknown` |
 | Kunci TTS, Lambang Daerah, Kode Pos vanmason | **CORS** — ini yang sungguh menunggu T5.1 |
-| Data Sekolah, Pesantren, Al-Qur'an alternatif, Kotonogi, Dua & Dzikir | Sudah di registry dan sehat; belum dibuat alatnya |
+| Pesantren, Al-Qur'an alternatif, Kotonogi, Dua & Dzikir | Sudah di registry dan sehat; belum dibuat alatnya |
 
-**Kriteria selesai:** TERPENUHI untuk Harga Emas — live, `ok: true` di probe, dan dibuktikan
-`scripts/tes-emas.ts` (6 tes). Salah satunya memeriksa header CORS **langsung**, bukan lewat
-`lib/client.ts`, supaya asumsi yang bikin alat ini mungkin tidak pernah lolos tanpa diperiksa.
+**Kriteria selesai:** TERPENUHI untuk Harga Emas dan Data Sekolah — keduanya live, `ok: true`
+di probe, dan dibuktikan `scripts/tes-emas.ts` (6 tes) serta `scripts/tes-sekolah.ts` (7 tes).
+
+Dua tes di antaranya menjaga asumsi yang tidak akan terlihat kalau hanya diuji sekali:
+`tes-emas.ts` memeriksa header CORS **langsung**, bukan lewat `lib/client.ts`, karena Node
+tidak menegakkan CORS sementara browser menegakkannya. `tes-sekolah.ts` membandingkan hasil
+berfilter dengan hasil tanpa filter, jadi kalau server mulai benar-benar menyaring, kita tahu
+dan bisa menawarkan filternya.
 
 ---
 

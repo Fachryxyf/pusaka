@@ -25,7 +25,7 @@ endpoints:
   - id: daftar
     method: GET
     path: '/sekolah?page={halaman}&perPage={perHalaman}'
-    deskripsi: 'Berhalaman. lintang & bujur berupa STRING - parseFloat sebelum dipakai di peta. Per 2026-08-21 endpoint ini SESEKALI membalas 504 lalu berhasil pada percobaan berikutnya - kemungkinan cold start. Kalau probe melaporkannya gagal, periksa riwayatnya dulu sebelum menyimpulkan mati.'
+    deskripsi: 'Berhalaman, 215.373 baris total. Galat dibalas dengan status 200 dan status:failed di body - WAJIB cek status === success. Filter selain npsn dan sekolah DIABAIKAN tanpa galat. lintang & bujur berupa STRING. Sesekali 504 lalu berhasil pada percobaan berikutnya (cold start).'
     params:
       - nama: halaman
         contoh: '1'
@@ -34,6 +34,28 @@ endpoints:
       - nama: perHalaman
         contoh: '2'
         wajib: true
-        keterangan: Jumlah data per halaman
+        keterangan: 'Jumlah data per halaman. Tidak dibatasi server (500 pun dilayani), tapi jangan besar-besar - datanya 215 ribu baris di database orang'
     contohPath: '/sekolah?page=1&perPage=2'
+    minUkuranByte: 460
+  - id: cariNama
+    method: GET
+    path: '/sekolah/s?sekolah={nama}'
+    deskripsi: 'Pencarian nama sekolah - SATU-SATUNYA jalur yang benar-benar menyaring. total_data di sini berisi jumlah yang cocok, bukan 215.373. Catatan: /sekolah?sekolah= TIDAK menyaring meski tidak memberi galat.'
+    params:
+      - nama: nama
+        contoh: 'pegangsaan'
+        wajib: true
+        keterangan: Potongan nama sekolah, tidak peka huruf besar-kecil
+    contohPath: '/sekolah/s?sekolah=pegangsaan'
+    minUkuranByte: 700
+  - id: cariNpsn
+    method: GET
+    path: '/sekolah?npsn={npsn}'
+    deskripsi: 'Satu sekolah berdasarkan NPSN. Pakai bentuk ini, BUKAN /sekolah/npsn?npsn= yang membalas status:success dengan dataSekolah kosong meski NPSN-nya ada.'
+    params:
+      - nama: npsn
+        contoh: '20104653'
+        wajib: true
+        keterangan: 'Nomor Pokok Sekolah Nasional, STRING 8 digit - jangan parseInt'
+    contohPath: '/sekolah?npsn=20104653'
     minUkuranByte: 460

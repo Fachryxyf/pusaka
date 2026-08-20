@@ -12,7 +12,7 @@ plus katalog API lokal yang statusnya dipantau otomatis.**
 
 [![Stack](https://img.shields.io/badge/stack-Next.js%2016%20%2B%20TypeScript%20%2B%20Tailwind%204-black.svg)](#struktur)
 [![API terdaftar](https://img.shields.io/badge/API%20terdaftar-23-informational.svg)](./registry/apis)
-[![Alat](https://img.shields.io/badge/alat-9-informational.svg)](./alat)
+[![Alat](https://img.shields.io/badge/alat-10-informational.svg)](./alat)
 [![Tahap](https://img.shields.io/badge/tahap-5%20dari%207-yellow.svg)](./TASKS.md)
 [![Lisensi data](https://img.shields.io/badge/data-lihat%20NOTICE-lightgrey.svg)](./NOTICE.md)
 
@@ -46,7 +46,7 @@ hidup saat kamu membacanya. Status API berubah terus — itu justru premis proje
 | Yang diklaim | Artinya |
 |---|---|
 | 23 API terdaftar | ada 23 berkas di `registry/apis/`, semuanya pernah dipanggil sungguhan dan lolos validasi skema |
-| 55 endpoint | jumlah yang diprobe tiap 6 jam; hasil terakhir 55 sehat, 0 gagal |
+| 57 endpoint | jumlah yang diprobe tiap 6 jam; hasil terakhir 57 sehat, 0 gagal |
 | 151 API di backlog | inventaris upstream, bertingkat menurut kesiapan di [`BACKLOG-API.md`](./BACKLOG-API.md) |
 | Snapshot riset | **6 Agustus 2026** untuk katalog awal · **20 Agustus 2026** untuk NASA/JPL, batas paginasi idn-area, dan seluruh data lisensi · **21 Agustus 2026** untuk batas permintaan myQuran, bentuk dan zona waktu prakiraan BMKG, tag HTML dan ukuran response equran.id, batas hasil kodepos.vercel.app, serta probe ulang seluruh 14 sumber berita |
 
@@ -73,6 +73,7 @@ Untuk itu, lihat dashboard.
 | [Kode Pos](https://pusaka.fachryxyf.com/alat/kodepos/) | sooluh | cari dari nama wilayah, atau deteksi dari lokasi perangkat |
 | [Berita](https://pusaka.fachryxyf.com/alat/berita/) | berita-indo-api | 9 media nasional, waktu terbit di zona pembaca, peringatan sumber basi |
 | [Harga Emas](https://pusaka.fachryxyf.com/alat/harga-emas/) | logam-mulia-api | 18 sumber, dibandingkan per gram, buyback kosong tidak ditulis nol |
+| [Data Sekolah](https://pusaka.fachryxyf.com/alat/sekolah/) | api-sekolah-indonesia | 215 ribu sekolah, dicari lewat nama atau NPSN |
 
 **Tahap 2, 3, dan 4 tuntas.** Menyusul sesuai [`TASKS.md`](./TASKS.md): lapisan proxy —
 yang menunggu pindah hosting — lalu sinkronisasi upstream dan riset 41 API di tier C.

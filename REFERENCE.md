@@ -1774,6 +1774,84 @@ Content-Type `application/json` · CORS: * · ukuran ~0.9 KB
 
 ---
 
+### Diprobe ulang 2026-08-21 — endpoint mana yang sungguh jalan
+
+Repo dokumentasinya menyebut beberapa jalur; diuji satu per satu:
+
+| Jalur | Hasil |
+|---|---|
+| `/sekolah?page=&perPage=` | **200, jalan** — daftar berhalaman |
+| `/sekolah/s?sekolah={nama}` | **200, jalan** — pencarian nama, `total_data` = jumlah yang cocok |
+| `/sekolah?npsn={npsn}` | **200, jalan** — satu sekolah, `total_data: 1` |
+| `/sekolah/npsn?npsn={npsn}` | 200 tapi **`dataSekolah: []`** meski NPSN-nya ada |
+| `/provinsi`, `/kabupaten?kode_prop=` | 200 dengan `status: "failed"`, `message: "Error 404 Not Found!"` |
+| `/sekolah/provinsi?provinsi=`, `/sekolah/kabupaten?kabupaten=` | 200 tapi kosong |
+
+### PENTING — galat dibalas dengan status 200
+
+```json
+{"creator":"…","status":"failed","message":"Error 404 Not Found!","dataSekolah":[],"Donate":{…}}
+```
+
+Endpoint yang tidak ada **tidak** membalas 404; ia membalas **200 dengan `status: "failed"`**
+di dalam body. Artinya pemeriksaan HTTP status tidak cukup untuk API ini — **wajib cek
+`status === "success"`** sebelum membaca `dataSekolah`.
+
+Lebih menjebak lagi: `/sekolah/npsn?npsn=20104653` membalas `status: "success"` dengan
+`dataSekolah: []`, padahal NPSN itu benar-benar ada (terbukti lewat `/sekolah?npsn=`).
+Jadi "success" pun tidak menjamin ada isinya.
+
+### PENTING — filter di query diabaikan tanpa galat
+
+Diuji 2026-08-21:
+
+| Permintaan | `total_data` | Hasil |
+|---|---|---|
+| `/sekolah?page=1&perPage=10` | 215.373 | SD, SMA, SMP bercampur |
+| `/sekolah?bentuk=SMA&perPage=10` | 215.373 | **isinya IDENTIK** dengan di atas |
+| `/sekolah?propinsi=010000` · `?status=N` · `?kabupaten_kota=…` | 215.373 | sama, tidak menyaring |
+
+Hanya `npsn` dan `sekolah` yang berpengaruh — dan `sekolah` **hanya lewat `/sekolah/s`**:
+
+| Permintaan | `total_data` | Hasil |
+|---|---|---|
+| `/sekolah/s?sekolah=pegangsaan` | **3** | ketiganya memuat "Pegangsaan" |
+| `/sekolah?sekolah=pegangsaan` | 215.373 | halaman pertama biasa, tidak menyaring |
+
+Jadi jangan menawarkan filter provinsi, jenjang, atau status negeri/swasta di UI — semuanya
+akan berpura-pura bekerja sambil menampilkan hasil yang sama.
+
+### `perPage` tidak dibatasi
+
+`perPage=500` mengembalikan 500 baris. Tidak ada batas atas yang terlihat, dan itu **bukan
+izin**: `total_data` 215.373 berarti permintaan besar membebani database orang. Alat memakai
+20 per halaman.
+
+### Jebakan tipe & spasi
+
+| Field | Kenyataan |
+|---|---|
+| `lintang`, `bujur` | **string** (`"-6.1977000"`) — `parseFloat` sebelum dipakai di peta |
+| `npsn` | **string** nomor induk — jangan `parseInt` |
+| `kode_prop`, `kode_kab_kota`, `kode_kec` | string **berakhiran dua spasi**: `"010000  "`. Wajib `.trim()` sebelum dibandingkan atau ditampilkan |
+| `status` di dalam `dataSekolah[]` | `"N"` (negeri) atau `"S"` (swasta) — **beda arti** dari `status` di akar yang bernilai `"success"`/`"failed"` |
+| `propinsi`, `kabupaten_kota`, `kecamatan` | sudah berawalan `"Prov. "`, `"Kota "`, `"Kec. "` — jangan ditambahi lagi |
+
+`status` yang muncul dua kali dengan arti berbeda adalah jebakan yang sama seperti `code` di
+kodepos.vercel.app.
+
+### Response memuat nomor donasi
+
+Setiap response menyertakan `Donate: {Gopay, Dana, Ovo}` berisi **nomor telepon pribadi**
+pengembangnya. Nomor itu **tidak ditampilkan** di alat maupun dicatat sebagai contoh nilai di
+dokumen ini — menyebarkannya lebih jauh bukan hal yang perlu kita lakukan.
+
+### Cold start
+
+Endpoint ini sesekali membalas **504** lalu berhasil pada percobaan berikutnya, khas fungsi
+serverless yang lama tidak dipanggil. Kalau probe melaporkannya gagal, periksa riwayatnya
+dulu sebelum menyimpulkan mati.
+
 ## Objek Dekat Bumi — NASA/JPL SSD-CNEOS
 
 `slug: jpl-ssd`

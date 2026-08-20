@@ -58,6 +58,15 @@ const JALUR: Record<string, React.ReactNode> = {
       <path d="M13 14h6l1.5 4.5h-9z" />
     </>
   ),
+  sekolah: (
+    // Gedung sekolah dengan tiang bendera
+    <>
+      <path d="M4 20V9.5l8-4.5 8 4.5V20" />
+      <path d="M2.5 20h19" />
+      <path d="M10 20v-5h4v5" />
+      <path d="M12 5V2.5h3" />
+    </>
+  ),
   peta: (
     // Penanda lokasi
     <>
