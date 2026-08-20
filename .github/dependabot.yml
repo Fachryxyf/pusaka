@@ -9,6 +9,19 @@ updates:
       # Pembaruan tambalan digabung supaya tidak membanjiri repo dengan PR kecil.
       tambalan:
         update-types: [patch]
+    ignore:
+      # Ditahan di versi mayor sekarang karena TOOLCHAIN-nya yang belum siap,
+      # bukan karena kita. Cabut entry-nya begitu eslint-config-next ikut naik.
+      #
+      # TypeScript 7: typescript-eslint menolak jalan —
+      #   "typescript-eslint does not support TS 7.0"
+      #   https://github.com/typescript-eslint/typescript-eslint/issues/10940
+      - dependency-name: typescript
+        versions: ['>=7']
+      # ESLint 10: eslint-config-next 16.x rusak —
+      #   "Error while loading rule 'react/display-name'"
+      - dependency-name: eslint
+        versions: ['>=10']
 
   - package-ecosystem: github-actions
     directory: /
