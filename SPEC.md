@@ -86,6 +86,18 @@ Karena itu `next.config.ts` memakai `output: 'export'` dan `trailingSlash: true`
 ekspor statis hanya isi `public/` yang bisa diambil browser. `data/health/` tetap di
 tempatnya karena hanya dibaca saat build.
 
+**Mirror disegarkan saat deploy, tidak di-commit balik.** Rancangan awal memakai workflow
+terpisah yang commit `public/mirror/` ke repo tiap 6 jam. Itu dibatalkan pada 2026-08-21
+karena berbenturan dengan ruleset branch: bot harus diberi izin tulis dan hak melewati
+pemeriksaan CI, dan memberi izin tulis ke otomasi hanya demi menyegarkan berkas adalah
+harga yang terlalu mahal. Sekarang `npm run mirror` jalan di dalam workflow deploy
+(tiap push + tiap 6 jam lewat `schedule`), hasilnya masuk artefak Pages, dan **tidak ada
+workflow yang butuh `contents: write`**.
+
+Konsekuensinya: snapshot yang ada di git adalah **benih** — dipakai untuk pengembangan
+lokal dan tes, bukan sumber yang dilayani produksi. Yang tersaji di situs selalu semuda
+deploy terakhir.
+
 Kalau suatu saat proxy sungguh dibutuhkan (misalnya untuk API `cors: none` yang
 berparameter, yang tidak bisa di-mirror), pilihan hostingnya kembali ke Cloudflare
 Pages + Workers dan §10 berlaku lagi apa adanya. Sampai itu terjadi, **jangan menulis
@@ -135,9 +147,10 @@ somethinggood/
 │   └── health/<slug>.json          # riwayat uptime, rolling 90 hari (dibaca saat build)
 │
 └── .github/workflows/
-    ├── probe.yml                   # tiap 6 jam
-    ├── mirror.yml                  # mingguan
-    └── sync.yml                    # mingguan
+    ├── ci.yml                      # lint + tes + build, tiap PR
+    ├── pages.yml                   # mirror + build + deploy; tiap push & tiap 6 jam
+    ├── probe.yml                   # tiap 6 jam (Tahap 3, belum ada)
+    └── sync.yml                    # mingguan (Tahap 6, belum ada)
 ```
 
 **Aturan emas:** nambah API = nambah **1 file YAML**. Nambah alat = nambah **1 folder** di `alat/`.

@@ -52,6 +52,9 @@ Branch `xyf` dijaga dua ruleset:
 | `lindungi-riwayat` | larang force push, larang hapus branch | **semua**, termasuk pemilik repo |
 | `wajib-ci-lolos` | job `periksa` (lint + tes + build) wajib hijau sebelum merge | pull request; pemilik repo bisa melewatinya |
 
+Tidak ada bot yang diberi hak melewati ruleset. Itu pilihan sadar: alih-alih memberi
+otomasi izin tulis, alur mirror diubah supaya tidak perlu menulis ke repo sama sekali.
+
 Pull request tidak diwajibkan untuk pemilik repo, tapi riwayat tidak bisa ditimpa maupun
 dihapus oleh siapa pun — termasuk saya. Job `api-hidup` **tidak** diwajibkan karena ia
 memanggil API pihak ketiga: BMKG yang sedang mati tidak boleh memblokir merge.
@@ -60,8 +63,12 @@ memanggil API pihak ketiga: BMKG yang sedang mati tidak boleh memblokir merge.
 
 - Tidak ada rahasia di repo. Tidak ada kunci API yang dibutuhkan — ketujuh API di registry
   berstatus `auth: none`.
-- Workflow memakai izin serendah mungkin, dan token bawaan tidak dititipkan ke checkout
-  yang tidak membutuhkannya.
+- **Tidak ada workflow yang punya `contents: write`.** Penyegaran mirror dulu commit balik
+  ke repo; sekarang jalan di dalam deploy dan hasilnya masuk artefak, jadi tidak ada
+  otomasi yang bisa menulis ke repo ini.
+- `persist-credentials: false` di setiap checkout, sehingga token bawaan tidak tertinggal
+  di ruang kerja runner.
+- Izin token bawaan repo disetel `read`, dan Actions tidak boleh menyetujui pull request.
 - `lib/client.ts` menolak response yang `Content-Type`-nya bukan JSON, jadi HTML dari
   sumber yang membalas asal tidak pernah sampai ke parser.
 - Alat tidak memakai `dangerouslySetInnerHTML`. Kalau nanti dibutuhkan untuk field

@@ -6,7 +6,7 @@
 plus katalog API lokal yang statusnya dipantau otomatis.**
 
 [![Deploy](https://github.com/Fachryxyf/pusaka/actions/workflows/pages.yml/badge.svg)](https://github.com/Fachryxyf/pusaka/actions/workflows/pages.yml)
-[![Mirror](https://github.com/Fachryxyf/pusaka/actions/workflows/mirror.yml/badge.svg)](https://github.com/Fachryxyf/pusaka/actions/workflows/mirror.yml)
+[![CI](https://github.com/Fachryxyf/pusaka/actions/workflows/ci.yml/badge.svg)](https://github.com/Fachryxyf/pusaka/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Katalog: CC BY 4.0](https://img.shields.io/badge/katalog-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
@@ -96,8 +96,10 @@ Untuk sumber di luar seed, panggil dulu dengan `curl`, catat bentuk responsnya k
 ## Hosting
 
 Ekspor statis (`output: 'export'`) ke GitHub Pages di `pusaka.fachryxyf.com`, dipicu tiap
-push ke `xyf`. Tidak ada sisi server, jadi tidak ada `/api/proxy` — API tanpa CORS seperti
-NASA/JPL dilayani dari `public/mirror/`, yang disegarkan tiap 6 jam oleh workflow terpisah.
+push ke `xyf` dan tiap 6 jam. Tidak ada sisi server, jadi tidak ada `/api/proxy` — API tanpa
+CORS seperti NASA/JPL dilayani dari `public/mirror/`, yang disegarkan **saat deploy** dan
+ikut masuk artefak. Tidak ada workflow yang punya izin tulis ke repo. Snapshot yang
+ter-commit adalah benih untuk pengembangan lokal, bukan yang dilayani produksi.
 Alasan lengkapnya di [`SPEC.md`](./SPEC.md) §3.1.
 
 ## Keamanan & kontribusi

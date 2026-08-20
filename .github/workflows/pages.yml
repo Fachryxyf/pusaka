@@ -3,6 +3,11 @@ name: Deploy ke GitHub Pages
 on:
   push:
     branches: [xyf]
+  # Tiap 6 jam: menyegarkan snapshot mirror di produksi tanpa perlu ada push.
+  # Jangan lebih sering — banyak API ini dibiayai developernya dari kantong sendiri
+  # (SPEC §9).
+  schedule:
+    - cron: '17 */6 * * *'
   workflow_dispatch:
 
 permissions:
@@ -27,8 +32,9 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      # Snapshot mirror disegarkan tiap deploy: API tanpa CORS (jpl-ssd) hanya bisa
-      # dibaca browser dari mirror ini.
+      # Snapshot disegarkan tiap deploy lalu ikut masuk artefak — TIDAK di-commit
+      # balik. Artinya workflow ini tidak butuh izin tulis sama sekali, dan
+      # data di produksi selalu semuda deploy terakhir.
       - run: npm run mirror
       - run: npm run build
       - uses: actions/configure-pages@v5

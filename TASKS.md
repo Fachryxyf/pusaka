@@ -265,7 +265,7 @@ Yang sudah terpasang:
 - `output: 'export'` + `trailingSlash: true` + `images.unoptimized` di `next.config.ts`
 - `public/CNAME` berisi domain, `public/.nojekyll` supaya `_next/` tidak dibuang Jekyll
 - `.github/workflows/pages.yml` — deploy tiap push ke `xyf`
-- `.github/workflows/mirror.yml` — segarkan `public/mirror/` tiap 6 jam
+- penyegaran `public/mirror/` ikut di dalam `pages.yml`, tiap push + tiap 6 jam
 
 **Kriteria selesai:** TERPENUHI — situs live di https://pusaka.fachryxyf.com, alat Gempa,
 Objek Dekat Bumi, dan Wilayah jalan di produksi.
@@ -509,7 +509,11 @@ Dua penjagaan yang wajib ada:
   `provenance.kebijakanMirror` masih `unknown`. Menyalin data orang tanpa tahu haknya
   tidak boleh — lihat [`NOTICE.md`](./NOTICE.md).
 
-`.github/workflows/mirror.yml` — tiap 6 jam, commit balik.
+Penyegaran dijalankan **di dalam workflow deploy** (`pages.yml`), tiap push dan tiap
+6 jam lewat `schedule`. Rancangan awal memakai workflow terpisah yang commit balik ke
+repo; itu dibatalkan karena menuntut izin tulis + hak melewati CI bagi bot. Lihat
+SPEC §3.1. Snapshot di git adalah benih untuk pengembangan lokal, bukan yang dilayani
+produksi.
 
 **Kriteria selesai:** TERPENUHI — `npm run mirror` menghasilkan `public/mirror/jpl-ssd.json`
 dan `public/mirror/wilayah-idn-area.json`. Diuji oleh `scripts/tes-mirror.ts`.
