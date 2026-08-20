@@ -1,0 +1,54 @@
+slug: wilayah-idn-area
+nama: Wilayah Indonesia (idn-area)
+kategori: lokasi
+deskripsi: Provinsi, kabupaten/kota, kecamatan, dan desa/kelurahan dengan kode Kemendagri terkini.
+developer:
+  nama: Fityan Nugroho
+  profil: 'https://github.com/fityannugroho'
+dokumentasi: 'https://github.com/fityannugroho/idn-area'
+upstreamName: idn-area
+auth: none
+cors: open
+baseUrl: 'https://idn-area.up.railway.app'
+mirror: true
+endpoints:
+  - id: provinsi
+    method: GET
+    path: /provinces?limit=100
+    deskripsi: 38 provinsi. Kode format bertitik, COCOK dengan adm1 BMKG.
+    params: []
+    contohPath: /provinces?limit=100
+    minUkuranByte: 768
+  - id: kabupaten
+    method: GET
+    path: '/regencies?provinceCode={kodeProvinsi}&limit=100'
+    deskripsi: Saring dengan provinceCode. Kode cocok dengan adm2 BMKG.
+    params:
+      - nama: kodeProvinsi
+        contoh: '32'
+        wajib: true
+        keterangan: Kode provinsi, mis. 32 = Jawa Barat
+    contohPath: '/regencies?provinceCode=32&limit=100'
+    minUkuranByte: 921
+  - id: kecamatan
+    method: GET
+    path: '/districts?regencyCode={kodeKabupaten}&limit=100'
+    deskripsi: Saring dengan regencyCode. Kode cocok dengan adm3 BMKG.
+    params:
+      - nama: kodeKabupaten
+        contoh: '32.04'
+        wajib: true
+        keterangan: Kode kabupaten BERTITIK, mis. 32.04
+    contohPath: '/districts?regencyCode=32.04&limit=100'
+    minUkuranByte: 1024
+  - id: kelurahan
+    method: GET
+    path: '/villages?districtCode={kodeKecamatan}&limit=100'
+    deskripsi: Saring dengan districtCode. Kode cocok dengan adm4 BMKG — INI yang dipakai alat Cuaca.
+    params:
+      - nama: kodeKecamatan
+        contoh: '32.04.15'
+        wajib: true
+        keterangan: Kode kecamatan BERTITIK, mis. 32.04.15
+    contohPath: '/villages?districtCode=32.04.15&limit=100'
+    minUkuranByte: 512

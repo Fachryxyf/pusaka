@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import type { MetaAlat } from '@/alat/tipe'
+import { Ikon } from '@/komponen/Ikon'
 
 export default function PencarianAlat({ alat }: { alat: MetaAlat[] }) {
   const [kueri, setKueri] = useState('')
@@ -41,9 +42,7 @@ export default function PencarianAlat({ alat }: { alat: MetaAlat[] }) {
                 href={`/alat/${a.slug}`}
                 className="flex h-full flex-col gap-1 rounded-xl border border-zinc-200 p-4 transition hover:border-zinc-900 dark:border-zinc-800 dark:hover:border-zinc-100"
               >
-                <span className="text-2xl" aria-hidden="true">
-                  {a.ikon}
-                </span>
+                <Ikon nama={a.ikon} className="h-6 w-6 text-zinc-500" />
                 <span className="font-medium">{a.judul}</span>
                 <span className="text-sm text-zinc-600 dark:text-zinc-400">{a.deskripsi}</span>
               </Link>

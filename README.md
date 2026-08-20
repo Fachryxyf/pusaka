@@ -11,8 +11,8 @@ plus katalog API lokal yang statusnya dipantau otomatis.**
 [![Data: CC BY 4.0](https://img.shields.io/badge/data-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 [![Stack](https://img.shields.io/badge/stack-Next.js%2016%20%2B%20TypeScript%20%2B%20Tailwind%204-black.svg)](#struktur)
-[![API terverifikasi](https://img.shields.io/badge/API%20terverifikasi-6-success.svg)](./registry/apis)
-[![Alat](https://img.shields.io/badge/alat-2-success.svg)](./alat)
+[![API terverifikasi](https://img.shields.io/badge/API%20terverifikasi-7-success.svg)](./registry/apis)
+[![Alat](https://img.shields.io/badge/alat-3-success.svg)](./alat)
 [![Tahap](https://img.shields.io/badge/tahap-2%20dari%207-yellow.svg)](./TASKS.md)
 
 [Situs](https://pusaka.fachryxyf.com) · [Spesifikasi](./SPEC.md) · [Daftar pekerjaan](./TASKS.md) ·
@@ -39,8 +39,9 @@ Rinciannya di [`SPEC.md`](./SPEC.md) §2.
 |---|---|---|
 | [Info Gempa](https://pusaka.fachryxyf.com/alat/gempa/) | BMKG | gempa terkini, dirasakan, dan M≥5,0 + peta shakemap |
 | [Objek Dekat Bumi](https://pusaka.fachryxyf.com/alat/objek-dekat-bumi/) | NASA/JPL SSD-CNEOS | pendekatan 60 hari, bola api atmosfer, objek yang dipantau Sentry |
+| [Data Wilayah](https://pusaka.fachryxyf.com/alat/wilayah/) | idn-area | provinsi sampai desa, kode Kemendagri bertitik yang cocok dengan BMKG |
 
-Menyusul sesuai [`TASKS.md`](./TASKS.md): Wilayah, Jadwal Sholat, Prakiraan Cuaca,
+Menyusul sesuai [`TASKS.md`](./TASKS.md): Jadwal Sholat, Prakiraan Cuaca,
 Al-Qur'an, Kode Pos, Berita, lalu muka developer (katalog + playground + dashboard status).
 
 ## Jalankan
@@ -49,9 +50,9 @@ Al-Qur'an, Kode Pos, Berita, lalu muka developer (katalog + playground + dashboa
 npm install
 npm run dev        # http://localhost:3000
 npm run build      # memvalidasi registry lalu build
-npm run tes        # tes registry + mirror (tanpa jaringan)
-npm run mirror     # segarkan snapshot public/mirror/ (butuh jaringan)
-npx tsx scripts/tes-client.ts   # tes lib/client.ts ke API sungguhan (butuh jaringan)
+npm run tes          # tes registry + mirror (tanpa jaringan)
+npm run tes:jaringan # tes client + rantai wilayah ke API sungguhan
+npm run mirror       # segarkan snapshot public/mirror/
 ```
 
 ## Struktur

@@ -697,7 +697,7 @@ Untuk tiap entry: buka repo → cari base URL API yang sebenarnya (bukan situs d
 probe dengan validasi Content-Type + isi (SPEC §9) → kalau hidup bikin YAML,
 kalau mati pindahkan ke tier D dengan catatan.
 
-> ⚠️ Kolom kandidat di tier C **jangan dipercaya mentah-mentah** — URL-nya diekstrak otomatis
+> PENTING — Kolom kandidat di tier C **jangan dipercaya mentah-mentah** — URL-nya diekstrak otomatis
 > dari README, kadang yang kejaring malah link donasi atau spanduk.
 
 **Kriteria selesai:** 17 entry keempat kategori itu tuntas — masing-masing berakhir sebagai

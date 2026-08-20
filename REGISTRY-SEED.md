@@ -347,7 +347,7 @@ endpoints:
 
 Ukuran response: `cari` ~0.7 KB · `deteksi` ~0.3 KB
 
-## `registry/apis/kodepos-vanmason.yml` ⚠️ TANPA CORS
+## `registry/apis/kodepos-vanmason.yml` — TANPA CORS
 
 ```yaml
 slug: kodepos-vanmason
@@ -518,7 +518,7 @@ endpoints:
 
 Ukuran response: `cnnSemua` ~64.1 KB · `cnnTipe` ~63.2 KB · `cnbcSemua` ~72.5 KB
 
-## `registry/apis/doa-doa.yml` ⚠️ TANPA CORS
+## `registry/apis/doa-doa.yml` — TANPA CORS
 
 ```yaml
 slug: doa-doa
@@ -602,7 +602,7 @@ endpoints:
 
 Ukuran response: `kategori` ~5.6 KB
 
-## `registry/apis/kunci-tts.yml` ⚠️ TANPA CORS
+## `registry/apis/kunci-tts.yml` — TANPA CORS
 
 ```yaml
 slug: kunci-tts
@@ -634,7 +634,7 @@ endpoints:
 
 Ukuran response: `jawaban` ~0.3 KB
 
-## `registry/apis/lambang-daerah.yml` ⚠️ TANPA CORS
+## `registry/apis/lambang-daerah.yml` — TANPA CORS
 
 ```yaml
 slug: lambang-daerah
@@ -666,7 +666,7 @@ endpoints:
 
 Ukuran response: `provinsi` ~1.9 KB
 
-## `registry/apis/harga-emas.yml` ⚠️ TANPA CORS
+## `registry/apis/harga-emas.yml` — TANPA CORS
 
 ```yaml
 slug: harga-emas

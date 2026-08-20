@@ -1,10 +1,11 @@
 import type { ComponentType } from 'react'
 import type { Api } from '@/registry/schema'
+import type { NamaIkon } from '@/komponen/Ikon'
 
 export type MetaAlat = {
   slug: string
   judul: string
-  ikon: string
+  ikon: NamaIkon
   deskripsi: string
   apiSlug: string
 }

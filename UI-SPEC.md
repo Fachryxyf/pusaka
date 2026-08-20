@@ -100,7 +100,7 @@ apakah banner mirror muncul.
 | Gambar shakemap | `https://data.bmkg.go.id/DataMKG/TEWS/` + `Infogempa.gempa.Shakemap` |
 | Koordinat (opsional) | `Infogempa.gempa.Lintang`, `.Bujur` |
 
-### ⚠️ Ketiga endpoint punya set field yang BERBEDA
+### PENTING — Ketiga endpoint punya set field yang BERBEDA
 
 Ini sudah diverifikasi. Jangan pakai satu komponen kartu untuk ketiganya tanpa penjagaan:
 
@@ -134,7 +134,7 @@ Selain itu: `autogempa` → `Infogempa.gempa` adalah **objek tunggal**;
 
 `slug alat: wilayah` · API: **`wilayah-idn-area`** · CORS terbuka · `mirror: true`
 
-> ⚠️ **Ada dua API wilayah di registry dan kodenya TIDAK SALING COCOK.** Pakai
+> **PENTING:** **Ada dua API wilayah di registry dan kodenya TIDAK SALING COCOK.** Pakai
 > `wilayah-idn-area`. Penjelasan lengkap di bawah — jangan tertukar, alat Cuaca bergantung
 > pada ini.
 
@@ -163,7 +163,7 @@ Selain itu: `autogempa` → `Infogempa.gempa` adalah **objek tunggal**;
 
 Response dibungkus `{statusCode, message, data, meta}` — isinya di `data`, bukan di akar.
 
-### ⚠️ Dua API wilayah dengan kode yang TIDAK COCOK
+### PENTING — Dua API wilayah dengan kode yang TIDAK COCOK
 
 Ini sudah diverifikasi dan **hampir membuat alat Cuaca rusak diam-diam**:
 
@@ -260,8 +260,8 @@ Pilihan kota dari endpoint `daftarKota`: `data[].id` (nilai), `data[].lokasi` (l
 │  Bandung, Jawa Barat                     │
 ├──────────────────────────────────────────┤
 │  HARI INI                                │
-│  00:00  ☁  14°  Kabut/Asap               │
-│  03:00  ☁  15°  Berawan                  │
+│  00:00  14°  Kabut/Asap                  │
+│  03:00  15°  Berawan                     │
 │  …                                       │
 │  BESOK / LUSA  …                         │
 └──────────────────────────────────────────┘
@@ -321,7 +321,7 @@ lokal yang benar, dan cocok dengan
 │  2  Al-Baqarah    Sapi Betina  286 ayat  │
 ├──────────────────────────────────────────┤
 │  AL-FATIHAH · Pembukaan                  │
-│  Mekah · 7 ayat            [ ▶ Murottal ]│
+│  Mekah · 7 ayat        [ Putar murottal ]│
 │                                          │
 │  ١  بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ            │
 │     Bismillāhir-raḥmānir-raḥīm(i).       │
@@ -380,7 +380,7 @@ Arab + latin + terjemahan, dan audio bisa diputar.
 ```
 ┌──────────────────────────────────────────┐
 │  [ cari kelurahan/kecamatan…  ] [ Cari ] │
-│  [ 📍 Pakai lokasi saya ]                │
+│  [ Pakai lokasi saya ]                   │
 ├──────────────────────────────────────────┤
 │  46386   Danasari                        │
 │          Cisaga, Ciamis, Jawa Barat  WIB │

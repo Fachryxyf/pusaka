@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { DAFTAR_ALAT, cariAlat } from '@/alat/daftar'
+import { Ikon } from '@/komponen/Ikon'
 import { muatApi } from '@/lib/registry'
 
 export function generateStaticParams() {
@@ -32,8 +33,9 @@ export default async function HalamanAlat({ params }: PageProps<'/alat/[slug]'>)
         <Link href="/" className="text-sm text-zinc-600 hover:underline dark:text-zinc-400">
           ← Semua alat
         </Link>
-        <h1 className="text-2xl font-semibold tracking-tight">
-          <span aria-hidden="true">{alat.ikon}</span> {alat.judul}
+        <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
+          <Ikon nama={alat.ikon} className="h-6 w-6 shrink-0 text-zinc-500" />
+          {alat.judul}
         </h1>
         <p className="text-zinc-600 dark:text-zinc-400">{alat.deskripsi}</p>
       </div>

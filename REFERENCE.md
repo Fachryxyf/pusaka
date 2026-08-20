@@ -156,6 +156,21 @@ Content-Type `application/json` · CORS: * · ukuran ~4.7 KB
 
 `slug: wilayah-idn-area`
 
+### Batas `limit` — diuji ulang 2026-08-20
+
+| `limit` | Hasil |
+|---|---|
+| tanpa `limit` | 200, tapi **berhalaman diam-diam**: `/villages?districtCode=32.04.15` mengembalikan 10 dari 13 desa, dengan `meta.pagination.pages.next: 2` |
+| `50` | 200 — cukup untuk provinsi & desa, **tidak cukup** untuk kecamatan (Kab. Bogor punya 40, masih lolos, tapi marginnya tipis) |
+| `100` | 200 — dipakai registry |
+| `200` / `500` | **400** `["limit must not be greater than 100"]` |
+
+Jadi 100 adalah nilai maksimum yang sah, dan itu yang dipakai keempat endpoint.
+Jumlah terbesar yang tercatat dari sampel: 40 kecamatan (Kab. Bogor `32.01`), 17 desa
+(Suruh `33.22.04`). Tetap **bandingkan `data.length` dengan `meta.pagination.total`** —
+kalau suatu saat ada kecamatan berisi >100 desa, itu satu-satunya cara tahu ada yang
+terpotong, dan penyelesaiannya menyusuri halaman lewat `meta.pagination.pages.next`.
+
 ### `provinsi`
 
 ```
@@ -1326,7 +1341,7 @@ Content-Type `application/json` · CORS: * · ukuran ~0.9 KB
 
 > Ditangkap **2026-08-20**, bukan 2026-08-06 seperti sisa dokumen ini.
 >
-> ⚠️ **Tidak ada header `Access-Control-Allow-Origin`.** Sudah diuji dua kali, termasuk
+> **PENTING:** **Tidak ada header `Access-Control-Allow-Origin`.** Sudah diuji dua kali, termasuk
 > dengan header `Origin` disertakan — balasannya tetap tanpa ACAO dan tanpa `Vary`.
 > Jadi `cors: none`: browser tidak bisa memanggilnya langsung, dan alatnya bergantung
 > pada lapisan mirror (SPEC §8 lapis 3).
@@ -1338,7 +1353,7 @@ Content-Type `application/json` · CORS: * · ukuran ~0.9 KB
 Semua endpoint SSD punya `signature: {source, version}` di akar. Jangan dipakai untuk
 logika — versinya berbeda per endpoint (`cad` 1.5, `fireball` 1.2, `sentry` 2.0, `sbdb` 1.3).
 
-### ⚠️ Jebakan bentuk yang khas JPL
+### PENTING — Jebakan bentuk yang khas JPL
 
 | Jebakan | Kenyataan |
 |---|---|

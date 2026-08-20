@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Pusaka">
+  <rect width="512" height="512" rx="112" fill="#0a0a0a"/>
+  <!-- Monogram P: batang lurus + lingkaran berlubang. Bentuk geometris murni supaya
+       tetap kebaca di 16 px, tanpa bergantung pada font yang terpasang. -->
+  <g fill="#fafafa">
+    <rect x="128" y="112" width="58" height="288" rx="8"/>
+    <path d="M244 112a96 96 0 1 1 0 192H150v-58h94a38 38 0 0 0 0-76h-94v-58z"/>
+  </g>
+</svg>

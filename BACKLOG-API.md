@@ -109,7 +109,7 @@ Data asli sudah keluar. Base URL dan path di bawah ini sudah dites.
 
 Host hidup tapi balas HTML — biasanya situs demo/dokumentasi, API-nya ada di subdomain atau path lain. Ini bucket terbesar dan paling makan waktu.
 
-> ⚠️ **Kolom kandidat di tier ini jangan dipercaya mentah-mentah.** URL-nya diekstrak otomatis dari README, jadi kadang yang kejaring malah link donasi, spanduk, atau blog penulisnya (contoh nyata: `Kode Pos` by sooluh kandidatnya `s.id/standwithpalestine`). Anggap kolom itu sebagai titik awal, bukan jawaban.
+> **PENTING:** **Kolom kandidat di tier ini jangan dipercaya mentah-mentah.** URL-nya diekstrak otomatis dari README, jadi kadang yang kejaring malah link donasi, spanduk, atau blog penulisnya (contoh nyata: `Kode Pos` by sooluh kandidatnya `s.id/standwithpalestine`). Anggap kolom itu sebagai titik awal, bukan jawaban.
 
 ### Agama Islam
 

@@ -327,7 +327,7 @@ punya `audio_url`). Boleh didaftarkan sebagai API kedua.
 "desa":"Warnasari","lon":107.516107484,"lat":-7.1907847687,
 "timezone":"Asia/Jakarta"},"data":[...]}
 ```
-### ⚠️ KOREKSI PENTING — sumber wilayah untuk alat Cuaca
+### PENTING — KOREKSI PENTING — sumber wilayah untuk alat Cuaca
 
 `adm4` adalah kode Kemendagri **terkini**. Sempat diasumsikan bisa dikonversi dari kode
 emsifa (§6.2) dengan menyisipkan titik. **Asumsi itu salah dan sudah diuji:**
@@ -385,12 +385,12 @@ Pengerjaannya sudah dipecah jadi task di `TASKS.md` **T7.4**.
 Satu-satunya sumber non-Indonesia di katalog, dimasukkan karena datanya global dan
 lembaganya jauh lebih awet dari mana pun di daftar ini — persis lawan dari pola kematian di §2.
 
-⚠️ **`cors: none`.** Sudah diuji dua kali, termasuk dengan header `Origin` disertakan:
+**PENTING:** **`cors: none`.** Sudah diuji dua kali, termasuk dengan header `Origin` disertakan:
 balasannya tanpa `Access-Control-Allow-Origin` dan tanpa `Vary`. Jadi browser tidak bisa
 memanggilnya langsung, dan alatnya **bergantung pada mirror** (§8 lapis 3) — bukan pada
 proxy, yang tidak ada di ekspor statis (§3.1).
 
-⚠️ **`cad` dan `fireball` bukan array objek.** Balasannya tabel: `fields` (nama kolom)
+**PENTING:** **`cad` dan `fireball` bukan array objek.** Balasannya tabel: `fields` (nama kolom)
 + `data` (array of array). Kolom wajib dibaca lewat `fields.indexOf(nama)`; indeks tidak
 boleh di-hardcode karena urutannya berubah saat param `fullname` dipakai. Sementara
 `sentry` dan `scout` justru array objek — dua bentuk berbeda di satu API yang sama.
@@ -501,7 +501,7 @@ Untuk tiap endpoint, catat:
 > Syarat 2–4 itu ada karena probe versi awal kemakan jebakan Bukuacak — 200 + CORS `*`
 > tapi isinya HTML. Kalau cuma cek status code, kita mengulang kesalahan upstream.
 
-> ⚠️ **BACA BODY SAMPAI HABIS sebelum di-parse.** Jangan pernah `read(n)` dengan batas.
+> **PENTING:** **BACA BODY SAMPAI HABIS sebelum di-parse.** Jangan pernah `read(n)` dengan batas.
 > Riset awal sempat cuma baca 2500 byte pertama, dan itu bikin semua API bersponse besar
 > keliatan rusak: `quran-api-id/surah` (89KB), `/surah/{n}` (341KB), dan `kotonogi/full`
 > (98KB) semuanya dilaporkan `JSONDecodeError` padahal sehat walafiat. **Ini kesalahan
