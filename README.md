@@ -13,7 +13,7 @@ plus katalog API lokal yang statusnya dipantau otomatis.**
 [![Stack](https://img.shields.io/badge/stack-Next.js%2016%20%2B%20TypeScript%20%2B%20Tailwind%204-black.svg)](#struktur)
 [![API terdaftar](https://img.shields.io/badge/API%20terdaftar-23-informational.svg)](./registry/apis)
 [![Alat](https://img.shields.io/badge/alat-10-informational.svg)](./alat)
-[![Tahap](https://img.shields.io/badge/tahap-5%20dari%207-yellow.svg)](./TASKS.md)
+[![Tahap](https://img.shields.io/badge/tahap-6%20dari%207-yellow.svg)](./TASKS.md)
 [![Lisensi data](https://img.shields.io/badge/data-lihat%20NOTICE-lightgrey.svg)](./NOTICE.md)
 
 [Situs](https://pusaka.fachryxyf.com) · [Katalog API](https://pusaka.fachryxyf.com/dev/) ·
@@ -47,10 +47,11 @@ hidup saat kamu membacanya. Status API berubah terus — itu justru premis proje
 |---|---|
 | 23 API terdaftar | ada 23 berkas di `registry/apis/`, semuanya pernah dipanggil sungguhan dan lolos validasi skema |
 | 57 endpoint | jumlah yang diprobe tiap 6 jam; hasil terakhir 57 sehat, 0 gagal |
+| 10 alat | jumlah yang benar-benar bisa dipakai orang awam, bukan jumlah API |
 | 151 API di backlog | inventaris upstream, bertingkat menurut kesiapan di [`BACKLOG-API.md`](./BACKLOG-API.md) |
-| Snapshot riset | **6 Agustus 2026** untuk katalog awal · **20 Agustus 2026** untuk NASA/JPL, batas paginasi idn-area, dan seluruh data lisensi · **21 Agustus 2026** untuk batas permintaan myQuran, bentuk dan zona waktu prakiraan BMKG, tag HTML dan ukuran response equran.id, batas hasil kodepos.vercel.app, serta probe ulang seluruh 14 sumber berita |
+| Snapshot riset | **6 Agustus 2026** untuk katalog awal · **20 Agustus 2026** untuk NASA/JPL, batas paginasi idn-area, dan seluruh data lisensi · **21 Agustus 2026** untuk batas permintaan myQuran, bentuk dan zona waktu prakiraan BMKG, tag HTML dan ukuran response equran.id, batas hasil kodepos.vercel.app, probe ulang seluruh 14 sumber berita, 18 sumber harga emas, dan endpoint api-sekolah-indonesia |
 
-**Status hidup/mati sekarang punya stempel waktu.** Sejak Tahap 3, seluruh 32 endpoint
+**Status hidup/mati sekarang punya stempel waktu.** Sejak Tahap 3, seluruh 57 endpoint
 diprobe tiap 6 jam langsung ke alamat aslinya, dan hasilnya terbuka:
 
 - Dashboard: [pusaka.fachryxyf.com/dev/status](https://pusaka.fachryxyf.com/dev/status/)
@@ -75,8 +76,23 @@ Untuk itu, lihat dashboard.
 | [Harga Emas](https://pusaka.fachryxyf.com/alat/harga-emas/) | logam-mulia-api | 18 sumber, dibandingkan per gram, buyback kosong tidak ditulis nol |
 | [Data Sekolah](https://pusaka.fachryxyf.com/alat/sekolah/) | api-sekolah-indonesia | 215 ribu sekolah, dicari lewat nama atau NPSN |
 
-**Tahap 2, 3, dan 4 tuntas.** Menyusul sesuai [`TASKS.md`](./TASKS.md): lapisan proxy —
-yang menunggu pindah hosting — lalu sinkronisasi upstream dan riset 41 API di tier C.
+**Tahap 1 sampai 5 tuntas.** Yang tersisa di [`TASKS.md`](./TASKS.md): sinkronisasi otomatis
+dengan katalog upstream (Tahap 6) dan riset 39 API tier C yang path-nya belum ketemu (Tahap 7).
+
+## Yang sengaja tidak dikerjakan
+
+Dua hal ditutup dengan sadar, bukan tertunda:
+
+**Lapisan proxy.** Situs ini diekspor statis ke GitHub Pages, dan hostingnya tidak dipindah.
+Tanpa sisi server, proxy tidak mungkin. Akibatnya: lima API `cors: none` di registry tetap
+terdaftar dan tetap diprobe, tapi endpoint **berparameter** pada API itu tidak bisa jadi alat
+awam — Kunci TTS, Lambang Daerah, dan Kode Pos vanmason tinggal di katalog developer dengan
+salinan `curl`. Yang **tanpa** parameter tetap bisa jadi alat lewat mirror; itu yang membuat
+alat Objek Dekat Bumi berdiri sepenuhnya di atas snapshot.
+
+**Alat dari API yang lisensinya `unknown`.** Doa Harian sudah terverifikasi hidup dan CORS-nya
+terbuka, tapi repo sumbernya sudah 404 di GitHub sehingga lisensinya tidak bisa diperiksa.
+Ketersediaan bukan izin — lihat [`NOTICE.md`](./NOTICE.md).
 
 ## Untuk developer
 

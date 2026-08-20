@@ -99,11 +99,27 @@ Tiga hal ini berdampak besar dan tidak butuh menulis kode:
    API berubah terus, dan itu justru premis project ini.
 2. **Jawab satu lisensi yang `unknown`.** 12 dari 23 API di registry belum diketahui
    lisensinya. Tiap satu yang terjawab menentukan boleh tidaknya datanya di-mirror — dan
-   mirror itulah yang membuat alat tetap jalan saat sumbernya mati.
+   mirror itulah yang membuat alat tetap jalan saat sumbernya mati. Satu di antaranya,
+   `doa-doa`, sudah siap jadi alat dan **hanya** tertahan ini.
 3. **Koreksi dokumen yang keliru.** Kalau kamu memanggil sebuah endpoint dan hasilnya berbeda
    dari yang tertulis di `REFERENCE.md`, itu temuan yang berharga. Sudah beberapa kali terjadi:
    `harga-emas` ditandai tanpa CORS padahal terbuka, dan `antara-news` ditandai mati padahal
    hanya endpoint tanpa rubriknya yang 404.
+
+## Yang tidak perlu dikerjakan
+
+Supaya kamu tidak menghabiskan waktu untuk sesuatu yang sudah diputuskan:
+
+- **Jangan menulis `app/api/proxy/route.ts`** atau route handler lain. Situs diekspor statis;
+  route handler tidak ikut terbit dan akan gagal senyap di produksi. Proxy ditutup, bukan
+  tertunda — alasannya di [`SPEC.md`](./SPEC.md) §3.1.
+- **Jangan menulis fungsi konversi kode wilayah.** Kode emsifa dan idn-area memang berbeda,
+  bukan beda format. Sudah diuji dua kali, dan ada tes yang menjaganya
+  (`scripts/tes-cuaca.ts`).
+- **Jangan bikin pengais otomatis keempat untuk tier C.** Tiga gelombang sudah dicoba dan
+  yang terakhir cuma menghasilkan 3 temuan dari 43 percobaan. Sisa 39 API itu path-nya harus
+  dibaca manusia — lihat [`TASKS.md`](./TASKS.md) Tahap 7.
+- **Jangan menambahkan alat untuk API yang lisensinya `unknown`.** Ketersediaan bukan izin.
 
 ## Lisensi kontribusi
 

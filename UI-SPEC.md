@@ -592,11 +592,16 @@ sebelum endpoint-nya lolos verifikasi** (TASKS Tahap 7):
 | Cek Resi | Butuh API key |
 | ~~Harga Emas~~ | **SUDAH DIBUAT 2026-08-21.** Dokumen lama menandainya tanpa CORS; diuji ulang dua kali termasuk dengan header `Origin`, `logam-mulia-api.iamutaki.workers.dev` membalas `Access-Control-Allow-Origin: *`. Alatnya live di `/alat/harga-emas` — lihat TASKS T7.8 |
 | Doa Harian | Hidup, tapi **repo sumbernya sudah 404 di GitHub** per 2026-08-21, jadi lisensinya tidak bisa diperiksa sama sekali. `provenance.lisensi: unknown`. Sudah di registry sebagai `doa-doa`, tapi **jangan** dijadikan alat sampai hak pakainya jelas |
-| Kunci TTS, Lambang Daerah, Kode Pos vanmason | Terverifikasi hidup tapi **tanpa CORS** — ini yang sungguh menunggu proxy (T5.1) |
+| Kunci TTS, Lambang Daerah, Kode Pos vanmason | Terverifikasi hidup tapi **tanpa CORS**, dan ketiganya **berparameter** sehingga tidak bisa di-mirror. Proxy DITUTUP pada 2026-08-21 (hosting tidak dipindah), jadi ketiganya **tidak akan** jadi alat awam — tetap di katalog developer dengan salinan `curl` |
 
 Semuanya sudah ada di registry dan bisa dicoba lewat playground di `/dev/api/<slug>` memakai
-salinan `curl`. Yang menahan pembuatan alat tinggal dua hal: **CORS** untuk tiga yang terakhir,
-dan **hak pakai** untuk Doa Harian.
+salinan `curl`. Penahannya dua hal, dan keduanya **bukan** pekerjaan yang tertunda:
+
+- **CORS + berparameter** untuk Kunci TTS, Lambang Daerah, dan Kode Pos vanmason. Proxy
+  ditutup, jadi ini keadaan tetap. Endpoint tanpa parameter pada API tanpa CORS tetap bisa
+  jadi alat lewat mirror — itu yang dipakai Objek Dekat Bumi.
+- **Hak pakai** untuk Doa Harian. Ini bisa berubah kalau ada yang menemukan pernyataan
+  lisensinya; ada template issue khusus untuk itu.
 
 Kalau ada yang minta salah satu alat ini, jawabannya bukan "dikarang dulu" —
 melainkan kerjakan risetnya di Tahap 7, lalu tambahkan spesifikasinya ke dokumen ini.

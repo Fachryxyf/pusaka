@@ -19,6 +19,11 @@ Satu platform Next.js dengan **dua muka di atas satu katalog**:
 Bahannya: [DAFTAR-API-LOKAL-INDONESIA](https://github.com/farizdotid/DAFTAR-API-LOKAL-INDONESIA)
 milik farizdotid — 151 API, 20 kategori, lisensi **CC-BY-4.0**.
 
+**Keadaan per 2026-08-21:** keduanya sudah berdiri di `pusaka.fachryxyf.com` — 10 alat di muka
+awam, katalog 23 API dengan dokumentasi tergenerate dan playground di `/dev`, serta 57 endpoint
+yang diprobe tiap 6 jam dengan hasilnya terbuka di `/status.json`. Rincian per tahap ada di
+[`TASKS.md`](./TASKS.md).
+
 ---
 
 ## 2. Kenapa project ini ada
@@ -523,11 +528,20 @@ Lapis 2  cors: locked  → lewat /api/proxy                   (BELUM ADA — lih
 Lapis 3  mirror        → public/mirror/<slug>.json + banner "Data per <tanggal>"
 ```
 
-**Keadaan sekarang: lapis 1 dan 3 sudah jalan, lapis 2 tidak ada** karena situs
-diekspor statis (§3.1). Untuk API `cors: none`, `ambil()` **langsung ke lapis 3** saat
-dipanggil dari browser — tidak membuang satu putaran gagal lebih dulu. Endpoint
-berparameter tidak bisa di-mirror (kombinasinya tak terbatas), jadi endpoint semacam itu
-pada API tanpa CORS **belum boleh dijadikan alat awam**.
+**Keadaan akhir: lapis 1 dan 3 jalan, lapis 2 DITUTUP** karena situs diekspor statis dan
+hostingnya tidak dipindah (§3.1). Untuk API `cors: none`, `ambil()` **langsung ke lapis 3**
+saat dipanggil dari browser — tidak membuang satu putaran gagal lebih dulu; terukur 2 ms.
+
+Endpoint berparameter tidak bisa di-mirror (kombinasinya tak terbatas), jadi endpoint semacam
+itu pada API tanpa CORS **tidak dijadikan alat awam**.
+
+Dua perilaku yang dijaga `scripts/tes-mirror-jatuh.ts` dan tidak boleh berubah:
+
+1. **Mirror tidak pernah dipakai diam-diam.** API yang hidup selalu mengembalikan
+   `sumber: 'langsung'`; hanya kegagalan yang memicu lapis 3.
+2. **Mirror hanya berlaku di browser.** Di Node — yaitu di `probe.ts` dan skrip lain — host
+   mati tetap gagal. Probe wajib melihat kenyataan sumber aslinya, bukan salinan yang kita
+   simpan sendiri; kalau tidak, dashboard status jadi bohong.
 
 Aturan wajib:
 - **Timeout 10 detik.** Jangan biarkan user lihat spinner selamanya.
@@ -627,6 +641,10 @@ Jalan tiap 6 jam. **Jangan lebih sering** — banyak API ini dihosting developer
 ---
 
 ## 10. `app/api/proxy/route.ts` — keamanan
+
+> **RANCANGAN, TIDAK DIKERJAKAN.** Proxy ditutup pada 2026-08-21 karena hostingnya tetap
+> GitHub Pages (§3.1). Bagian ini disimpan utuh supaya kalau suatu saat pindah hosting,
+> syarat keamanannya tidak perlu dipikirkan ulang dari nol.
 
 - **Allowlist wajib.** Host yang boleh diproxy = kumpulan host `baseUrl` di registry. Selain itu → **403**.
   Open proxy bakal langsung dipakai buat abuse dan bikin Worker kita diblokir Cloudflare.

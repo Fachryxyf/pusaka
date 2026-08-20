@@ -124,11 +124,12 @@ export function Playground({ api, endpoint }: { api: Api; endpoint: Endpoint }) 
       </div>
 
       {tanpaCors && (
-        <p className="rounded-lg border border-zinc-300 bg-zinc-50 p-3 text-sm text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
+        <p className="teks-badan rounded-lg border border-zinc-300 bg-zinc-50 p-3 text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
           API ini tidak mengirim header <code className="font-mono">Access-Control-Allow-Origin</code>,
-          jadi peramban memblokir panggilan langsung dari halaman ini. Tombol Kirim akan aktif
-          setelah lapisan proxy ada. Sementara itu, salin perintah <code className="font-mono">curl</code>{' '}
-          di atas dan jalankan di terminal — di sana tidak ada batasan CORS.
+          jadi peramban memblokir panggilan langsung dari halaman ini — bukan karena APInya
+          rusak. Situs ini diekspor statis tanpa sisi server, jadi tidak ada proxy yang bisa
+          meneruskannya. Salin perintah <code className="font-mono">curl</code> di atas dan
+          jalankan di terminal; di sana tidak ada batasan CORS.
         </p>
       )}
 

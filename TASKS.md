@@ -15,11 +15,28 @@
 | [`BACKLOG-API.md`](./BACKLOG-API.md) | Inventaris 151 API, bertingkat menurut kesiapan | Tahap 7, dan tiap kali nambah API |
 | `TASKS.md` (ini) | Urutan pekerjaan + kriteria selesai | Terus-menerus |
 
+## Status per 2026-08-21
+
+| Tahap | Keadaan |
+|---|---|
+| 1 — Fondasi | **selesai** |
+| 2 — Muka awam | **selesai**, 10 alat (target 6) |
+| 3 — Probe & status | **selesai**, 57 endpoint diprobe tiap 6 jam |
+| 4 — Muka developer | **selesai**, katalog + dokumentasi tergenerate + playground |
+| 5 — Proxy & mirror | **selesai sejauh yang mungkin.** Mirror jalan; proxy **DITUTUP** karena hosting tidak dipindah |
+| 6 — Sync & kontributor | sebagian: dokumen & berkas kontributor **selesai** (T6.3), sinkronisasi otomatis belum (T6.1, T6.2) |
+| 7 — Ekspansi ke 151 API | sebagian: 23 API terdaftar, 39 tier C perlu riset manual |
+
+Angka yang hidup ada di [`status.json`](https://pusaka.fachryxyf.com/status.json), bukan di
+dokumen ini. Kalau keduanya berbeda, yang benar `status.json`.
+
 ## Cara pakai dokumen ini
 
 - Kerjakan **berurutan**. Tiap task punya `Blocked by` — jangan lompat.
 - Tiap task punya **Kriteria selesai** yang bisa diuji. Kalau belum lolos, task belum selesai.
-- Tiap tahap (T1–T6) berdiri sendiri. Aman berhenti di akhir tahap mana pun tanpa ninggalin barang setengah jadi.
+- Tiap tahap (T1–T7) berdiri sendiri. Aman berhenti di akhir tahap mana pun tanpa ninggalin barang setengah jadi.
+- **Kalau sebuah task ternyata mustahil atau tidak perlu, tutup dengan alasannya** — jangan
+  biarkan menggantung sebagai "ditunda" selamanya. T5.1 dan T5.2 ditutup begitu.
 - Kalau nemu sumber API yang mati atau jebakan baru, **catat di `SPEC.md` §7** sebelum lanjut.
 
 ## Aturan yang berlaku untuk SEMUA task
@@ -475,8 +492,9 @@ Umur data dicatat sebagai `umurDataHari` tapi **tidak** memengaruhi `ok` — end
 datanya beku tetap bekerja, jadi memvonisnya mati akan salah (SPEC §9 mode keenam).
 Field `cors` diisi ulang dari header asli tiap probe.
 
-**Kriteria selesai:** TERPENUHI. `npm run probe` menulis `public/status.json`;
-kesembilan API dengan 32 endpoint semuanya `ok: true`. Dibuktikan `scripts/tes-probe.ts`
+**Kriteria selesai:** TERPENUHI. `npm run probe` menulis `public/status.json`; saat task ini
+selesai, kesembilan API dengan 32 endpoint semuanya `ok: true` (registry kemudian tumbuh —
+lihat T7.4). Dibuktikan `scripts/tes-probe.ts`
 (7 tes) tanpa perlu menambah YAML palsu ke registry: jebakan **Bukuacak** tertangkap
 (`Content-Type 'text/html' bukan JSON`), host mati jadi `status 0` tanpa melempar, ambang
 `minUkuranByte` dipaksakan, 404 ber-JSON sah tetap gagal, dan VOA yang datanya berumur
@@ -620,11 +638,26 @@ menghasilkan output, nol kosong.
 
 ---
 
-# TAHAP 5 — Proxy & mirror
+# TAHAP 5 — Proxy & mirror — SELESAI SEJAUH YANG MUNGKIN, 2026-08-21
 
-Target akhir tahap: alat tetap hidup walau API sumbernya mati. Ini fitur pembeda utama platform.
+Target akhir tahap: alat tetap hidup walau API sumbernya mati. **Tercapai** — lapis 3 (mirror)
+berjalan dan sudah diuji dengan memaksa host mati (T5.4).
 
-**Status: lapis 3 sudah jalan (T5.3, T5.4). Lapis 2 ditunda — lihat catatan di bawah.**
+**Lapis 2 (proxy) DITUTUP, bukan ditunda.** Pemilik project memutuskan tidak pindah hosting
+dari GitHub Pages, dan proxy mustahil tanpa sisi server (SPEC §3.1). Konsekuensinya diterima
+apa adanya:
+
+| Akibat | Keadaan |
+|---|---|
+| 5 API `cors: none` di registry | tetap terdaftar, tetap diprobe, tetap bisa dicoba lewat salinan `curl` di playground |
+| Endpoint **tanpa** parameter pada API itu | bisa dipakai alat lewat mirror — ini yang membuat Objek Dekat Bumi jalan |
+| Endpoint **berparameter** pada API itu | tidak bisa dijadikan alat awam. Kunci TTS, Lambang Daerah, dan Kode Pos vanmason tetap di katalog developer saja |
+
+Keputusan ini **bukan** kekurangan yang disembunyikan: halaman `/dev/api/<slug>` menyebutkan
+alasannya terang-terangan, tombol Kirim dinonaktifkan dengan penjelasan, dan pengguna
+diarahkan ke `curl` yang tidak terikat CORS.
+
+Kalau suatu saat hostingnya pindah, T5.1 dan T5.2 di bawah masih berlaku apa adanya.
 
 ---
 
@@ -633,7 +666,7 @@ Target akhir tahap: alat tetap hidup walau API sumbernya mati. Ini fitur pembeda
 > jadi tidak ada jalan lain untuk memanggilnya dari browser. Lapis 2 (proxy) justru
 > mundur: ia butuh sisi server yang tidak ada di ekspor statis (SPEC §3.1).
 
-### T5.1 — Proxy — DITUNDA, butuh pindah hosting
+### T5.1 — Proxy — DITUTUP, tidak pindah hosting
 **Blocked by:** T4.3
 
 `app/api/proxy/route.ts`, ikuti **SPEC §10**.
@@ -659,7 +692,7 @@ Proxy ke `https://example.com` → **403**. Ini tes keamanan, wajib lolos.
 
 ---
 
-### T5.2 — `client.ts` lapis 2 — DITUNDA bersama T5.1
+### T5.2 — `client.ts` lapis 2 — DITUTUP bersama T5.1
 **Blocked by:** T5.1
 
 Rutekan API `cors: locked`/`none` lewat proxy secara otomatis berdasarkan field `cors` di registry.
@@ -707,10 +740,25 @@ Kalau lapis 1 gagal (dan lapis 2 belum ada), jatuh ke `public/mirror/<slug>.json
 Kembalikan `sumber: 'mirror'` + `per: '<tanggal>'`. UI **wajib** nampilin banner
 "Data per <tanggal> — sumber aslinya sedang bermasalah".
 
-**Kriteria selesai:** TERPENUHI — alat Objek Dekat Bumi berjalan **sepenuhnya** dari mirror
-di browser, karena `jpl-ssd` tanpa CORS.
-Yang **belum diuji**: paksa `baseUrl` alat Wilayah ke host mati, pastikan ia jatuh ke
-mirror dan banner muncul. Kerjakan ini sebelum menganggap lapis 3 tuntas.
+**Kriteria selesai:** TERPENUHI. Alat Objek Dekat Bumi berjalan **sepenuhnya** dari mirror
+di browser karena `jpl-ssd` tanpa CORS.
+
+Pengujian yang sempat tertunda kini selesai (`scripts/tes-mirror-jatuh.ts`, 7 tes,
+2026-08-21). Lapis 3 berjalan di browser lewat `fetch('/mirror/...')` yang di Node tidak ada,
+jadi `fetch` dipasangi bidak sementara yang melayani `public/mirror/` dari disk — yang diuji
+tetap `lib/client.ts` yang sungguhan, bukan tiruannya. Yang dibuktikan:
+
+- `baseUrl` diarahkan ke host mati (`alamat.thecloudalert.com`, SPEC §7) → `ambil()` jatuh ke
+  mirror dengan `sumber: 'mirror'` dan `per` berisi tanggal ISO yang sah, sehingga banner UI
+  bisa menampilkan tanggalnya alih-alih menulis "sebelumnya".
+- **API yang hidup tetap `sumber: 'langsung'`** — mirror tidak dipakai diam-diam.
+- Endpoint **berparameter** + host mati → **gagal jujur**, bukan mengembalikan data tingkat
+  lain yang kebetulan ada di berkas mirror.
+- API tanpa `mirror: true` menolak dengan pesan yang jelas.
+- `jpl-ssd` (`cors: none`) langsung ke mirror dalam **2 ms**, membuktikan ia tidak membuang
+  satu putaran gagal ke jaringan lebih dulu.
+- **Di luar browser, host mati tetap gagal.** Ini penting: probe harus melihat kenyataan
+  sumber aslinya, bukan salinan yang kita simpan sendiri.
 
 ---
 
@@ -724,7 +772,15 @@ hidup + JSON, baru bikin YAML dan alatnya. Kandidat: Kode Pos, RS Rujukan.
 > dijadwalkan sebagai T2.11. Yang sungguh butuh proxy tinggal API `cors: none` yang
 > berparameter.
 
-**Kriteria selesai:** minimal 1 alat baru live, lewat proxy, dan `ok: true` di probe.
+**Kriteria selesai:** TIDAK BERLAKU — tidak ada alat yang bisa lewat proxy karena proxy
+ditutup (lihat kepala tahap ini).
+
+Yang menarik: **dua dari tiga kandidat di task ini ternyata tidak butuh proxy sama sekali.**
+Kode Pos CORS-nya terbuka dan sudah jadi alat di T2.11, dan Harga Emas — yang dokumen lama
+tandai "tanpa CORS" — ternyata juga terbuka, sudah jadi alat di T7.8. Keduanya baru ketahuan
+setelah diprobe ulang, bukan dari membaca dokumen.
+
+Sisanya (RS Rujukan) belum diriset endpointnya, jadi masuk Tahap 7.
 
 ---
 
@@ -756,16 +812,32 @@ Jangan bikin issue duplikat.
 
 ---
 
-### T6.3 — Dokumentasi & atribusi
-**Blocked by:** T6.2
+### T6.3 — Dokumentasi & atribusi — SELESAI 2026-08-21
+**Blocked by:** — (dikerjakan lebih awal, tidak menunggu T6.2)
 
-- `README.md` — apa ini, kenapa ada (pakai bukti dari SPEC §2), cara jalanin, cara kontribusi
-- `CONTRIBUTING.md` — cara nambah API (1 file YAML) dan cara nambah alat (1 folder), lengkap dengan contoh
-- **Atribusi CC-BY-4.0** ke farizdotid di README **dan** footer situs — kewajiban lisensi
-- `LICENSE` — pilih lisensi kode (MIT wajar); catat bahwa data turunan tunduk pada CC-BY-4.0
-- Template issue buat lapor API mati
+Semua yang diminta ada, plus beberapa yang tidak diminta tapi ternyata perlu:
 
-**Kriteria selesai:** orang lain bisa nambah satu API cuma dengan baca `CONTRIBUTING.md`, tanpa nanya.
+| Berkas | Isinya |
+|---|---|
+| `README.md` | apa ini, kenapa ada (bukti dari SPEC §2), cara jalanin, tabel alat, badge status, bagian kontributor dengan grid avatar, dan bagian **"Yang sengaja tidak dikerjakan"** |
+| `CONTRIBUTING.md` | cara nambah API (1 file YAML) dan alat (1 folder), empat aturan keras, bagian "kalau cuma punya lima menit", dan **"Yang tidak perlu dikerjakan"** |
+| `NOTICE.md` | batas lisensi empat jenis bahan — tidak diminta task ini, tapi `LICENSE` MIT sendirian menyesatkan karena repo memuat data pihak ketiga |
+| `SECURITY.md` | cakupan yang jujur, termasuk apa yang **di luar** cakupan |
+| `CODE_OF_CONDUCT.md` | singkat |
+| `LICENSE` | MIT untuk kode, dengan batasnya dijelaskan di `NOTICE.md` |
+| Template issue | bug, **API mati** (minta hasil `curl` + tanggal), dan **lisensi** (12 dari 23 API masih `unknown`) |
+| Template PR | checklist yang memaksa bukti verifikasi |
+
+Atribusi CC-BY-4.0 ke farizdotid ada di README **dan** footer situs — kewajiban lisensi,
+bukan sopan santun (SPEC §13). Footer juga menyebut BMKG dan NASA/JPL yang mensyaratkan
+pencantuman sumber.
+
+Community profile GitHub: **100%**.
+
+**Kriteria selesai:** TERPENUHI — `CONTRIBUTING.md` memuat urutan yang harus diikuti
+(panggil endpoint → catat ke `REFERENCE.md` → baru tulis YAML), aturan yang tidak biasa
+beserta alasannya, dan daftar hal yang **tidak** perlu dikerjakan supaya orang tidak
+menghabiskan waktu untuk sesuatu yang sudah diputuskan.
 
 ---
 
@@ -873,7 +945,9 @@ Filter `auth: apikey` di `/dev` nampilin semuanya. Tombol Kirim di playground
 **Blocked by:** — (dikerjakan tanpa T7.1; lihat catatan)
 
 Keempat belas API sisa di [`REGISTRY-SEED.md`](./REGISTRY-SEED.md) disalin ke registry.
-Totalnya kini **23 API / 54 endpoint**, dan `npm run probe` melaporkan **54 ok, 0 gagal**.
+Totalnya jadi **23 API / 54 endpoint**, dan `npm run probe` melaporkan **54 ok, 0 gagal**.
+(Bertambah lagi jadi 57 endpoint setelah T7.8 memecah `harga-emas` dan `sekolah-indonesia`
+menjadi beberapa endpoint.)
 
 > **T7.1 dilewati dengan sengaja.** Task itu meminta skema diperluas supaya bisa memuat API
 > tanpa endpoint (tier D dan E). Yang dikerjakan di sini hanya tier A — API yang endpointnya

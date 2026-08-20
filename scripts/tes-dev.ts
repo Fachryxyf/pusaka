@@ -99,13 +99,24 @@ tes('atribusi wajib ditandai wajib', () => {
 tes('API tanpa CORS: alasan tombol Kirim mati dijelaskan', () => {
   const html = baca('dev/api/jpl-ssd')
   assert.ok(html.includes('Access-Control-Allow-Origin'), 'alasan CORS tidak dijelaskan')
-  assert.ok(html.includes('lapisan proxy'), 'tidak menyebut proxy sebagai penyebab')
   assert.ok(html.includes('disabled'), 'tombol tidak dinonaktifkan')
+  // Penjelasannya harus menyebut bahwa APInya TIDAK rusak dan menawarkan jalan
+  // keluar, bukan cuma bilang diblokir.
+  assert.ok(html.includes('bukan karena APInya'), 'tidak menegaskan APInya tidak rusak')
+  assert.ok(html.includes('curl'), 'tidak menawarkan curl sebagai jalan keluar')
+  // Proxy sudah DITUTUP (SPEC §3.1), jadi halaman tidak boleh menjanjikannya.
+  assert.ok(
+    !html.includes('Tombol Kirim akan aktif'),
+    'masih menjanjikan tombol Kirim aktif nanti, padahal proxy ditutup',
+  )
 })
 
 tes('API dengan CORS terbuka: tombol Kirim tidak diberi peringatan CORS', () => {
   const html = baca('dev/api/gempa-bmkg')
-  assert.ok(!html.includes('lapisan proxy'), 'peringatan CORS muncul padahal tidak perlu')
+  assert.ok(
+    !html.includes('memblokir panggilan langsung'),
+    'peringatan CORS muncul padahal CORS-nya terbuka',
+  )
 })
 
 tes('playground menyediakan salinan curl dan fetch', () => {
