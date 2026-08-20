@@ -74,3 +74,6 @@ memanggil API pihak ketiga: BMKG yang sedang mati tidak boleh memblokir merge.
 - Alat tidak memakai `dangerouslySetInnerHTML`. Kalau nanti dibutuhkan untuk field
   ber-HTML, sanitasinya wajib lebih dulu (`UI-SPEC.md` §1.3).
 - Dependency dipatok ke versi tepat, dan Dependabot mengawasi pembaruannya.
+- `public/status.json` hanya memuat metadata pemeriksaan (status code, latency, ukuran
+  body, Content-Type). **Isi response tidak pernah disimpan di dalamnya** — hanya
+  panjangnya.

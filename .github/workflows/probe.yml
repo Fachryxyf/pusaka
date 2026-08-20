@@ -1,0 +1,55 @@
+name: Probe status API
+
+# Tiap 6 jam. JANGAN lebih sering — sebagian API di katalog ini dibiayai
+# pengembangnya sendiri, dan satu di antaranya membalas 429 pada permintaan kedua
+# dalam satu detik (SPEC §9).
+#
+# Probe tidak punya workflow-nya sendiri untuk mem-publish: ia hanya menulis
+# public/status.json, lalu memicu deploy. Riwayatnya bertahan karena scripts/probe.ts
+# mengunduh status.json versi live sebelum menambahkan hasil baru — jadi tidak ada
+# workflow yang butuh izin tulis ke repo (SPEC §3.1).
+on:
+  schedule:
+    - cron: '23 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # Menulis public/status.json, memuat riwayat dari situs yang sudah terbit.
+      - run: npm run probe
+      # Mirror ikut disegarkan supaya artefak yang di-deploy utuh.
+      - run: npm run mirror
+      - run: npm run build
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: out
+
+  deploy:
+    needs: probe
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v5

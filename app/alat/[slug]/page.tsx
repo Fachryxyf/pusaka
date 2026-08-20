@@ -5,6 +5,7 @@ import { DAFTAR_ALAT, cariAlat } from '@/alat/daftar'
 import type { Api } from '@/registry/schema'
 import { Ikon } from '@/komponen/Ikon'
 import { muatApi } from '@/lib/registry'
+import { petaKesehatan } from '@/lib/status'
 
 export function generateStaticParams() {
   return DAFTAR_ALAT.map((a) => ({ slug: a.slug }))
@@ -39,6 +40,11 @@ export default async function HalamanAlat({ params }: PageProps<'/alat/[slug]'>)
 
   const { Komponen } = alat
 
+  // Banner jujur kalau API-nya sedang gagal probe. Alatnya TIDAK disembunyikan —
+  // pengguna berhak mencoba sendiri (TASKS T3.4).
+  const kesehatan = petaKesehatan().get(alat.apiSlug)
+  const bermasalah = kesehatan?.sehat === false
+
   return (
     <div className="space-y-6">
       <div className="space-y-1">
@@ -51,6 +57,21 @@ export default async function HalamanAlat({ params }: PageProps<'/alat/[slug]'>)
         </h1>
         <p className="text-zinc-600 dark:text-zinc-400">{alat.deskripsi}</p>
       </div>
+
+      {bermasalah && (
+        <p
+          role="status"
+          className="rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900 dark:border-amber-700 dark:bg-amber-950 dark:text-amber-100"
+        >
+          Pemeriksaan terakhir menemukan {kesehatan.endpointGagal.length} dari{' '}
+          {kesehatan.jumlahEndpoint} endpoint {api.nama} sedang bermasalah, jadi alat ini
+          mungkin tidak menampilkan data dengan benar.{' '}
+          <Link href="/dev/status" className="underline">
+            Lihat status lengkapnya
+          </Link>
+          .
+        </p>
+      )}
 
       <Komponen api={api} pendukung={pendukung} />
 

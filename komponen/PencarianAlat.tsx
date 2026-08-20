@@ -5,8 +5,16 @@ import { useMemo, useState } from 'react'
 import type { MetaAlat } from '@/alat/tipe'
 import { Ikon } from '@/komponen/Ikon'
 
-export default function PencarianAlat({ alat }: { alat: MetaAlat[] }) {
+export default function PencarianAlat({
+  alat,
+  bermasalah = [],
+}: {
+  alat: MetaAlat[]
+  // Slug alat yang API-nya sedang gagal probe.
+  bermasalah?: string[]
+}) {
   const [kueri, setKueri] = useState('')
+  const kacau = new Set(bermasalah)
 
   const hasil = useMemo(() => {
     const k = kueri.trim().toLowerCase()
@@ -46,7 +54,14 @@ export default function PencarianAlat({ alat }: { alat: MetaAlat[] }) {
                   <Ikon nama={a.ikon} className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
                 </span>
                 <span className="space-y-1">
-                  <span className="block font-medium">{a.judul}</span>
+                  <span className="block font-medium">
+                    {a.judul}
+                    {kacau.has(a.slug) && (
+                      <span className="ml-2 rounded border border-amber-300 px-1.5 py-0.5 align-middle text-[11px] font-normal text-amber-800 dark:border-amber-700 dark:text-amber-200">
+                        lagi bermasalah
+                      </span>
+                    )}
+                  </span>
                   <span className="block text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
                     {a.deskripsi}
                   </span>

@@ -11,6 +11,10 @@ const SUMBER = [
   { nama: 'EQuran.id', url: 'https://equran.id', wajib: false },
 ] as const
 
+const HALAMAN = [
+  { nama: 'Status API', href: '/dev/status' },
+] as const
+
 const DOKUMEN = [
   { nama: 'Spesifikasi teknis', href: 'https://github.com/Fachryxyf/pusaka/blob/xyf/SPEC.md' },
   { nama: 'Bentuk response API', href: 'https://github.com/Fachryxyf/pusaka/blob/xyf/REFERENCE.md' },
@@ -50,6 +54,16 @@ export function Footer() {
           <div className="space-y-2">
             <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">Dokumen</p>
             <ul className="space-y-1.5">
+              {HALAMAN.map((h) => (
+                <li key={h.href}>
+                  <Link
+                    href={h.href}
+                    className="fokus-cincin rounded text-sm text-zinc-600 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+                  >
+                    {h.nama}
+                  </Link>
+                </li>
+              ))}
               {DOKUMEN.map((d) => (
                 <li key={d.href}>
                   <a

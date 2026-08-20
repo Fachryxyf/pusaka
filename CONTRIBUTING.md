@@ -68,9 +68,13 @@ lahir dari bug yang sudah benar-benar terjadi, bukan dari selera.
 ```bash
 npm run build          # wajib lolos tanpa error tipe; ikut memvalidasi registry
 npm run lint
-npm run tes            # registry + mirror, tanpa jaringan
-npm run tes:jaringan   # client + rantai wilayah, butuh jaringan
+npm run tes            # registry, mirror, teks, status — tanpa jaringan
+npm run tes:jaringan   # semua alat + probe ke API sungguhan, butuh jaringan
 ```
+
+Kalau kamu menambah API ke registry, jalankan `npm run probe` supaya
+`public/status.json` ikut memuatnya. Tanpa itu, dashboard status tidak akan
+menampilkannya sampai probe berkala berikutnya jalan.
 
 Semuanya harus lolos. CI menjalankan hal yang sama pada tiap pull request.
 

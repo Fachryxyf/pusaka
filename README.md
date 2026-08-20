@@ -13,10 +13,11 @@ plus katalog API lokal yang statusnya dipantau otomatis.**
 [![Stack](https://img.shields.io/badge/stack-Next.js%2016%20%2B%20TypeScript%20%2B%20Tailwind%204-black.svg)](#struktur)
 [![API terdaftar](https://img.shields.io/badge/API%20terdaftar-9-informational.svg)](./registry/apis)
 [![Alat](https://img.shields.io/badge/alat-8-informational.svg)](./alat)
-[![Tahap](https://img.shields.io/badge/tahap-3%20dari%207-yellow.svg)](./TASKS.md)
+[![Tahap](https://img.shields.io/badge/tahap-4%20dari%207-yellow.svg)](./TASKS.md)
 [![Lisensi data](https://img.shields.io/badge/data-lihat%20NOTICE-lightgrey.svg)](./NOTICE.md)
 
-[Situs](https://pusaka.fachryxyf.com) · [Spesifikasi](./SPEC.md) · [Daftar pekerjaan](./TASKS.md) ·
+[Situs](https://pusaka.fachryxyf.com) · [Status API](https://pusaka.fachryxyf.com/dev/status/) ·
+[Spesifikasi](./SPEC.md) · [Daftar pekerjaan](./TASKS.md) ·
 [Bentuk response API](./REFERENCE.md) · [Registry](./registry/apis) ·
 [Backlog 151 API](./BACKLOG-API.md) · [Batas lisensi](./NOTICE.md) · [Kontribusi](./CONTRIBUTING.md)
 
@@ -48,9 +49,15 @@ hidup saat kamu membacanya. Status API berubah terus — itu justru premis proje
 | 151 API di backlog | inventaris upstream, bertingkat menurut kesiapan di [`BACKLOG-API.md`](./BACKLOG-API.md) |
 | Snapshot riset | **6 Agustus 2026** untuk katalog awal · **20 Agustus 2026** untuk NASA/JPL, batas paginasi idn-area, dan seluruh data lisensi · **21 Agustus 2026** untuk batas permintaan myQuran, bentuk dan zona waktu prakiraan BMKG, tag HTML dan ukuran response equran.id, batas hasil kodepos.vercel.app, serta probe ulang seluruh 14 sumber berita |
 
-Status hidup/mati yang sesungguhnya baru akan punya stempel waktu setelah Tahap 3
-(probe otomatis tiap 6 jam + `status.json` publik). Sampai itu ada, jangan baca badge
-sebagai health check.
+**Status hidup/mati sekarang punya stempel waktu.** Sejak Tahap 3, seluruh 32 endpoint
+diprobe tiap 6 jam langsung ke alamat aslinya, dan hasilnya terbuka:
+
+- Dashboard: [pusaka.fachryxyf.com/dev/status](https://pusaka.fachryxyf.com/dev/status/)
+- Machine-readable: [`status.json`](https://pusaka.fachryxyf.com/status.json) — riwayat
+  rolling 90 hari, CORS terbuka
+
+Badge di atas tetap menghitung jumlah **terdaftar**, bukan jumlah yang hidup saat ini.
+Untuk itu, lihat dashboard.
 
 ## Alat yang sudah jalan
 
@@ -74,7 +81,8 @@ status (Tahap 3), lalu muka developer berisi katalog dan playground (Tahap 4).
 npm install
 npm run dev        # http://localhost:3000
 npm run build      # memvalidasi registry lalu build
-npm run tes          # tes registry + mirror (tanpa jaringan)
+npm run tes          # tes registry, mirror, teks, status (tanpa jaringan)
+npm run probe        # health check semua endpoint, tulis public/status.json
 npm run tes:jaringan # tes client + rantai wilayah ke API sungguhan
 npm run mirror       # segarkan snapshot public/mirror/
 ```
@@ -92,6 +100,8 @@ npm run mirror       # segarkan snapshot public/mirror/
 | `komponen/` | `Pilih` (dropdown), `PemilihWilayah`, `PemutarAudio`, `TeksBertag`, `Ikon`, keadaan |
 | `alat/<slug>/` | modul alat muka awam |
 | `scripts/mirror.ts` | menulis snapshot, menolak yang di bawah `minUkuranByte` |
+| `lib/probe.ts` | mesin health check — enam mode kematian, bisa diuji tanpa berkas |
+| `public/status.json` | riwayat probe 90 hari; ini juga **penyimpanannya**, lihat `SPEC.md` §9 |
 | `scripts/` | validasi registry, tes, probe (menyusul) |
 
 Menambah API: salin blok YAML dari [`REGISTRY-SEED.md`](./REGISTRY-SEED.md) ke

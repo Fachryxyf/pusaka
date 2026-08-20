@@ -6,9 +6,11 @@ import { useState } from 'react'
 import { DAFTAR_META } from '@/alat/daftar'
 import { Ikon } from '@/komponen/Ikon'
 
+// Katalog developer (/dev) baru dikerjakan di Tahap 4; sampai itu ada, jangan
+// menautkannya — tautan ke halaman yang belum dibuat cuma menghasilkan 404.
 const NAV = [
   { href: '/', label: 'Alat' },
-  { href: '/dev', label: 'Developer' },
+  { href: '/dev/status', label: 'Status API' },
 ] as const
 
 export function Header() {
@@ -110,10 +112,10 @@ export function Header() {
               ))}
               <span className="my-1 h-px bg-zinc-200 dark:bg-zinc-800" aria-hidden="true" />
               <Link
-                href="/dev"
+                href="/dev/status"
                 className="fokus-cincin rounded-md px-2 py-2 text-sm transition hover:bg-zinc-100 dark:hover:bg-zinc-800"
               >
-                Developer
+                Status API
               </Link>
               <a
                 href="https://github.com/Fachryxyf/pusaka"

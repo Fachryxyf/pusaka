@@ -75,7 +75,7 @@ GitHub Pages hanya menyajikan berkas. **Tidak ada sisi server**, jadi:
 | Yang hilang | Gantinya |
 |---|---|
 | `app/api/proxy/route.ts` (§10) | Tidak ada. API `cors: none`/`locked` dilayani **lapis 3 mirror** (§8) |
-| `app/api/status/route.ts` (§9) | Ditulis sebagai berkas statis ke `public/status.json` oleh workflow, bukan route handler |
+| `app/api/status/route.ts` (§9) | **Sudah diwujudkan** sebagai berkas statis `public/status.json`, ditulis `scripts/probe.ts`. GitHub Pages menyajikan `Access-Control-Allow-Origin: *` bawaan — sudah diverifikasi |
 | Pengoptimal gambar Next | `images.unoptimized: true` di `next.config.ts` |
 
 Karena itu `next.config.ts` memakai `output: 'export'` dan `trailingSlash: true`
@@ -113,13 +113,14 @@ somethinggood/
 │   ├── layout.tsx
 │   ├── page.tsx                    # muka awam — grid alat + pencarian
 │   ├── alat/[slug]/page.tsx        # halaman tiap alat
+│   ├── not-found.tsx               # 404
+│   ├── error.tsx                   # galat per segmen
+│   ├── global-error.tsx            # jaring terakhir kalau layout gagal
 │   ├── dev/
-│   │   ├── page.tsx                # katalog API: cari + filter
-│   │   ├── api/[slug]/page.tsx     # dokumentasi + playground
+│   │   ├── page.tsx                # katalog API: cari + filter (Tahap 4)
+│   │   ├── api/[slug]/page.tsx     # dokumentasi + playground (Tahap 4)
 │   │   └── status/page.tsx         # dashboard uptime
-│   └── api/
-│       ├── proxy/route.ts          # CORS proxy (allowlist!)
-│       └── status/route.ts         # status.json publik
+│   └── (tidak ada app/api/ — ekspor statis, lihat §3.1)
 │
 ├── registry/
 │   ├── schema.ts                   # skema zod + tipe TS
@@ -140,16 +141,14 @@ somethinggood/
 │
 ├── public/
 │   ├── mirror/<slug>.json          # snapshot data — alasan lokasinya di §3.1
+│   ├── status.json                 # riwayat probe 90 hari + status publik (§9)
 │   ├── CNAME                       # domain kustom GitHub Pages
 │   └── .nojekyll                   # supaya _next/ tidak dibuang Jekyll
 │
-├── data/
-│   └── health/<slug>.json          # riwayat uptime, rolling 90 hari (dibaca saat build)
-│
 └── .github/workflows/
     ├── ci.yml                      # lint + tes + build, tiap PR
-    ├── pages.yml                   # mirror + build + deploy; tiap push & tiap 6 jam
-    ├── probe.yml                   # tiap 6 jam (Tahap 3, belum ada)
+    ├── pages.yml                   # probe + mirror + build + deploy, tiap push
+    ├── probe.yml                   # probe + deploy, tiap 6 jam
     └── sync.yml                    # mingguan (Tahap 6, belum ada)
 ```
 
@@ -606,8 +605,22 @@ Untuk tiap endpoint, catat:
 > ngeh sampai ada yang ngecek manual. Kalau butuh batas, pakai batas yang besar
 > (mis. 5MB) dan **laporkan terpotongnya sebagai error tersendiri**, jangan sebagai `ok: false`.
 
-Hasilnya di-append ke `data/health/<slug>.json` (rolling 90 hari), lalu di-commit balik
-oleh workflow. Probe juga **mengisi ulang field `cors`** di registry berdasarkan header asli.
+**Penyimpanan riwayat — berubah 2026-08-21 dari rancangan di atas.** Rancangan awal
+menulis `data/health/<slug>.json` lalu commit balik lewat workflow. Itu menuntut workflow
+ber-`contents: write` plus hak melewati ruleset branch, dan keduanya sengaja dihapus
+(§3.1).
+
+Yang dipakai sekarang: **situs yang sudah terbit adalah penyimpanannya.** Sebelum
+memprobe, `scripts/probe.ts` mengunduh `status.json` versi live, menambahkan hasil baru,
+memangkas ke 90 hari, lalu menulis ulang ke `public/status.json`. Riwayat ikut terbawa
+tiap deploy, dan **tidak ada satu pun workflow yang butuh izin tulis ke repo.**
+
+Konsekuensi yang harus diingat: **`npm run probe` wajib ikut dijalankan di `pages.yml`,
+bukan hanya di `probe.yml`.** Kalau tidak, setiap push biasa akan menerbitkan artefak
+tanpa `status.json`, dan seluruh riwayat hilang bersamanya.
+
+Probe juga **mengisi ulang field `cors`** berdasarkan header asli, dan mencatat
+`umurDataHari` untuk endpoint yang memuat stempel waktu.
 
 Jalan tiap 6 jam. **Jangan lebih sering** — banyak API ini dihosting developer dari kantong sendiri.
 

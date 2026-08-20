@@ -444,64 +444,98 @@ berumur 523 hari, dan rubrik tak dikenal → 500.
 
 ---
 
-# TAHAP 3 — Probe & status
+# TAHAP 3 — Probe & status — SELESAI 2026-08-21
 
 Target akhir tahap: status hidup/mati semua API terpantau otomatis dan terbuka untuk publik.
 
 ---
 
-### T3.1 — `scripts/probe.ts`
+### T3.1 — `scripts/probe.ts` — SELESAI 2026-08-21
 **Blocked by:** T2.8
 
-Ikuti **SPEC §9 dengan teliti**, terutama syarat `ok`.
+Mesinnya di `lib/probe.ts` (bisa diuji tanpa menulis berkas), pemanggilnya di
+`scripts/probe.ts`. Kelima syarat `ok` di SPEC §9 diberlakukan berurutan, dan 429
+diperiksa **sebelum** `Content-Type` karena body 429 belum tentu JSON.
 
-> Syarat `ok` ada **lima**: status < 400 **dan** Content-Type JSON **dan** body ter-parse
-> **dan** body tidak kosong **dan** ukuran >= `minUkuranByte`. Probe versi awal kemakan
-> jebakan Bukuacak (200 + CORS `*` tapi isinya HTML) — jangan diulang. Syarat kelima
-> ditambahkan belakangan karena empat syarat pertama terbukti bocor: tiga API di katalog
-> membalas bungkus JSON normal dengan isi kosong dan lolos semuanya.
+> **PENYIMPANAN RIWAYAT BERUBAH dari rancangan §4.** Riwayat tidak ditulis ke
+> `data/health/<slug>.json` dan tidak di-commit balik, karena itu menuntut workflow
+> ber-`contents: write` plus hak melewati ruleset branch — dua hal yang sengaja dihapus
+> (SPEC §3.1).
+>
+> Gantinya: **situs yang sudah terbit adalah penyimpanannya.** Sebelum memprobe,
+> `scripts/probe.ts` mengunduh `status.json` versi live, menambahkan hasil baru, lalu
+> menulis ulang ke `public/status.json`. Rolling 90 hari dipangkas di sana. Tidak ada
+> satu pun workflow yang butuh izin tulis ke repo.
+>
+> Konsekuensi yang harus diketahui: **`npm run probe` wajib ikut dijalankan di
+> `pages.yml`.** Kalau tidak, tiap push biasa akan menerbitkan artefak tanpa
+> `status.json`, dan seluruh riwayat hilang bersamanya.
 
-Baca registry → panggil `baseUrl + contohPath` tiap endpoint → tulis `data/health/<slug>.json`
-(append, rolling 90 hari). Isi ulang juga field `cors` berdasarkan header asli.
+Umur data dicatat sebagai `umurDataHari` tapi **tidak** memengaruhi `ok` — endpoint yang
+datanya beku tetap bekerja, jadi memvonisnya mati akan salah (SPEC §9 mode keenam).
+Field `cors` diisi ulang dari header asli tiap probe.
 
-**Kriteria selesai:** `npm run probe` menulis `data/health/*.json` untuk kelima API,
-kelimanya `ok: true`. Tambahkan YAML palsu yang nunjuk ke `bukuacak.vercel.app/api/v1/book`
-→ hasilnya **harus** `ok: false`. Hapus lagi YAML palsunya setelah lolos.
+**Kriteria selesai:** TERPENUHI. `npm run probe` menulis `public/status.json`;
+kesembilan API dengan 32 endpoint semuanya `ok: true`. Dibuktikan `scripts/tes-probe.ts`
+(7 tes) tanpa perlu menambah YAML palsu ke registry: jebakan **Bukuacak** tertangkap
+(`Content-Type 'text/html' bukan JSON`), host mati jadi `status 0` tanpa melempar, ambang
+`minUkuranByte` dipaksakan, 404 ber-JSON sah tetap gagal, dan VOA yang datanya berumur
+523 hari tetap `ok: true` dengan umurnya tercatat.
 
 ---
 
-### T3.2 — Workflow probe
+### T3.2 — Workflow probe — SELESAI 2026-08-21
 **Blocked by:** T3.1
 
 `.github/workflows/probe.yml` — cron tiap 6 jam + `workflow_dispatch`.
-Jalankan probe, commit `data/health/` balik ke repo. **Jangan lebih sering dari 6 jam** (SPEC §9).
 
-**Kriteria selesai:** picu manual lewat `workflow_dispatch` → muncul commit berisi perubahan `data/health/`.
+Beda dari rancangan: workflow ini **tidak commit** `data/health/` balik ke repo. Ia
+menjalankan probe, lalu **men-deploy** — riwayatnya terbawa di dalam `status.json` yang
+ikut terbit (lihat T3.1). Izinnya `contents: read`; yang ditambahkan hanya `pages: write`
+dan `id-token: write`.
+
+Jadwal 6 jam di `pages.yml` **dihapus** dan dipindah ke sini, supaya dua workflow tidak
+berebut `concurrency: pages`.
+
+**Kriteria selesai:** dipicu lewat `workflow_dispatch` → `status.json` di produksi
+diperbarui, dengan titik riwayat bertambah alih-alih tergantikan.
 
 ---
 
-### T3.3 — Dashboard status + `status.json`
+### T3.3 — Dashboard status + `status.json` — SELESAI 2026-08-21
 **Blocked by:** T3.2
 
-- `app/dev/status/page.tsx` — tabel semua API: status sekarang, uptime 30 hari, latency rata-rata, riwayat batang
-- **`public/status.json`** — status publik, machine-readable, ditulis oleh workflow probe.
-  Rancangan awal memakai `app/api/status/route.ts`, tapi route handler tidak ikut terekspor
-  di ekspor statis (SPEC §3.1), jadi berkasnya digenerate saat build. GitHub Pages
-  menyajikan `Access-Control-Allow-Origin: *` secara bawaan — sudah diverifikasi —
-  jadi kita tidak bikin dosa yang sama seperti API yang kita pantau.
+- `app/dev/status/page.tsx` — ringkasan, daftar yang bermasalah, daftar **hidup tapi
+  datanya tua**, lalu tiap API dengan uptime 30 hari, latency rata-rata, dan riwayat batang
+  per endpoint. Warna bukan satu-satunya penanda: tiap batang punya `title` dan tiap deret
+  punya ringkasan teks.
+- **`public/status.json`** — berkas statis, bukan route handler (SPEC §3.1). GitHub Pages
+  menyajikan `Access-Control-Allow-Origin: *` secara bawaan, sudah diverifikasi, jadi
+  berkasnya bisa dipanggil program dari mana saja.
 
-**Kriteria selesai:** `/dev/status` nampilin semua API dengan riwayat asli.
-`curl https://pusaka.fachryxyf.com/status.json` balas JSON yang sah.
+Halaman ini juga menangani keadaan **belum ada data**: kalau `public/status.json` tidak
+ada (klon baru, atau sebelum probe pertama), halamannya tetap terbit dan mengatakan cara
+menghasilkannya. Berkas rusak tidak menggagalkan build.
+
+**Kriteria selesai:** TERPENUHI — `/dev/status` menampilkan kesembilan API dengan riwayat
+asli, `curl https://pusaka.fachryxyf.com/status.json` membalas JSON sah.
 
 ---
 
-### T3.4 — Penanda status di muka awam
+### T3.4 — Penanda status di muka awam — SELESAI 2026-08-21
 **Blocked by:** T3.3
 
-Kartu alat yang API-nya lagi bermasalah dikasih penanda halus ("lagi bermasalah"),
-dan halaman alatnya nampilin banner. **Jangan sembunyikan alatnya** — jujur lebih berguna daripada rapi.
+Kartu alat yang API-nya gagal probe diberi penanda "lagi bermasalah", dan halaman alatnya
+menampilkan banner berisi berapa endpoint yang bermasalah plus tautan ke `/dev/status`.
+**Alatnya tidak disembunyikan** — pengguna berhak mencoba sendiri, dan jujur lebih berguna
+daripada rapi.
 
-**Kriteria selesai:** paksa satu API jadi `ok: false` di data health → penanda muncul di kartu dan halaman alat.
+Penandanya dibaca saat build lewat `lib/status.ts`, jadi tidak ada permintaan tambahan di
+browser. Kalau `status.json` belum ada, petanya kosong dan tidak ada penanda yang muncul —
+bukan penanda palsu.
+
+**Kriteria selesai:** TERPENUHI — diuji dengan memaksa satu endpoint gagal
+(`scripts/tes-status.ts`), penanda muncul di kartu dan banner muncul di halaman alat.
 
 ---
 

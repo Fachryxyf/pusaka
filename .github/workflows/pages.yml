@@ -3,11 +3,9 @@ name: Deploy ke GitHub Pages
 on:
   push:
     branches: [xyf]
-  # Tiap 6 jam: menyegarkan snapshot mirror di produksi tanpa perlu ada push.
-  # Jangan lebih sering — banyak API ini dibiayai developernya dari kantong sendiri
-  # (SPEC §9).
-  schedule:
-    - cron: '17 */6 * * *'
+  # Penyegaran berkala ditangani probe.yml, yang juga menjalankan mirror lalu
+  # men-deploy. Dua workflow dengan jadwal sendiri hanya akan berebut concurrency
+  # group yang sama.
   workflow_dispatch:
 
 permissions:
@@ -36,6 +34,10 @@ jobs:
       # balik. Artinya workflow ini tidak butuh izin tulis sama sekali, dan
       # data di produksi selalu semuda deploy terakhir.
       - run: npm run mirror
+      # Probe juga dijalankan di sini, kalau tidak status.json akan HILANG dari
+      # artefak tiap kali ada push — dan bersamanya seluruh riwayat, karena
+      # riwayat disimpan di dalam berkas itu (SPEC §3.1).
+      - run: npm run probe
       - run: npm run build
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
