@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import type { Api } from '@/registry/schema'
 import { useApi } from '@/lib/useApi'
 import { BannerMirror, Galat, Kerangka, Kosong } from '@/komponen/keadaan'
+import { Pilih } from '@/komponen/Pilih'
 
 // Response dibungkus {statusCode, message, data, meta} — isinya di data (REFERENCE.md).
 type Wilayah = { code: string; name: string }
@@ -81,37 +82,40 @@ function Pemilih({
 
   return (
     <div className="space-y-1">
-      <label htmlFor={id} className="block text-sm font-medium">
-        {label}
-      </label>
-
       {sumber === 'mirror' && <BannerMirror per={per} />}
 
       {!aktif ? (
-        <p className="rounded-lg border border-dashed border-zinc-300 px-3 py-2 text-sm text-zinc-500 dark:border-zinc-700">
-          Pilih tingkat di atasnya dulu.
-        </p>
+        <div className="space-y-1">
+          <span className="block text-sm font-medium text-zinc-500">{label}</span>
+          <p className="rounded-lg border border-dashed border-zinc-300 px-3 py-2 text-sm text-zinc-500 dark:border-zinc-700">
+            Pilih tingkat di atasnya dulu.
+          </p>
+        </div>
       ) : loading ? (
-        <Kerangka baris={1} />
+        <div className="space-y-1">
+          <span className="block text-sm font-medium">{label}</span>
+          <Kerangka baris={1} />
+        </div>
       ) : error ? (
-        <Galat pesan={error} onUlangi={ulangi} />
+        <div className="space-y-1">
+          <span className="block text-sm font-medium">{label}</span>
+          <Galat pesan={error} onUlangi={ulangi} />
+        </div>
       ) : daftar.length === 0 ? (
-        <Kosong pesan={`Tidak ada ${label.toLowerCase()} untuk pilihan ini.`} />
+        <div className="space-y-1">
+          <span className="block text-sm font-medium">{label}</span>
+          <Kosong pesan={`Tidak ada ${label.toLowerCase()} untuk pilihan ini.`} />
+        </div>
       ) : (
         <>
-          <select
+          <Pilih
             id={id}
-            value={nilai}
-            onChange={(e) => onPilih(e.target.value)}
-            className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-base dark:border-zinc-700 dark:bg-zinc-900"
-          >
-            <option value="">— pilih {label.toLowerCase()} —</option>
-            {daftar.map((w) => (
-              <option key={w.code} value={w.code}>
-                {w.name}
-              </option>
-            ))}
-          </select>
+            label={label}
+            nilai={nilai}
+            opsi={daftar.map((w) => ({ nilai: w.code, label: w.name }))}
+            onPilih={onPilih}
+            placeholder={`Pilih ${label.toLowerCase()}`}
+          />
           <p className="text-xs text-zinc-500">
             {daftar.length} pilihan
             {terpotong && ` dari ${total} — daftar terpotong oleh paginasi API`}
@@ -123,21 +127,22 @@ function Pemilih({
 }
 
 function HasilKode({ kode }: { kode: string }) {
-  const [tersalin, setTersalin] = useState(false)
+  const [status, setStatus] = useState<'diam' | 'tersalin' | 'gagal'>('diam')
 
   useEffect(() => {
-    if (!tersalin) return
-    const t = setTimeout(() => setTersalin(false), 2000)
+    if (status === 'diam') return
+    const t = setTimeout(() => setStatus('diam'), 2500)
     return () => clearTimeout(t)
-  }, [tersalin])
+  }, [status])
 
   const salin = async () => {
     try {
       await navigator.clipboard.writeText(kode)
-      setTersalin(true)
+      setStatus('tersalin')
     } catch {
-      // Clipboard ditolak (izin atau konteks tak aman) — kodenya tetap terlihat
-      // dan bisa disalin manual, jadi tidak perlu galat yang mengagetkan.
+      // Clipboard bisa ditolak (izin, atau konteks tak aman seperti http://).
+      // Statusnya ditampilkan di halaman, bukan lewat alert() bawaan browser.
+      setStatus('gagal')
     }
   }
 
@@ -150,10 +155,14 @@ function HasilKode({ kode }: { kode: string }) {
           <button
             type="button"
             onClick={salin}
-            className="rounded-md border border-zinc-300 px-3 py-1.5 text-sm font-medium hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
+            className="fokus-cincin rounded-md border border-zinc-300 px-3 py-1.5 text-sm font-medium transition hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
           >
-            {tersalin ? 'Tersalin' : 'Salin'}
+            {status === 'tersalin' ? 'Tersalin' : 'Salin'}
           </button>
+          {/* Status diumumkan ke pembaca layar tanpa memindahkan fokus. */}
+          <span role="status" aria-live="polite" className="text-sm text-zinc-600 dark:text-zinc-400">
+            {status === 'gagal' ? 'Tidak bisa menyalin otomatis — salin manual saja.' : ''}
+          </span>
         </div>
       ) : (
         <p className="mt-1 text-sm text-zinc-500">Pilih minimal satu tingkat.</p>

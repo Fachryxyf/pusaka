@@ -10,7 +10,17 @@ upstreamName: Nama Provinsi, Kota, Kabupaten Seluruh Indonesia
 auth: none
 cors: open
 baseUrl: 'https://www.emsifa.com'
-mirror: true
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: 'https://github.com/emsifa/api-wilayah-indonesia'
+  atribusiWajib: true
+  atribusi: 'api-wilayah-indonesia oleh Muhammad Syifa'
+  syaratUrl: null
+  redistribusi: unknown
+  kebijakanMirror: 'TIDAK - repo sumbernya tidak memuat berkas lisensi sama sekali, jadi tanpa lisensi berarti hak salin tidak diberikan. mirror diubah ke false pada 2026-08-20 dan snapshotnya dihapus. API ini juga tidak dipakai alat mana pun.'
+  batasAkses: null
+  diperiksa: '2026-08-20'
 endpoints:
   - id: provinsi
     method: GET

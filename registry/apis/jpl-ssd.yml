@@ -11,6 +11,16 @@ auth: none
 cors: none
 baseUrl: 'https://ssd-api.jpl.nasa.gov'
 mirror: true
+provenance:
+  lisensi: 'NASA public domain (tidak dinyatakan sebagai lisensi formal)'
+  sumberLisensi: 'https://ssd.jpl.nasa.gov/about/'
+  atribusiWajib: true
+  atribusi: 'Solar System Dynamics, Jet Propulsion Laboratory - https://ssd.jpl.nasa.gov'
+  syaratUrl: 'https://ssd.jpl.nasa.gov/about/'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh - JPL meminta sitasi, bukan melarang penyalinan. Mirror WAJIB di sini karena API-nya tanpa CORS, jadi browser tidak punya jalan lain.'
+  batasAkses: null
+  diperiksa: '2026-08-20'
 endpoints:
   - id: pendekatan
     method: GET

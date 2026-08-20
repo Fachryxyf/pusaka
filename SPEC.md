@@ -81,9 +81,10 @@ GitHub Pages hanya menyajikan berkas. **Tidak ada sisi server**, jadi:
 Karena itu `next.config.ts` memakai `output: 'export'` dan `trailingSlash: true`
 (Pages menyajikan `/alat/gempa/index.html` untuk `/alat/gempa`).
 
-**Mirror pindah ke `public/mirror/<slug>.json`, bukan `data/mirror/` seperti §4.**
-Alasannya: di ekspor statis hanya isi `public/` yang bisa diambil browser, dan lapis 3
-dijalankan di browser. `data/health/` tetap di tempatnya karena hanya dibaca saat build.
+**Mirror ada di `public/mirror/<slug>.json`** — rancangan awal menaruhnya di
+`data/mirror/`, dan §4 sudah diperbarui. Alasannya: lapis 3 dijalankan di browser, dan di
+ekspor statis hanya isi `public/` yang bisa diambil browser. `data/health/` tetap di
+tempatnya karena hanya dibaca saat build.
 
 Kalau suatu saat proxy sungguh dibutuhkan (misalnya untuk API `cors: none` yang
 berparameter, yang tidak bisa di-mirror), pilihan hostingnya kembali ke Cloudflare
@@ -125,9 +126,13 @@ somethinggood/
 │   ├── mirror.ts                   # snapshot data statis
 │   └── sync-upstream.ts            # tarik & diff data farizdotid
 │
+├── public/
+│   ├── mirror/<slug>.json          # snapshot data — alasan lokasinya di §3.1
+│   ├── CNAME                       # domain kustom GitHub Pages
+│   └── .nojekyll                   # supaya _next/ tidak dibuang Jekyll
+│
 ├── data/
-│   ├── health/<slug>.json          # riwayat uptime, rolling 90 hari
-│   └── mirror/<slug>.json          # snapshot data
+│   └── health/<slug>.json          # riwayat uptime, rolling 90 hari (dibaca saat build)
 │
 └── .github/workflows/
     ├── probe.yml                   # tiap 6 jam
@@ -182,6 +187,40 @@ export const ApiSchema = z.object({
 export type Api = z.infer<typeof ApiSchema>
 export type Endpoint = z.infer<typeof EndpointSchema>
 ```
+
+### Provenance — hak pakai data juga tidak boleh ditebak
+
+Ditambahkan 2026-08-20. Seluruh arsitektur ini dibangun di atas prinsip "jangan percaya
+sesuatu hanya karena kelihatannya benar" — dan itu diterapkan ke status API, bentuk
+response, status code, paginasi, nama field, dan CORS. Prinsip yang sama berlaku untuk
+**hak penggunaan data**, yang sebelumnya luput.
+
+```ts
+export const ProvenanceSchema = z.object({
+  lisensi: z.string().default('unknown'),           // SPDX id, nama lisensi, atau 'unknown'
+  sumberLisensi: z.url().nullable().default(null),  // halaman tempat lisensi itu dibaca
+  atribusiWajib: z.boolean().default(false),
+  atribusi: z.string().nullable().default(null),
+  syaratUrl: z.url().nullable().default(null),
+  redistribusi: z.enum(['boleh', 'tidak-boleh', 'unknown']).default('unknown'),
+  kebijakanMirror: z.string().default('unknown'),
+  batasAkses: z.string().nullable().default(null),
+  diperiksa: z.string().nullable().default(null),   // tanggal ISO pemeriksaan
+})
+```
+
+Dua aturan keras:
+
+1. **`unknown` adalah jawaban yang sah dan lebih baik daripada tebakan.** Kalau penerbit
+   tidak menyatakan lisensi, tulis `unknown` — jangan menuliskan lisensi yang "terdengar
+   aman". Ini persis aturan §12 yang diterapkan ke ranah hukum.
+2. **API dengan `mirror: true` wajib mengisi `kebijakanMirror`.** Ini dipaksakan oleh
+   `.refine()` di skema: `unknown` bikin validasi gagal, jadi build ikut gagal. Menyalin
+   data orang tanpa dasar tidak boleh, dan `wilayah-emsifa` sudah dimatikan mirror-nya
+   gara-gara aturan ini (repo sumbernya tanpa berkas lisensi).
+
+**Ketersediaan bukan izin.** API yang hidup tidak otomatis boleh jadi alat di muka awam.
+Batas lengkapnya di [`NOTICE.md`](./NOTICE.md).
 
 **`contohPath` itu wajib dan penting.** Itu yang dipanggil `probe.ts`. Tanpa itu, probe ga tahu
 harus manggil apa, dan kita balik jadi seburuk `check.ts` upstream.
@@ -427,7 +466,7 @@ dipecah jadi task di `TASKS.md` **TAHAP 7**.
 > `api-translate.azharimm.site` tidak bisa dijangkau.
 
 Buat **Libur Nasional**: sumber aslinya mati. Kemungkinan besar harus di-mirror manual
-dari SKB 3 Menteri sebagai `data/mirror/libur-nasional.json`. Itu justru contoh terbaik
+dari SKB 3 Menteri sebagai `public/mirror/libur-nasional.json`. Itu justru contoh terbaik
 kenapa lapisan mirror ada.
 
 ---

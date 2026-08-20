@@ -11,6 +11,16 @@ auth: none
 cors: open
 baseUrl: 'https://api.myquran.com'
 mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: true
+  atribusi: 'api.myquran.com'
+  syaratUrl: null
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi yang bisa ditemukan di api.myquran.com maupun dokumentasi Postman-nya. Karena itu mirror tidak diaktifkan meski daftar kotanya statis.'
+  batasAkses: null
+  diperiksa: '2026-08-20'
 endpoints:
   - id: daftarKota
     method: GET

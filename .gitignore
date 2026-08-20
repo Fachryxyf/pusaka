@@ -10,36 +10,57 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
-
-# next.js
+# hasil build
 /.next/
 /out/
-
-# production
 /build
+/dist
 
-# misc
-.DS_Store
-*.pem
+# env & rahasia
+.env
+.env.*
+!.env.example
 
-# debug
+# log
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# tes & liputan
+/coverage
 
-# vercel
-.vercel
-
-# typescript
+# cache alat
+.turbo/
+.cache/
+.eslintcache
 *.tsbuildinfo
 next-env.d.ts
 
-# pusaka
-/node_modules
-.env*
+# OS & editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# sementara
+/tmp/
+/temp/
+*.tmp
+*.pem
+
+# platform lain
+.vercel
+
+# CATATAN — yang SENGAJA TIDAK diabaikan, jangan ditambahkan ke atas:
+#
+#   public/mirror/    snapshot mirror adalah artefak yang memang di-commit dan
+#                     dideploy. Mengabaikannya bikin lapis 3 jalan di lokal tapi
+#                     tidak pernah ada di produksi (SPEC §8).
+#   data/health/      riwayat uptime rolling 90 hari — histori inilah gunanya.
+#   registry/apis/    sumber kebenaran, bukan berkas generated.
+#   *.md              dokumen riset adalah isi utama project ini, termasuk catatan
+#                     API yang mati dan jebakan yang ditemukan. Jangan disembunyikan
+#                     supaya repo kelihatan bersih.

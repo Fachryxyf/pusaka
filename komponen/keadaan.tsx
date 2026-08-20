@@ -23,7 +23,7 @@ export function Galat({ pesan, onUlangi }: { pesan: string; onUlangi?: () => voi
         <button
           type="button"
           onClick={onUlangi}
-          className="mt-3 rounded-md border border-amber-400 px-3 py-1.5 font-medium hover:bg-amber-100 dark:hover:bg-amber-900"
+          className="fokus-cincin mt-3 rounded-md border border-amber-400 px-3 py-1.5 font-medium transition hover:bg-amber-100 dark:hover:bg-amber-900"
         >
           Coba lagi
         </button>

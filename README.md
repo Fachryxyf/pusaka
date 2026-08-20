@@ -8,15 +8,17 @@ plus katalog API lokal yang statusnya dipantau otomatis.**
 [![Deploy](https://github.com/Fachryxyf/pusaka/actions/workflows/pages.yml/badge.svg)](https://github.com/Fachryxyf/pusaka/actions/workflows/pages.yml)
 [![Mirror](https://github.com/Fachryxyf/pusaka/actions/workflows/mirror.yml/badge.svg)](https://github.com/Fachryxyf/pusaka/actions/workflows/mirror.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
-[![Data: CC BY 4.0](https://img.shields.io/badge/data-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![Katalog: CC BY 4.0](https://img.shields.io/badge/katalog-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 [![Stack](https://img.shields.io/badge/stack-Next.js%2016%20%2B%20TypeScript%20%2B%20Tailwind%204-black.svg)](#struktur)
-[![API terverifikasi](https://img.shields.io/badge/API%20terverifikasi-7-success.svg)](./registry/apis)
-[![Alat](https://img.shields.io/badge/alat-3-success.svg)](./alat)
+[![API terdaftar](https://img.shields.io/badge/API%20terdaftar-7-informational.svg)](./registry/apis)
+[![Alat](https://img.shields.io/badge/alat-3-informational.svg)](./alat)
 [![Tahap](https://img.shields.io/badge/tahap-2%20dari%207-yellow.svg)](./TASKS.md)
+[![Lisensi data](https://img.shields.io/badge/data-lihat%20NOTICE-lightgrey.svg)](./NOTICE.md)
 
 [Situs](https://pusaka.fachryxyf.com) · [Spesifikasi](./SPEC.md) · [Daftar pekerjaan](./TASKS.md) ·
-[Bentuk response API](./REFERENCE.md) · [Registry](./registry/apis) · [Backlog 151 API](./BACKLOG-API.md)
+[Bentuk response API](./REFERENCE.md) · [Registry](./registry/apis) ·
+[Backlog 151 API](./BACKLOG-API.md) · [Batas lisensi](./NOTICE.md) · [Kontribusi](./CONTRIBUTING.md)
 
 </div>
 
@@ -32,6 +34,23 @@ sungguh dipanggil, ambang ukuran response untuk menangkap scraper mati, dan snap
 supaya alatnya tetap jalan saat sumbernya tumbang.
 
 Rinciannya di [`SPEC.md`](./SPEC.md) §2.
+
+## Soal angka dan tanggal
+
+Angka di badge adalah **jumlah yang terdaftar di registry**, bukan klaim bahwa semuanya
+hidup saat kamu membacanya. Status API berubah terus — itu justru premis project ini
+(lihat [`SPEC.md`](./SPEC.md) §2).
+
+| Yang diklaim | Artinya |
+|---|---|
+| 7 API terdaftar | ada 7 berkas di `registry/apis/`, semuanya pernah dipanggil sungguhan dan lolos validasi skema |
+| 22 API di seed | [`REGISTRY-SEED.md`](./REGISTRY-SEED.md) memuat 22 blok YAML / 43 endpoint siap tempel |
+| 151 API di backlog | inventaris upstream, bertingkat menurut kesiapan di [`BACKLOG-API.md`](./BACKLOG-API.md) |
+| Snapshot riset | **6 Agustus 2026** untuk katalog awal, **20 Agustus 2026** untuk NASA/JPL, batas paginasi idn-area, dan seluruh data lisensi |
+
+Status hidup/mati yang sesungguhnya baru akan punya stempel waktu setelah Tahap 3
+(probe otomatis tiap 6 jam + `status.json` publik). Sampai itu ada, jangan baca badge
+sebagai health check.
 
 ## Alat yang sudah jalan
 
@@ -81,6 +100,15 @@ push ke `xyf`. Tidak ada sisi server, jadi tidak ada `/api/proxy` — API tanpa 
 NASA/JPL dilayani dari `public/mirror/`, yang disegarkan tiap 6 jam oleh workflow terpisah.
 Alasan lengkapnya di [`SPEC.md`](./SPEC.md) §3.1.
 
+## Keamanan & kontribusi
+
+- Kerentanan: **jangan buka issue publik** — lihat [`SECURITY.md`](./SECURITY.md).
+- Mau ikut ngerjain: [`CONTRIBUTING.md`](./CONTRIBUTING.md), dan baca
+  [`SPEC.md`](./SPEC.md) §12 dulu.
+- CI menjalankan lint, tes registry, dan build pada tiap pull request. Tes yang
+  memanggil API pihak ketiga dipisah supaya BMKG yang sedang mati tidak membuat
+  seluruh CI merah.
+
 ## Aturan yang tidak boleh dilanggar
 
 Empat aturan ini lahir dari jebakan yang sudah menelan korban waktu riset:
@@ -95,11 +123,20 @@ Empat aturan ini lahir dari jebakan yang sudah menelan korban waktu riset:
 
 ## Lisensi
 
-Kode di repo ini: [MIT](./LICENSE).
+Repo ini memuat empat jenis bahan dengan status hukum yang berbeda, dan MIT **tidak**
+berlaku untuk semuanya:
 
-Katalog API (`registry/apis/*.yml` dan dokumen riset) diturunkan dari karya ber-lisensi
-CC BY 4.0 — lihat Atribusi di bawah. Data yang diambil saat alat dijalankan tetap milik
-penerbit aslinya dan tidak dilisensikan ulang oleh repo ini.
+| Bahan | Status |
+|---|---|
+| Kode (`app/`, `alat/`, `lib/`, `komponen/`, `scripts/`) | [MIT](./LICENSE) |
+| Katalog turunan (`BACKLOG-API.md`, `REGISTRY-SEED.md`, `registry/apis/`) | CC BY 4.0, atribusi ke farizdotid |
+| Snapshot (`public/mirror/`) | milik penerbit aslinya, **tidak** dilisensikan ulang |
+| Data saat alat dijalankan | milik penerbit aslinya |
+
+Rinciannya, termasuk dasar hak salin tiap mirror, ada di [`NOTICE.md`](./NOTICE.md).
+Tiap API di registry punya field `provenance` yang mencatat lisensi, atribusi yang
+diwajibkan, dan tanggal pemeriksaannya. Kalau penerbit tidak menyatakan lisensi, isinya
+`unknown` — bukan tebakan.
 
 ## Atribusi
 

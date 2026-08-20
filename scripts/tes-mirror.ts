@@ -1,7 +1,7 @@
 // Memeriksa berkas mirror yang sungguh ada di public/mirror terhadap registry.
 // Mirror yang bentuknya salah bikin lapis 3 gagal diam-diam saat sumber aslinya mati.
 import assert from 'node:assert/strict'
-import { existsSync, readFileSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { muatSemuaApi } from '@/lib/registry'
 
@@ -18,6 +18,28 @@ const perluMirror = muatSemuaApi().filter((a) => a.mirror)
 
 tes('ada API yang ditandai mirror: true', () => {
   assert.ok(perluMirror.length > 0)
+})
+
+tes('tiap API mirror punya dasar hak salin yang tercatat', () => {
+  for (const api of perluMirror) {
+    assert.notEqual(
+      api.provenance.kebijakanMirror,
+      'unknown',
+      `${api.slug}: mirror true tanpa provenance.kebijakanMirror`,
+    )
+    assert.notEqual(
+      api.provenance.redistribusi,
+      'tidak-boleh',
+      `${api.slug}: penerbitnya melarang redistribusi, mirror harus dimatikan`,
+    )
+  }
+})
+
+tes('tidak ada snapshot yatim di public/mirror', () => {
+  const bolehAda = new Set(perluMirror.map((a) => `${a.slug}.json`))
+  const diDisk = existsSync(DIR) ? readdirSync(DIR).filter((n) => n.endsWith('.json')) : []
+  const yatim = diDisk.filter((n) => !bolehAda.has(n))
+  assert.deepEqual(yatim, [], `snapshot tanpa dasar di registry: ${yatim.join(', ')}`)
 })
 
 for (const api of perluMirror) {

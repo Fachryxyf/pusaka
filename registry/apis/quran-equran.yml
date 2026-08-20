@@ -11,6 +11,16 @@ auth: none
 cors: open
 baseUrl: 'https://equran.id'
 mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: 'https://equran.id/terms'
+  atribusiWajib: true
+  atribusi: 'EQuran.id'
+  syaratUrl: 'https://equran.id/terms'
+  redistribusi: 'tidak-boleh'
+  kebijakanMirror: 'TIDAK - syarat layanan pasal 7 menyatakan teks Al-Quran bebas dipakai, TAPI terjemahan, tafsir, dan audio yang mereka kembangkan dilindungi hak cipta. Jadi menyalinnya ke mirror tidak boleh.'
+  batasAkses: null
+  diperiksa: '2026-08-20'
 endpoints:
   - id: daftarSurat
     method: GET

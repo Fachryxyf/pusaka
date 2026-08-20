@@ -10,7 +10,7 @@
 |---|---|---|
 | [`SPEC.md`](./SPEC.md) | Kenapa project ini ada, arsitektur, kontrak data, aturan keras | Sekali di awal, lalu rujuk sesuai kebutuhan |
 | **[`REFERENCE.md`](./REFERENCE.md)** | **Bentuk response asli tiap endpoint** — nama field, tipe, contoh nilai | **Tiap kali nulis kode yang menyentuh data API** |
-| **[`REGISTRY-SEED.md`](./REGISTRY-SEED.md)** | **19 file YAML siap tempel**, 33 endpoint, sudah divalidasi | T1.4 dan T7.4 — salin, jangan tulis ulang |
+| **[`REGISTRY-SEED.md`](./REGISTRY-SEED.md)** | **22 file YAML siap tempel**, 43 endpoint, sudah divalidasi | T1.4 dan T7.4 — salin, jangan tulis ulang |
 | **[`UI-SPEC.md`](./UI-SPEC.md)** | **Tampilan tiap alat** — tata letak, pengikatan field, kasus tepi | Tahap 2, sebelum menulis komponen alat |
 | [`BACKLOG-API.md`](./BACKLOG-API.md) | Inventaris 151 API, bertingkat menurut kesiapan | Tahap 7, dan tiap kali nambah API |
 | `TASKS.md` (ini) | Urutan pekerjaan + kriteria selesai | Terus-menerus |
@@ -124,7 +124,7 @@ Tambahkan satu pemeriksaan yang tidak tercakup zod tapi penting:
 sebaliknya.** Tanpa ini, playground bakal merender form yang tidak cocok dengan URL-nya,
 atau mengirim URL yang masih menyisakan `{placeholder}` mentah.
 
-> Pemeriksaan yang sama sudah dijalankan terhadap `REGISTRY-SEED.md` — 18 API / 29 endpoint
+> Pemeriksaan yang sama sudah dijalankan terhadap `REGISTRY-SEED.md` — 22 API / 43 endpoint
 > lolos semua. Jadi kalau tesmu menolak isi seed, tesnya yang keliru, bukan datanya.
 
 Jalankan sebagai bagian dari `npm run build` (atau pre-build script) supaya YAML rusak
@@ -136,7 +136,7 @@ ga bisa lolos ke produksi.
 
 # TAHAP 2 — Muka awam, 6 alat
 
-Target akhir tahap: situs live di Cloudflare Pages dengan 6 alat jalan.
+Target akhir tahap: situs live di GitHub Pages dengan 6 alat jalan.
 **Sudah layak dibagikan ke publik sejak T2.8** — tiga alat sisanya menyusul di atasnya.
 
 > Tampilan tiap alat sudah dispesifikasikan lengkap di [`UI-SPEC.md`](./UI-SPEC.md),
@@ -247,16 +247,28 @@ Tanggal satu digit (mis. 6 Agustus) tetap benar — ini kasus uji yang gampang b
 
 ---
 
-### T2.8 — Deploy ke Cloudflare Pages
+### T2.8 — Deploy ke GitHub Pages — SELESAI 2026-08-20
 **Blocked by:** T2.7
 
-Ikuti SPEC §3 — **Cloudflare, bukan Vercel**, dan alasannya ada di SPEC §2.
+> **Berubah dari rencana awal.** Task ini semula berbunyi "Deploy ke Cloudflare Pages"
+> dengan `@cloudflare/next-on-pages`. Yang dikerjakan adalah **GitHub Pages** karena
+> domain `pusaka.fachryxyf.com` sudah terpasang di sana. Alasan intinya tidak berubah —
+> hosting harus **gagal tertutup**, bukan menagih (SPEC §2, §3).
+>
+> Konsekuensinya dicatat di **SPEC §3.1** dan wajib dibaca sebelum menyentuh
+> `lib/client.ts`: tidak ada sisi server, jadi **`/api/proxy` (SPEC §10) tidak ada**, dan
+> API tanpa CORS dilayani lapis 3 mirror. Kalau proxy suatu saat sungguh dibutuhkan,
+> hostingnya kembali ke Cloudflare dan SPEC §10 berlaku lagi apa adanya.
 
-- Pasang `@cloudflare/next-on-pages`, sesuaikan build command
-- Sambungkan repo GitHub, aktifkan deploy otomatis dari `main`
-- Cek situs produksinya di HP
+Yang sudah terpasang:
 
-**Kriteria selesai:** situs live di URL publik, ketiga alat jalan di produksi (bukan cuma lokal).
+- `output: 'export'` + `trailingSlash: true` + `images.unoptimized` di `next.config.ts`
+- `public/CNAME` berisi domain, `public/.nojekyll` supaya `_next/` tidak dibuang Jekyll
+- `.github/workflows/pages.yml` — deploy tiap push ke `xyf`
+- `.github/workflows/mirror.yml` — segarkan `public/mirror/` tiap 6 jam
+
+**Kriteria selesai:** TERPENUHI — situs live di https://pusaka.fachryxyf.com, alat Gempa,
+Objek Dekat Bumi, dan Wilayah jalan di produksi.
 
 ---
 
@@ -366,11 +378,14 @@ Jalankan probe, commit `data/health/` balik ke repo. **Jangan lebih sering dari 
 **Blocked by:** T3.2
 
 - `app/dev/status/page.tsx` — tabel semua API: status sekarang, uptime 30 hari, latency rata-rata, riwayat batang
-- `app/api/status/route.ts` — `status.json` publik, machine-readable, `Access-Control-Allow-Origin: *`
-  (kita ga boleh bikin dosa yang sama seperti API yang kita pantau)
+- **`public/status.json`** — status publik, machine-readable, ditulis oleh workflow probe.
+  Rancangan awal memakai `app/api/status/route.ts`, tapi route handler tidak ikut terekspor
+  di ekspor statis (SPEC §3.1), jadi berkasnya digenerate saat build. GitHub Pages
+  menyajikan `Access-Control-Allow-Origin: *` secara bawaan — sudah diverifikasi —
+  jadi kita tidak bikin dosa yang sama seperti API yang kita pantau.
 
-**Kriteria selesai:** `/dev/status` nampilin kelima API dengan riwayat asli.
-`curl <situs>/api/status` balas JSON yang sah.
+**Kriteria selesai:** `/dev/status` nampilin semua API dengan riwayat asli.
+`curl https://pusaka.fachryxyf.com/status.json` balas JSON yang sah.
 
 ---
 
@@ -418,7 +433,7 @@ Di halaman detail: form params → tombol Kirim → tampilkan status, latency, d
 ber-syntax-highlight. Plus tombol **Salin sebagai `curl`** dan **Salin sebagai `fetch`**.
 
 Lewat `lib/client.ts` yang sama (jangan bikin jalur fetch kedua). Untuk API `cors: locked`/`none`,
-tombol Kirim dinonaktifkan dulu sampai proxy jadi (T5.1) — kasih keterangan kenapa.
+tombol Kirim dinonaktifkan dulu karena proxy ditunda (T5.1) — kasih keterangan kenapa.
 
 **Kriteria selesai:** kirim request ke `gempa-bmkg`/`autogempa` di browser → response asli tampil.
 `curl` hasil salinan bisa ditempel ke terminal dan jalan.
@@ -429,54 +444,89 @@ tombol Kirim dinonaktifkan dulu sampai proxy jadi (T5.1) — kasih keterangan ke
 
 Target akhir tahap: alat tetap hidup walau API sumbernya mati. Ini fitur pembeda utama platform.
 
+**Status: lapis 3 sudah jalan (T5.3, T5.4). Lapis 2 ditunda — lihat catatan di bawah.**
+
 ---
 
-### T5.1 — Proxy
+> **Urutan tahap ini berubah pada 2026-08-20.** Lapis 3 (mirror) sudah dikerjakan lebih
+> awal — di luar urutan — karena `jpl-ssd` masuk registry dan API itu **tanpa CORS**,
+> jadi tidak ada jalan lain untuk memanggilnya dari browser. Lapis 2 (proxy) justru
+> mundur: ia butuh sisi server yang tidak ada di ekspor statis (SPEC §3.1).
+
+### T5.1 — Proxy — DITUNDA, butuh pindah hosting
 **Blocked by:** T4.3
 
 `app/api/proxy/route.ts`, ikuti **SPEC §10**.
 
-> **Allowlist itu wajib, bukan opsional.** Host yang boleh = kumpulan host `baseUrl` di registry.
-> Selain itu → 403. Open proxy bakal dipakai orang buat abuse dan bikin Worker kita diblokir.
+> **Tidak bisa dikerjakan di hosting sekarang.** GitHub Pages hanya menyajikan berkas;
+> route handler tidak ikut terekspor dan akan **gagal senyap di produksi**. Jangan
+> menulisnya sebelum hostingnya pindah — lihat SPEC §3.1.
+>
+> Kerjakan task ini hanya kalau muncul kebutuhan yang tidak bisa dijawab mirror, yaitu
+> **endpoint berparameter pada API tanpa CORS** (kombinasi paramnya tak terbatas, jadi
+> tidak bisa di-snapshot). Contoh yang sudah ada: `jpl-ssd/objek` (`/sbdb.api?sstr=`).
+> Kalau itu terjadi, hostingnya kembali ke Cloudflare Pages + Workers dan SPEC §10
+> berlaku apa adanya.
 
-Cuma GET · rate limit per IP · cache minimal 5 menit · jangan teruskan `Cookie`/`Authorization`.
+Saat dikerjakan nanti:
+**Allowlist itu wajib, bukan opsional.** Host yang boleh = kumpulan host `baseUrl` di
+registry. Selain itu → 403. Open proxy bakal dipakai orang buat abuse dan bikin Worker
+kita diblokir. Cuma GET · rate limit per IP · cache minimal 5 menit · jangan teruskan
+`Cookie`/`Authorization`.
 
 **Kriteria selesai:** proxy ke host yang terdaftar → berhasil.
 Proxy ke `https://example.com` → **403**. Ini tes keamanan, wajib lolos.
 
 ---
 
-### T5.2 — `client.ts` lapis 2
+### T5.2 — `client.ts` lapis 2 — DITUNDA bersama T5.1
 **Blocked by:** T5.1
 
 Rutekan API `cors: locked`/`none` lewat proxy secara otomatis berdasarkan field `cors` di registry.
 `sumber` jadi `'proxy'`. Aktifkan lagi tombol Kirim di playground untuk API tersebut.
 
+Sampai itu terjadi, `ambil()` mengarahkan API `cors: none` **langsung ke lapis 3** saat
+dipanggil dari browser, tanpa membuang satu putaran gagal lebih dulu.
+
 **Kriteria selesai:** daftarkan satu API tanpa CORS → jalan dari browser lewat proxy tanpa error CORS di console.
 
 ---
 
-### T5.3 — `scripts/mirror.ts` + workflow
-**Blocked by:** T5.2
+### T5.3 — `scripts/mirror.ts` + workflow — SELESAI 2026-08-20
+**Blocked by:** — (dikerjakan lebih awal, lihat catatan di atas)
 
-Untuk tiap API ber-`mirror: true`, ambil semua endpoint dan simpan ke `data/mirror/<slug>.json`
-beserta stempel waktu. `.github/workflows/mirror.yml` — mingguan, commit balik.
+Untuk tiap API ber-`mirror: true`, ambil semua endpoint tanpa parameter dan simpan ke
+**`public/mirror/<slug>.json`** beserta stempel waktu `per`.
 
-Mulai dari `wilayah-emsifa` (SPEC §6.2) — datanya statis dan jadi fondasi alat lain.
+> **Lokasinya `public/mirror/`** (rancangan awal menaruhnya di `data/mirror/`).
+> Lapis 3 dijalankan di browser, dan di ekspor statis hanya isi `public/` yang bisa
+> diambil browser. Lihat SPEC §3.1.
 
-**Kriteria selesai:** `npm run mirror` menghasilkan `data/mirror/wilayah-emsifa.json` yang isinya benar.
+Dua penjagaan yang wajib ada:
+- **Snapshot di bawah `minUkuranByte` ditolak.** Snapshot kosong lebih buruk daripada
+  tidak ada snapshot — ia menutupi kematian sumber, bukan menyelamatkannya.
+- **Wajib ada dasar hak salin.** API `mirror: true` tidak lolos validasi kalau
+  `provenance.kebijakanMirror` masih `unknown`. Menyalin data orang tanpa tahu haknya
+  tidak boleh — lihat [`NOTICE.md`](./NOTICE.md).
+
+`.github/workflows/mirror.yml` — tiap 6 jam, commit balik.
+
+**Kriteria selesai:** TERPENUHI — `npm run mirror` menghasilkan `public/mirror/jpl-ssd.json`
+dan `public/mirror/wilayah-idn-area.json`. Diuji oleh `scripts/tes-mirror.ts`.
 
 ---
 
-### T5.4 — `client.ts` lapis 3
+### T5.4 — `client.ts` lapis 3 — SELESAI 2026-08-20
 **Blocked by:** T5.3
 
-Kalau lapis 1 & 2 gagal, jatuh ke `data/mirror/<slug>.json`.
+Kalau lapis 1 gagal (dan lapis 2 belum ada), jatuh ke `public/mirror/<slug>.json`.
 Kembalikan `sumber: 'mirror'` + `per: '<tanggal>'`. UI **wajib** nampilin banner
 "Data per <tanggal> — sumber aslinya sedang bermasalah".
 
-**Kriteria selesai:** putus jaringan (atau paksa `baseUrl` ke host mati) → alat Wilayah
-**tetap jalan** pakai data mirror dan nampilin banner. Ini demo inti platform — pastikan mulus.
+**Kriteria selesai:** TERPENUHI — alat Objek Dekat Bumi berjalan **sepenuhnya** dari mirror
+di browser, karena `jpl-ssd` tanpa CORS.
+Yang **belum diuji**: paksa `baseUrl` alat Wilayah ke host mati, pastikan ia jatuh ke
+mirror dan banner muncul. Kerjakan ini sebelum menganggap lapis 3 tuntas.
 
 ---
 
@@ -485,6 +535,10 @@ Kembalikan `sumber: 'mirror'` + `per: '<tanggal>'`. UI **wajib** nampilin banner
 
 Riset endpoint aslinya dulu (SPEC §7 — jangan pakai path yang sudah tercatat gugur), verifikasi
 hidup + JSON, baru bikin YAML dan alatnya. Kandidat: Kode Pos, RS Rujukan.
+
+> Kode Pos ternyata **tidak** butuh proxy — `kodepos.vercel.app` CORS terbuka, jadi sudah
+> dijadwalkan sebagai T2.11. Yang sungguh butuh proxy tinggal API `cors: none` yang
+> berparameter.
 
 **Kriteria selesai:** minimal 1 alat baru live, lewat proxy, dan `ok: true` di probe.
 
@@ -637,10 +691,11 @@ Filter `auth: apikey` di `/dev` nampilin semuanya. Tombol Kirim di playground
 **13 sisanya sudah tersedia siap tempel di [`REGISTRY-SEED.md`](./REGISTRY-SEED.md)** —
 salin, jangan tulis ulang. Yang lima sudah dipasang di T1.4.
 
-Seed berisi 18 API / 29 endpoint, semuanya sudah lolos validasi skema termasuk
+Seed berisi 22 API / 43 endpoint, semuanya sudah lolos validasi skema termasuk
 pemeriksaan kecocokan `{placeholder}` dengan `params`.
 
-Yang **tanpa CORS** → set `cors: none`, wajib lewat proxy (sudah jadi di T5.1):
+Yang **tanpa CORS** → set `cors: none`. Selama proxy belum ada (T5.1 ditunda), API ini
+hanya bisa dipakai lewat mirror, dan itu cuma mungkin untuk endpoint tanpa parameter:
 Kunci Jawaban TTS · Lambang Daerah · Harga Emas · Kode Pos (nbc.vanmason).
 
 Dua catatan yang jangan dilewat:
@@ -736,7 +791,7 @@ karena risiko hukumnya. Boleh masuk katalog developer.
 Dari semua API yang terbukti hidup di T7.4–T7.7, pilih yang paling berguna buat orang awam
 dan bikin alatnya. Kandidat kuat berdasarkan yang sudah terverifikasi:
 
-- **Kode Pos** (tier A, lewat proxy) — sudah dijadwalkan di T5.5, pastikan tuntas
+- **Kode Pos** (tier A, CORS terbuka — tidak butuh proxy) — dijadwalkan di T2.11, pastikan tuntas
 - **Harga Emas** (tier B) — hosting di Cloudflare Workers, kecil kemungkinan mati
 - **Data Sekolah Indonesia** (tier B)
 - **Lambang Daerah** (tier A) — pelengkap visual buat alat Data Wilayah

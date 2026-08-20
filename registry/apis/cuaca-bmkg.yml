@@ -11,6 +11,16 @@ auth: none
 cors: open
 baseUrl: 'https://api.bmkg.go.id'
 mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: 'https://data.bmkg.go.id/prakiraan-cuaca/'
+  atribusiWajib: true
+  atribusi: 'BMKG (Badan Meteorologi, Klimatologi, dan Geofisika)'
+  syaratUrl: 'https://data.bmkg.go.id/prakiraan-cuaca/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - lisensi tidak dinyatakan. Prakiraan cuaca juga cepat kedaluwarsa, jadi mirror tidak berguna.'
+  batasAkses: '60 permintaan per menit per IP'
+  diperiksa: '2026-08-20'
 endpoints:
   - id: prakiraan
     method: GET

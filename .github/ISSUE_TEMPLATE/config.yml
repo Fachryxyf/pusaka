@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Laporan keamanan
+    url: https://github.com/Fachryxyf/pusaka/security/advisories/new
+    about: Jangan laporkan kerentanan lewat issue publik. Pakai jalur privat ini.

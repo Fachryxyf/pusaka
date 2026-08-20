@@ -11,6 +11,16 @@ auth: none
 cors: open
 baseUrl: 'https://idn-area.up.railway.app'
 mirror: true
+provenance:
+  lisensi: MIT
+  sumberLisensi: 'https://github.com/fityannugroho/idn-area'
+  atribusiWajib: true
+  atribusi: 'idn-area oleh Fityan Nugroho (MIT)'
+  syaratUrl: 'https://github.com/fityannugroho/idn-area'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh - repo sumbernya berlisensi MIT, yang mengizinkan penyalinan dengan pencantuman lisensi. Mirror dipakai karena host railway.app berisiko mati kena tagihan.'
+  batasAkses: null
+  diperiksa: '2026-08-20'
 endpoints:
   - id: provinsi
     method: GET

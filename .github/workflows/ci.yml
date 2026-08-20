@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [xyf]
+  pull_request:
+  workflow_dispatch:
+
+# Hanya baca. Pull request dari fork TIDAK boleh dapat izin tulis maupun akses rahasia.
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  periksa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      # Tanpa jaringan: registry, skema, provenance, dan bentuk berkas mirror.
+      - run: npm run tes
+      # build ikut menjalankan validasi registry, jadi YAML rusak tidak bisa lolos.
+      - run: npm run build
+
+  # Dipisah karena bergantung pada API pihak ketiga: kalau BMKG sedang mati, yang
+  # merah harus job ini saja, bukan seluruh CI.
+  api-hidup:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run tes:jaringan
