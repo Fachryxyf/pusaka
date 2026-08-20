@@ -441,7 +441,7 @@ sudah tercatat lengkap dengan base URL, path, dan status CORS di **`BACKLOG-API.
 | Sumber | Kenapa penting |
 |---|---|
 | `kodepos.vercel.app` | **Kode pos terbaik.** CORS `*`, punya `/search/?q=` dan `/detect/?latitude=&longitude=`. Jauh lebih baik dari `nbc.vanmason.web.id` yang tanpa CORS |
-| `logam-mulia-api.iamutaki.workers.dev` | Harga emas. Hosting di **Cloudflare Workers** → kecil kemungkinan mati kena tagihan, beda dari yang di Vercel |
+| `logam-mulia-api.iamutaki.workers.dev` | Harga emas. Hosting di **Cloudflare Workers** → kecil kemungkinan mati kena tagihan, beda dari yang di Vercel. **CORS terbuka** — diuji ulang 2026-08-21, dokumen lama salah menandainya tanpa CORS |
 | `quran-api-id.vercel.app` | Al-Qur'an lengkap, CORS `*`. Catatan: `/juz/{n}` rusak, `/surah` dan `/surah/{n}` sehat |
 | `kotonogi-api.vercel.app` | Hiragana/Katakana, CORS `*`, datanya besar dan lengkap |
 | `api-sekolah-indonesia.vercel.app` | Data sekolah se-Indonesia, CORS `*` |

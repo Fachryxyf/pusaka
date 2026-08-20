@@ -1,0 +1,42 @@
+slug: kotonogi
+nama: 'Kotonogi — Hiragana & Katakana'
+kategori: pendidikan
+deskripsi: Huruf Jepang beserta cara baca, gambar SVG, dan animasi urutan tulis.
+developer:
+  nama: soudayonee
+  profil: 'https://github.com/soudayonee'
+dokumentasi: 'https://github.com/soudayonee/kotonogi-api'
+upstreamName: Kotonogi API
+auth: none
+cors: open
+baseUrl: 'https://kotonogi-api.vercel.app'
+mirror: false
+provenance:
+  lisensi: MIT
+  sumberLisensi: 'https://github.com/soudayonee/kotonogi-api'
+  atribusiWajib: true
+  atribusi: 'kotonogi-api oleh soudayonee (MIT)'
+  syaratUrl: 'https://github.com/soudayonee/kotonogi-api'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh - repo sumbernya MIT. Belum diaktifkan karena belum ada alat yang memakainya.'
+  batasAkses: null
+  diperiksa: '2026-08-21'
+endpoints:
+  - id: hiraganaSatu
+    method: GET
+    path: '/hiragana/{romaji}'
+    deskripsi: Detail satu huruf hiragana.
+    params:
+      - nama: romaji
+        contoh: 'a'
+        wajib: true
+        keterangan: Romaji huruf yang dicari
+    contohPath: /hiragana/a
+    minUkuranByte: 204
+  - id: hirakata
+    method: GET
+    path: /hirakata
+    deskripsi: Semua hiragana + katakana (48 KB).
+    params: []
+    contohPath: /hirakata
+    minUkuranByte: 24883

@@ -1,0 +1,42 @@
+slug: pesantren
+nama: Pesantren se-Indonesia
+kategori: pendidikan
+deskripsi: Data pondok pesantren di seluruh Indonesia.
+developer:
+  nama: nasrul21
+  profil: 'https://github.com/nasrul21'
+dokumentasi: 'https://github.com/nasrul21/data-pesantren-indonesia'
+upstreamName: Pesantren se Indonesia
+auth: none
+cors: open
+baseUrl: 'https://api-pesantren-indonesia.vercel.app'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: 'https://github.com/nasrul21/data-pesantren-indonesia'
+  atribusiWajib: true
+  atribusi: 'data-pesantren-indonesia oleh Nasrul Umam'
+  syaratUrl: 'https://github.com/nasrul21/data-pesantren-indonesia'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - repo sumbernya tanpa berkas lisensi.'
+  batasAkses: null
+  diperiksa: '2026-08-21'
+endpoints:
+  - id: provinsi
+    method: GET
+    path: /provinsi.json
+    deskripsi: Daftar provinsi. Data statis — layak di-mirror.
+    params: []
+    contohPath: /provinsi.json
+    minUkuranByte: 563
+  - id: kabupaten
+    method: GET
+    path: '/kabupaten/{kodeProvinsi}.json'
+    deskripsi: Kabupaten dalam satu provinsi. Pakai kode provinsi 2 digit.
+    params:
+      - nama: kodeProvinsi
+        contoh: '32'
+        wajib: true
+        keterangan: Kode provinsi 2 digit
+    contohPath: /kabupaten/32.json
+    minUkuranByte: 460

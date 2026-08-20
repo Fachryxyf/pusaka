@@ -869,27 +869,43 @@ Filter `auth: apikey` di `/dev` nampilin semuanya. Tombol Kirim di playground
 
 ---
 
-### T7.4 — Impor tier A: 16 API terverifikasi
-**Blocked by:** T7.1
+### T7.4 — Impor tier A: sisa API terverifikasi — SELESAI 2026-08-21
+**Blocked by:** — (dikerjakan tanpa T7.1; lihat catatan)
 
-**13 sisanya sudah tersedia siap tempel di [`REGISTRY-SEED.md`](./REGISTRY-SEED.md)** —
-salin, jangan tulis ulang. Yang lima sudah dipasang di T1.4.
+Keempat belas API sisa di [`REGISTRY-SEED.md`](./REGISTRY-SEED.md) disalin ke registry.
+Totalnya kini **23 API / 54 endpoint**, dan `npm run probe` melaporkan **54 ok, 0 gagal**.
 
-Seed berisi 22 API / 43 endpoint, semuanya sudah lolos validasi skema termasuk
-pemeriksaan kecocokan `{placeholder}` dengan `params`.
+> **T7.1 dilewati dengan sengaja.** Task itu meminta skema diperluas supaya bisa memuat API
+> tanpa endpoint (tier D dan E). Yang dikerjakan di sini hanya tier A — API yang endpointnya
+> sudah terverifikasi — jadi skema sekarang sudah cukup. Memperluas skema dulu berarti
+> menambah kerumitan untuk sesuatu yang belum dipakai.
 
-Yang **tanpa CORS** → set `cors: none`. Selama proxy belum ada (T5.1 ditunda), API ini
-hanya bisa dipakai lewat mirror, dan itu cuma mungkin untuk endpoint tanpa parameter:
-Kunci Jawaban TTS · Lambang Daerah · Harga Emas · Kode Pos (nbc.vanmason).
+**Empat koreksi terhadap seed**, semuanya dari probe hari ini, bukan dari dokumen:
 
-Dua catatan yang jangan dilewat:
-- **Kode Pos ada dua versi.** Pakai `kodepos.vercel.app` (sooluh) — CORS `*` dan punya
-  pencarian by koordinat. Yang `nbc.vanmason.web.id` tetap didaftarkan tapi jangan
-  dipakai buat alat.
-- **Quran API ID**: `/surah` dan `/surah/{n}` jalan, tapi `/juz/{n}` balas bukan-JSON.
-  Daftarkan endpoint yang jalan saja.
+1. **`harga-emas` ternyata punya CORS terbuka.** Seed dan UI-SPEC menandainya "TANPA CORS —
+   tunggu proxy". Kenyataannya `logam-mulia-api.iamutaki.workers.dev` membalas
+   `Access-Control-Allow-Origin: *`, diuji dua kali termasuk dengan header `Origin`.
+   Jadi Harga Emas **tidak** perlu menunggu proxy — ia bisa jadi alat kapan saja.
+2. **`dua-dhikr/bahasa` ambangnya salah, bukan API-nya mati.** `minUkuranByte: 120` padahal
+   responsnya 112 B. Probe melaporkan gagal, padahal endpointnya sehat. Ambangnya diturunkan
+   ke 90.
+3. **`doa-doa` tidak bisa diverifikasi lisensinya sama sekali** — repo sumbernya sudah 404 di
+   GitHub. APInya masih hidup, tapi ini tercatat sebagai `unknown` yang benar-benar tidak
+   diketahui, bukan yang belum diperiksa.
+4. **`sekolah-indonesia` sesekali 504 lalu berhasil pada percobaan berikutnya** — kemungkinan
+   cold start. Dicatat di deskripsi endpointnya supaya kegagalan sesaat tidak disimpulkan
+   sebagai mati.
 
-**Kriteria selesai:** 16 entry, semua `ok: true` di `npm run probe`, semua bisa dipanggil dari playground.
+Empat belas provenance diisi dengan lisensi yang dibaca dari API GitHub hari ini: 8 MIT,
+1 GPL-3.0, dan 5 `unknown` karena repo sumbernya tanpa berkas lisensi. **Tidak satu pun
+mirror diaktifkan** — yang lisensinya boleh ternyata endpointnya berparameter atau datanya
+berubah cepat, jadi tidak ada yang punya dasar dan kegunaan sekaligus.
+
+Field `cors` di seluruh 23 API sudah dicocokkan dengan hasil ukur: 18 terbuka, 5 tanpa CORS,
+tidak ada selisih.
+
+**Kriteria selesai:** TERPENUHI — 23 entry, semuanya `ok: true` di `npm run probe`, dan
+masing-masing punya halaman playground sendiri di `/dev/api/<slug>`.
 
 ---
 

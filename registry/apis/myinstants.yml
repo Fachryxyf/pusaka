@@ -1,0 +1,35 @@
+slug: myinstants
+nama: MyInstants (unofficial)
+kategori: hiburan
+deskripsi: Papan tombol suara dari MyInstants. API tidak resmi.
+developer:
+  nama: abdipr
+  profil: 'https://github.com/abdipr'
+dokumentasi: 'https://github.com/abdipr/myinstants-api'
+upstreamName: MyInstants Unofficial REST API
+auth: none
+cors: open
+baseUrl: 'https://myinstants-api.vercel.app'
+mirror: false
+provenance:
+  lisensi: MIT
+  sumberLisensi: 'https://github.com/abdipr/myinstants-api'
+  atribusiWajib: true
+  atribusi: 'myinstants-api oleh abdipr (MIT)'
+  syaratUrl: 'https://github.com/abdipr/myinstants-api'
+  redistribusi: boleh
+  kebijakanMirror: 'TIDAK - API unofficial yang mengambil dari myinstants.com, dan berkas audionya milik pengunggah masing-masing.'
+  batasAkses: null
+  diperiksa: '2026-08-21'
+endpoints:
+  - id: detail
+    method: GET
+    path: '/detail?id={id}'
+    deskripsi: API tidak resmi — JANGAN dijadikan alat di muka awam (SPEC §13). Katalog developer saja.
+    params:
+      - nama: id
+        contoh: 'akh-26815'
+        wajib: true
+        keterangan: ID suara di MyInstants
+    contohPath: /detail?id=akh-26815
+    minUkuranByte: 307

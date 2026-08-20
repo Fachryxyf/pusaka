@@ -1,0 +1,31 @@
+slug: jakpost
+nama: Jakarta Post API
+kategori: berita
+deskripsi: Berita dari The Jakarta Post. Isi artikel dikembalikan dalam format markdown.
+developer:
+  nama: Faruq Maulana
+  profil: 'https://github.com/faruqmaulana'
+dokumentasi: 'https://github.com/faruqmaulana/JAKARTA-POST-API'
+upstreamName: Jakarta Post API
+auth: none
+cors: open
+baseUrl: 'https://jakpost.vercel.app'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: 'https://github.com/faruqmaulana/JAKARTA-POST-API'
+  atribusiWajib: true
+  atribusi: 'JAKARTA-POST-API oleh Faruq Maulana; isi berita milik The Jakarta Post'
+  syaratUrl: 'https://github.com/faruqmaulana/JAKARTA-POST-API'
+  redistribusi: unknown
+  kebijakanMirror: 'TIDAK - repo sumbernya tanpa berkas lisensi, dan isinya berita milik penerbitnya.'
+  batasAkses: null
+  diperiksa: '2026-08-21'
+endpoints:
+  - id: kategori
+    method: GET
+    path: /api/category
+    deskripsi: Daftar kategori berita yang tersedia.
+    params: []
+    contohPath: /api/category
+    minUkuranByte: 2867

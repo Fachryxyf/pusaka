@@ -91,6 +91,20 @@ menyentuh data API — endpoint mana yang kamu panggil sungguhan.
 - Jangan menaikkan frekuensi workflow mirror/probe di bawah 6 jam. Banyak API ini dibiayai
   developernya dari kantong sendiri.
 
+## Kalau kamu cuma punya lima menit
+
+Tiga hal ini berdampak besar dan tidak butuh menulis kode:
+
+1. **Lapor API yang mati.** Buka issue "API mati" dengan hasil `curl` dan tanggalnya. Status
+   API berubah terus, dan itu justru premis project ini.
+2. **Jawab satu lisensi yang `unknown`.** 12 dari 23 API di registry belum diketahui
+   lisensinya. Tiap satu yang terjawab menentukan boleh tidaknya datanya di-mirror — dan
+   mirror itulah yang membuat alat tetap jalan saat sumbernya mati.
+3. **Koreksi dokumen yang keliru.** Kalau kamu memanggil sebuah endpoint dan hasilnya berbeda
+   dari yang tertulis di `REFERENCE.md`, itu temuan yang berharga. Sudah beberapa kali terjadi:
+   `harga-emas` ditandai tanpa CORS padahal terbuka, dan `antara-news` ditandai mati padahal
+   hanya endpoint tanpa rubriknya yang 404.
+
 ## Lisensi kontribusi
 
 Dengan mengirimkan pull request, kamu setuju kontribusi kodemu dilisensikan MIT, dan

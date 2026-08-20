@@ -1,0 +1,31 @@
+slug: anitop
+nama: Anitop
+kategori: hiburan
+deskripsi: Chart musik anime dari Anitrendz. API tidak resmi.
+developer:
+  nama: Satya Wikananda
+  profil: 'https://github.com/satyawikananda'
+dokumentasi: 'https://github.com/satyawikananda/anitop'
+upstreamName: Anitop API / Anitrendz API (Un-official)
+auth: none
+cors: open
+baseUrl: 'https://anitop.vercel.app'
+mirror: false
+provenance:
+  lisensi: MIT
+  sumberLisensi: 'https://github.com/satyawikananda/anitop'
+  atribusiWajib: true
+  atribusi: 'anitop oleh Satya Wikananda (MIT)'
+  syaratUrl: 'https://github.com/satyawikananda/anitop'
+  redistribusi: boleh
+  kebijakanMirror: 'TIDAK - datanya berupa tangga lagu yang berubah terus, dan API ini unofficial (scraper). Tidak untuk alat awam.'
+  batasAkses: null
+  diperiksa: '2026-08-21'
+endpoints:
+  - id: musicChart
+    method: GET
+    path: /api/v1/music-chart
+    deskripsi: API tidak resmi — katalog developer saja, jangan dijadikan alat di muka awam.
+    params: []
+    contohPath: /api/v1/music-chart
+    minUkuranByte: 21299

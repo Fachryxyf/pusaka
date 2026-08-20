@@ -1,0 +1,49 @@
+slug: staticquran
+nama: Al-Qur'an staticquran
+kategori: agama-islam
+deskripsi: Al-Qur'an dengan pilihan qari untuk audio murottal.
+developer:
+  nama: rzkytmgr
+  profil: 'https://github.com/rzkytmgr'
+dokumentasi: 'https://github.com/rzkytmgr/quran-api'
+upstreamName: Quran API
+auth: none
+cors: open
+baseUrl: 'https://staticquran.vercel.app'
+mirror: false
+provenance:
+  lisensi: MIT
+  sumberLisensi: 'https://github.com/rzkytmgr/quran-api'
+  atribusiWajib: true
+  atribusi: 'quran-api oleh rzkytmgr (MIT)'
+  syaratUrl: 'https://github.com/rzkytmgr/quran-api'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh - repo sumbernya MIT. Belum diaktifkan; alat Al-Quran memakai equran.id.'
+  batasAkses: null
+  diperiksa: '2026-08-21'
+endpoints:
+  - id: qari
+    method: GET
+    path: /api/v1/reciters
+    deskripsi: Daftar qari untuk audio murottal.
+    params: []
+    contohPath: /api/v1/reciters
+    minUkuranByte: 665
+  - id: daftarSurat
+    method: GET
+    path: /api/v1/surah
+    deskripsi: 114 surat (64 KB).
+    params: []
+    contohPath: /api/v1/surah
+    minUkuranByte: 32716
+  - id: detailSurat
+    method: GET
+    path: '/api/v1/surah/{nomor}'
+    deskripsi: Detail satu surat.
+    params:
+      - nama: nomor
+        contoh: '1'
+        wajib: true
+        keterangan: Nomor surat 1-114
+    contohPath: /api/v1/surah/1
+    minUkuranByte: 1792

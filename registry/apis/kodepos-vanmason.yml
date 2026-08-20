@@ -1,0 +1,35 @@
+slug: kodepos-vanmason
+nama: Kode Pos (vanmason)
+kategori: lokasi
+deskripsi: Lookup kelurahan dan kecamatan dari sebuah kode pos.
+developer:
+  nama: Cain van Mason
+  profil: null
+dokumentasi: 'https://nbc.vanmason.web.id/service/kodepos/42173'
+upstreamName: Kode Pos
+auth: none
+cors: none
+baseUrl: 'https://nbc.vanmason.web.id'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: true
+  atribusi: 'nbc.vanmason.web.id'
+  syaratUrl: null
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada repo maupun pernyataan lisensi. Cadangan saja; alat Kode Pos memakai kodepos-sooluh yang CORS-nya terbuka.'
+  batasAkses: null
+  diperiksa: '2026-08-21'
+endpoints:
+  - id: cari
+    method: GET
+    path: '/service/kodepos/{kodepos}'
+    deskripsi: CADANGAN saja. Tanpa CORS. Untuk alat, pakai kodepos-sooluh.
+    params:
+      - nama: kodepos
+        contoh: '42173'
+        wajib: true
+        keterangan: Kode pos 5 digit
+    contohPath: /service/kodepos/42173
+    minUkuranByte: 307

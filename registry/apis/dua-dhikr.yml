@@ -1,0 +1,53 @@
+slug: dua-dhikr
+nama: 'Doa & Dzikir'
+kategori: agama-islam
+deskripsi: Kumpulan doa dan dzikir harian dalam beberapa bahasa.
+developer:
+  nama: fitrahive
+  profil: 'https://github.com/fitrahive'
+dokumentasi: 'https://github.com/fitrahive/dua-dhikr'
+upstreamName: 'Dua & Dhikr'
+auth: none
+cors: open
+baseUrl: 'https://dua-dhikr.vercel.app'
+mirror: false
+provenance:
+  lisensi: MIT
+  sumberLisensi: 'https://github.com/fitrahive/dua-dhikr'
+  atribusiWajib: true
+  atribusi: 'dua-dhikr oleh fitrahive (MIT)'
+  syaratUrl: 'https://github.com/fitrahive/dua-dhikr'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh - repo sumbernya MIT dan datanya statis. Belum diaktifkan karena belum ada alat yang memakainya.'
+  batasAkses: null
+  diperiksa: '2026-08-21'
+endpoints:
+  - id: bahasa
+    method: GET
+    path: /languages
+    deskripsi: Daftar bahasa. Satu-satunya endpoint yang TIDAK butuh header Accept-Language.
+    params: []
+    contohPath: /languages
+    minUkuranByte: 90
+  - id: kategori
+    method: GET
+    path: /categories
+    deskripsi: Daftar kategori. WAJIB header Accept-Language, tanpa itu balas 400.
+    headers:
+      Accept-Language: 'id'
+    params: []
+    contohPath: /categories
+    minUkuranByte: 153
+  - id: isiKategori
+    method: GET
+    path: '/categories/{slug}'
+    deskripsi: 'Isi satu kategori. Slug: morning-dhikr, evening-dhikr, daily-dua. WAJIB header Accept-Language.'
+    headers:
+      Accept-Language: 'id'
+    params:
+      - nama: slug
+        contoh: 'daily-dua'
+        wajib: true
+        keterangan: 'morning-dhikr | evening-dhikr | daily-dua'
+    contohPath: /categories/daily-dua
+    minUkuranByte: 1894

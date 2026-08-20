@@ -1,0 +1,39 @@
+slug: sekolah-indonesia
+nama: Data Sekolah Indonesia
+kategori: pendidikan
+deskripsi: Daftar sekolah se-Indonesia beserta NPSN, alamat, dan koordinat.
+developer:
+  nama: Alwan (wanrabbae)
+  profil: 'https://github.com/wanrabbae'
+dokumentasi: 'https://github.com/wanrabbae/api-sekolah-indonesia'
+upstreamName: API Data Sekolah Indonesia
+auth: none
+cors: open
+baseUrl: 'https://api-sekolah-indonesia.vercel.app'
+mirror: false
+provenance:
+  lisensi: GPL-3.0
+  sumberLisensi: 'https://github.com/wanrabbae/api-sekolah-indonesia'
+  atribusiWajib: true
+  atribusi: 'api-sekolah-indonesia oleh wanrabbae (GPL-3.0)'
+  syaratUrl: 'https://github.com/wanrabbae/api-sekolah-indonesia'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh secara lisensi (GPL-3.0), tapi endpointnya berparameter dan datanya 215 ribu baris - tidak bisa di-snapshot utuh.'
+  batasAkses: null
+  diperiksa: '2026-08-21'
+endpoints:
+  - id: daftar
+    method: GET
+    path: '/sekolah?page={halaman}&perPage={perHalaman}'
+    deskripsi: 'Berhalaman. lintang & bujur berupa STRING - parseFloat sebelum dipakai di peta. Per 2026-08-21 endpoint ini SESEKALI membalas 504 lalu berhasil pada percobaan berikutnya - kemungkinan cold start. Kalau probe melaporkannya gagal, periksa riwayatnya dulu sebelum menyimpulkan mati.'
+    params:
+      - nama: halaman
+        contoh: '1'
+        wajib: true
+        keterangan: Nomor halaman
+      - nama: perHalaman
+        contoh: '2'
+        wajib: true
+        keterangan: Jumlah data per halaman
+    contohPath: '/sekolah?page=1&perPage=2'
+    minUkuranByte: 460

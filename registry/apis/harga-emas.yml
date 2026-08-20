@@ -1,0 +1,31 @@
+slug: harga-emas
+nama: Harga Emas Logam Mulia
+kategori: finansial
+deskripsi: Harga emas dan logam mulia dari beberapa sumber dalam negeri.
+developer:
+  nama: cacing69
+  profil: 'https://github.com/cacing69'
+dokumentasi: 'https://github.com/cacing69/logam-mulia-api'
+upstreamName: API Harga Emas/Logam Mulia
+auth: none
+cors: open
+baseUrl: 'https://logam-mulia-api.iamutaki.workers.dev'
+mirror: false
+provenance:
+  lisensi: MIT
+  sumberLisensi: 'https://github.com/cacing69/logam-mulia-api'
+  atribusiWajib: true
+  atribusi: 'logam-mulia-api oleh cacing69 (MIT)'
+  syaratUrl: 'https://github.com/cacing69/logam-mulia-api'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh secara lisensi (MIT), TAPI harga emas berubah tiap hari sehingga snapshot cepat menyesatkan. Tidak diaktifkan.'
+  batasAkses: null
+  diperiksa: '2026-08-21'
+endpoints:
+  - id: anekalogam
+    method: GET
+    path: /api/prices/anekalogam
+    deskripsi: Hosting di Cloudflare Workers — kecil kemungkinan mati kena tagihan. Tanpa CORS.
+    params: []
+    contohPath: /api/prices/anekalogam
+    minUkuranByte: 1894

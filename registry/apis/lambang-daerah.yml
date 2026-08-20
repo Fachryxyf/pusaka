@@ -1,0 +1,35 @@
+slug: lambang-daerah
+nama: Lambang Daerah Indonesia
+kategori: lokasi
+deskripsi: Lambang resmi seluruh provinsi dan kabupaten/kota di Indonesia.
+developer:
+  nama: Feri Irawan
+  profil: 'https://github.com/feri-irawan'
+dokumentasi: 'https://github.com/feri-irawan/lambang-daerah-seluruh-indonesia'
+upstreamName: Lambang Daerah Seluruh Indonesia
+auth: none
+cors: none
+baseUrl: 'https://symbolsofindonesia.vercel.app'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: 'https://github.com/feri-irawan/lambang-daerah-seluruh-indonesia'
+  atribusiWajib: true
+  atribusi: 'lambang-daerah-seluruh-indonesia oleh Feri Irawan'
+  syaratUrl: 'https://github.com/feri-irawan/lambang-daerah-seluruh-indonesia'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - repo sumbernya tanpa berkas lisensi. Lambang daerah juga berpotensi punya ketentuan pemakaian sendiri.'
+  batasAkses: null
+  diperiksa: '2026-08-21'
+endpoints:
+  - id: provinsi
+    method: GET
+    path: '/provinces/{ukuranPx}'
+    deskripsi: Angka pada path adalah ukuran gambar dalam piksel. Tanpa CORS — wajib lewat proxy.
+    params:
+      - nama: ukuranPx
+        contoh: '200'
+        wajib: true
+        keterangan: Ukuran gambar dalam piksel
+    contohPath: /provinces/200
+    minUkuranByte: 972

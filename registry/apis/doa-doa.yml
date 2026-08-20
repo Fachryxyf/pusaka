@@ -1,0 +1,31 @@
+slug: doa-doa
+nama: Doa Harian
+kategori: agama-islam
+deskripsi: Kumpulan doa harian beserta teks Arab, latin, dan artinya.
+developer:
+  nama: Ahmad Ramadhan
+  profil: 'https://github.com/semogaBermanfaat-AhmadRamadhan'
+dokumentasi: 'https://github.com/semogaBermanfaat-AhmadRamadhan/doa-doa-api'
+upstreamName: Doa Doa API
+auth: none
+cors: none
+baseUrl: 'https://doa-doa-api-ahmadramadhan.fly.dev'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: true
+  atribusi: 'doa-doa-api oleh Ahmad Ramadhan'
+  syaratUrl: null
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - repo sumbernya sudah TIDAK ADA di GitHub (404 per 2026-08-21), jadi lisensinya tidak bisa diperiksa sama sekali.'
+  batasAkses: null
+  diperiksa: '2026-08-21'
+endpoints:
+  - id: semua
+    method: GET
+    path: /api
+    deskripsi: Semua doa sekaligus (18 KB). Data statis — layak di-mirror. TANPA CORS, wajib lewat proxy.
+    params: []
+    contohPath: /api
+    minUkuranByte: 9267

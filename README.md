@@ -11,7 +11,7 @@ plus katalog API lokal yang statusnya dipantau otomatis.**
 [![Katalog: CC BY 4.0](https://img.shields.io/badge/katalog-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 [![Stack](https://img.shields.io/badge/stack-Next.js%2016%20%2B%20TypeScript%20%2B%20Tailwind%204-black.svg)](#struktur)
-[![API terdaftar](https://img.shields.io/badge/API%20terdaftar-9-informational.svg)](./registry/apis)
+[![API terdaftar](https://img.shields.io/badge/API%20terdaftar-23-informational.svg)](./registry/apis)
 [![Alat](https://img.shields.io/badge/alat-8-informational.svg)](./alat)
 [![Tahap](https://img.shields.io/badge/tahap-5%20dari%207-yellow.svg)](./TASKS.md)
 [![Lisensi data](https://img.shields.io/badge/data-lihat%20NOTICE-lightgrey.svg)](./NOTICE.md)
@@ -45,8 +45,8 @@ hidup saat kamu membacanya. Status API berubah terus — itu justru premis proje
 
 | Yang diklaim | Artinya |
 |---|---|
-| 9 API terdaftar | ada 9 berkas di `registry/apis/`, semuanya pernah dipanggil sungguhan dan lolos validasi skema |
-| 22 API di seed | [`REGISTRY-SEED.md`](./REGISTRY-SEED.md) memuat 22 blok YAML / 43 endpoint siap tempel |
+| 23 API terdaftar | ada 23 berkas di `registry/apis/`, semuanya pernah dipanggil sungguhan dan lolos validasi skema |
+| 54 endpoint | jumlah yang diprobe tiap 6 jam; hasil terakhir 54 sehat, 0 gagal |
 | 151 API di backlog | inventaris upstream, bertingkat menurut kesiapan di [`BACKLOG-API.md`](./BACKLOG-API.md) |
 | Snapshot riset | **6 Agustus 2026** untuk katalog awal · **20 Agustus 2026** untuk NASA/JPL, batas paginasi idn-area, dan seluruh data lisensi · **21 Agustus 2026** untuk batas permintaan myQuran, bentuk dan zona waktu prakiraan BMKG, tag HTML dan ukuran response equran.id, batas hasil kodepos.vercel.app, serta probe ulang seluruh 14 sumber berita |
 
@@ -155,6 +155,29 @@ Empat aturan ini lahir dari jebakan yang sudah menelan korban waktu riset:
    sehat kelihatan rusak.
 4. **Status 200 + JSON sah belum cukup.** Tiga API di katalog membalas bungkus normal
    dengan isi kosong. Itu sebabnya tiap endpoint punya `minUkuranByte`.
+
+## Kontributor
+
+<a href="https://github.com/Fachryxyf/pusaka/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Fachryxyf/pusaka" alt="Kontributor Pusaka" />
+</a>
+
+Mau ikut? Baca [`CONTRIBUTING.md`](./CONTRIBUTING.md) dulu — repo ini punya beberapa aturan
+yang tidak biasa, dan semuanya lahir dari bug yang sudah benar-benar terjadi.
+
+Cara berkontribusi yang paling berguna, dari yang paling mudah:
+
+| Kontribusi | Yang perlu dilakukan |
+|---|---|
+| Lapor API yang mati atau berubah | buka [issue "API mati"](https://github.com/Fachryxyf/pusaka/issues/new?template=api-mati.md) dengan hasil `curl` dan tanggalnya |
+| Tambah API baru ke registry | panggil endpointnya, catat bentuk responsnya ke [`REFERENCE.md`](./REFERENCE.md), **baru** tulis YAML-nya |
+| Riset API yang belum terverifikasi | 39 kandidat menunggu di [`BACKLOG-API.md`](./BACKLOG-API.md) tier C |
+| Buat alat baru | baca bagian alatnya di [`UI-SPEC.md`](./UI-SPEC.md), lalu ikuti pola di `alat/` |
+| Perbaiki lisensi yang `unknown` | kalau kamu menemukan pernyataan lisensi sebuah API, perbarui `provenance` di registry-nya |
+
+Yang terakhir itu bernilai lebih dari yang terlihat: **12 dari 23 API masih `unknown`**, dan
+tiap satu yang terjawab membuat lebih banyak data boleh di-mirror — artinya lebih banyak alat
+yang tetap jalan saat sumbernya mati.
 
 ## Lisensi
 

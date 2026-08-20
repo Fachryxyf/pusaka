@@ -1,0 +1,35 @@
+slug: kunci-tts
+nama: Kunci Jawaban TTS
+kategori: hiburan
+deskripsi: Cari kunci jawaban teka-teki silang dari sebuah pertanyaan.
+developer:
+  nama: nasrul21
+  profil: 'https://github.com/nasrul21'
+dokumentasi: 'https://github.com/nasrul21/kunci-tts-api'
+upstreamName: Kunci Jawaban TTS API
+auth: none
+cors: none
+baseUrl: 'https://kunci-tts-api.vercel.app'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: 'https://github.com/nasrul21/kunci-tts-api'
+  atribusiWajib: true
+  atribusi: 'kunci-tts-api oleh Nasrul Umam'
+  syaratUrl: 'https://github.com/nasrul21/kunci-tts-api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - repo sumbernya tanpa berkas lisensi. Endpointnya juga berparameter.'
+  batasAkses: null
+  diperiksa: '2026-08-21'
+endpoints:
+  - id: jawaban
+    method: GET
+    path: '/api/answers?question={pertanyaan}'
+    deskripsi: Tanpa CORS — wajib lewat proxy.
+    params:
+      - nama: pertanyaan
+        contoh: 'tidak'
+        wajib: true
+        keterangan: Kata petunjuk TTS
+    contohPath: /api/answers?question=tidak
+    minUkuranByte: 153

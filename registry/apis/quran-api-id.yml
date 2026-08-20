@@ -1,0 +1,57 @@
+slug: quran-api-id
+nama: Al-Qur'an API ID
+kategori: agama-islam
+deskripsi: Al-Qur'an lengkap dengan tafsir dan terjemahan bahasa Indonesia.
+developer:
+  nama: R.M. Reza
+  profil: 'https://github.com/renomureza'
+dokumentasi: 'https://github.com/renomureza/quran-api-id'
+upstreamName: Quran API ID
+auth: none
+cors: open
+baseUrl: 'https://quran-api-id.vercel.app'
+mirror: false
+provenance:
+  lisensi: MIT
+  sumberLisensi: 'https://github.com/renomureza/quran-api-id'
+  atribusiWajib: true
+  atribusi: 'quran-api-id oleh Reno Mureza (MIT)'
+  syaratUrl: 'https://github.com/renomureza/quran-api-id'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh - repo sumbernya MIT. Tidak diaktifkan karena dua dari tiga endpoint berparameter, dan yang tanpa parameter berukuran 90 KB tanpa manfaat jelas.'
+  batasAkses: null
+  diperiksa: '2026-08-21'
+endpoints:
+  - id: daftarSurat
+    method: GET
+    path: /surah
+    deskripsi: 114 surat (89 KB).
+    params: []
+    contohPath: /surah
+    minUkuranByte: 45926
+  - id: detailSurat
+    method: GET
+    path: '/surah/{nomor}'
+    deskripsi: Satu surat lengkap dengan semua ayat (341 KB — respons terbesar di katalog).
+    params:
+      - nama: nomor
+        contoh: '18'
+        wajib: true
+        keterangan: Nomor surat 1-114
+    contohPath: /surah/18
+    minUkuranByte: 174643
+  - id: ayat
+    method: GET
+    path: '/surah/{nomor}/{ayat}'
+    deskripsi: Satu ayat spesifik.
+    params:
+      - nama: nomor
+        contoh: '18'
+        wajib: true
+        keterangan: Nomor surat 1-114
+      - nama: ayat
+        contoh: '60'
+        wajib: true
+        keterangan: Nomor ayat dalam surat
+    contohPath: /surah/18/60
+    minUkuranByte: 4608
