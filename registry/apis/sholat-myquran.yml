@@ -19,20 +19,20 @@ provenance:
   syaratUrl: null
   redistribusi: unknown
   kebijakanMirror: 'unknown - tidak ada pernyataan lisensi yang bisa ditemukan di api.myquran.com maupun dokumentasi Postman-nya. Karena itu mirror tidak diaktifkan meski daftar kotanya statis.'
-  batasAkses: null
-  diperiksa: '2026-08-20'
+  batasAkses: '~1 permintaan per detik - permintaan kedua dalam satu detik dibalas 429 dengan body teks biasa, bukan JSON. Header Retry-After: 1'
+  diperiksa: '2026-08-21'
 endpoints:
   - id: daftarKota
     method: GET
     path: /v2/sholat/kota/semua
-    deskripsi: Daftar semua kota beserta id-nya. Statis — layak di-mirror.
+    deskripsi: 518 kota beserta id-nya. Statis, tapi TIDAK di-mirror karena lisensinya tidak dinyatakan penerbit.
     params: []
     contohPath: /v2/sholat/kota/semua
     minUkuranByte: 10649
   - id: jadwal
     method: GET
     path: '/v2/sholat/jadwal/{idKota}/{tahun}/{bulan}/{tanggal}'
-    deskripsi: 'Jadwal sholat satu kota satu hari. Bulan & tanggal WAJIB dua digit.'
+    deskripsi: 'Jadwal sholat satu kota satu hari. Bulan & tanggal ditulis dua digit; satu digit juga diterima server, tapi bentuk ini yang terdokumentasi. Response TIDAK memuat zona waktu.'
     params:
       - nama: idKota
         contoh: '1301'
@@ -45,10 +45,10 @@ endpoints:
       - nama: bulan
         contoh: '08'
         wajib: true
-        keterangan: DUA DIGIT — 08, bukan 8
+        keterangan: 'Ditulis dua digit (08). Satu digit juga diterima server per uji 2026-08-21, tapi jangan diandalkan'
       - nama: tanggal
         contoh: '06'
         wajib: true
-        keterangan: DUA DIGIT — 06, bukan 6
+        keterangan: 'Ditulis dua digit (06). Satu digit juga diterima server per uji 2026-08-21, tapi jangan diandalkan'
     contohPath: /v2/sholat/jadwal/1301/2026/08/06
     minUkuranByte: 153

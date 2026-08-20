@@ -19,6 +19,9 @@ lahir dari bug yang sudah benar-benar terjadi, bukan dari selera.
    341 KB, dan pembacaan terpotong bikin API sehat kelihatan rusak.
 4. **Status 200 + JSON sah belum cukup.** Tiga API di katalog membalas bungkus normal
    dengan isi kosong. Karena itu tiap endpoint punya `minUkuranByte`.
+5. **Hormati batas permintaan.** myQuran membalas **429 pada permintaan kedua dalam satu
+   detik**, dan body-nya teks biasa — bukan JSON. Alat yang memuat beberapa bagian dari satu
+   API **wajib memuatnya berurutan**, pakai argumen `aktif` pada `useApi`. Jangan serentak.
 
 ## Menambah API ke registry
 
@@ -51,6 +54,10 @@ lahir dari bug yang sudah benar-benar terjadi, bukan dari selera.
   `komponen/Pilih.tsx`.
 - **Indikator fokus tidak boleh dihilangkan.** Boleh diganti (`.fokus-cincin`), tidak boleh
   dimatikan — itu satu-satunya petunjuk posisi bagi pengguna papan tombol.
+- **Jangan tampilkan nilai turunan yang belum pasti benar.** Kalau sebuah hitungan
+  bergantung pada asumsi yang tidak dijamin data (mis. zona waktu yang tidak ada di
+  response), sembunyikan hitungannya dan katakan alasannya. Daftar lengkapnya di
+  [`UI-SPEC.md`](./UI-SPEC.md) §1.4.
 - Mobile-first. Tiap kontrol punya `<label>`; placeholder bukan label.
 
 ## Sebelum membuka pull request

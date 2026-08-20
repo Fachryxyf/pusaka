@@ -348,7 +348,19 @@ dipakai alat lain sebagai fondasi.
 "jadwal":{"tanggal":"Kamis, 06/08/2026","imsak":"04:35","subuh":"04:45",
 "terbit":"05:59","dhuha":"06:28","dzuhur":"12:02","ashar":"..."}}}
 ```
-`bulan`/`tanggal` pakai **dua digit** (`08`, bukan `8`). Daftar kota statis → `mirror: true`.
+`bulan`/`tanggal` pakai **dua digit** (`08`, bukan `8`).
+
+Dua koreksi dari pengujian 2026-08-21:
+
+- Server ternyata **menerima** satu digit juga (`/2026/8/6` → 200). Registry tetap dua digit
+  karena itu bentuk yang terdokumentasi dan dijamin.
+- **`mirror: false`, bukan `true`.** Daftar kotanya memang statis, tapi tidak ada pernyataan
+  lisensi yang bisa ditemukan di api.myquran.com — dan tanpa dasar hak salin, mirror tidak
+  diaktifkan (lihat §5 Provenance dan `NOTICE.md`).
+
+**Batas permintaannya ketat: permintaan kedua dalam satu detik sudah dibalas 429**, dengan
+body **teks biasa**, bukan JSON. Alat yang memuat beberapa bagian dari API ini wajib
+memuatnya berurutan.
 
 ### 6.4 Al-Qur'an — equran.id v2
 `baseUrl: https://equran.id/api/v2`
@@ -504,7 +516,9 @@ pada API tanpa CORS **belum boleh dijadikan alat awam**.
 
 Aturan wajib:
 - **Timeout 10 detik.** Jangan biarkan user lihat spinner selamanya.
-- **Retry 1x** dengan jeda, cuma untuk error jaringan — jangan retry 4xx.
+- **Retry 1x** dengan jeda, untuk error jaringan, 5xx, dan **429** — 4xx lainnya jangan.
+  Khusus 429, jedanya diambil dari header `Retry-After`, dan pemeriksaannya **mendahului**
+  pemeriksaan `Content-Type` karena body 429 belum tentu JSON (lihat §6.3).
 - **Validasi `Content-Type` mengandung `json`.** Kalau HTML, perlakukan sebagai gagal
   (lihat jebakan Bukuacak di §7). Ini bukan opsional.
 - Kalau jatuh ke lapis 3, hook **wajib** mengembalikan `{ data, sumber: 'mirror', per: '<ISO date>' }`

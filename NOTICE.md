@@ -59,7 +59,7 @@ Yang **tidak** di-mirror, beserta alasannya:
 |---|---|
 | `wilayah-emsifa` | Repo sumbernya tidak memuat berkas lisensi sama sekali. Tanpa lisensi berarti hak salin tidak diberikan, jadi `mirror` diubah ke `false` pada 2026-08-20 dan snapshotnya dihapus |
 | `quran-equran` | [Syarat layanan](https://equran.id/terms) pasal 7: teks Al-Qur'an bebas dipakai, **tapi** terjemahan, tafsir, dan audio yang mereka kembangkan dilindungi hak cipta |
-| `sholat-myquran` | Tidak ada pernyataan lisensi yang bisa ditemukan. `unknown` bukan izin |
+| `sholat-myquran` | Tidak ada pernyataan lisensi yang bisa ditemukan. `unknown` bukan izin — meski daftar 518 kotanya statis dan secara teknis ideal untuk di-mirror |
 | `gempa-bmkg`, `cuaca-bmkg` | BMKG tidak menyatakan lisensi. Mewajibkan pencantuman sumber, dan itu kami lakukan, tapi hak salin tidak dinyatakan |
 
 ## 5. Atribusi yang diwajibkan penerbit
@@ -79,6 +79,16 @@ dan sudah tercatat per API di `provenance.atribusi`:
   domain publik.
 - **idn-area** oleh Fityan Nugroho (MIT), **api-wilayah-indonesia** oleh Muhammad Syifa,
   **EQuran.id**, **api.myquran.com**.
+
+Batas akses yang dinyatakan atau terukur, tercatat di `provenance.batasAkses`:
+
+| API | Batas |
+|---|---|
+| `gempa-bmkg`, `cuaca-bmkg` | 60 permintaan per menit per IP (dinyatakan BMKG) |
+| `sholat-myquran` | ~1 permintaan per detik (terukur: permintaan kedua dalam satu detik dibalas 429) |
+
+Batas ini bukan sekadar catatan teknis — menghajar server orang yang membiayainya sendiri
+adalah masalah etika, bukan cuma masalah performa.
 
 ## 6. Batas yang kami jaga
 

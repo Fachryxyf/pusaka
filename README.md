@@ -12,7 +12,7 @@ plus katalog API lokal yang statusnya dipantau otomatis.**
 
 [![Stack](https://img.shields.io/badge/stack-Next.js%2016%20%2B%20TypeScript%20%2B%20Tailwind%204-black.svg)](#struktur)
 [![API terdaftar](https://img.shields.io/badge/API%20terdaftar-7-informational.svg)](./registry/apis)
-[![Alat](https://img.shields.io/badge/alat-3-informational.svg)](./alat)
+[![Alat](https://img.shields.io/badge/alat-4-informational.svg)](./alat)
 [![Tahap](https://img.shields.io/badge/tahap-2%20dari%207-yellow.svg)](./TASKS.md)
 [![Lisensi data](https://img.shields.io/badge/data-lihat%20NOTICE-lightgrey.svg)](./NOTICE.md)
 
@@ -46,7 +46,7 @@ hidup saat kamu membacanya. Status API berubah terus — itu justru premis proje
 | 7 API terdaftar | ada 7 berkas di `registry/apis/`, semuanya pernah dipanggil sungguhan dan lolos validasi skema |
 | 22 API di seed | [`REGISTRY-SEED.md`](./REGISTRY-SEED.md) memuat 22 blok YAML / 43 endpoint siap tempel |
 | 151 API di backlog | inventaris upstream, bertingkat menurut kesiapan di [`BACKLOG-API.md`](./BACKLOG-API.md) |
-| Snapshot riset | **6 Agustus 2026** untuk katalog awal, **20 Agustus 2026** untuk NASA/JPL, batas paginasi idn-area, dan seluruh data lisensi |
+| Snapshot riset | **6 Agustus 2026** untuk katalog awal · **20 Agustus 2026** untuk NASA/JPL, batas paginasi idn-area, dan seluruh data lisensi · **21 Agustus 2026** untuk batas permintaan dan zona waktu myQuran |
 
 Status hidup/mati yang sesungguhnya baru akan punya stempel waktu setelah Tahap 3
 (probe otomatis tiap 6 jam + `status.json` publik). Sampai itu ada, jangan baca badge
@@ -59,9 +59,10 @@ sebagai health check.
 | [Info Gempa](https://pusaka.fachryxyf.com/alat/gempa/) | BMKG | gempa terkini, dirasakan, dan M≥5,0 + peta shakemap |
 | [Objek Dekat Bumi](https://pusaka.fachryxyf.com/alat/objek-dekat-bumi/) | NASA/JPL SSD-CNEOS | pendekatan 60 hari, bola api atmosfer, objek yang dipantau Sentry |
 | [Data Wilayah](https://pusaka.fachryxyf.com/alat/wilayah/) | idn-area | provinsi sampai desa, kode Kemendagri bertitik yang cocok dengan BMKG |
+| [Jadwal Sholat](https://pusaka.fachryxyf.com/alat/sholat/) | myQuran | 518 kota, penanda waktu berikutnya (hanya kalau kota sezona dengan pembaca) |
 
-Menyusul sesuai [`TASKS.md`](./TASKS.md): Jadwal Sholat, Prakiraan Cuaca,
-Al-Qur'an, Kode Pos, Berita, lalu muka developer (katalog + playground + dashboard status).
+Menyusul sesuai [`TASKS.md`](./TASKS.md): Prakiraan Cuaca, Al-Qur'an, Kode Pos, Berita,
+lalu muka developer (katalog + playground + dashboard status).
 
 ## Jalankan
 

@@ -397,6 +397,72 @@ Content-Type `application/json` · CORS: * · ukuran ~0.3 KB
 
 ---
 
+### Batas permintaan myQuran — ditemukan 2026-08-21
+
+`api.myquran.com` punya batas yang **jauh lebih ketat** daripada dugaan awal, dan tidak
+diumumkan di mana pun:
+
+```
+permintaan ke-1  -> 200
+permintaan ke-2  -> 429 Too Many Requests
+                    retry-after: 1
+                    x-retry-in: 139.829206ms
+```
+
+Dua permintaan dalam satu detik sudah cukup memicunya. Tiga hal yang perlu diperhatikan:
+
+| Hal | Kenyataan |
+|---|---|
+| Body 429 **bukan JSON** | Isinya teks biasa `Too Many Requests`. Kalau pemeriksaan `Content-Type` jalan lebih dulu, gejalanya jadi "format tidak dikenali" — menyesatkan |
+| Ada `retry-after: 1` | Server memberi tahu berapa lama harus menunggu. Hormati, jangan pakai jeda tebakan |
+| Ada `x-retry-in` non-standar | Presisi milidetik (`139.829206ms`). Boleh diabaikan; `retry-after` sudah cukup |
+
+**Konsekuensi untuk kode:** `lib/client.ts` memeriksa 429 **sebelum** memeriksa
+`Content-Type`, memberinya `sebab: 'batas'` sendiri, dan mengulang sekali dengan jeda dari
+`retry-after`. Ini alasan aturan 9 di SPEC §9 ada, dan sekarang ada bukti angkanya.
+
+Alat yang memuat beberapa bagian sekaligus dari API ini **wajib** memuatnya berurutan,
+bukan serentak — permintaan paralel dijamin kena 429.
+
+### Bentuk galat myQuran
+
+```
+GET /v2/sholat/jadwal/9999/2026/08/21   -> 400
+GET /v2/sholat/jadwal/1301/2026/13/45   -> 400
+{"status":false,"request":{"path":"..."},"message":"Data not found"}
+```
+
+Kota tidak ada dan tanggal tidak sah menghasilkan **400 dengan bentuk yang sama** — bukan
+404, dan `message`-nya identik. Jadi jangan pakai `message` untuk membedakan sebabnya.
+Perhatikan `status: false`: bungkusnya tetap normal, jadi **wajib cek `status === true`
+sebelum membaca `data`**.
+
+### Tanggal satu digit ternyata diterima
+
+Diuji 2026-08-21: `/v2/sholat/jadwal/1301/2026/8/6` membalas **200** dengan isi yang sama
+persis seperti `/2026/08/06`. Jadi aturan "wajib dua digit" ternyata **tidak** dipaksakan
+server.
+
+Meski begitu, registry tetap memakai dua digit dan alat tetap memformatnya begitu:
+perilaku yang tidak didokumentasikan bisa berubah kapan saja, dan `contohPath` harus
+mencerminkan bentuk yang dijamin bekerja. Yang berubah hanyalah tingkat risikonya — ini
+bukan lagi bug yang menunggu tanggal 1–9.
+
+### Zona waktu tidak ada di response
+
+Sudah diperiksa untuk kota di ketiga zona: `KOTA MAKASSAR` (WITA), `KOTA JAYAPURA` (WIT),
+`KOTA DENPASAR` (WITA). Kunci `data` selalu `id, lokasi, daerah, jadwal` — **tidak ada
+field zona waktu maupun offset**.
+
+Jamnya sendiri sudah benar untuk zona kota masing-masing (Jayapura dzuhur 11:44, Jakarta
+11:59, Makassar 12:09, Denpasar 12:26). Konsekuensinya: jam dari API **tidak boleh
+dibandingkan langsung dengan jam perangkat pengguna**, karena keduanya bisa berada di zona
+berbeda — pengguna di Jakarta yang melihat jadwal Jayapura akan mendapat hitungan
+"berikutnya" yang salah. Perbandingan hanya sah kalau kota yang dipilih memang sezona
+dengan pengguna, dan alat wajib mengatakannya, bukan diam-diam menghitung.
+
+---
+
 ## Al-Qur'an — equran.id v2
 
 `slug: quran-equran`

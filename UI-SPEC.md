@@ -45,7 +45,22 @@ apakah banner mirror muncul.
 | Teks ber-HTML | Ada field yang isinya mengandung tag (mis. `<i>`) | Perlu sanitasi sebelum di-render. Jangan `dangerouslySetInnerHTML` mentah |
 | Koordinat | `parseFloat` sebelum dipakai di peta | Sebagian dikirim sebagai string |
 
-### 1.4 Aksesibilitas & responsif
+### 1.4 Kontrol yang tidak boleh dipakai
+
+Ditambahkan 2026-08-20. Tampilan bawaan browser dirender oleh sistem operasi, jadi tidak
+bisa diseragamkan antar platform. Yang dilarang beserta penggantinya:
+
+| Jangan | Pakai | Alasan |
+|---|---|---|
+| `<select>` mentah | `komponen/Pilih.tsx` | Dropdown bawaan dirender OS. Penggantinya mengikuti pola ARIA combobox utuh — panah, Home/End, Enter, Escape, Tab, klik-luar, dan pencarian ketik |
+| `alert()`, `confirm()`, `prompt()` | pesan di halaman, `role="status"` + `aria-live` | Dialog bawaan memblokir dan tidak bisa ditata |
+| emoji sebagai ikon | `komponen/Ikon.tsx` | Emoji dirender beda tiap OS dan tidak bisa diwarnai |
+| `outline: none` tanpa pengganti | kelas `.fokus-cincin` | Indikator fokus **wajib ada** — satu-satunya petunjuk posisi bagi pengguna papan tombol. Boleh diganti, tidak boleh dihapus |
+
+Scrollbar ditata tipis mengikuti tema di `app/globals.css`, dan
+`prefers-reduced-motion: reduce` dihormati.
+
+### 1.5 Aksesibilitas & responsif
 
 - Sasaran utama pengguna adalah **orang awam di HP**. Rancang mobile-first.
 - Setiap kontrol punya `<label>`. Jangan mengandalkan placeholder sebagai label.
@@ -237,11 +252,26 @@ Pilihan kota dari endpoint `daftarKota`: `data[].id` (nilai), `data[].lokasi` (l
 
 - **Cek `status === true` dulu** sebelum membaca `data`. Semua response myQuran dibungkus
   `{status, request, data}`.
-- **Bulan dan tanggal WAJIB dua digit** saat menyusun URL. `8` → `08`, `6` → `06`.
-  Ini bug yang paling gampang lolos karena baru muncul di tanggal 1–9.
-- Daftar kota panjang (~20 KB) → wajib ada kotak pencarian, jangan dropdown polos.
+- **Bulan dan tanggal tetap ditulis dua digit** saat menyusun URL. `8` → `08`, `6` → `06`.
+  Catatan 2026-08-21: server ternyata **menerima** satu digit juga, jadi ini bukan lagi bug
+  yang menunggu tanggal 1–9. Formatnya tetap dipertahankan karena perilaku yang tidak
+  didokumentasikan bisa berubah kapan saja.
+- Daftar kota panjang (518 kota, ~21 KB) → wajib ada kotak pencarian, jangan dropdown polos.
+  Dipenuhi oleh `komponen/Pilih.tsx`, yang menampilkan kotak pencarian otomatis untuk
+  daftar berisi 8 item atau lebih.
 - Waktu berikutnya dihitung dari jam lokal pengguna vs kedelapan waktu. Lewat Isya →
   tampilkan Imsak besok, jangan hitungan negatif.
+- **PENTING — hitungan itu hanya sah kalau kota sezona dengan pengguna.** Response
+  **tidak memuat zona waktu sama sekali** (diperiksa 2026-08-21 untuk kota di WIB, WITA,
+  dan WIT; kunci `data` selalu `id, lokasi, daerah, jadwal`). Jam dari API sudah benar untuk
+  zona kotanya, tapi membandingkannya dengan jam perangkat pengguna menghasilkan hitungan
+  salah bagi siapa pun yang melihat jadwal kota di zona lain.
+  Yang diterapkan: bandingkan `data.jadwal.date` dengan tanggal perangkat; kalau berbeda,
+  **sembunyikan** baris "berikutnya" dan katakan alasannya di UI. Jangan diam-diam
+  menghitung.
+- **Muat daftar kota dan jadwal berurutan, jangan serentak.** myQuran membalas 429 pada
+  permintaan kedua dalam satu detik. Alat memakai argumen `aktif` pada `useApi` untuk
+  menahan permintaan jadwal sampai daftar kota selesai.
 - `terbit` dan `dhuha` bukan waktu sholat wajib — boleh ditandai berbeda.
 
 **Selesai kalau:** KOTA JAKARTA (`1301`) cocok dengan

@@ -92,6 +92,8 @@ function pesanManusiawi(e: unknown): string {
       return 'Tidak bisa menghubungi sumber datanya. Cek koneksi internetmu.'
     case 'bukan-json':
       return 'Sumber datanya membalas dengan format yang tidak dikenali.'
+    case 'batas':
+      return 'Sumber datanya sedang membatasi permintaan. Tunggu sebentar lalu coba lagi.'
     case 'status':
       return e.status ? `Sumber datanya membalas galat (${e.status}).` : e.message
     default:

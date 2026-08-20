@@ -38,8 +38,12 @@
 8. **Kirim `headers` dari registry**, digabung dengan User-Agent. Ada endpoint yang
    membalas **400** kalau headernya kurang (`dua-dhikr` butuh `Accept-Language: id`) —
    gejalanya mirip endpoint rusak padahal cuma kurang header.
-9. **Tangani 429 (rate limit).** Minimal satu API punya rate limit ketat. Kalau dapat 429,
-   tunggu lalu ulang sekali; jangan langsung vonis `ok: false`.
+9. **Tangani 429 (rate limit).** Sudah terbukti dengan angka: `api.myquran.com` membalas
+   **429 pada permintaan kedua dalam satu detik**, dan body-nya **teks biasa, bukan JSON**.
+   Jadi periksa 429 **sebelum** memeriksa `Content-Type`, lalu ulang sekali dengan jeda dari
+   header `Retry-After`; jangan langsung vonis `ok: false`. Sudah tertangani di
+   `lib/client.ts` (`sebab: 'batas'`). Alat yang memuat beberapa bagian dari satu API
+   **wajib memuatnya berurutan, bukan serentak.**
 10. **Hormati `minUkuranByte`.** Status 200 + JSON sah + tidak kosong **belum cukup** —
     ada API yang deployment-nya hidup tapi scraper-nya rusak, sehingga membalas bungkus
     normal dengan isi kosong. Tiga API di katalog mati dengan cara ini. Ambangnya sudah
@@ -145,7 +149,7 @@ Target akhir tahap: situs live di GitHub Pages dengan 6 alat jalan.
 
 ---
 
-### T2.1 — `lib/client.ts` lapis 1
+### T2.1 — `lib/client.ts` lapis 1 — SELESAI 2026-08-20
 **Blocked by:** T1.5
 
 Baru lapis 1 dulu (fetch langsung). Lapis 2 & 3 nyusul di T5.
@@ -161,7 +165,7 @@ Panggil URL yang balas HTML → dapat error, **bukan** sukses.
 
 ---
 
-### T2.2 — `lib/useApi.ts`
+### T2.2 — `lib/useApi.ts` — SELESAI 2026-08-20
 **Blocked by:** T2.1
 
 Hook client-side pembungkus `client.ts`:
@@ -175,7 +179,7 @@ tapi **bentuk kembaliannya sudah harus final** supaya T5 ga perlu bongkar semua 
 
 ---
 
-### T2.3 — Layout + kerangka halaman utama
+### T2.3 — Layout + kerangka halaman utama — SELESAI 2026-08-20
 **Blocked by:** T2.2
 
 - `app/layout.tsx` — header, footer (**wajib memuat atribusi CC-BY-4.0 ke farizdotid**, SPEC §13)
@@ -187,7 +191,7 @@ tapi **bentuk kembaliannya sudah harus final** supaya T5 ga perlu bongkar semua 
 
 ---
 
-### T2.4 — Kerangka halaman alat
+### T2.4 — Kerangka halaman alat — SELESAI 2026-08-20
 **Blocked by:** T2.3
 
 `app/alat/[slug]/page.tsx` — merakit alat otomatis dari folder `alat/<slug>/`.
@@ -198,7 +202,7 @@ Slug tidak dikenal → `notFound()`.
 
 ---
 
-### T2.5 — Alat: Info Gempa
+### T2.5 — Alat: Info Gempa — SELESAI 2026-08-20
 **Blocked by:** T2.4
 
 `alat/gempa/index.tsx`. Nampilin gempa terkini (magnitudo, wilayah, waktu, kedalaman),
@@ -211,7 +215,7 @@ Ingat SPEC §6.1: `autogempa` itu **objek**, `terkini`/`dirasakan` itu **array**
 
 ---
 
-### T2.6 — Alat: Data Wilayah Indonesia
+### T2.6 — Alat: Data Wilayah Indonesia — SELESAI 2026-08-20
 **Blocked by:** T2.4
 
 `alat/wilayah/index.tsx`. Pemilih bertingkat: provinsi → kabupaten → kecamatan → desa.
@@ -227,23 +231,44 @@ bertitik dan dipakai apa adanya oleh BMKG.
 
 Spesifikasi tampilan lengkap: [`UI-SPEC.md`](./UI-SPEC.md) Alat 2.
 
-**Kriteria selesai:** Jawa Barat → Kabupaten Bandung → Pangalengan → Warnasari bisa dipilih
-sampai tuntas dan menghasilkan `32.04.15.2003`. Jumlah item tiap tingkat sama dengan
-`meta.pagination.total` (buktikan tidak ada yang terpotong karena paginasi).
+> **Batas `limit` diperbaiki 2026-08-20.** Seed memakai `limit=50`; ternyata API menolak
+> `limit>100` dengan 400, dan **tanpa `limit` responsnya berhalaman diam-diam**
+> (13 desa Pangalengan hanya terkirim 10). Registry dinaikkan ke 100 — nilai maksimum
+> yang sah. Tabelnya di `REFERENCE.md`.
+
+**Kriteria selesai:** TERPENUHI. Dibuktikan `scripts/tes-wilayah.ts`: Jawa Barat →
+Kabupaten Bandung → Pangalengan → Warnasari menghasilkan `32.04.15.2003`, jumlah item tiap
+tingkat sama dengan `meta.pagination.total`, BMKG menerima kode itu apa adanya, dan kode
+emsifa untuk desa yang sama (`3204040005`) memang berbeda.
 
 ---
 
-### T2.7 — Alat: Jadwal Sholat
+### T2.7 — Alat: Jadwal Sholat — SELESAI 2026-08-21
 **Blocked by:** T2.6
 
 `alat/sholat/index.tsx`. Pilih kota (dari `/sholat/kota/semua`, kasih pencarian — daftarnya panjang),
 tampilkan jadwal hari ini, dan tandai waktu sholat berikutnya.
 
-Ingat SPEC §6.3: bulan & tanggal **dua digit**.
+**Tiga hal yang ditemukan saat mengerjakannya**, semuanya sudah masuk `REFERENCE.md`:
 
-**Kriteria selesai:** pilih KOTA JAKARTA (id `1301`) → jadwal cocok dengan
-`https://api.myquran.com/v2/sholat/jadwal/1301/{tahun}/{bulan}/{tanggal}`.
-Tanggal satu digit (mis. 6 Agustus) tetap benar — ini kasus uji yang gampang bocor.
+1. **Batas permintaan jauh lebih ketat dari dugaan.** Permintaan **kedua** dalam satu detik
+   sudah dibalas **429**, dan body 429-nya **bukan JSON** (`Too Many Requests` teks biasa).
+   `lib/client.ts` sekarang memeriksa 429 sebelum memeriksa `Content-Type`, memberinya
+   `sebab: 'batas'`, dan mengulang sekali dengan jeda dari header `Retry-After`.
+   Konsekuensi untuk alat: **muat berurutan, jangan serentak.**
+2. **Tanggal satu digit ternyata diterima server** (`/2026/8/6` → 200). Registry tetap
+   memakai dua digit karena perilaku tak terdokumentasi bisa berubah, tapi ini bukan lagi
+   bug yang menunggu tanggal 1–9.
+3. **Tidak ada field zona waktu di response.** Sudah diperiksa untuk kota di WIB, WITA,
+   dan WIT — kunci `data` selalu `id, lokasi, daerah, jadwal`. Jamnya benar untuk zona
+   masing-masing, tapi tidak bisa dibandingkan dengan jam perangkat pengguna. Karena itu
+   alat **menyembunyikan** hitungan "berikutnya" kalau `jadwal.date` tidak sama dengan
+   tanggal perangkat, dan mengatakannya di UI. Lebih baik tidak ada daripada salah.
+
+**Kriteria selesai:** TERPENUHI. Dibuktikan `scripts/tes-sholat.ts` (6 tes): 518 kota,
+`1301` = KOTA JAKARTA, jadwal 6 Agustus benar termasuk `tanggal` dan `date`, kedelapan
+waktu berformat `HH:MM`, kota tidak ada → 400, dan dua permintaan beruntun tetap sukses
+karena 429 diulang otomatis.
 
 ---
 

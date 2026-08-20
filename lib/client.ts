@@ -18,8 +18,10 @@ export type HasilAmbil<T = unknown> = {
 export class GagalAmbil extends Error {
   constructor(
     message: string,
-    readonly sebab: 'jaringan' | 'status' | 'bukan-json' | 'timeout',
+    readonly sebab: 'jaringan' | 'status' | 'bukan-json' | 'timeout' | 'batas',
     readonly status?: number,
+    // Detik yang diminta server lewat header Retry-After, kalau ada.
+    readonly tungguDetik?: number,
   ) {
     super(message)
     this.name = 'GagalAmbil'
@@ -65,15 +67,20 @@ export async function ambil<T = unknown>(
 
   let terakhir: GagalAmbil | null = null
 
-  // Retry 1x hanya untuk error jaringan/timeout — 4xx tidak diulang (SPEC §8).
+  // Diulang sekali untuk error jaringan/timeout, 5xx, dan 429 — 4xx lainnya tidak
+  // (SPEC §8, §9 aturan 9). 429 wajib diulang: api.myquran.com membalasnya pada
+  // permintaan KEDUA dalam satu detik, jadi tanpa ini alat sehat terlihat rusak.
   for (let coba = 0; coba < 2; coba++) {
-    if (coba > 0) await jeda(700)
+    if (coba > 0) await jeda(jedaUlang(terakhir))
     try {
       return await sekaliAmbil<T>(url, endpoint)
     } catch (e) {
       const gagal = e instanceof GagalAmbil ? e : new GagalAmbil(String(e), 'jaringan')
       terakhir = gagal
-      const bolehUlang = gagal.sebab === 'jaringan' || gagal.sebab === 'timeout' ||
+      const bolehUlang =
+        gagal.sebab === 'jaringan' ||
+        gagal.sebab === 'timeout' ||
+        gagal.sebab === 'batas' ||
         (gagal.status !== undefined && gagal.status >= 500)
       if (!bolehUlang) break
     }
@@ -148,6 +155,18 @@ async function sekaliAmbil<T>(url: string, endpoint: Endpoint): Promise<HasilAmb
     throw new GagalAmbil((e as Error).message, 'jaringan')
   }
 
+  if (res.status === 429) {
+    // Retry-After boleh berupa detik atau tanggal HTTP. myQuran mengirim '1'.
+    const minta = res.headers.get('retry-after')
+    const detik = minta === null ? undefined : Number.parseInt(minta, 10)
+    throw new GagalAmbil(
+      'kena batas permintaan',
+      'batas',
+      429,
+      Number.isFinite(detik) ? detik : undefined,
+    )
+  }
+
   if (res.status >= 400) {
     throw new GagalAmbil(`server membalas ${res.status}`, 'status', res.status)
   }
@@ -184,6 +203,14 @@ function diBrowser() {
 // Browser melarang menyetel User-Agent; menyetelnya di sana hanya memicu peringatan.
 function uaKalauBoleh(): Record<string, string> {
   return diBrowser() ? {} : { 'User-Agent': USER_AGENT }
+}
+
+// Hormati Retry-After kalau server mengirimkannya; batasi supaya tidak melampaui
+// timeout dan bikin pengguna menunggu tanpa kabar.
+function jedaUlang(gagal: GagalAmbil | null): number {
+  if (gagal?.sebab !== 'batas') return 700
+  const diminta = (gagal.tungguDetik ?? 1) * 1000
+  return Math.min(Math.max(diminta, 500), 5_000)
 }
 
 function jeda(ms: number) {

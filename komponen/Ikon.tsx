@@ -13,6 +13,13 @@ const JALUR: Record<string, React.ReactNode> = {
       <circle cx="20" cy="8.5" r="1.6" />
     </>
   ),
+  waktu: (
+    // Jam
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7.5V12l3 2" />
+    </>
+  ),
   peta: (
     // Penanda lokasi
     <>
