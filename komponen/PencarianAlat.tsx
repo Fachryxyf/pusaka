@@ -23,9 +23,9 @@ export default function PencarianAlat({
   }, [alat, kueri])
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       <div>
-        <label htmlFor="cari-alat" className="mb-1 block text-sm font-medium">
+        <label htmlFor="cari-alat" className="mb-1.5 block text-sm font-medium">
           Cari alat
         </label>
         <input
@@ -48,7 +48,7 @@ export default function PencarianAlat({
             <li key={a.slug}>
               <Link
                 href={`/alat/${a.slug}`}
-                className="fokus-cincin group flex h-full flex-col gap-3 rounded-xl border border-zinc-200 p-5 transition hover:border-zinc-400 hover:bg-zinc-50 dark:border-zinc-800 dark:hover:border-zinc-600 dark:hover:bg-zinc-900/60"
+                className="fokus-cincin group flex h-full flex-col gap-3.5 rounded-xl border border-zinc-200 p-5 transition hover:border-zinc-400 hover:bg-zinc-50 dark:border-zinc-800 dark:hover:border-zinc-600 dark:hover:bg-zinc-900/60"
               >
                 <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-zinc-200 bg-zinc-50 transition group-hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900 dark:group-hover:border-zinc-700">
                   <Ikon nama={a.ikon} className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
@@ -62,11 +62,11 @@ export default function PencarianAlat({
                       </span>
                     )}
                   </span>
-                  <span className="block text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                  <span className="teks-badan block text-zinc-600 dark:text-zinc-400">
                     {a.deskripsi}
                   </span>
                 </span>
-                <span className="mt-auto flex items-center gap-1 pt-1 text-sm text-zinc-500 transition group-hover:text-zinc-900 dark:group-hover:text-zinc-100">
+                <span className="teks-kecil mt-auto flex items-center gap-1.5 pt-1 font-medium text-zinc-500 transition group-hover:text-zinc-900 dark:group-hover:text-zinc-100">
                   Buka
                   <svg
                     viewBox="0 0 24 24"

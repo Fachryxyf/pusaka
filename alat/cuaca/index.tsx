@@ -118,7 +118,7 @@ function Prakiraan({ balasan }: { balasan: Balasan }) {
         const tanggal = butirHari[0].local_datetime.slice(0, 10)
         return (
           <section key={tanggal || i} className="space-y-2">
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-zinc-500">
+            <h3 className="teks-mikro font-semibold uppercase text-zinc-500">
               {labelHari(tanggal, hariIniLokal)}
             </h3>
             <ul className="divide-y divide-zinc-200 rounded-xl border border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">

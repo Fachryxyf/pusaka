@@ -31,36 +31,36 @@ export default function HalamanDev() {
   const kesehatan: Record<string, RingkasApi> = Object.fromEntries(petaKesehatan())
 
   return (
-    <div className="space-y-8">
-      <section className="space-y-4">
-        <h1 className="text-3xl font-semibold tracking-tight">Katalog API</h1>
-        <p className="max-w-2xl text-zinc-600 dark:text-zinc-400">
+    <div className="space-y-12">
+      <section className="space-y-5">
+        <h1 className="text-[1.75rem] font-semibold leading-tight tracking-tight sm:text-4xl">Katalog API</h1>
+        <p className="max-w-2xl leading-relaxed text-zinc-600 dark:text-zinc-400">
           Katalog API publik Indonesia yang <strong>bisa dipanggil program</strong>. Tiap entri
           memuat base URL, path endpoint, params beserta contoh nilainya, ambang ukuran response,
           dan status hidup/mati yang diperiksa otomatis tiap 6 jam.
         </p>
 
-        <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 text-sm dark:border-zinc-800 dark:bg-zinc-900/40">
-          <p className="text-zinc-700 dark:text-zinc-300">
+        <div className="space-y-2 rounded-xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-800 dark:bg-zinc-900/40">
+          <p className="teks-badan text-zinc-700 dark:text-zinc-300">
             Katalog aslinya tidak punya field base URL maupun endpoint sama sekali, jadi datanya
             tidak bisa dipanggil program. Field statusnya juga manual — 150 dari 151 entri
             berstatus hidup, padahal 38 di antaranya sudah mati. Lapisan itulah yang ditambahkan
             di sini.
           </p>
-          <p className="mt-2 text-zinc-600 dark:text-zinc-400">
+          <p className="teks-badan text-zinc-600 dark:text-zinc-400">
             Registry ini masih memuat {api.length} API dari 151 yang ada di inventaris. Sisanya
             dikerjakan bertahap — API baru hanya masuk setelah endpointnya dipanggil sungguhan dan
             bentuk responsnya dicatat.
           </p>
         </div>
 
-        <dl className="flex flex-wrap gap-x-8 gap-y-3 text-sm">
+        <dl className="flex flex-wrap gap-x-10 gap-y-3">
           <Angka jumlah={api.length} label="API terdaftar" />
           <Angka jumlah={jumlahEndpoint} label="endpoint tervalidasi" />
           <Angka jumlah={api.filter((a) => a.auth === 'none').length} label="tanpa kunci API" />
         </dl>
 
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+        <p className="teks-badan text-zinc-600 dark:text-zinc-400">
           Butuh data mentahnya?{' '}
           <a
             href="/status.json"
@@ -90,7 +90,7 @@ function Angka({ jumlah, label }: { jumlah: number; label: string }) {
       <dt className="sr-only">{label}</dt>
       <dd>
         <span className="text-2xl font-semibold tabular-nums">{jumlah}</span>{' '}
-        <span className="text-zinc-600 dark:text-zinc-400">{label}</span>
+        <span className="teks-badan text-zinc-600 dark:text-zinc-400">{label}</span>
       </dd>
     </div>
   )

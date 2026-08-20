@@ -27,7 +27,9 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
 
         <Header />
 
-        <main id="isi" className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6">
+        {/* px-5/sm:px-8 sama dengan header & footer: padding yang berbeda antar
+            bagian membuat tepi kiri isi tidak sejajar dengan logo di atasnya. */}
+        <main id="isi" className="mx-auto w-full max-w-6xl flex-1 px-5 py-10 sm:px-8">
           {children}
         </main>
 

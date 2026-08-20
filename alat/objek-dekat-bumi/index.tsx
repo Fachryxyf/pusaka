@@ -163,7 +163,7 @@ function Risikonya({ api }: { api: Api }) {
 function Judul({ teks, catatan, jumlah }: { teks: string; catatan: string; jumlah: number }) {
   return (
     <div className="flex items-baseline justify-between gap-3">
-      <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-500">{teks}</h2>
+      <h2 className="teks-mikro font-semibold uppercase text-zinc-500">{teks}</h2>
       <span className="shrink-0 text-xs text-zinc-500">
         {jumlah > 0 ? `${jumlah} · ` : ''}
         {catatan}

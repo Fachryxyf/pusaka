@@ -23,6 +23,40 @@ body {
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
+/* SKALA TEKS — dipakai konsisten di seluruh situs.
+   Sebelumnya header dan footer memakai ukuran yang ditentukan per komponen, dan
+   hasilnya footer terasa lebih berat daripada header padahal kepentingannya
+   terbalik. Empat tingkat ini yang dipakai untuk kerangka (header, footer, nav);
+   isi halaman tetap memakai kelas Tailwind biasa.
+
+     --teks-nav      15px   navigasi utama, nama situs
+     --teks-badan    14px   paragraf di dalam kerangka
+     --teks-kecil    13px   tautan sekunder, daftar di footer
+     --teks-mikro    11px   label huruf besar, keterangan lisensi
+
+   Tiap tingkat punya line-height sendiri supaya tinggi barisnya tidak ikut
+   mengecil sampai teks rapat. */
+.teks-nav {
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+
+.teks-badan {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.teks-kecil {
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+
+.teks-mikro {
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+
 /* Scrollbar bawaan tampilannya beda-beda per sistem. Dibuat tipis dan mengikuti tema
    supaya konsisten. Firefox pakai scrollbar-*, WebKit pakai ::-webkit-scrollbar. */
 * {

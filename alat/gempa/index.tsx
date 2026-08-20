@@ -45,7 +45,7 @@ function GempaTerkini({ api }: { api: Api }) {
 
   return (
     <section className="space-y-3">
-      <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-500">Gempa terkini</h2>
+      <h2 className="teks-mikro font-semibold uppercase text-zinc-500">Gempa terkini</h2>
 
       {sumber === 'mirror' && <BannerMirror per={per} />}
 
@@ -90,7 +90,7 @@ function DaftarGempa({ api, endpointId, judul }: { api: Api; endpointId: string;
   return (
     <section className="space-y-3">
       <div className="flex items-baseline justify-between">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-500">{judul}</h2>
+        <h2 className="teks-mikro font-semibold uppercase text-zinc-500">{judul}</h2>
         {daftar.length > 0 && (
           <span className="text-xs text-zinc-500">{daftar.length} terakhir</span>
         )}

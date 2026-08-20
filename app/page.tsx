@@ -17,17 +17,17 @@ export default function Home() {
   )
 
   return (
-    <div className="space-y-10">
-      <section className="space-y-4 pt-2">
-        <h1 className="max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">
+    <div className="space-y-12">
+      <section className="space-y-5">
+        <h1 className="max-w-2xl text-[1.75rem] font-semibold leading-tight tracking-tight sm:text-4xl">
           Alat harian dari data publik Indonesia
         </h1>
-        <p className="max-w-2xl text-zinc-600 dark:text-zinc-400">
+        <p className="max-w-2xl leading-relaxed text-zinc-600 dark:text-zinc-400">
           Gempa, wilayah, jadwal sholat, cuaca, Al-Qur&apos;an. Semuanya menarik data langsung
           dari sumber resminya, dan tetap jalan saat sumbernya bermasalah. Tidak perlu ngerti
           API.
         </p>
-        <dl className="flex flex-wrap gap-x-8 gap-y-3 text-sm">
+        <dl className="flex flex-wrap gap-x-10 gap-y-3 pt-1">
           <Angka jumlah={DAFTAR_META.length} label="alat siap pakai" />
           <Angka jumlah={api.length} label="API terdaftar" />
           <Angka jumlah={jumlahEndpoint} label="endpoint tervalidasi" />
@@ -45,7 +45,7 @@ function Angka({ jumlah, label }: { jumlah: number; label: string }) {
       <dt className="sr-only">{label}</dt>
       <dd>
         <span className="text-2xl font-semibold tabular-nums">{jumlah}</span>{' '}
-        <span className="text-zinc-600 dark:text-zinc-400">{label}</span>
+        <span className="teks-badan text-zinc-600 dark:text-zinc-400">{label}</span>
       </dd>
     </div>
   )

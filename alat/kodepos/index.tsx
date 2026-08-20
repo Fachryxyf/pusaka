@@ -146,7 +146,7 @@ export default function AlatKodePos({ api }: PropAlat) {
           {hasilCari.length > 0 && (
             <>
               <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-500">
+                <h2 className="teks-mikro font-semibold uppercase text-zinc-500">
                   Hasil untuk “{kata}”
                 </h2>
                 <span className="text-xs text-zinc-500">{hasilCari.length} ditemukan</span>
@@ -170,7 +170,7 @@ export default function AlatKodePos({ api }: PropAlat) {
         <section className="space-y-3">
           {deteksi.sumber === 'mirror' && <BannerMirror per={deteksi.per} />}
 
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-500">
+          <h2 className="teks-mikro font-semibold uppercase text-zinc-500">
             Terdekat dari lokasimu
           </h2>
 

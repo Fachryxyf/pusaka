@@ -46,16 +46,21 @@ export default async function HalamanAlat({ params }: PageProps<'/alat/[slug]'>)
   const bermasalah = kesehatan?.sehat === false
 
   return (
-    <div className="space-y-6">
-      <div className="space-y-1">
-        <Link href="/" className="text-sm text-zinc-600 hover:underline dark:text-zinc-400">
+    <div className="space-y-8">
+      <div className="space-y-2">
+        <Link
+          href="/"
+          className="fokus-cincin teks-kecil inline-block rounded text-zinc-500 transition hover:text-zinc-900 dark:hover:text-zinc-100"
+        >
           ← Semua alat
         </Link>
-        <h1 className="flex items-center gap-2 text-2xl font-semibold tracking-tight">
+        <h1 className="flex items-center gap-2.5 text-[1.625rem] font-semibold leading-tight tracking-tight">
           <Ikon nama={alat.ikon} className="h-6 w-6 shrink-0 text-zinc-500" />
           {alat.judul}
         </h1>
-        <p className="text-zinc-600 dark:text-zinc-400">{alat.deskripsi}</p>
+        <p className="max-w-2xl leading-relaxed text-zinc-600 dark:text-zinc-400">
+          {alat.deskripsi}
+        </p>
       </div>
 
       {bermasalah && (
@@ -75,7 +80,7 @@ export default async function HalamanAlat({ params }: PageProps<'/alat/[slug]'>)
 
       <Komponen api={api} pendukung={pendukung} />
 
-      <p className="text-xs text-zinc-500 dark:text-zinc-500">
+      <p className="teks-mikro text-zinc-500">
         Sumber data:{' '}
         <a href={api.dokumentasi} className="underline" rel="noopener noreferrer" target="_blank">
           {api.nama}

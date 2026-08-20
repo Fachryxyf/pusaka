@@ -16,7 +16,7 @@ export default function HalamanStatus() {
   if (!status) {
     return (
       <div className="space-y-4">
-        <h1 className="text-2xl font-semibold tracking-tight">Status API</h1>
+        <h1 className="text-[1.75rem] font-semibold leading-tight tracking-tight sm:text-4xl">Status API</h1>
         <p className="rounded-lg border border-dashed border-zinc-300 p-6 text-sm text-zinc-600 dark:border-zinc-700 dark:text-zinc-400">
           Belum ada data pemeriksaan. Jalankan <code className="font-mono">npm run probe</code>{' '}
           untuk menghasilkan <code className="font-mono">public/status.json</code>.
@@ -30,16 +30,16 @@ export default function HalamanStatus() {
   const beku = ringkasan.filter((r) => r.umurDataMaks !== null && r.umurDataMaks > 7)
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <div className="space-y-2">
-        <h1 className="text-2xl font-semibold tracking-tight">Status API</h1>
-        <p className="max-w-2xl text-zinc-600 dark:text-zinc-400">
+        <h1 className="text-[1.75rem] font-semibold leading-tight tracking-tight sm:text-4xl">Status API</h1>
+        <p className="max-w-2xl leading-relaxed text-zinc-600 dark:text-zinc-400">
           Tiap endpoint dipanggil langsung ke alamat aslinya, bukan ke halaman
           dokumentasinya. Sebuah endpoint hanya dinyatakan sehat kalau statusnya di bawah 400,
           Content-Type-nya JSON, body-nya terurai, isinya tidak kosong, dan ukurannya di atas
           ambang yang tercatat.
         </p>
-        <p className="text-sm text-zinc-500">
+        <p className="teks-badan text-zinc-500">
           Pemeriksaan terakhir {waktuPanjang(status.diperbarui)} ·{' '}
           <a href="/status.json" className="underline decoration-zinc-300 underline-offset-2 dark:decoration-zinc-600">
             status.json
@@ -60,7 +60,7 @@ export default function HalamanStatus() {
 
       {bermasalah.length > 0 && (
         <section className="space-y-2">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-500">
+          <h2 className="teks-mikro font-semibold uppercase text-zinc-500">
             Sedang bermasalah
           </h2>
           <ul className="space-y-1 text-sm">
@@ -78,7 +78,7 @@ export default function HalamanStatus() {
 
       {beku.length > 0 && (
         <section className="space-y-2">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-500">
+          <h2 className="teks-mikro font-semibold uppercase text-zinc-500">
             Hidup tapi datanya tua
           </h2>
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
@@ -99,7 +99,7 @@ export default function HalamanStatus() {
       )}
 
       <section className="space-y-4">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-500">
+        <h2 className="teks-mikro font-semibold uppercase text-zinc-500">
           Semua API
         </h2>
 
@@ -180,7 +180,7 @@ export default function HalamanStatus() {
 function Kotak({ label, nilai, tekan = false }: { label: string; nilai: string; tekan?: boolean }) {
   return (
     <div className="rounded-xl border border-zinc-200 p-4 dark:border-zinc-800">
-      <dt className="text-xs uppercase tracking-wide text-zinc-500">{label}</dt>
+      <dt className="teks-mikro uppercase text-zinc-500">{label}</dt>
       <dd
         className={`text-2xl font-semibold tabular-nums ${
           tekan ? 'text-red-600 dark:text-red-400' : ''

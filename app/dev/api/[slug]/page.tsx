@@ -32,21 +32,21 @@ export default async function HalamanApi({ params }: PageProps<'/dev/api/[slug]'
   )
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <div className="space-y-3">
-        <Link href="/dev" className="text-sm text-zinc-600 hover:underline dark:text-zinc-400">
+        <Link href="/dev" className="fokus-cincin teks-kecil inline-block rounded text-zinc-500 transition hover:text-zinc-900 dark:hover:text-zinc-100">
           ← Katalog API
         </Link>
 
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="space-y-1">
-            <h1 className="text-2xl font-semibold tracking-tight">{api.nama}</h1>
+            <h1 className="text-[1.625rem] font-semibold leading-tight tracking-tight">{api.nama}</h1>
             <p className="font-mono text-sm text-zinc-500">{api.slug}</p>
           </div>
           <LencanaStatus ringkas={ringkas} />
         </div>
 
-        <p className="max-w-2xl text-zinc-600 dark:text-zinc-400">{api.deskripsi}</p>
+        <p className="max-w-2xl leading-relaxed text-zinc-600 dark:text-zinc-400">{api.deskripsi}</p>
       </div>
 
       <section className="grid gap-px overflow-hidden rounded-xl border border-zinc-200 bg-zinc-200 sm:grid-cols-2 dark:border-zinc-800 dark:bg-zinc-800">
@@ -95,7 +95,7 @@ export default async function HalamanApi({ params }: PageProps<'/dev/api/[slug]'
       {/* Provenance ditampilkan terbuka, termasuk yang 'unknown'. Menyembunyikan
           ketidaktahuan justru membuat orang mengira haknya sudah jelas. */}
       <section className="space-y-3">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-500">
+        <h2 className="teks-mikro font-semibold uppercase text-zinc-500">
           Hak pakai data
         </h2>
         <dl className="space-y-2 rounded-xl border border-zinc-200 p-4 text-sm dark:border-zinc-800">
@@ -141,7 +141,7 @@ export default async function HalamanApi({ params }: PageProps<'/dev/api/[slug]'
 
       {alatTerkait.length > 0 && (
         <section className="space-y-2">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-500">
+          <h2 className="teks-mikro font-semibold uppercase text-zinc-500">
             Alat yang memakai API ini
           </h2>
           <ul className="flex flex-wrap gap-2">
@@ -160,7 +160,7 @@ export default async function HalamanApi({ params }: PageProps<'/dev/api/[slug]'
       )}
 
       <section className="space-y-4">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-500">
+        <h2 className="teks-mikro font-semibold uppercase text-zinc-500">
           {api.endpoints.length} endpoint
         </h2>
 
@@ -239,7 +239,7 @@ export default async function HalamanApi({ params }: PageProps<'/dev/api/[slug]'
 function Fakta({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="bg-white p-4 dark:bg-zinc-950">
-      <p className="text-xs uppercase tracking-wide text-zinc-500">{label}</p>
+      <p className="teks-mikro uppercase text-zinc-500">{label}</p>
       <div className="mt-1 text-sm">{children}</div>
     </div>
   )
