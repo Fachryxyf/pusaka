@@ -602,9 +602,66 @@ Content-Type `application/json` · CORS: * · ukuran ~7.7 KB
 | `data[0].cuaca[0][0].time_index` | str | 17-18 |
 | `data[0].cuaca[0][0].analysis_date` | str | 2026-08-06T00:00:00 |
 | `data[0].cuaca[0][0].image` | str | https://api-apps.bmkg.go.id/storage/icon/cuaca/kabut… |
-| … | | *(2 field lagi dipotong)* |
+| `data[0].cuaca[0][0].utc_datetime` | str | 2026-08-20 18:00:00 |
+| `data[0].cuaca[0][0].local_datetime` | str | 2026-08-21 01:00:00 |
 
 ---
+
+### Struktur `cuaca` — dikoreksi 2026-08-21
+
+`data[0].cuaca` adalah array bersarang dua tingkat, dan **tiap sub-array adalah satu hari
+kalender menurut waktu lokal lokasinya** — bukan sekadar "8 butir per hari".
+
+Diukur untuk Warnasari (`32.04.15.2003`) pada 2026-08-21:
+
+```
+kelompok 0: 8 butir | 2026-08-21 | 01:00 04:00 07:00 10:00 13:00 16:00 19:00 22:00
+kelompok 1: 8 butir | 2026-08-22 | 01:00 04:00 07:00 10:00 13:00 16:00 19:00 22:00
+kelompok 2: 2 butir | 2026-08-23 | 01:00 04:00
+```
+
+| Dugaan | Kenyataan |
+|---|---|
+| "3 hari, 8 butir per hari" | Jumlah kelompok dan jumlah butir per kelompok **tidak tetap**. Kelompok terakhir hampir selalu sebagian karena jendela prakiraannya berakhir di tengah hari |
+| "kelompok 0 = hari ini" | Biasanya ya, tapi **jangan diandalkan**. Ambil tanggalnya dari `local_datetime` butir pertama, jangan dari indeks |
+| Butir per 3 jam | Benar pada pengukuran ini (01, 04, 07, …), tapi jam awalnya bergeser menurut zona: Jakarta mulai 01:00, Makassar 02:00, Jayapura 03:00 — semuanya sama dengan 18:00 UTC |
+
+**Jangan menghitung jumlah hari dari `.length` lalu memberi label "Hari ini / Besok / Lusa"
+berdasarkan indeks.** Bandingkan tanggal di `local_datetime` dengan tanggal hari ini di
+zona lokasinya.
+
+### `lokasi.timezone` ADA — dan wajib dipakai
+
+Berbeda dari myQuran (yang tidak memuat zona waktu sama sekali), BMKG mengirim zona IANA:
+
+| adm4 | `lokasi.timezone` | butir pertama `local_datetime` | `utc_datetime` |
+|---|---|---|---|
+| `32.04.15.2003` Warnasari | `Asia/Jakarta` | `2026-08-21 01:00:00` | `2026-08-20 18:00:00` |
+| `73.71.01.1001` Bontorannu | `Asia/Makassar` | `2026-08-21 02:00:00` | `2026-08-20 18:00:00` |
+| `91.03.05.2001` Sama | `Asia/Jayapura` | `2026-08-21 03:00:00` | `2026-08-20 18:00:00` |
+
+Ketiganya adalah **momen yang sama**. Artinya `local_datetime` adalah waktu dinding di
+lokasi prakiraan, bukan waktu pembaca.
+
+**Konsekuensi:** untuk menandai "sekarang" atau memberi label hari, hitung tanggal/jam
+**di zona `lokasi.timezone`** memakai `Intl.DateTimeFormat` dengan opsi `timeZone` — jangan
+pakai `new Date().getHours()` milik perangkat. Pembaca di Jakarta yang melihat prakiraan
+Jayapura akan salah 2 jam kalau ini dilanggar.
+
+Ini juga alasan `local_datetime` **tidak boleh** diberi `new Date(...)` langsung: string
+`"2026-08-21 01:00:00"` tanpa penanda zona ditafsirkan sebagai waktu lokal perangkat oleh
+sebagian mesin JS, dan sebagai UTC oleh yang lain. Urai komponennya sebagai teks.
+
+### Bentuk galat
+
+```
+GET /publik/prakiraan-cuaca?adm4=99.99.99.9999   -> 404
+GET /publik/prakiraan-cuaca?adm4=32.04.04.0005   -> 404   (kode emsifa bertitik)
+{"message":"Data not found","error":"Not Found","statusCode":404}
+```
+
+Yang kedua adalah bukti ulang bahwa kode `wilayah-emsifa` **tidak** bisa dipakai untuk BMKG
+walau titiknya disisipkan — diuji lagi 2026-08-21, hasilnya tetap 404.
 
 ## Kode Pos — sooluh (DIREKOMENDASIKAN)
 

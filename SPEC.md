@@ -415,6 +415,14 @@ berhenti — kamu sedang memakai sumber yang salah.
 Catatan ketahanan: idn-area di-hosting di `railway.app`, yang punya profil risiko tagihan
 seperti Vercel. Karena itu ia diberi `mirror: true` — persis alasan lapisan mirror ada (§8).
 
+**Diuji ulang 2026-08-21:** `32.04.04.0005` (kode emsifa disisipi titik) **tetap dijawab
+404** oleh BMKG. Ini sekarang dijaga tes: `scripts/tes-cuaca.ts` gagal kalau suatu saat
+kode emsifa mulai diterima, supaya perubahan itu tidak lewat tanpa disadari.
+
+Response cuaca juga memuat **`lokasi.timezone`** (zona IANA). Itu bukan hiasan: jam di
+`local_datetime` adalah waktu dinding di lokasi prakiraan, jadi apa pun yang dibandingkan
+dengan "sekarang" wajib dihitung di zona itu, bukan zona perangkat pembaca.
+
 ---
 
 ### 6.6 Sebelas sumber terverifikasi lainnya

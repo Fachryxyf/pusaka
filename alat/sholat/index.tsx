@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useMemo, useState, useSyncExternalStore } from 'react'
-import type { Api } from '@/registry/schema'
+import type { PropAlat } from '@/alat/tipe'
 import { useApi } from '@/lib/useApi'
 import { BannerMirror, Galat, Kerangka, Kosong } from '@/komponen/keadaan'
 import { Pilih } from '@/komponen/Pilih'
@@ -41,7 +41,7 @@ const WAKTU = [
   { kunci: 'isya', label: 'Isya', wajib: true },
 ] as const
 
-export default function AlatSholat({ api }: { api: Api }) {
+export default function AlatSholat({ api }: PropAlat) {
   const [idKota, setIdKota] = useState(JAKARTA)
 
   const kota = useApi<BalasanKota>(api, 'daftarKota')

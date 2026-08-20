@@ -1,5 +1,6 @@
 'use client'
 
+import type { PropAlat } from '@/alat/tipe'
 import type { Api } from '@/registry/schema'
 import { useApi } from '@/lib/useApi'
 import { BannerMirror, Galat, Kerangka, Kosong } from '@/komponen/keadaan'
@@ -23,7 +24,7 @@ type BalasanRisiko = { data?: Risiko[] }
 
 const AU_KE_KM = 149_597_870.7
 
-export default function AlatObjekDekatBumi({ api }: { api: Api }) {
+export default function AlatObjekDekatBumi({ api }: PropAlat) {
   return (
     <div className="space-y-8">
       <Pendekatan api={api} />

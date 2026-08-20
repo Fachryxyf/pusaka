@@ -290,8 +290,8 @@ Pilihan kota dari endpoint `daftarKota`: `data[].id` (nilai), `data[].lokasi` (l
 │  Bandung, Jawa Barat                     │
 ├──────────────────────────────────────────┤
 │  HARI INI                                │
-│  00:00  14°  Kabut/Asap                  │
-│  03:00  15°  Berawan                     │
+│  01:00  17°  Berawan                     │
+│  04:00  17°  Berawan                     │
 │  …                                       │
 │  BESOK / LUSA  …                         │
 └──────────────────────────────────────────┘
@@ -308,7 +308,12 @@ Pilihan kota dari endpoint `daftarKota`: `data[].id` (nilai), `data[].lokasi` (l
 | Koordinat | `lokasi.lat`, `lokasi.lon` (sudah `float`) |
 
 Butir prakiraan ada di **array bersarang dua tingkat**:
-`data[0].cuaca` = array **per hari** (3 hari) → tiap elemen array **per jam** (8 butir).
+`data[0].cuaca` = array **per hari** → tiap elemen array **per jam**.
+
+**PENTING — jumlahnya tidak tetap.** Pengukuran 2026-08-21 memberi `8+8+2` butir, bukan
+`8+8+8`: jendela prakiraan berakhir di tengah hari, jadi kelompok terakhir hampir selalu
+sebagian. Yang dijamin hanyalah **tiap sub-array berisi satu tanggal kalender lokal**.
+Jangan memberi label hari berdasarkan indeks array.
 
 Jadi satu butir prakiraan = `data[0].cuaca[indeksHari][indeksJam]`:
 
@@ -327,11 +332,23 @@ Jadi satu butir prakiraan = `data[0].cuaca[indeksHari][indeksJam]`:
 
 - **Jangan pakai `.datetime` atau `.utc_datetime` untuk tampilan** — keduanya UTC.
   Pakai `.local_datetime`. Salah pilih di sini menggeser prakiraan 7 jam.
+- **`local_datetime` adalah waktu di LOKASI PRAKIRAAN, bukan waktu pembaca.** Response
+  memuat `lokasi.timezone` (mis. `Asia/Jakarta`, `Asia/Makassar`, `Asia/Jayapura`) dan itu
+  wajib dipakai untuk apa pun yang membandingkan dengan "sekarang". Momen UTC yang sama
+  menghasilkan `01:00` di Jakarta, `02:00` di Makassar, `03:00` di Jayapura.
+  Pakai `Intl.DateTimeFormat` dengan opsi `timeZone`; **jangan** `new Date().getHours()`.
+- **Jangan berikan `local_datetime` ke `new Date()`.** String `"2026-08-21 01:00:00"` tanpa
+  penanda zona ditafsirkan sebagai waktu lokal perangkat oleh sebagian mesin JS dan sebagai
+  UTC oleh yang lain. Ambil potongannya sebagai teks (`.slice(11, 16)` untuk jam).
 - Kode `adm4` diambil **apa adanya** dari `wilayah-idn-area` (`data[].code`, sudah
   bertitik seperti `32.04.15.2003`). **Tidak ada konversi format apa pun.**
   Jangan sekali-kali memakai kode dari `wilayah-emsifa` — angkanya beda dan BMKG
   akan menjawab 404 (lihat peringatan di Alat 2).
 - Pemilih lokasi memakai komponen yang sama dengan alat Wilayah — jangan ditulis dua kali.
+  Sudah diangkat jadi `komponen/PemilihWilayah.tsx` pada 2026-08-21, dipakai kedua alat.
+  Alat yang butuh API selain `apiSlug` utamanya mendeklarasikannya di `apiPendukung`
+  pada metadatanya; halaman alat memuatnya di server dan meneruskannya lewat prop
+  `pendukung`.
 - Ikon dari domain BMKG (`api-apps.bmkg.go.id`) — beri `onError` kalau gagal dimuat.
 
 **Selesai kalau:** memilih Warnasari, Pangalengan menampilkan prakiraan 3 hari dengan jam

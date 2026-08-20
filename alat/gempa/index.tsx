@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
+import type { PropAlat } from '@/alat/tipe'
 import type { Api } from '@/registry/schema'
 import { useApi } from '@/lib/useApi'
 import { BannerMirror, Galat, Kerangka, Kosong } from '@/komponen/keadaan'
@@ -28,7 +29,7 @@ type BalasanBanyak = { Infogempa?: { gempa?: Gempa[] } }
 
 const URL_SHAKEMAP = 'https://data.bmkg.go.id/DataMKG/TEWS/'
 
-export default function AlatGempa({ api }: { api: Api }) {
+export default function AlatGempa({ api }: PropAlat) {
   return (
     <div className="space-y-8">
       <GempaTerkini api={api} />

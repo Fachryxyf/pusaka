@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { DAFTAR_ALAT, cariAlat } from '@/alat/daftar'
+import type { Api } from '@/registry/schema'
 import { Ikon } from '@/komponen/Ikon'
 import { muatApi } from '@/lib/registry'
 
@@ -25,6 +26,17 @@ export default async function HalamanAlat({ params }: PageProps<'/alat/[slug]'>)
   const api = muatApi(alat.apiSlug)
   if (!api) notFound()
 
+  // Slug pendukung yang tidak ada di registry adalah kesalahan pemrograman, bukan
+  // halaman yang salah alamat — jadi dilempar, bukan di-notFound.
+  const pendukung: Record<string, Api> = {}
+  for (const slugPendukung of alat.apiPendukung ?? []) {
+    const tambahan = muatApi(slugPendukung)
+    if (!tambahan) {
+      throw new Error(`alat '${alat.slug}' butuh API '${slugPendukung}' yang tidak ada di registry`)
+    }
+    pendukung[slugPendukung] = tambahan
+  }
+
   const { Komponen } = alat
 
   return (
@@ -40,7 +52,7 @@ export default async function HalamanAlat({ params }: PageProps<'/alat/[slug]'>)
         <p className="text-zinc-600 dark:text-zinc-400">{alat.deskripsi}</p>
       </div>
 
-      <Komponen api={api} />
+      <Komponen api={api} pendukung={pendukung} />
 
       <p className="text-xs text-zinc-500 dark:text-zinc-500">
         Sumber data:{' '}

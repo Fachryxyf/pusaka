@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "tes": "tsx scripts/tes-registry.ts && tsx scripts/tes-mirror.ts",
-    "tes:jaringan": "tsx scripts/tes-client.ts && tsx scripts/tes-wilayah.ts && tsx scripts/tes-sholat.ts",
+    "tes:jaringan": "tsx scripts/tes-client.ts && tsx scripts/tes-wilayah.ts && tsx scripts/tes-sholat.ts && tsx scripts/tes-cuaca.ts",
     "validasi-registry": "tsx scripts/validasi-registry.ts",
     "probe": "tsx scripts/probe.ts",
     "mirror": "tsx scripts/mirror.ts",

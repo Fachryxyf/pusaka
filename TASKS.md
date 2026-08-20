@@ -297,21 +297,36 @@ Objek Dekat Bumi, dan Wilayah jalan di produksi.
 
 ---
 
-### T2.9 — Alat: Prakiraan Cuaca
+### T2.9 — Alat: Prakiraan Cuaca — SELESAI 2026-08-21
 **Blocked by:** T2.8
 
-`alat/cuaca/index.tsx`. Spesifikasi lengkap: [`UI-SPEC.md`](./UI-SPEC.md) Alat 4.
+`alat/cuaca/index.tsx`. Pemilih wilayah empat tingkat sampai desa, lalu prakiraan per tiga
+jam untuk tiga hari. Kode `adm4` dari `wilayah-idn-area` dipakai **apa adanya**.
 
-Pemilih lokasi memakai komponen yang sama dengan alat Wilayah — jangan ditulis dua kali.
-Kode `adm4` dipakai **apa adanya** dari `wilayah-idn-area`, tanpa konversi.
+**Dua koreksi terhadap spesifikasi asli**, keduanya dari pengukuran langsung dan sudah masuk
+`REFERENCE.md`:
 
-Dua hal yang paling gampang salah:
-- Butir prakiraan ada di **array bersarang dua tingkat**: `data[0].cuaca[hari][jam]`.
-- Pakai `.local_datetime`, **bukan** `.datetime` atau `.utc_datetime` — keduanya UTC
-  dan bikin prakiraan bergeser 7 jam.
+1. **Bentuk `cuaca` bukan "3 hari × 8 butir".** Jumlah kelompok dan jumlah butir per
+   kelompok **tidak tetap** — pengukuran 2026-08-21 memberi `8+8+2`, karena jendela
+   prakiraannya berakhir di tengah hari. Yang dijamin: **tiap sub-array adalah satu tanggal
+   kalender lokal**. Jadi label hari diambil dari `local_datetime` butir pertama, bukan dari
+   indeks array.
+2. **`lokasi.timezone` ADA** (`Asia/Jakarta`, `Asia/Makassar`, `Asia/Jayapura`), dan wajib
+   dipakai. `local_datetime` adalah waktu dinding **di lokasi prakiraan**, bukan waktu
+   pembaca — ketiga zona menghasilkan jam berbeda untuk momen UTC yang sama. Label
+   "Hari ini/Besok/Lusa" dihitung lewat `Intl.DateTimeFormat` dengan `timeZone` dari
+   response. Menyerahkan `local_datetime` ke `new Date()` juga dilarang: string tanpa
+   penanda zona ditafsirkan berbeda antar mesin JS.
 
-**Kriteria selesai:** memilih Warnasari, Pangalengan menampilkan prakiraan 3 hari dengan
-jam lokal yang benar, cocok dengan `api.bmkg.go.id/publik/prakiraan-cuaca?adm4=32.04.15.2003`.
+**Pemilih wilayah diangkat jadi `komponen/PemilihWilayah.tsx`** dan dipakai bersama alat
+Wilayah — tidak ditulis dua kali (UI-SPEC Alat 4). Alat sekarang bisa mendeklarasikan
+`apiPendukung` di metadatanya; halaman alat memuat API tambahan itu di server.
+
+**Kriteria selesai:** TERPENUHI. Dibuktikan `scripts/tes-cuaca.ts` (8 tes): Warnasari
+Pangalengan terbaca dari kode idn-area, `timezone` ada, `cuaca` bersarang dua tingkat dengan
+`8+8+2` butir, tiap kelompok tepat satu tanggal lokal, `local_datetime = utc_datetime + 7`
+untuk WIB dan `+9` untuk Jayapura, dan **kode emsifa bertitik tetap dijawab 404** — penjaga
+terhadap godaan menulis fungsi konversi kode wilayah.
 
 ---
 
