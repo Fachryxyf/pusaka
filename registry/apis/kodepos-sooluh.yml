@@ -1,0 +1,50 @@
+slug: kodepos-sooluh
+nama: Kode Pos Indonesia
+kategori: lokasi
+deskripsi: Pencarian kode pos berdasarkan nama wilayah atau koordinat.
+developer:
+  nama: sooluh
+  profil: 'https://github.com/sooluh'
+dokumentasi: 'https://github.com/sooluh/kodepos'
+upstreamName: Kode Pos
+auth: none
+cors: open
+baseUrl: 'https://kodepos.vercel.app'
+mirror: false
+provenance:
+  lisensi: Apache-2.0
+  sumberLisensi: 'https://github.com/sooluh/kodepos'
+  atribusiWajib: true
+  atribusi: 'kodepos oleh sooluh (Apache-2.0)'
+  syaratUrl: 'https://github.com/sooluh/kodepos'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh secara lisensi (Apache-2.0), TAPI tidak diaktifkan: kedua endpoint berparameter, jadi kombinasinya tak terbatas dan tidak bisa di-snapshot.'
+  batasAkses: null
+  diperiksa: '2026-08-21'
+endpoints:
+  - id: cari
+    method: GET
+    path: '/search/?q={kata}'
+    deskripsi: 'Cari kode pos dari nama kelurahan/kecamatan — data ARRAY, dibatasi 20 hasil tanpa paginasi dan tanpa total. code di akar adalah STATUS, code di dalam data adalah kode posnya.'
+    params:
+      - nama: kata
+        contoh: 'danasari'
+        wajib: true
+        keterangan: Nama kelurahan atau kecamatan
+    contohPath: /search/?q=danasari
+    minUkuranByte: 358
+  - id: deteksi
+    method: GET
+    path: '/detect/?latitude={lintang}&longitude={bujur}'
+    deskripsi: 'Deteksi kode pos dari koordinat — data OBJEK, plus field distance. Koordinat 0,0 diterima dan mengembalikan titik di Aceh, jadi validasi sebelum mengirim.'
+    params:
+      - nama: lintang
+        contoh: '-6.547052'
+        wajib: true
+        keterangan: Lintang desimal
+      - nama: bujur
+        contoh: '107.3980201'
+        wajib: true
+        keterangan: Bujur desimal
+    contohPath: '/detect/?latitude=-6.547052&longitude=107.3980201'
+    minUkuranByte: 153

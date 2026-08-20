@@ -796,6 +796,53 @@ Content-Type `application/json` · CORS: * · ukuran ~0.3 KB
 
 ---
 
+### Temuan tambahan 2026-08-21
+
+Repo sumbernya berlisensi **Apache-2.0** (diperiksa lewat API GitHub).
+
+**`code` muncul dua kali dengan arti berbeda:**
+
+```json
+{"statusCode":200,"code":"OK","data":[{"code":46386,"village":"Danasari",...}]}
+```
+
+`code` di **akar** adalah status berupa string (`"OK"`, `"BAD_REQUEST"`, `"NOT_FOUND"`).
+`code` di dalam `data` adalah **kode pos** berupa integer. Tertukar di sini menghasilkan bug
+yang tidak kelihatan sampai ada yang memperhatikan.
+
+**Hasil dibatasi 20, tanpa paginasi dan tanpa `total`:**
+
+| Permintaan | `data.length` | Hasil pertama |
+|---|---|---|
+| `?q=jakarta` | **20** | Gambir / 10110 |
+| `?q=jakarta&page=2` | 20 | Gambir / 10110 — **identik** |
+| `?q=sari&limit=50` | 20 | Wonosari / 28741 — **limit diabaikan** |
+
+`page` dan `limit` tidak dikenali dan **tidak memberi galat** — hanya diabaikan diam-diam.
+Tidak ada `total` di response, jadi tidak ada cara mengetahui berapa hasil yang sebenarnya
+ada. Alat wajib mengatakan hasilnya mungkin terpotong ketika jumlahnya tepat 20; jangan
+berpura-pura itu semuanya.
+
+**Bentuk galat:**
+
+```
+GET /search/?q=                           -> 400  {"code":"BAD_REQUEST","message":"The 'q' parameter is required."}
+GET /search/?q=zzzzzz                     -> 200  {"code":"OK","data":[]}
+GET /detect/?latitude=abc&longitude=xyz   -> 404  {"code":"NOT_FOUND","message":"This endpoint cannot be found."}
+GET /detect/?latitude=0&longitude=0       -> 200  data terisi (Melingge, Aceh Besar)
+```
+
+- Pencarian tanpa hasil membalas **200 dengan `data: []`**, bukan 404. Itu keadaan "kosong",
+  bukan galat.
+- Koordinat tidak sah membalas **404 berbunyi "This endpoint cannot be found"** —
+  menyesatkan, karena endpointnya ada; yang salah parameternya.
+- **`0,0` diterima dan mengembalikan hasil** (titik terdekat di Aceh). Koordinat kosong yang
+  terkirim sebagai `0` akan menghasilkan jawaban yang terlihat sah tapi salah. Validasi
+  sebelum mengirim.
+
+Satuan `data.distance` tidak dinyatakan API; nilainya konsisten dengan **kilometer**. Karena
+tidak dipastikan, alat menampilkannya sebagai jarak perkiraan.
+
 ## Kode Pos — vanmason (cadangan, tanpa CORS)
 
 `slug: kodepos-vanmason`

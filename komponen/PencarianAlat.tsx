@@ -35,16 +35,37 @@ export default function PencarianAlat({ alat }: { alat: MetaAlat[] }) {
           Tidak ada alat untuk “{kueri}”. Coba kata kunci yang lebih umum.
         </p>
       ) : (
-        <ul className="grid gap-4 sm:grid-cols-2">
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {hasil.map((a) => (
             <li key={a.slug}>
               <Link
                 href={`/alat/${a.slug}`}
-                className="flex h-full flex-col gap-1 rounded-xl border border-zinc-200 p-4 transition hover:border-zinc-900 dark:border-zinc-800 dark:hover:border-zinc-100"
+                className="fokus-cincin group flex h-full flex-col gap-3 rounded-xl border border-zinc-200 p-5 transition hover:border-zinc-400 hover:bg-zinc-50 dark:border-zinc-800 dark:hover:border-zinc-600 dark:hover:bg-zinc-900/60"
               >
-                <Ikon nama={a.ikon} className="h-6 w-6 text-zinc-500" />
-                <span className="font-medium">{a.judul}</span>
-                <span className="text-sm text-zinc-600 dark:text-zinc-400">{a.deskripsi}</span>
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-zinc-200 bg-zinc-50 transition group-hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900 dark:group-hover:border-zinc-700">
+                  <Ikon nama={a.ikon} className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
+                </span>
+                <span className="space-y-1">
+                  <span className="block font-medium">{a.judul}</span>
+                  <span className="block text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                    {a.deskripsi}
+                  </span>
+                </span>
+                <span className="mt-auto flex items-center gap-1 pt-1 text-sm text-zinc-500 transition group-hover:text-zinc-900 dark:group-hover:text-zinc-100">
+                  Buka
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
+                  >
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </span>
               </Link>
             </li>
           ))}

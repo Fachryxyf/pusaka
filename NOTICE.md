@@ -60,6 +60,7 @@ Yang **tidak** di-mirror, beserta alasannya:
 | `wilayah-emsifa` | Repo sumbernya tidak memuat berkas lisensi sama sekali. Tanpa lisensi berarti hak salin tidak diberikan, jadi `mirror` diubah ke `false` pada 2026-08-20 dan snapshotnya dihapus |
 | `quran-equran` | [Syarat layanan](https://equran.id/terms) pasal 7: teks Al-Qur'an bebas dipakai, **tapi** terjemahan, tafsir, dan audio yang mereka kembangkan dilindungi hak cipta |
 | `sholat-myquran` | Tidak ada pernyataan lisensi yang bisa ditemukan. `unknown` bukan izin — meski daftar 518 kotanya statis dan secara teknis ideal untuk di-mirror |
+| `kodepos-sooluh` | **Boleh** secara lisensi (Apache-2.0), tapi kedua endpoint berparameter sehingga kombinasinya tak terbatas dan tidak bisa di-snapshot |
 | `gempa-bmkg`, `cuaca-bmkg` | BMKG tidak menyatakan lisensi. Mewajibkan pencantuman sumber, dan itu kami lakukan, tapi hak salin tidak dinyatakan |
 
 ## 5. Atribusi yang diwajibkan penerbit
@@ -77,8 +78,8 @@ dan sudah tercatat per API di `provenance.atribusi`:
   https://ssd.jpl.nasa.gov"*.
   Lambang dan logo NASA/JPL **tidak** dipakai di situs ini; keduanya tidak berada di
   domain publik.
-- **idn-area** oleh Fityan Nugroho (MIT), **api-wilayah-indonesia** oleh Muhammad Syifa,
-  **EQuran.id**, **api.myquran.com**.
+- **idn-area** oleh Fityan Nugroho (MIT), **kodepos** oleh sooluh (Apache-2.0),
+  **api-wilayah-indonesia** oleh Muhammad Syifa, **EQuran.id**, **api.myquran.com**.
 
 Batas akses yang dinyatakan atau terukur, tercatat di `provenance.batasAkses`:
 

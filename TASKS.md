@@ -366,19 +366,37 @@ Ditambah `scripts/tes-teks.ts` (7 tes) yang memaksa `<a>`, `<script>`, `<img one
 
 ---
 
-### T2.11 — Alat: Kode Pos
+### T2.11 — Alat: Kode Pos — SELESAI 2026-08-21
 **Blocked by:** T2.8
 
 `alat/kodepos/index.tsx`. Spesifikasi lengkap: [`UI-SPEC.md`](./UI-SPEC.md) Alat 6.
 
-**Pakai `kodepos-sooluh`** (`kodepos.vercel.app`) — CORS terbuka, jadi alat ini
-**tidak perlu menunggu proxy**. Jangan pakai `kodepos-vanmason` yang tanpa CORS.
+Pakai `kodepos-sooluh` (`kodepos.vercel.app`) — CORS terbuka, jadi tidak menunggu proxy.
+Jebakan penamaan yang sudah tercatat terbukti: `code` di akar adalah status `"OK"` (string),
+`code` di dalam `data` adalah kode posnya (int).
 
-Jebakan penamaan: `code` di akar response adalah status (`"OK"`), `code` di dalam `data`
-adalah kode posnya. Jangan tertukar.
+**Tiga temuan tambahan**, semuanya masuk `REFERENCE.md`:
 
-**Kriteria selesai:** mencari "danasari" mengembalikan beberapa hasil dengan kode pos benar,
-dan tombol deteksi lokasi mengembalikan satu hasil (termasuk penanganan izin ditolak).
+1. **Hasil dibatasi 20, tanpa paginasi dan tanpa `total`.** `?page=2` mengembalikan halaman
+   pertama yang identik, dan `?limit=50` diabaikan — keduanya **tanpa galat**. Karena tidak
+   ada `total`, tidak ada cara mengetahui berapa hasil sebenarnya. Alat menyebutkan batas ini
+   saat hasilnya tepat 20, alih-alih berpura-pura itu semuanya.
+2. **Koordinat `0,0` diterima** dan mengembalikan titik terdekat di Aceh. Jadi koordinat
+   kosong yang terkirim sebagai `0` menghasilkan jawaban yang terlihat sah tapi salah. Alat
+   memvalidasinya sebelum mengirim.
+3. **Koordinat tidak sah membalas 404 berbunyi "This endpoint cannot be found"** —
+   menyesatkan, karena endpointnya ada. Sementara pencarian tanpa hasil justru **200 dengan
+   `data: []`**, yang berarti keadaan "kosong", bukan galat. Dua-duanya ditangani berbeda.
+
+Lisensi repo sumbernya **Apache-2.0**, jadi mirror boleh secara hukum — tapi tidak
+diaktifkan karena kedua endpoint berparameter dan tidak bisa di-snapshot.
+
+**Kriteria selesai:** TERPENUHI. Dibuktikan `scripts/tes-kodepos.ts` (8 tes): "danasari"
+mengembalikan 4 hasil dengan Ciamis = 46386, `code` akar dan `code` data terbukti beda tipe,
+pencarian kosong 200 + `[]`, batas 20 tanpa `total`, deteksi `-6.2,106.816` → 10230 Kebon
+Melati dengan `distance` 0,37, dan `0,0` tetap dijawab sehingga validasi di sisi kita
+memang perlu. Penolakan izin lokasi ditangani dengan pesan per jenis galat
+(`PERMISSION_DENIED`, `POSITION_UNAVAILABLE`, `TIMEOUT`).
 
 ---
 

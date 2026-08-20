@@ -470,11 +470,20 @@ Arab + latin + terjemahan, dan audio bisa diputar.
 ### Aturan
 
 - Bungkusnya `{statusCode, code, data}`. `code` di **akar** adalah status berupa string
-  (`"OK"`), sedangkan `code` di dalam `data` adalah **kode pos**. Jangan tertukar —
-  ini penamaan yang menjebak.
+  (`"OK"`, `"BAD_REQUEST"`, `"NOT_FOUND"`), sedangkan `code` di dalam `data` adalah
+  **kode pos**. Jangan tertukar — ini penamaan yang menjebak.
 - Tombol "Pakai lokasi saya" memakai `navigator.geolocation`. Wajib menangani penolakan izin
-  dengan pesan yang jelas, bukan diam saja.
+  dengan pesan yang jelas, bukan diam saja. Ketiga jenis galat dibedakan:
+  `PERMISSION_DENIED`, `POSITION_UNAVAILABLE`, `TIMEOUT` — masing-masing punya jalan keluar
+  yang berbeda, dan semuanya mengarahkan pengguna kembali ke pencarian nama.
 - `data[].code` di sini bertipe `int` (kode pos Indonesia tidak berawalan nol).
+- **Hasil dibatasi 20 dan tidak ada `total`.** `page` dan `limit` diabaikan tanpa galat, jadi
+  tidak ada cara mengetahui jumlah sebenarnya. Ketika hasilnya tepat 20, **katakan** bahwa
+  daftarnya mungkin terpotong — jangan menampilkannya seolah itu seluruh hasil.
+- **Validasi koordinat sebelum mengirim.** API menerima `0,0` dan mengembalikan titik di
+  Aceh, jadi koordinat kosong menghasilkan jawaban yang terlihat sah tapi salah.
+- Pencarian tanpa hasil membalas **200 dengan `data: []`** — itu keadaan `kosong` (§1.1),
+  bukan `error`. Koordinat tidak sah membalas 404, dan itu memang `error`.
 
 **Selesai kalau:** mencari "danasari" mengembalikan beberapa hasil dengan kode pos benar,
 dan deteksi lokasi mengembalikan satu hasil.
