@@ -985,23 +985,44 @@ karena risiko hukumnya. Boleh masuk katalog developer.
 
 ---
 
-### T7.8 — Alat gelombang tiga dari hasil riset
-**Blocked by:** T7.7
+### T7.8 — Alat gelombang tiga dari hasil riset — SEBAGIAN, 2026-08-21
 
-Dari semua API yang terbukti hidup di T7.4–T7.7, pilih yang paling berguna buat orang awam
-dan bikin alatnya. Kandidat kuat berdasarkan yang sudah terverifikasi:
+**Alat Harga Emas: SELESAI.** `alat/harga-emas/index.tsx`.
 
-- **Kode Pos** (tier A, CORS terbuka — tidak butuh proxy) — dijadwalkan di T2.11, pastikan tuntas
-- **Harga Emas** (tier B) — hosting di Cloudflare Workers, kecil kemungkinan mati
-- **Data Sekolah Indonesia** (tier B)
-- **Lambang Daerah** (tier A) — pelengkap visual buat alat Data Wilayah
-- **Kunci Jawaban TTS** (tier A) — ringan tapi ramai peminat
+Alat ini semula terhalang di UI-SPEC bagian 3 dengan alasan "tanpa CORS — tunggu proxy".
+Alasan itu **salah**, dan probe 2026-08-21 membuktikannya: `logam-mulia-api` membalas
+`Access-Control-Allow-Origin: *`. Jadi ia tidak pernah perlu proxy.
 
-**Libur Nasional** tetap harus di-mirror manual dari SKB 3 Menteri — sumber aslinya
-(`dayoffapi`) mati 402 dan **tidak ada penggantinya di seluruh 151 API**. Ini contoh
-paling jelas kenapa lapisan mirror ada.
+**Tiga temuan yang membentuk tampilannya**, semuanya masuk `REFERENCE.md`:
 
-**Kriteria selesai:** minimal 3 alat baru live di produksi, semuanya `ok: true` di probe.
+1. **`/api/prices` adalah daftar SUMBER, bukan daftar harga.** Bentuknya berbeda dari endpoint
+   harga: kunci akarnya cuma `data`, tanpa `success`/`count`/`timestamp`, dan tiap elemennya
+   tidak memuat harga sama sekali. Registry sekarang punya dua endpoint terpisah untuk ini.
+   Ada **18 sumber**, semuanya hidup.
+2. **`buybackPrice` sering kosong** — `null` atau `0` di 8 dari 18 sumber, dan `logammulia`
+   tidak pernah mengirimkannya sama sekali (22 dari 22 baris). Alat menuliskan "tidak
+   dinyatakan", **bukan** "Rp 0": menampilkan nol akan membuat pembaca menyangka emasnya tidak
+   bisa dijual kembali.
+3. **Satuan berat tidak seragam.** `weight` berupa number desimal dari `0.01` (Pegadaian)
+   sampai `1000`, dan `weightUnit` berisi `"gr"` di sebagian sumber tapi `"gram"` di sumber
+   lain — jadi tidak boleh dipakai untuk logika. Karena rentangnya selebar itu, alat
+   menampilkan **harga per gram** sebagai kolom tersendiri; itu satu-satunya cara
+   membandingkan antar sumber.
+
+Alat juga menyatakan terus terang bahwa harganya bisa berbeda dari gerai, dan bahwa ini bukan
+penawaran maupun saran investasi.
+
+**Yang masih tertahan:**
+
+| Kandidat | Penahan |
+|---|---|
+| Doa Harian | **Hak pakai**, bukan teknis. Repo sumbernya sudah 404 di GitHub, jadi lisensinya tidak bisa diperiksa. `provenance.lisensi: unknown` |
+| Kunci TTS, Lambang Daerah, Kode Pos vanmason | **CORS** — ini yang sungguh menunggu T5.1 |
+| Data Sekolah, Pesantren, Al-Qur'an alternatif, Kotonogi, Dua & Dzikir | Sudah di registry dan sehat; belum dibuat alatnya |
+
+**Kriteria selesai:** TERPENUHI untuk Harga Emas — live, `ok: true` di probe, dan dibuktikan
+`scripts/tes-emas.ts` (6 tes). Salah satunya memeriksa header CORS **langsung**, bukan lewat
+`lib/client.ts`, supaya asumsi yang bikin alat ini mungkin tidak pernah lolos tanpa diperiksa.
 
 ---
 

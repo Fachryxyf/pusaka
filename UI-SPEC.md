@@ -590,7 +590,7 @@ sebelum endpoint-nya lolos verifikasi** (TASKS Tahap 7):
 | KBBI | Endpoint belum ketemu, kandidat masih 404 |
 | Daftar Bank | Endpoint belum ketemu |
 | Cek Resi | Butuh API key |
-| Harga Emas | **KOREKSI 2026-08-21: TIDAK terhalang lagi.** Dokumen lama menandainya tanpa CORS; diuji ulang dua kali termasuk dengan header `Origin`, `logam-mulia-api.iamutaki.workers.dev` membalas `Access-Control-Allow-Origin: *`. Sudah di registry sebagai `harga-emas`, siap dijadikan alat |
+| ~~Harga Emas~~ | **SUDAH DIBUAT 2026-08-21.** Dokumen lama menandainya tanpa CORS; diuji ulang dua kali termasuk dengan header `Origin`, `logam-mulia-api.iamutaki.workers.dev` membalas `Access-Control-Allow-Origin: *`. Alatnya live di `/alat/harga-emas` — lihat TASKS T7.8 |
 | Doa Harian | Hidup, tapi **repo sumbernya sudah 404 di GitHub** per 2026-08-21, jadi lisensinya tidak bisa diperiksa sama sekali. `provenance.lisensi: unknown`. Sudah di registry sebagai `doa-doa`, tapi **jangan** dijadikan alat sampai hak pakainya jelas |
 | Kunci TTS, Lambang Daerah, Kode Pos vanmason | Terverifikasi hidup tapi **tanpa CORS** — ini yang sungguh menunggu proxy (T5.1) |
 

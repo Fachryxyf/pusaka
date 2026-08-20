@@ -50,6 +50,14 @@ const JALUR: Record<string, React.ReactNode> = {
       <path d="M7 9h5M7 12h5M7 15h3" />
     </>
   ),
+  emas: (
+    // Batangan bertumpuk
+    <>
+      <path d="M8.5 9.5h7l1.5 4h-10z" />
+      <path d="M5 14h6l1.5 4.5h-9z" />
+      <path d="M13 14h6l1.5 4.5h-9z" />
+    </>
+  ),
   peta: (
     // Penanda lokasi
     <>

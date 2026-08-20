@@ -1434,6 +1434,76 @@ Content-Type `application/json` · CORS: **TIDAK ADA — wajib lewat proxy** · 
 
 ---
 
+### Diprobe ulang 2026-08-21 — CORS TERBUKA, dan ada 18 sumber
+
+Dua koreksi penting terhadap catatan lama:
+
+1. **CORS-nya `*`, bukan tidak ada.** Diuji dua kali termasuk dengan header `Origin`
+   disertakan. Dokumen lama menandainya "TANPA CORS — tunggu proxy"; itu salah, dan alat
+   Harga Emas **tidak** pernah perlu menunggu proxy.
+2. **`/api/prices` bukan daftar harga, melainkan daftar SUMBER.** Bentuknya berbeda dari
+   endpoint harga: kunci akarnya cuma `data`, tanpa `success`/`count`/`timestamp`, dan tiap
+   elemennya `{name, displayName, logo, favicon, cover, url, urlHomepage}` — tidak ada harga
+   sama sekali.
+
+Kedelapan belas sumber, semuanya diuji dan hidup pada 2026-08-21:
+
+| Sumber | Baris | Sumber | Baris |
+|---|---|---|---|
+| `anekalogam` | 9 | `indogold` | 22 |
+| `bankbsi` | 1 | `kursdolar` | 12 |
+| `brankaslm` | 2 | `lakuemas` | 1 |
+| `cermati` | 24 | `logammulia` | 22 |
+| `emasku` | 20 | `pegadaian` | 1 |
+| `galeri24` | **99** | `sakumas` | 1 |
+| `hargaemas-com` | 24 | `sampoernagold` | 1 |
+| `hargaemas-net` | 12 | `treasury` | 1 |
+| `hargaemas-org` | 20 | `hartadinataabadi` | 1 |
+
+Sumber yang tidak ada membalas **404 dengan body teks biasa** `404 Not Found` — bukan JSON.
+
+### PENTING — `buybackPrice` sering kosong
+
+Delapan dari 18 sumber mengirim `buybackPrice` bernilai `null` atau `0`:
+
+| Sumber | Kosong |
+|---|---|
+| `logammulia`, `hargaemas-org`, `cermati`, `brankaslm`, `hartadinataabadi` | **semuanya** |
+| `hargaemas-com` | 23 dari 24 |
+| `hargaemas-net` | 11 dari 12 |
+| `galeri24` | 14 dari 99 |
+
+Artinya harga buyback **tidak boleh diasumsikan ada**. Menampilkan `0` sebagai harga jauh
+lebih buruk daripada tidak menampilkannya — pembaca bisa menyangka emasnya tidak bisa dijual
+kembali. Sembunyikan barisnya kalau kosong.
+
+### Satuan berat tidak seragam
+
+| Hal | Kenyataan |
+|---|---|
+| `weight` | **number**, bisa desimal: `0.01` (Pegadaian), `0.1`, `0.25`, `0.5`, sampai `1000` |
+| `weightUnit` | `"gr"` di sebagian sumber, `"gram"` di sumber lain (mis. Pegadaian). Jangan dipakai untuk logika, hanya untuk tampilan |
+| `materialType` | Bebas, kadang `"unknown"`. Bukan enum |
+
+Karena `weight` sangat bervariasi, **harga per gram** (`sellPrice / weight`) jauh lebih
+berguna untuk membandingkan antar sumber daripada harga totalnya. Itu yang dipakai alat.
+
+### Bentuk & catatan lain
+
+```json
+{"success":true,"data":[…],"count":9,"timestamp":"2026-08-20T17:00:04.896Z","cached":true}
+```
+
+- `count` **int**, `success` **bool**, `cached` **bool**. `timestamp` ISO 8601 UTC — ini waktu
+  API mengambil datanya, **bukan** tanggal harganya.
+- `recordedDate` (`"2026-08-21"`) adalah tanggal harga itu berlaku. Dua nilai ini bisa
+  berbeda hari karena `timestamp` memakai UTC sementara `recordedDate` waktu lokal.
+- `cached: true` berarti Worker menyajikan dari cache. Wajar, dan bukan tanda basi — tapi
+  `timestamp`-nya perlu ditampilkan supaya pembaca tahu seberapa baru datanya.
+- `favicon` dan `cover` sering `null`. `logo` sering string kosong `""`, bukan `null` —
+  periksa keduanya sebelum dipakai sebagai URL gambar.
+- Ukuran: `/api/prices` 2,9 KB · `anekalogam` 3,8 KB · `galeri24` **33 KB**.
+
 ## Doa & Dzikir
 
 `slug: dua-dhikr`
