@@ -1,5 +1,7 @@
 // Satu-satunya tempat alat didaftarkan. Import statis supaya typecheck-nya nyata.
 import type { Alat, MetaAlat } from '@/alat/tipe'
+import Berita from '@/alat/berita'
+import { meta as metaBerita } from '@/alat/berita/meta'
 import Cuaca from '@/alat/cuaca'
 import { meta as metaCuaca } from '@/alat/cuaca/meta'
 import Gempa from '@/alat/gempa'
@@ -23,6 +25,7 @@ export const DAFTAR_ALAT: Alat[] = [
   { ...metaCuaca, Komponen: Cuaca },
   { ...metaQuran, Komponen: Quran },
   { ...metaKodePos, Komponen: KodePos },
+  { ...metaBerita, Komponen: Berita },
 ]
 
 // Komponen tidak bisa diserialisasi ke Client Component, jadi metadatanya dipisah.
@@ -34,6 +37,7 @@ export const DAFTAR_META: MetaAlat[] = [
   metaCuaca,
   metaQuran,
   metaKodePos,
+  metaBerita,
 ]
 
 export function cariAlat(slug: string): Alat | undefined {

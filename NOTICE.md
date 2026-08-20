@@ -61,6 +61,7 @@ Yang **tidak** di-mirror, beserta alasannya:
 | `quran-equran` | [Syarat layanan](https://equran.id/terms) pasal 7: teks Al-Qur'an bebas dipakai, **tapi** terjemahan, tafsir, dan audio yang mereka kembangkan dilindungi hak cipta |
 | `sholat-myquran` | Tidak ada pernyataan lisensi yang bisa ditemukan. `unknown` bukan izin — meski daftar 518 kotanya statis dan secara teknis ideal untuk di-mirror |
 | `kodepos-sooluh` | **Boleh** secara lisensi (Apache-2.0), tapi kedua endpoint berparameter sehingga kombinasinya tak terbatas dan tidak bisa di-snapshot |
+| `berita-indo` | Repo sumbernya tanpa berkas lisensi, dan isinya berupa berita milik medianya masing-masing. Berita juga kedaluwarsa cepat |
 | `gempa-bmkg`, `cuaca-bmkg` | BMKG tidak menyatakan lisensi. Mewajibkan pencantuman sumber, dan itu kami lakukan, tapi hak salin tidak dinyatakan |
 
 ## 5. Atribusi yang diwajibkan penerbit
@@ -80,6 +81,9 @@ dan sudah tercatat per API di `provenance.atribusi`:
   domain publik.
 - **idn-area** oleh Fityan Nugroho (MIT), **kodepos** oleh sooluh (Apache-2.0),
   **api-wilayah-indonesia** oleh Muhammad Syifa, **EQuran.id**, **api.myquran.com**.
+- **berita-indo-api** oleh Satya Wikananda. Isi beritanya milik medianya masing-masing
+  (CNN, CNBC, Antara, Tempo, Okezone, Kumparan, Republika, BBC, VOA); alat hanya menampilkan
+  judul, ringkasan, dan tautan ke situs aslinya.
 
 Batas akses yang dinyatakan atau terukur, tercatat di `provenance.batasAkses`:
 

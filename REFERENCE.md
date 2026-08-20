@@ -1155,6 +1155,125 @@ Content-Type `application/json` · CORS: * · ukuran ~72.5 KB
 
 ---
 
+### Diprobe ulang seluruhnya 2026-08-21 — 5 dari 14 sumber MATI
+
+Root `/` mendaftarkan 14 sumber. Semuanya dipanggil satu per satu:
+
+| Sumber | Path | Status | Item |
+|---|---|---|---|
+| CNN News | `/v1/cnn-news/` | 200 | 100 |
+| CNBC News | `/v1/cnbc-news/` | 200 | 100 |
+| Republika News | `/v1/republika-news/` | 200 | 15 |
+| Tempo News | `/v1/tempo-news/` | 200 | 50 |
+| Antara News | `/v1/antara-news/terkini` | 200 | 50 |
+| Okezone News | `/v1/okezone-news` | 200 | 30 |
+| BBC News | `/v1/bbc-news` | 200 | 21 |
+| Kumparan News | `/v1/kumparan-news` | 200 | 25 |
+| VOA Indonesia | `/v1/voa` | 200 | 20 |
+| **Liputan 6** | `/v1/liputan6-news` | **500** | `{"message":"Status code 404"}` |
+| **Tribun News** | `/v1/tribun-news` | **500** | `{"message":"Status code 403"}` |
+| **Jawa Pos** | `/v1/jawa-pos` | **500** | `{"message":"Status code 404"}` |
+| **Vice** | `/v1/vice` | **500** | `{"message":"Cannot read property 'url' of undefined"}` |
+| **Suara News** | `/v1/suara` | **500** | `{"message":"Status code 404"}` |
+
+Jadi **9 hidup, 5 mati**. Kelimanya adalah mode kematian scraper yang khas: API-nya sendiri
+hidup, tapi RSS media di baliknya berubah atau memblokir, dan galatnya diteruskan sebagai
+**500 dengan body JSON** — bukan 404. Pesan Vice bahkan bocor sebagai galat JavaScript mentah.
+
+**Konsekuensi:** daftar sumber di alat **tidak boleh** disalin dari root API. Yang tampil
+hanya kesembilan yang terbukti mengembalikan data.
+
+### Antara News: tidak punya endpoint "semua"
+
+Catatan lama menyebut `antara-news` "membalas 404, jangan dimasukkan". Itu **setengah benar**
+dan perlu dikoreksi:
+
+```
+GET /v1/antara-news/          -> 404  {"code":404,"messages":"The resource of ... was not found."}
+GET /v1/antara-news/terkini   -> 200  50 item
+GET /v1/antara-news/politik   -> 200  20 item
+```
+
+Root API memang **tidak** mencantumkan `all` untuk Antara — hanya `type`. Jadi sumbernya
+hidup, yang tidak ada cuma endpoint tanpa rubrik. Pakai `terkini` sebagai bawaannya.
+
+### PENTING — bentuk `data[]` BERBEDA di tiap sumber
+
+Ini temuan yang paling berpengaruh: UI-SPEC semula mengasumsikan semua sumber memakai
+`contentSnippet` dan `image.small`. **Tidak.**
+
+| Sumber | Teks ringkas | Gambar |
+|---|---|---|
+| CNN, CNBC | `contentSnippet` | objek `{small, large}` |
+| Republika | `description` | objek `{small}` |
+| Kumparan | `description` | objek `{small, medium, large, extraLarge}` |
+| VOA | `description` | objek `{small}` |
+| BBC | `description` | **tidak ada** |
+| Okezone | `content` | objek `{small, medium, large}` |
+| Tempo | `content` | **tidak ada** |
+| Antara | `description` (juga ada `content:encodedSnippet`) | **string URL biasa**, bukan objek |
+
+Tiga jebakan yang lahir dari sini:
+
+1. **`contentSnippet` hanya ada di CNN dan CNBC.** Tujuh sumber lain memakai `description`
+   atau `content`. Membaca `contentSnippet` saja membuat tujuh sumber tampil tanpa ringkasan.
+2. **`image` bisa objek ATAU string.** Antara mengirim `"https://cdn.antaranews.com/..."`
+   langsung. `image.small` pada nilai string menghasilkan `undefined`, dan karena string juga
+   punya properti berindeks angka, `Object.keys(image)` mengembalikan `["0","1","2",...]` —
+   gejala yang membingungkan kalau tidak diduga.
+3. **Tempo dan BBC tidak punya gambar sama sekali.** Tata letak wajib tetap rapi tanpa
+   gambar, bukan menyisakan kotak kosong.
+
+Karena itu alat menormalkan kesembilan bentuk ini jadi satu bentuk internal sebelum
+merender: `{judul, tautan, ringkasan, waktu, gambar}`.
+
+### Rubrik: ada yang tidak menyaring
+
+| Sumber | Rubrik menyaring? |
+|---|---|
+| CNN | **Ya** — 100/100 tautan `/v1/cnn-news/teknologi` memuat `/teknologi/`, sedangkan pada `all` hanya 3/100 |
+| BBC | **TIDAK** — `/v1/bbc-news/dunia` mengembalikan isi yang identik dengan `/v1/bbc-news` |
+
+Jadi keberadaan `listType` di root tidak menjamin penyaringan benar-benar terjadi. Rubrik
+hanya ditawarkan untuk sumber yang sudah terbukti menyaring.
+
+Rubrik yang tidak dikenal membalas **500** `{"message":"Status code 404"}`, bukan 400:
+
+```
+GET /v1/cnn-news/ngawur  -> 500  {"message":"Status code 404"}
+```
+
+### VOA: hidup tapi datanya basi 17 bulan
+
+```
+/v1/voa -> 200, 20 item
+isoDate terlama 2025-03-14, terbaru 2025-03-15
+```
+
+Diambil pada 2026-08-21, berarti berita terbarunya berumur **~17 bulan**. Endpointnya lolos
+semua syarat probe (200, JSON, tidak kosong, di atas ambang ukuran) — ini **mode kematian
+yang tidak tertangkap `minUkuranByte`**: data sah tapi beku.
+
+Karena itu alat menampilkan tanggal tiap berita apa adanya dan memberi peringatan kalau
+berita terbaru sebuah sumber lebih tua dari 7 hari. Kejujuran soal umur data lebih berguna
+daripada menyembunyikan sumbernya.
+
+### Bentuk bersama & catatan lain
+
+```json
+{"code":200,"status":"OK","messages":"...","total":100,"data":[...]}
+```
+
+- `code` **int** `200`, `total` **int** — beda dari kodepos.vercel.app yang `code`-nya string.
+- `isoDate` selalu ISO 8601 berakhiran `Z` (UTC) di kesembilan sumber. Wajib dikonversi ke
+  waktu lokal pembaca.
+- **Tidak ada entitas HTML** di `title` maupun teks ringkas pada kesembilan sumber yang
+  diperiksa (kekhawatiran `&amp;` di catatan lama tidak terbukti). Meski begitu teks tetap
+  dirender sebagai teks, bukan HTML.
+- Ukuran: CNN 64 KB, CNBC 73 KB, Antara 45 KB. Jangan panggil ulang tiap render.
+- Repo sumbernya **tanpa berkas lisensi** (diperiksa lewat API GitHub 2026-08-21), jadi
+  `provenance.lisensi: unknown` dan mirror tidak diaktifkan.
+
 ## Berita — Jakarta Post
 
 `slug: jakpost`

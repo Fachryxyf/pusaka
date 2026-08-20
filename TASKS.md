@@ -138,9 +138,11 @@ ga bisa lolos ke produksi.
 
 ---
 
-# TAHAP 2 — Muka awam, 6 alat
+# TAHAP 2 — Muka awam, 6 alat — SELESAI 2026-08-21
 
 Target akhir tahap: situs live di GitHub Pages dengan 6 alat jalan.
+**Tercapai dengan 8 alat**, karena Objek Dekat Bumi (NASA/JPL) ditambahkan di luar rencana
+awal.
 **Sudah layak dibagikan ke publik sejak T2.8** — tiga alat sisanya menyusul di atasnya.
 
 > Tampilan tiap alat sudah dispesifikasikan lengkap di [`UI-SPEC.md`](./UI-SPEC.md),
@@ -400,22 +402,45 @@ memang perlu. Penolakan izin lokasi ditangani dengan pesan per jenis galat
 
 ---
 
-### T2.12 — Alat: Berita
+### T2.12 — Alat: Berita — SELESAI 2026-08-21
 **Blocked by:** T2.8
 
 `alat/berita/index.tsx`. Spesifikasi lengkap: [`UI-SPEC.md`](./UI-SPEC.md) Alat 7.
 
-Pakai `berita-indo` (`berita-indo-api.vercel.app`) — CORS terbuka, **tidak perlu proxy**.
-14 media nasional, 100 berita per sumber.
+Seluruh 14 sumber yang didaftarkan root API diprobe satu per satu. Hasilnya mengoreksi
+beberapa hal yang tertulis di dokumen:
 
-Dua hal yang gampang salah:
-- **`antara-news` disebut di root API tapi membalas 404.** Jangan masukkan ke pilihan sumber.
-- `data[].isoDate` berakhiran `Z` (UTC) — wajib dikonversi ke waktu lokal pembaca.
+1. **5 dari 14 sumber MATI**, semuanya membalas **500 dengan body JSON**:
+   Liputan6 (`Status code 404`), Tribun (`Status code 403`), Jawa Pos (`Status code 404`),
+   Suara (`Status code 404`), dan Vice (`Cannot read property 'url' of undefined` — galat
+   JavaScript mentah yang bocor). Ini mode kematian scraper: API-nya hidup, RSS di baliknya
+   yang berubah atau memblokir. **Daftar sumber di alat tidak boleh disalin dari root API** —
+   hanya kesembilan yang terbukti berisi yang didaftarkan di registry.
+2. **Catatan lama tentang `antara-news` perlu dikoreksi.** Ia bukan mati: yang 404 hanya
+   `/v1/antara-news/` (tanpa rubrik), karena root API memang tidak mencantumkan `all` untuk
+   Antara. `/v1/antara-news/terkini` mengembalikan 50 item. Jadi Antara **masuk** ke pilihan,
+   dengan `terkini` sebagai bawaan.
+3. **Bentuk `data[]` BERBEDA di tiap sumber**, dan ini yang paling berpengaruh ke kode:
+   `contentSnippet` hanya ada di CNN dan CNBC; tujuh sumber lain memakai `description` atau
+   `content`. `image` bisa objek `{small,…}`, **string URL biasa** (Antara), atau **tidak ada
+   sama sekali** (Tempo, BBC). Alat menormalkan kesembilannya jadi satu bentuk internal
+   sebelum merender.
+4. **`listType` di root tidak menjamin penyaringan.** CNN menyaring benar (100/100 tautan
+   memuat `/teknologi/`), tapi `/v1/bbc-news/dunia` mengembalikan isi **identik** dengan
+   tanpa rubrik. Rubrik hanya ditawarkan untuk sumber yang penyaringannya sudah dibuktikan.
+5. **VOA hidup tapi datanya beku.** Berita terbarunya bertanggal 2025-03-15 — **523 hari**
+   saat diperiksa. Endpointnya lolos **semua** syarat probe (200, JSON, tidak kosong, di atas
+   `minUkuranByte`), jadi ini **mode kematian keenam yang belum tercatat di SPEC §9**:
+   data sah tapi tidak diperbarui. Alat memberi peringatan kalau berita terbaru sebuah sumber
+   lebih tua dari 7 hari, dan itu penanganan yang benar — menyembunyikan sumbernya justru
+   menutupi masalahnya.
 
-Response ~64 KB per sumber → cache agresif, jangan panggil ulang tiap render.
-
-**Kriteria selesai:** memilih CNN Indonesia menampilkan 100 berita dengan gambar dan waktu
-lokal yang benar, dan pemilih rubrik bekerja.
+**Kriteria selesai:** TERPENUHI. Dibuktikan `scripts/tes-berita.ts` (9 tes): kesepuluh
+endpoint di registry hidup dan berisi, kelima sumber mati **tetap** mati (tesnya gagal kalau
+salah satu hidup lagi — kabar baik yang layak ditindaklanjuti), Antara 404 tanpa rubrik tapi
+berisi dengan `/terkini`, bentuk per sumber masih sesuai catatan, semua berita punya judul +
+tautan `http` + `isoDate` UTC, rubrik CNN menyaring 100/100, rubrik BBC tidak menyaring, VOA
+berumur 523 hari, dan rubrik tak dikenal → 500.
 
 ---
 

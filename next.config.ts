@@ -16,6 +16,16 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'data.bmkg.go.id', pathname: '/DataMKG/TEWS/**' },
       // Ikon cuaca yang URL-nya datang dari field .image (UI-SPEC Alat 4).
       { protocol: 'https', hostname: 'api-apps.bmkg.go.id', pathname: '/storage/icon/**' },
+      // Gambar berita. Host-nya milik media masing-masing dan datang dari RSS, jadi
+      // daftarnya panjang dan bisa berubah — inilah alasan remotePatterns dipakai
+      // meski images.unoptimized aktif: URL dari host lain tidak boleh lolos.
+      { protocol: 'https', hostname: 'akcdn.detik.net.id' },
+      { protocol: 'https', hostname: 'awsimages.detik.net.id' },
+      { protocol: 'https', hostname: 'cdn.antaranews.com' },
+      { protocol: 'https', hostname: 'static.republika.co.id' },
+      { protocol: 'https', hostname: 'img.okezone.com' },
+      { protocol: 'https', hostname: 'blue.kumparan.com' },
+      { protocol: 'https', hostname: 'gdb.voanews.com' },
     ],
   },
   // GitHub Pages menyajikan /alat/gempa/index.html untuk /alat/gempa.

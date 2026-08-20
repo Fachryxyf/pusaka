@@ -523,23 +523,55 @@ dan deteksi lokasi mengembalikan satu hasil.
 | Gambar kecil | `data[].image.small` |
 | Gambar besar | `data[].image.large` |
 
-### 14 sumber yang tersedia
+### Sumber — diprobe ulang 2026-08-21, 9 hidup dari 14
 
-`cnn-news` · `cnbc-news` · `republika-news` · `tempo-news` · `okezone-news` · `bbc-news` ·
-`kumparan-news` · `liputan6-news` · `tribun-news` · `jawa-pos` · `vice` · `suara` · `voa`
+**Hidup:** `cnn-news` · `cnbc-news` · `antara-news/{tipe}` · `tempo-news` · `okezone-news` ·
+`kumparan-news` · `republika-news` · `bbc-news` · `voa`
 
-Rubrik hanya tersedia untuk sebagian sumber. Untuk CNN: `nasional`, `internasional`,
-`ekonomi`, `olahraga`, `teknologi`, `hiburan`, `gaya-hidup`.
+**MATI (500 dengan body JSON):** `liputan6-news` · `tribun-news` · `jawa-pos` · `vice` ·
+`suara`. Semuanya kematian scraper — API hidup, RSS di baliknya berubah atau memblokir.
+**Jangan menyalin daftar sumber dari root API**; pakai kesembilan yang ada di registry.
+
+Rubrik hanya ditawarkan untuk sumber yang penyaringannya **sudah dibuktikan**:
+CNN (`nasional`, `internasional`, `ekonomi`, `olahraga`, `teknologi`, `hiburan`,
+`gaya-hidup`) dan Antara (`terkini` dan sembilan lainnya). BBC punya `listType` di root tapi
+hasilnya **identik** dengan tanpa rubrik — jangan ditawarkan.
+
+### PENTING — bentuk `data[]` berbeda di tiap sumber
+
+Tabel pengikatan di atas hanya berlaku untuk CNN dan CNBC. Yang lain berbeda:
+
+| Sumber | Teks ringkas | Gambar |
+|---|---|---|
+| CNN, CNBC | `contentSnippet` | objek `{small, large}` |
+| Republika, VOA | `description` | objek `{small}` |
+| Kumparan | `description` | objek `{small, medium, large, extraLarge}` |
+| Okezone | `content` | objek `{small, medium, large}` |
+| Antara | `description` | **string URL**, bukan objek |
+| Tempo | `content` | **tidak ada** |
+| BBC | `description` | **tidak ada** |
+
+Normalkan ketujuh bentuk ini jadi satu bentuk internal sebelum merender. Dua jebakan:
+`image.small` pada nilai **string** menghasilkan `undefined` tanpa galat, dan tata letak wajib
+tetap rapi untuk sumber **tanpa gambar** — bukan menyisakan kotak kosong.
 
 ### Aturan
 
-- **`antara-news` disebut di root API tapi membalas 404.** Jangan dimasukkan ke daftar
-  pilihan sumber. Kalau sebuah sumber membalas 404, sembunyikan dari pilihan, jangan
-  tampilkan sebagai pilihan yang error.
+- **Koreksi 2026-08-21 soal `antara-news`:** ia **tidak** mati. Yang 404 hanya
+  `/v1/antara-news/` tanpa rubrik, karena root API tidak mencantumkan `all` untuk Antara.
+  `/v1/antara-news/terkini` berisi 50 item. Jadi Antara **masuk** ke pilihan, dengan
+  `terkini` sebagai bawaan.
+- Sumber yang benar-benar mati **disembunyikan dari pilihan**, tidak ditampilkan sebagai
+  pilihan yang error. Yang tampil hanya yang terbukti berisi.
+- **Sumber bisa hidup tapi datanya beku.** VOA membalas 200 dengan 20 item, tapi berita
+  terbarunya berumur 523 hari saat diperiksa. Tampilkan tanggal tiap berita apa adanya, dan
+  **beri peringatan kalau yang terbaru lebih tua dari 7 hari.** Menyembunyikan sumbernya
+  menutupi masalah; menampilkan umurnya membiarkan pembaca menilai.
 - Response besar (~64 KB per sumber) — cache agresif, jangan panggil ulang tiap render.
 - `isoDate` berakhiran `Z` (UTC). Tampilkan dalam waktu lokal pembaca.
-- Judul dan ringkasan berasal dari RSS media — bisa mengandung entitas HTML (`&amp;`).
-  Rapikan sebelum ditampilkan.
+- Judul dan ringkasan berasal dari RSS media. Kekhawatiran entitas HTML (`&amp;`)
+  **tidak terbukti** — diperiksa pada kesembilan sumber, tidak ada satu pun entitas. Teks
+  tetap dirender sebagai teks, bukan HTML.
 - Semua tautan keluar pakai `rel="noopener noreferrer"` dan `target="_blank"`.
 
 **Selesai kalau:** memilih CNN Indonesia menampilkan 100 berita dengan gambar dan waktu

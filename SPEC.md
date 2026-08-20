@@ -576,6 +576,21 @@ Untuk tiap endpoint, catat:
 > ```
 >
 > Keduanya **lolos** syarat 1–4 dan akan dilaporkan sehat. Ambang ukuran menangkapnya.
+
+> **Mode kematian keenam, ditemukan 2026-08-21: data sah tapi BEKU.**
+> `berita-indo-api.vercel.app/v1/voa` membalas 200, JSON sah, 20 item, ukuran di atas
+> ambang — lolos **kelima** syarat di atas. Tapi berita terbarunya bertanggal 2025-03-15,
+> yaitu **523 hari** sebelum tanggal pemeriksaan.
+>
+> Ambang ukuran tidak bisa menangkap ini, dan probe berbasis bentuk juga tidak. Yang
+> menangkapnya cuma **umur data**, dan itu hanya mungkin untuk endpoint yang punya field
+> waktu. Karena itu:
+>
+> - Untuk endpoint bertanggal, bandingkan stempel waktu terbaru dengan waktu probe dan
+>   catat umurnya. Jangan jadikan `ok: false` — endpointnya memang bekerja.
+> - Alat **wajib memberi tahu pembaca** kalau data yang ditampilkan sudah tua. Menyembunyikan
+>   sumbernya justru menutupi masalahnya; menampilkan umurnya membuat pembaca bisa menilai
+>   sendiri. Alat Berita memberi peringatan di atas 7 hari.
 > Isi `minUkuranByte` dari ukuran sungguhan yang tercatat di `REFERENCE.md`, ambil sekitar
 > setengahnya sebagai ambang — cukup longgar untuk fluktuasi wajar, cukup ketat untuk
 > menangkap payload yang mengempis.

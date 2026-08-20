@@ -1,0 +1,102 @@
+slug: berita-indo
+nama: Berita Indo
+kategori: berita
+deskripsi: 'Berita terkini dari media nasional. Root API mendaftarkan 14 sumber, tapi per 2026-08-21 hanya 9 yang hidup: CNN, CNBC, Republika, Tempo, Antara, Okezone, BBC, Kumparan, VOA.'
+developer:
+  nama: Satya Wikananda
+  profil: 'https://github.com/satyawikananda'
+dokumentasi: 'https://github.com/satyawikananda/berita-indo-api'
+upstreamName: Berita Indo API
+auth: none
+cors: open
+baseUrl: 'https://berita-indo-api.vercel.app'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: 'https://github.com/satyawikananda/berita-indo-api'
+  atribusiWajib: true
+  atribusi: 'berita-indo-api oleh Satya Wikananda; isi berita milik medianya masing-masing'
+  syaratUrl: null
+  redistribusi: unknown
+  kebijakanMirror: 'TIDAK - repo sumbernya tanpa berkas lisensi, dan isinya berupa berita milik media masing-masing. Berita juga kedaluwarsa cepat, jadi mirror tidak berguna.'
+  batasAkses: null
+  diperiksa: '2026-08-21'
+endpoints:
+  - id: cnnSemua
+    method: GET
+    path: /v1/cnn-news/
+    deskripsi: 100 berita terbaru CNN Indonesia.
+    params: []
+    contohPath: /v1/cnn-news/
+    minUkuranByte: 32819
+  - id: cnnTipe
+    method: GET
+    path: '/v1/cnn-news/{tipe}'
+    deskripsi: 'Saring per rubrik. Tipe CNN: nasional, internasional, ekonomi, olahraga, teknologi, hiburan, gaya-hidup.'
+    params:
+      - nama: tipe
+        contoh: 'teknologi'
+        wajib: true
+        keterangan: 'nasional | internasional | ekonomi | olahraga | teknologi | hiburan | gaya-hidup'
+    contohPath: /v1/cnn-news/teknologi
+    minUkuranByte: 32358
+  - id: cnbcSemua
+    method: GET
+    path: /v1/cnbc-news/
+    deskripsi: 100 berita terbaru CNBC Indonesia.
+    params: []
+    contohPath: /v1/cnbc-news/
+    minUkuranByte: 37120
+  - id: republikaSemua
+    method: GET
+    path: /v1/republika-news/
+    deskripsi: 'Berita Republika. Ringkasan di field description, gambar objek {small}.'
+    params: []
+    contohPath: /v1/republika-news/
+    minUkuranByte: 5000
+  - id: tempoSemua
+    method: GET
+    path: /v1/tempo-news/
+    deskripsi: 'Berita Tempo. Ringkasan di field content, TANPA gambar.'
+    params: []
+    contohPath: /v1/tempo-news/
+    minUkuranByte: 9000
+  - id: antaraTipe
+    method: GET
+    path: '/v1/antara-news/{tipe}'
+    deskripsi: 'Antara TIDAK punya endpoint semua - /v1/antara-news/ membalas 404. Wajib pakai rubrik; terkini sebagai bawaan. image berupa STRING URL, bukan objek.'
+    params:
+      - nama: tipe
+        contoh: 'terkini'
+        wajib: true
+        keterangan: 'terkini | politik | hukum | ekonomi | bola | olahraga | humaniora | lifestyle | tekno | otomotif'
+    contohPath: /v1/antara-news/terkini
+    minUkuranByte: 22000
+  - id: okezoneSemua
+    method: GET
+    path: /v1/okezone-news
+    deskripsi: 'Berita Okezone. Ringkasan di field content, gambar objek {small, medium, large}.'
+    params: []
+    contohPath: /v1/okezone-news
+    minUkuranByte: 11000
+  - id: bbcSemua
+    method: GET
+    path: /v1/bbc-news
+    deskripsi: 'BBC Indonesia. Ringkasan di field description, TANPA gambar. Rubriknya TIDAK menyaring - jangan ditawarkan.'
+    params: []
+    contohPath: /v1/bbc-news
+    minUkuranByte: 4900
+  - id: kumparanSemua
+    method: GET
+    path: /v1/kumparan-news
+    deskripsi: 'Berita Kumparan. Ringkasan di field description, gambar objek {small, medium, large, extraLarge}.'
+    params: []
+    contohPath: /v1/kumparan-news
+    minUkuranByte: 13000
+  - id: voaSemua
+    method: GET
+    path: /v1/voa
+    deskripsi: 'VOA Indonesia. HIDUP tapi datanya BEKU - berita terbaru bertanggal 2025-03-15 saat diperiksa 2026-08-21. Lolos semua syarat probe, jadi ini mode kematian yang tidak tertangkap minUkuranByte.'
+    params: []
+    contohPath: /v1/voa
+    minUkuranByte: 5000

@@ -42,6 +42,14 @@ const JALUR: Record<string, React.ReactNode> = {
       <path d="m3.5 7 8.5 6 8.5-6" />
     </>
   ),
+  berita: (
+    // Lembar berita
+    <>
+      <path d="M4 5.5h11a1 1 0 0 1 1 1V19a1 1 0 0 1-1 1H5.5A1.5 1.5 0 0 1 4 18.5z" />
+      <path d="M16 9h2.5A1.5 1.5 0 0 1 20 10.5v8A1.5 1.5 0 0 1 18.5 20" />
+      <path d="M7 9h5M7 12h5M7 15h3" />
+    </>
+  ),
   peta: (
     // Penanda lokasi
     <>

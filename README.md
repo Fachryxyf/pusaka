@@ -11,9 +11,9 @@ plus katalog API lokal yang statusnya dipantau otomatis.**
 [![Katalog: CC BY 4.0](https://img.shields.io/badge/katalog-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 [![Stack](https://img.shields.io/badge/stack-Next.js%2016%20%2B%20TypeScript%20%2B%20Tailwind%204-black.svg)](#struktur)
-[![API terdaftar](https://img.shields.io/badge/API%20terdaftar-8-informational.svg)](./registry/apis)
-[![Alat](https://img.shields.io/badge/alat-7-informational.svg)](./alat)
-[![Tahap](https://img.shields.io/badge/tahap-2%20dari%207-yellow.svg)](./TASKS.md)
+[![API terdaftar](https://img.shields.io/badge/API%20terdaftar-9-informational.svg)](./registry/apis)
+[![Alat](https://img.shields.io/badge/alat-8-informational.svg)](./alat)
+[![Tahap](https://img.shields.io/badge/tahap-3%20dari%207-yellow.svg)](./TASKS.md)
 [![Lisensi data](https://img.shields.io/badge/data-lihat%20NOTICE-lightgrey.svg)](./NOTICE.md)
 
 [Situs](https://pusaka.fachryxyf.com) · [Spesifikasi](./SPEC.md) · [Daftar pekerjaan](./TASKS.md) ·
@@ -43,10 +43,10 @@ hidup saat kamu membacanya. Status API berubah terus — itu justru premis proje
 
 | Yang diklaim | Artinya |
 |---|---|
-| 8 API terdaftar | ada 8 berkas di `registry/apis/`, semuanya pernah dipanggil sungguhan dan lolos validasi skema |
+| 9 API terdaftar | ada 9 berkas di `registry/apis/`, semuanya pernah dipanggil sungguhan dan lolos validasi skema |
 | 22 API di seed | [`REGISTRY-SEED.md`](./REGISTRY-SEED.md) memuat 22 blok YAML / 43 endpoint siap tempel |
 | 151 API di backlog | inventaris upstream, bertingkat menurut kesiapan di [`BACKLOG-API.md`](./BACKLOG-API.md) |
-| Snapshot riset | **6 Agustus 2026** untuk katalog awal · **20 Agustus 2026** untuk NASA/JPL, batas paginasi idn-area, dan seluruh data lisensi · **21 Agustus 2026** untuk batas permintaan myQuran, bentuk dan zona waktu prakiraan BMKG, tag HTML dan ukuran response equran.id, serta batas hasil kodepos.vercel.app |
+| Snapshot riset | **6 Agustus 2026** untuk katalog awal · **20 Agustus 2026** untuk NASA/JPL, batas paginasi idn-area, dan seluruh data lisensi · **21 Agustus 2026** untuk batas permintaan myQuran, bentuk dan zona waktu prakiraan BMKG, tag HTML dan ukuran response equran.id, batas hasil kodepos.vercel.app, serta probe ulang seluruh 14 sumber berita |
 
 Status hidup/mati yang sesungguhnya baru akan punya stempel waktu setelah Tahap 3
 (probe otomatis tiap 6 jam + `status.json` publik). Sampai itu ada, jangan baca badge
@@ -63,9 +63,10 @@ sebagai health check.
 | [Prakiraan Cuaca](https://pusaka.fachryxyf.com/alat/cuaca/) | BMKG + idn-area | per tiga jam sampai tingkat desa, jam mengikuti zona lokasinya |
 | [Al-Qur'an](https://pusaka.fachryxyf.com/alat/quran/) | equran.id | 114 surat, Arab + transliterasi + terjemahan, murottal 6 qari |
 | [Kode Pos](https://pusaka.fachryxyf.com/alat/kodepos/) | sooluh | cari dari nama wilayah, atau deteksi dari lokasi perangkat |
+| [Berita](https://pusaka.fachryxyf.com/alat/berita/) | berita-indo-api | 9 media nasional, waktu terbit di zona pembaca, peringatan sumber basi |
 
-Menyusul sesuai [`TASKS.md`](./TASKS.md): Berita, lalu muka developer
-(katalog + playground + dashboard status).
+**Tahap 2 tuntas.** Menyusul sesuai [`TASKS.md`](./TASKS.md): probe otomatis + dashboard
+status (Tahap 3), lalu muka developer berisi katalog dan playground (Tahap 4).
 
 ## Jalankan
 
