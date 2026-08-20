@@ -13,10 +13,11 @@ plus katalog API lokal yang statusnya dipantau otomatis.**
 [![Stack](https://img.shields.io/badge/stack-Next.js%2016%20%2B%20TypeScript%20%2B%20Tailwind%204-black.svg)](#struktur)
 [![API terdaftar](https://img.shields.io/badge/API%20terdaftar-9-informational.svg)](./registry/apis)
 [![Alat](https://img.shields.io/badge/alat-8-informational.svg)](./alat)
-[![Tahap](https://img.shields.io/badge/tahap-4%20dari%207-yellow.svg)](./TASKS.md)
+[![Tahap](https://img.shields.io/badge/tahap-5%20dari%207-yellow.svg)](./TASKS.md)
 [![Lisensi data](https://img.shields.io/badge/data-lihat%20NOTICE-lightgrey.svg)](./NOTICE.md)
 
-[Situs](https://pusaka.fachryxyf.com) · [Status API](https://pusaka.fachryxyf.com/dev/status/) ·
+[Situs](https://pusaka.fachryxyf.com) · [Katalog API](https://pusaka.fachryxyf.com/dev/) ·
+[Status](https://pusaka.fachryxyf.com/dev/status/) ·
 [Spesifikasi](./SPEC.md) · [Daftar pekerjaan](./TASKS.md) ·
 [Bentuk response API](./REFERENCE.md) · [Registry](./registry/apis) ·
 [Backlog 151 API](./BACKLOG-API.md) · [Batas lisensi](./NOTICE.md) · [Kontribusi](./CONTRIBUTING.md)
@@ -72,8 +73,24 @@ Untuk itu, lihat dashboard.
 | [Kode Pos](https://pusaka.fachryxyf.com/alat/kodepos/) | sooluh | cari dari nama wilayah, atau deteksi dari lokasi perangkat |
 | [Berita](https://pusaka.fachryxyf.com/alat/berita/) | berita-indo-api | 9 media nasional, waktu terbit di zona pembaca, peringatan sumber basi |
 
-**Tahap 2 tuntas.** Menyusul sesuai [`TASKS.md`](./TASKS.md): probe otomatis + dashboard
-status (Tahap 3), lalu muka developer berisi katalog dan playground (Tahap 4).
+**Tahap 2, 3, dan 4 tuntas.** Menyusul sesuai [`TASKS.md`](./TASKS.md): lapisan proxy —
+yang menunggu pindah hosting — lalu sinkronisasi upstream dan riset 41 API di tier C.
+
+## Untuk developer
+
+Katalog aslinya tidak punya field base URL maupun endpoint sama sekali, jadi datanya tidak
+bisa dipanggil program. Lapisan itu yang ditambahkan di sini:
+
+| Halaman | Isinya |
+|---|---|
+| [`/dev`](https://pusaka.fachryxyf.com/dev/) | katalog dengan pencarian + filter kategori, autentikasi, dan status |
+| [`/dev/api/<slug>`](https://pusaka.fachryxyf.com/dev/api/gempa-bmkg/) | dokumentasi tergenerate dari registry, hak pakai data, dan playground per endpoint |
+| [`/dev/status`](https://pusaka.fachryxyf.com/dev/status/) | uptime 30 hari, latency, riwayat per endpoint |
+| [`/status.json`](https://pusaka.fachryxyf.com/status.json) | riwayat probe 90 hari, CORS terbuka |
+
+Playground memakai `lib/client.ts` yang sama dengan alat — tidak ada jalur fetch kedua di
+project ini. Untuk API tanpa CORS, tombol Kirim dinonaktifkan dengan alasan yang disebutkan,
+dan salinan `curl` disediakan sebagai jalan keluarnya.
 
 ## Jalankan
 

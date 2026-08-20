@@ -31,6 +31,9 @@ jobs:
       - run: npm run tes
       # build ikut menjalankan validasi registry, jadi YAML rusak tidak bisa lolos.
       - run: npm run build
+      # Memeriksa halaman yang SUNGGUH terbit di out/ — katalog, tiap halaman API,
+      # dan perilaku playground untuk API tanpa CORS. Butuh hasil build di atas.
+      - run: npm run tes:terbit
 
   # Dipisah karena bergantung pada API pihak ketiga: kalau BMKG sedang mati, yang
   # merah harus job ini saja, bukan seluruh CI.

@@ -6,11 +6,10 @@ import { useState } from 'react'
 import { DAFTAR_META } from '@/alat/daftar'
 import { Ikon } from '@/komponen/Ikon'
 
-// Katalog developer (/dev) baru dikerjakan di Tahap 4; sampai itu ada, jangan
-// menautkannya — tautan ke halaman yang belum dibuat cuma menghasilkan 404.
 const NAV = [
   { href: '/', label: 'Alat' },
-  { href: '/dev/status', label: 'Status API' },
+  { href: '/dev', label: 'Katalog API' },
+  { href: '/dev/status', label: 'Status' },
 ] as const
 
 export function Header() {
@@ -26,7 +25,12 @@ export function Header() {
     setMenuTerbuka(false)
   }
 
-  const aktif = (href: string) => (href === '/' ? jalur === '/' || jalur.startsWith('/alat') : jalur.startsWith(href))
+  const aktif = (href: string) => {
+    if (href === '/') return jalur === '/' || jalur.startsWith('/alat')
+    // /dev jangan ikut menyala saat sedang di /dev/status.
+    if (href === '/dev') return jalur === '/dev' || jalur.startsWith('/dev/api')
+    return jalur.startsWith(href)
+  }
 
   return (
     // sticky, bukan fixed: tidak perlu memberi padding kompensasi pada isi halaman.
@@ -111,6 +115,12 @@ export function Header() {
                 </Link>
               ))}
               <span className="my-1 h-px bg-zinc-200 dark:bg-zinc-800" aria-hidden="true" />
+              <Link
+                href="/dev"
+                className="fokus-cincin rounded-md px-2 py-2 text-sm transition hover:bg-zinc-100 dark:hover:bg-zinc-800"
+              >
+                Katalog API
+              </Link>
               <Link
                 href="/dev/status"
                 className="fokus-cincin rounded-md px-2 py-2 text-sm transition hover:bg-zinc-100 dark:hover:bg-zinc-800"

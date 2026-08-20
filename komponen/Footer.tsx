@@ -12,7 +12,9 @@ const SUMBER = [
 ] as const
 
 const HALAMAN = [
+  { nama: 'Katalog API', href: '/dev' },
   { nama: 'Status API', href: '/dev/status' },
+  { nama: 'status.json', href: '/status.json' },
 ] as const
 
 const DOKUMEN = [

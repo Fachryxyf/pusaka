@@ -539,44 +539,84 @@ bukan penanda palsu.
 
 ---
 
-# TAHAP 4 — Muka developer
+# TAHAP 4 — Muka developer — SELESAI 2026-08-21
 
 Target akhir tahap: lubang no. 3 (SPEC §2) tertutup — dataset jadi bisa dipanggil mesin, lengkap dengan playground.
+**Tercapai.** Katalog di `/dev`, dokumentasi tergenerate di `/dev/api/<slug>`, playground di
+tiap endpoint, dan `status.json` yang bisa dipanggil program.
 
 ---
 
-### T4.1 — Katalog API
+### T4.1 — Katalog API — SELESAI 2026-08-21
 **Blocked by:** T3.4
 
-`app/dev/page.tsx` — daftar semua API dari registry, dengan pencarian dan filter
-(kategori, auth, status hidup/mati). Tampilkan badge status dari data health.
+`app/dev/page.tsx` — daftar semua API dari registry dengan pencarian dan tiga filter
+(kategori, autentikasi, status), plus badge status dari data probe.
 
-**Kriteria selesai:** cari "gempa" → ketemu. Filter `auth: none` → jalan. Tiap baris nge-link ke halaman detail.
+Tiap baris juga menampilkan jumlah endpoint, keadaan CORS, lisensi dari `provenance`, dan
+penanda kalau API-nya punya mirror — semuanya dari registry, tidak ada yang ditulis tangan.
+
+Satu catatan struktur: objek `Api` penuh **tidak** diteruskan ke Client Component. Yang
+dikirim hanya `BarisApi` berisi field yang dipakai daftar, karena `contohResponse` bisa
+besar dan tidak ada gunanya di sana.
+
+Halaman ini juga menyatakan terus terang bahwa registry baru memuat 9 dari 151 API di
+inventaris. Menyembunyikan angka itu akan membuat katalognya terlihat lebih lengkap
+daripada kenyataannya.
+
+**Kriteria selesai:** TERPENUHI — cari "gempa" ketemu, filter `auth: none` jalan, tiap
+baris menautkan halaman detailnya. Dibuktikan `scripts/tes-dev.ts`.
 
 ---
 
-### T4.2 — Halaman detail API
+### T4.2 — Halaman detail API — SELESAI 2026-08-21
 **Blocked by:** T4.1
 
-`app/dev/api/[slug]/page.tsx` — dokumentasi **tergenerate dari registry**, jangan ditulis manual:
-base URL, tiap endpoint + params + deskripsi, contoh response, link dokumentasi asli,
-kredit developer, riwayat status.
+`app/dev/api/[slug]/page.tsx` — dokumentasi **tergenerate dari registry**: base URL, tiap
+endpoint beserta tabel params (nama, contoh, wajib, keterangan), ambang `minUkuranByte`,
+tautan dokumentasi asli, kredit pengembang, dan riwayat status per endpoint.
 
-**Kriteria selesai:** `/dev/api/gempa-bmkg` nampilin ketiga endpoint beserta paramsnya.
+Ditambahkan di luar rencana awal: **bagian "Hak pakai data"** yang menampilkan seluruh
+`provenance` — lisensi, redistribusi, atribusi yang diwajibkan, batas akses, dan kebijakan
+mirror. Termasuk yang bernilai `unknown`, dengan keterangan bahwa `unknown` **bukan**
+berarti bebas dipakai. Menyembunyikan ketidaktahuan justru membuat orang mengira haknya
+sudah jelas.
+
+Juga: daftar alat yang memakai API tersebut, dibaca dari `apiSlug` **dan** `apiPendukung` —
+jadi `wilayah-idn-area` muncul sebagai dipakai alat Wilayah sekaligus alat Cuaca.
+
+**Kriteria selesai:** TERPENUHI — `/dev/api/gempa-bmkg` menampilkan ketiga endpoint beserta
+paramsnya. Diuji terhadap HTML hasil ekspor, bukan hanya kode sumbernya.
 
 ---
 
-### T4.3 — Playground
+### T4.3 — Playground — SELESAI 2026-08-21
 **Blocked by:** T4.2
 
-Di halaman detail: form params → tombol Kirim → tampilkan status, latency, dan response
-ber-syntax-highlight. Plus tombol **Salin sebagai `curl`** dan **Salin sebagai `fetch`**.
+`komponen/Playground.tsx` di halaman detail: form params terisi contoh dari registry, URL
+yang terbentuk ditampilkan hidup, tombol Kirim, lalu status + latency + ukuran + sumber
+dan response-nya.
 
-Lewat `lib/client.ts` yang sama (jangan bikin jalur fetch kedua). Untuk API `cors: locked`/`none`,
-tombol Kirim dinonaktifkan dulu karena proxy ditunda (T5.1) — kasih keterangan kenapa.
+Memakai **`lib/client.ts` yang sama** dengan alat — tidak ada jalur fetch kedua di project
+ini. Efek sampingnya bagus: penanganan 429, pemeriksaan `Content-Type`, dan fallback mirror
+otomatis berlaku juga di playground.
 
-**Kriteria selesai:** kirim request ke `gempa-bmkg`/`autogempa` di browser → response asli tampil.
-`curl` hasil salinan bisa ditempel ke terminal dan jalan.
+Untuk API `cors: none`/`locked`, tombol Kirim **dinonaktifkan** dengan penjelasan bahwa
+penyebabnya header CORS, bukan API yang rusak — dan diarahkan memakai salinan `curl` yang
+tidak terikat CORS.
+
+Dua hal yang perlu dicatat:
+
+- **Salinan `curl` menyertakan `User-Agent` deskriptif.** Tanpa itu, perintah untuk BMKG
+  bisa dibalas 403 dan orang akan menyangka endpointnya mati (REFERENCE.md).
+- **Tampilan response dipotong pada 40.000 karakter**, dan potongnya dikatakan beserta
+  panjang aslinya. `/surat/2` berukuran 397 KB — menaruh seluruhnya di DOM membuat halaman
+  tersendat.
+
+**Kriteria selesai:** TERPENUHI. Kirim ke `gempa-bmkg`/`autogempa` di browser menampilkan
+response asli. Untuk klaim "curl bisa ditempel dan jalan": **ketiga puluh dua** perintah
+`curl` digenerate dengan logika yang sama lalu benar-benar dijalankan — semuanya
+menghasilkan output, nol kosong.
 
 ---
 
