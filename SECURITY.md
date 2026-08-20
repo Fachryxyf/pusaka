@@ -43,6 +43,19 @@ Yang **di luar cakupan**:
 - Rate limiting. Tidak ada endpoint milik kami yang bisa dihabiskan.
 - Laporan otomatis dari scanner tanpa dampak nyata yang dijelaskan.
 
+## Perlindungan repo
+
+Branch `xyf` dijaga dua ruleset:
+
+| Ruleset | Isi | Berlaku untuk |
+|---|---|---|
+| `lindungi-riwayat` | larang force push, larang hapus branch | **semua**, termasuk pemilik repo |
+| `wajib-ci-lolos` | job `periksa` (lint + tes + build) wajib hijau sebelum merge | pull request; pemilik repo bisa melewatinya |
+
+Pull request tidak diwajibkan untuk pemilik repo, tapi riwayat tidak bisa ditimpa maupun
+dihapus oleh siapa pun — termasuk saya. Job `api-hidup` **tidak** diwajibkan karena ia
+memanggil API pihak ketiga: BMKG yang sedang mati tidak boleh memblokir merge.
+
 ## Yang sudah diberlakukan
 
 - Tidak ada rahasia di repo. Tidak ada kunci API yang dibutuhkan — ketujuh API di registry
