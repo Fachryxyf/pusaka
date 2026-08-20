@@ -1,0 +1,46 @@
+slug: jpl-ssd
+nama: NASA/JPL SSD-CNEOS
+kategori: astronomi
+deskripsi: Data objek dekat Bumi dari Jet Propulsion Laboratory — pendekatan terdekat, bola api atmosfer, dan pemantauan risiko tumbukan.
+developer:
+  nama: NASA/JPL Solar System Dynamics
+  profil: 'https://ssd.jpl.nasa.gov'
+dokumentasi: 'https://ssd-api.jpl.nasa.gov/doc/'
+upstreamName: null
+auth: none
+cors: none
+baseUrl: 'https://ssd-api.jpl.nasa.gov'
+mirror: true
+endpoints:
+  - id: pendekatan
+    method: GET
+    path: '/cad.api?body=Earth&date-min=now&date-max=%2B60&dist-max=0.05&sort=date&fullname=true'
+    deskripsi: Pendekatan terdekat ke Bumi 60 hari ke depan dalam radius 0,05 au. Balasannya TABEL — fields + data array-of-array, bukan array objek.
+    params: []
+    contohPath: '/cad.api?body=Earth&date-min=now&date-max=%2B60&dist-max=0.05&sort=date&fullname=true'
+    minUkuranByte: 2900
+  - id: bolaApi
+    method: GET
+    path: '/fireball.api?limit=20&sort=-date'
+    deskripsi: 20 bola api terakhir yang terdeteksi di atmosfer. Lintang/bujur tanpa tanda, arahnya di kolom terpisah. Kolom vel sering null.
+    params: []
+    contohPath: '/fireball.api?limit=20&sort=-date'
+    minUkuranByte: 800
+  - id: risiko
+    method: GET
+    path: '/sentry.api?ps-min=-3'
+    deskripsi: Objek dengan peluang tumbukan yang dipantau Sentry, disaring skala Palermo >= -3. Tanpa filter ini responsnya ~164 KB.
+    params: []
+    contohPath: '/sentry.api?ps-min=-3'
+    minUkuranByte: 850
+  - id: objek
+    method: GET
+    path: '/sbdb.api?sstr={sstr}&phys-par=true'
+    deskripsi: Data satu objek kecil. Tanpa CORS dan berparameter, jadi belum bisa dijadikan alat awam sebelum proxy (T5.1) ada.
+    params:
+      - nama: sstr
+        contoh: '433'
+        wajib: true
+        keterangan: Nomor, nama, atau designation objek. '433' = 433 Eros
+    contohPath: '/sbdb.api?sstr=433&phys-par=true'
+    minUkuranByte: 3100

@@ -1317,3 +1317,158 @@ Content-Type `application/json` · CORS: * · ukuran ~0.9 KB
 | `total_data` | int | 215373 |
 | `page` | int | 1 |
 | `per_page` | int | 2 |
+
+---
+
+## Objek Dekat Bumi — NASA/JPL SSD-CNEOS
+
+`slug: jpl-ssd`
+
+> Ditangkap **2026-08-20**, bukan 2026-08-06 seperti sisa dokumen ini.
+>
+> ⚠️ **Tidak ada header `Access-Control-Allow-Origin`.** Sudah diuji dua kali, termasuk
+> dengan header `Origin` disertakan — balasannya tetap tanpa ACAO dan tanpa `Vary`.
+> Jadi `cors: none`: browser tidak bisa memanggilnya langsung, dan alatnya bergantung
+> pada lapisan mirror (SPEC §8 lapis 3).
+>
+> Semua endpoint di bawah membalas `Content-Type: application/json` dan tidak butuh kunci API.
+
+### Bentuk bersama
+
+Semua endpoint SSD punya `signature: {source, version}` di akar. Jangan dipakai untuk
+logika — versinya berbeda per endpoint (`cad` 1.5, `fireball` 1.2, `sentry` 2.0, `sbdb` 1.3).
+
+### ⚠️ Jebakan bentuk yang khas JPL
+
+| Jebakan | Kenyataan |
+|---|---|
+| `cad` & `fireball` **bukan array objek** | Balasannya tabel: `fields` (nama kolom) + `data` (array of array). Baris diindeks angka, bukan nama. Wajib dipetakan lewat `fields.indexOf(nama)` — jangan hardcode indeks, urutan kolom berubah kalau param `fullname` dipakai |
+| `count` tipenya tidak konsisten | `cad` mengirim `29` (**number**), `fireball` & `sentry` mengirim `"20"` (**string**). Jangan `=== 20` |
+| Nilai di dalam `data` bisa `null` | Dari 20 baris `fireball`, 8 di antaranya `vel` bernilai `null`. Sembunyikan barisnya, jangan render `null` |
+| `sentry` & `scout` **array objek**, beda dari `cad`/`fireball` | Dua bentuk berbeda di satu API yang sama |
+| `sbdb` sama sekali bukan daftar | Akarnya `{signature, object, orbit, phys_par}` — objek tunggal, tanpa `data` |
+| `fullname` berawalan spasi | `"       (2025 FY11)"` — wajib `.trim()` |
+| Semua besaran berupa **string** | `dist`, `v_rel`, `h`, `ip`, `ps_max` semuanya string. `parseFloat` sebelum dibandingkan atau diurutkan |
+| `cad` tidak menerima `class=PHA` | Membalas **400** `invalid orbit class specified`. Nilai yang sah adalah kode kelas orbit (mis. `APO`), bukan `PHA` |
+| `fireball` tidak punya param kotak lintang/bujur | `lat-min`/`lon-min` membalas **400** `one or more query parameter was not recognized`. Penyaringan wilayah harus dilakukan di sisi kita |
+
+### `cad` — pendekatan terdekat ke Bumi
+
+```
+GET https://ssd-api.jpl.nasa.gov/cad.api?body=Earth&date-min=now&date-max=%2B60&dist-max=0.05&sort=date&fullname=true
+```
+
+Content-Type `application/json` · CORS: **tidak ada** · ukuran ~5.9 KB (29 baris)
+
+| Jalur field | Tipe | Contoh nilai |
+|---|---|---|
+| `signature.source` | str | NASA/JPL SBDB Close Approach Data API |
+| `count` | **int** | 29 |
+| `fields` | array[12] | ["des","orbit_id","jd","cd","dist","dist_min","dist_max","v_rel","v_inf","t_sigma_f","h","fullname"] |
+| `data` | array[29] of array[12] |  |
+| `data[0][des]` | str | 2025 FY11 |
+| `data[0][cd]` | str | 2026-Aug-20 00:02 |
+| `data[0][dist]` | str | 0.0492253668833929 |
+| `data[0][dist_min]` | str | 0.0491881046916992 |
+| `data[0][v_rel]` | str | 3.4660623848599 |
+| `data[0][h]` | str | 28.78 |
+| `data[0][fullname]` | str | `"       (2025 FY11)"` — berawalan spasi |
+
+Satuan: `dist` dalam **au** (1 au ≈ 149,6 juta km), `v_rel` dalam **km/s**, `h` magnitudo
+absolut (makin kecil makin besar objeknya). `cd` sudah diformat dan **zonanya UTC**.
+
+### `fireball` — bola api di atmosfer
+
+```
+GET https://ssd-api.jpl.nasa.gov/fireball.api?limit=20&sort=-date
+```
+
+Content-Type `application/json` · CORS: **tidak ada** · ukuran ~1.6 KB (20 baris)
+
+| Jalur field | Tipe | Contoh nilai |
+|---|---|---|
+| `count` | **str** | 20 |
+| `fields` | array[9] | ["date","energy","impact-e","lat","lat-dir","lon","lon-dir","alt","vel"] |
+| `data[0][date]` | str | 2026-08-15 07:32:40 |
+| `data[0][energy]` | str | 3.9 |
+| `data[0][impact-e]` | str | 0.13 |
+| `data[0][lat]` | str | 4.0 |
+| `data[0][lat-dir]` | str | N |
+| `data[0][lon]` | str | 115.4 |
+| `data[0][lon-dir]` | str | W |
+| `data[0][alt]` | str | 37.0 |
+| `data[0][vel]` | str / **null** | 12.2 · `null` pada 8 dari 20 baris |
+
+Lintang & bujur dikirim **tanpa tanda**, arahnya terpisah di `lat-dir`/`lon-dir`
+(`S` dan `W` berarti negatif). `energy` dalam joule radiasi (×10¹⁰), `impact-e` dalam kiloton TNT.
+
+### `sentry` — objek dengan peluang tumbukan
+
+```
+GET https://ssd-api.jpl.nasa.gov/sentry.api?ps-min=-3
+```
+
+Content-Type `application/json` · CORS: **tidak ada** · ukuran ~1.7 KB (6 objek)
+
+| Jalur field | Tipe | Contoh nilai |
+|---|---|---|
+| `count` | **str** | 6 |
+| `data` | array[6] of **objek** |  |
+| `data[0].des` | str | 1979 XB |
+| `data[0].fullname` | str | (1979 XB) |
+| `data[0].ip` | str | 8.515158e-07 |
+| `data[0].ps_max` | str | -2.99 |
+| `data[0].ps_cum` | str | -2.69 |
+| `data[0].ts_max` | str | 0 |
+| `data[0].n_imp` | **int** | 4 |
+| `data[0].range` | str | 2056-2113 |
+| `data[0].diameter` | str | 0.66 |
+| `data[0].v_inf` | str | 23.7606234552547 |
+| `data[0].h` | str | 18.54 |
+| `data[0].last_obs` | str | 1979-12-15 |
+
+`ip` itu peluang tumbukan dalam notasi eksponen — `parseFloat` dulu.
+`ps_max` skala Palermo; di bawah −2 dianggap tidak perlu dikhawatirkan.
+`diameter` dalam km. Tanpa param `ps-min`, response membengkak jadi ~164 KB.
+
+### `sbdb` — data satu objek
+
+```
+GET https://ssd-api.jpl.nasa.gov/sbdb.api?sstr=433&phys-par=true
+```
+
+Content-Type `application/json` · CORS: **tidak ada** · ukuran ~6.4 KB
+
+| Jalur field | Tipe | Contoh nilai |
+|---|---|---|
+| `object.fullname` | str | 433 Eros (A898 PA) |
+| `object.shortname` | str | 433 Eros |
+| `object.des` | str | 433 |
+| `object.neo` | bool | true |
+| `object.pha` | bool | false |
+| `object.orbit_class.code` | str | AMO |
+| `object.orbit_class.name` | str | Amor |
+| `object.spkid` | str | 20000433 |
+| `orbit.moid` | str | 0.148623 |
+| `orbit.first_obs` / `.last_obs` | str | 1893-10-29 · 2021-05-13 |
+| `orbit.elements` | array of objek |  |
+| `orbit.elements[0].name` | str | e |
+| `orbit.elements[0].title` | str | eccentricity |
+| `orbit.elements[0].value` | str | 0.223 |
+| `orbit.elements[0].units` | str / null | null |
+| `phys_par[0].name` | str | H |
+| `phys_par[0].title` | str | absolute magnitude |
+| `phys_par[0].value` | str | 10.40 |
+
+Elemen orbit dan parameter fisik datang sebagai **daftar** `{name, title, value, units}`,
+bukan sebagai kunci objek — jadi jangan cari `orbit.e`, cari elemen bernama `e`.
+
+### `scout` — objek yang belum terkonfirmasi
+
+```
+GET https://ssd-api.jpl.nasa.gov/scout.api
+```
+
+~18.6 KB · `count` **str** `"50"` · `data` array objek (`objectName`, `Vmag`, `moid`,
+`neoScore`, `phaScore`, `caDist`, `lastRun`). Isinya berubah cepat dan sering kosong
+di luar musim pengamatan, jadi **belum** dipakai alat mana pun.

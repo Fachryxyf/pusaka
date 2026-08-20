@@ -60,11 +60,35 @@ Ini hasil probe langsung, dan ini yang membentuk seluruh desain:
 |---|---|---|
 | Framework | **Next.js (App Router) + TypeScript** | Pilihan pemilik project |
 | Styling | **Tailwind CSS** | — |
-| Hosting | **Cloudflare Pages + Workers** | Dua API di daftar ini mati kena 402 di Vercel. Free tier Cloudflare **gagal tertutup** (nolak request) bukan menagih. Project dedikasi harus bisa hidup tanpa dompet. |
+| Hosting | **GitHub Pages** (ekspor statis) di `pusaka.fachryxyf.com` | Diubah dari Cloudflare Pages pada 2026-08-20 — lihat §3.1. Alasan intinya sama: dua API di daftar ini mati kena **402** di Vercel, jadi hosting project ini harus **gagal tertutup**, bukan menagih. GitHub Pages tidak punya kuota yang bisa membengkak jadi tagihan. |
 | Pengguna | **Dua-duanya** (awam + developer) | Satu registry, dua muka |
 | Tempo | Tanpa tenggat, bertahap | Tiap tahap harus menghasilkan sesuatu yang kepake |
 | Posisi | Standalone + atribusi CC-BY-4.0 | Bukan fork, bukan pesaing |
 | Bahasa UI | **Bahasa Indonesia** | i18n EN nyusul, bukan sekarang |
+
+---
+
+### 3.1 Konsekuensi ekspor statis — dibaca sebelum menyentuh `lib/client.ts`
+
+GitHub Pages hanya menyajikan berkas. **Tidak ada sisi server**, jadi:
+
+| Yang hilang | Gantinya |
+|---|---|
+| `app/api/proxy/route.ts` (§10) | Tidak ada. API `cors: none`/`locked` dilayani **lapis 3 mirror** (§8) |
+| `app/api/status/route.ts` (§9) | Ditulis sebagai berkas statis ke `public/status.json` oleh workflow, bukan route handler |
+| Pengoptimal gambar Next | `images.unoptimized: true` di `next.config.ts` |
+
+Karena itu `next.config.ts` memakai `output: 'export'` dan `trailingSlash: true`
+(Pages menyajikan `/alat/gempa/index.html` untuk `/alat/gempa`).
+
+**Mirror pindah ke `public/mirror/<slug>.json`, bukan `data/mirror/` seperti §4.**
+Alasannya: di ekspor statis hanya isi `public/` yang bisa diambil browser, dan lapis 3
+dijalankan di browser. `data/health/` tetap di tempatnya karena hanya dibaca saat build.
+
+Kalau suatu saat proxy sungguh dibutuhkan (misalnya untuk API `cors: none` yang
+berparameter, yang tidak bisa di-mirror), pilihan hostingnya kembali ke Cloudflare
+Pages + Workers dan §10 berlaku lagi apa adanya. Sampai itu terjadi, **jangan menulis
+route handler** — ia akan gagal senyap di produksi karena tidak ikut terekspor.
 
 ---
 
@@ -347,6 +371,33 @@ Pengerjaannya sudah dipecah jadi task di `TASKS.md` **T7.4**.
 
 ---
 
+### 6.7 Objek Dekat Bumi — NASA/JPL SSD-CNEOS
+
+`baseUrl: https://ssd-api.jpl.nasa.gov` · ditangkap **2026-08-20** · tanpa kunci API
+
+| Endpoint | Path |
+|---|---|
+| pendekatan | `/cad.api?body=Earth&date-min=now&date-max=%2B60&dist-max=0.05&sort=date&fullname=true` |
+| bolaApi | `/fireball.api?limit=20&sort=-date` |
+| risiko | `/sentry.api?ps-min=-3` |
+| objek | `/sbdb.api?sstr={sstr}&phys-par=true` |
+
+Satu-satunya sumber non-Indonesia di katalog, dimasukkan karena datanya global dan
+lembaganya jauh lebih awet dari mana pun di daftar ini — persis lawan dari pola kematian di §2.
+
+⚠️ **`cors: none`.** Sudah diuji dua kali, termasuk dengan header `Origin` disertakan:
+balasannya tanpa `Access-Control-Allow-Origin` dan tanpa `Vary`. Jadi browser tidak bisa
+memanggilnya langsung, dan alatnya **bergantung pada mirror** (§8 lapis 3) — bukan pada
+proxy, yang tidak ada di ekspor statis (§3.1).
+
+⚠️ **`cad` dan `fireball` bukan array objek.** Balasannya tabel: `fields` (nama kolom)
++ `data` (array of array). Kolom wajib dibaca lewat `fields.indexOf(nama)`; indeks tidak
+boleh di-hardcode karena urutannya berubah saat param `fullname` dipakai. Sementara
+`sentry` dan `scout` justru array objek — dua bentuk berbeda di satu API yang sama.
+Tabel jebakan lengkapnya ada di `REFERENCE.md`.
+
+---
+
 ## 7. Sumber yang GUGUR — jangan buang waktu
 
 > **Inventaris lengkap seluruh 151 API ada di [`BACKLOG-API.md`](./BACKLOG-API.md)** —
@@ -387,11 +438,17 @@ Ini jantung platform. Jawaban langsung buat masalah 402 dan CORS.
 
 ```
 Lapis 1  cors: open    → fetch langsung dari browser        (cepat, nol biaya)
-Lapis 2  cors: locked  → lewat /api/proxy                   (Worker, cache agresif)
+Lapis 2  cors: locked  → lewat /api/proxy                   (BELUM ADA — lihat §3.1)
    |         cors: none
    ↓ gagal / API mati
-Lapis 3  mirror        → data/mirror/<slug>.json + banner "Data per <tanggal>"
+Lapis 3  mirror        → public/mirror/<slug>.json + banner "Data per <tanggal>"
 ```
+
+**Keadaan sekarang: lapis 1 dan 3 sudah jalan, lapis 2 tidak ada** karena situs
+diekspor statis (§3.1). Untuk API `cors: none`, `ambil()` **langsung ke lapis 3** saat
+dipanggil dari browser — tidak membuang satu putaran gagal lebih dulu. Endpoint
+berparameter tidak bisa di-mirror (kombinasinya tak terbatas), jadi endpoint semacam itu
+pada API tanpa CORS **belum boleh dijadikan alat awam**.
 
 Aturan wajib:
 - **Timeout 10 detik.** Jangan biarkan user lihat spinner selamanya.

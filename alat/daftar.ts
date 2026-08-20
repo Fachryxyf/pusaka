@@ -2,11 +2,16 @@
 import type { Alat, MetaAlat } from '@/alat/tipe'
 import Gempa from '@/alat/gempa'
 import { meta as metaGempa } from '@/alat/gempa/meta'
+import ObjekDekatBumi from '@/alat/objek-dekat-bumi'
+import { meta as metaObjekDekatBumi } from '@/alat/objek-dekat-bumi/meta'
 
-export const DAFTAR_ALAT: Alat[] = [{ ...metaGempa, Komponen: Gempa }]
+export const DAFTAR_ALAT: Alat[] = [
+  { ...metaGempa, Komponen: Gempa },
+  { ...metaObjekDekatBumi, Komponen: ObjekDekatBumi },
+]
 
 // Komponen tidak bisa diserialisasi ke Client Component, jadi metadatanya dipisah.
-export const DAFTAR_META: MetaAlat[] = [metaGempa]
+export const DAFTAR_META: MetaAlat[] = [metaGempa, metaObjekDekatBumi]
 
 export function cariAlat(slug: string): Alat | undefined {
   return DAFTAR_ALAT.find((a) => a.slug === slug)

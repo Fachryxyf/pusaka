@@ -48,13 +48,20 @@ export function bangunUrl(api: Api, endpoint: Endpoint, params: Record<string, s
   return api.baseUrl.replace(/\/$/, '') + bangunPath(endpoint, params)
 }
 
-// Lapis 1: fetch langsung. Lapis 2 (proxy) & 3 (mirror) menyusul di T5.
+// Lapis 1 (langsung) + lapis 3 (mirror). Lapis 2 (proxy) menyusul kalau situs
+// pindah ke host yang punya sisi server — ekspor statis tidak punya route handler.
 export async function ambil<T = unknown>(
   api: Api,
   endpoint: Endpoint,
   params: Record<string, string> = {},
 ): Promise<HasilAmbil<T>> {
   const url = bangunUrl(api, endpoint, params)
+
+  // API tanpa CORS tidak mungkin dipanggil browser: langsung ke mirror, jangan
+  // buang satu putaran gagal dulu.
+  if (api.cors === 'none' && diBrowser()) {
+    return ambilMirror<T>(api, endpoint, params)
+  }
 
   let terakhir: GagalAmbil | null = null
 
@@ -72,7 +79,55 @@ export async function ambil<T = unknown>(
     }
   }
 
+  if (api.mirror && diBrowser()) {
+    try {
+      return await ambilMirror<T>(api, endpoint, params)
+    } catch {
+      // Mirror ikut gagal — yang dilaporkan tetap kegagalan sumber aslinya,
+      // karena itu yang menjelaskan masalahnya ke pengguna.
+    }
+  }
+
   throw terakhir ?? new GagalAmbil('gagal tanpa sebab yang tercatat', 'jaringan')
+}
+
+// Lapis 3: snapshot statis yang ditulis scripts/mirror.ts ke public/mirror/.
+export async function ambilMirror<T = unknown>(
+  api: Api,
+  endpoint: Endpoint,
+  params: Record<string, string> = {},
+): Promise<HasilAmbil<T>> {
+  if (!api.mirror) {
+    throw new GagalAmbil(`API '${api.slug}' tidak punya mirror`, 'jaringan')
+  }
+  if (endpoint.params.length > 0 && Object.keys(params).length > 0) {
+    // Endpoint berparameter tidak di-mirror (kombinasinya tak terbatas).
+    throw new GagalAmbil(`endpoint '${endpoint.id}' berparameter, tidak ada di mirror`, 'jaringan')
+  }
+
+  const res = await fetch(`/mirror/${api.slug}.json`, { signal: AbortSignal.timeout(TIMEOUT_MS) })
+  if (!res.ok) throw new GagalAmbil(`mirror '${api.slug}' tidak ada (${res.status})`, 'status', res.status)
+
+  const teks = await res.text()
+
+  let berkas: { per?: string; endpoints?: Record<string, unknown> }
+  try {
+    berkas = JSON.parse(teks)
+  } catch {
+    throw new GagalAmbil(`mirror '${api.slug}' rusak`, 'bukan-json')
+  }
+
+  if (!berkas.endpoints || !(endpoint.id in berkas.endpoints)) {
+    throw new GagalAmbil(`mirror '${api.slug}' tidak memuat endpoint '${endpoint.id}'`, 'jaringan')
+  }
+
+  return {
+    data: berkas.endpoints[endpoint.id] as T,
+    sumber: 'mirror',
+    per: berkas.per ?? null,
+    status: res.status,
+    ukuranByte: new TextEncoder().encode(teks).length,
+  }
 }
 
 async function sekaliAmbil<T>(url: string, endpoint: Endpoint): Promise<HasilAmbil<T>> {
@@ -122,9 +177,13 @@ async function sekaliAmbil<T>(url: string, endpoint: Endpoint): Promise<HasilAmb
   }
 }
 
+function diBrowser() {
+  return typeof window !== 'undefined'
+}
+
 // Browser melarang menyetel User-Agent; menyetelnya di sana hanya memicu peringatan.
 function uaKalauBoleh(): Record<string, string> {
-  return typeof window === 'undefined' ? { 'User-Agent': USER_AGENT } : {}
+  return diBrowser() ? {} : { 'User-Agent': USER_AGENT }
 }
 
 function jeda(ms: number) {

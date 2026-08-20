@@ -1,0 +1,31 @@
+name: Segarkan mirror
+
+# API tanpa CORS dan data statis di-snapshot berkala supaya alat tetap jalan
+# saat sumber aslinya mati (SPEC §8). Tiap 6 jam — jangan lebih sering, banyak
+# sumber ini dibiayai developer dari kantong sendiri (SPEC §9).
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  segarkan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run mirror
+      - name: Commit kalau ada perubahan
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add public/mirror
+          git diff --staged --quiet || git commit -m 'Segarkan mirror'
+          git push
