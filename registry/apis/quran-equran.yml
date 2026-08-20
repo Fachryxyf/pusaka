@@ -1,0 +1,32 @@
+slug: quran-equran
+nama: Al-Qur'an equran.id
+kategori: agama-islam
+deskripsi: Daftar dan detail 114 surat Al-Qur'an beserta terjemahan dan audio.
+developer:
+  nama: equran.id
+  profil: 'https://equran.id'
+dokumentasi: 'https://equran.id/apidev'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://equran.id'
+mirror: false
+endpoints:
+  - id: daftarSurat
+    method: GET
+    path: /api/v2/surat
+    deskripsi: 114 surat — data berupa ARRAY.
+    params: []
+    contohPath: /api/v2/surat
+    minUkuranByte: 61644
+  - id: detailSurat
+    method: GET
+    path: '/api/v2/surat/{nomor}'
+    deskripsi: Detail satu surat — data berupa OBJEK, bukan array.
+    params:
+      - nama: nomor
+        contoh: '1'
+        wajib: true
+        keterangan: Nomor surat 1-114
+    contohPath: /api/v2/surat/1
+    minUkuranByte: 3174

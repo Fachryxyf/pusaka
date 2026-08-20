@@ -1,0 +1,124 @@
+===============================================================================
+PROMPT UNTUK AGENT CODING - PROJECT PUSAKA
+Salin bagian di bawah garis, apa adanya.
+===============================================================================
+
+
+-------------------------------------------------------------------------------
+[A] SESI PERTAMA - MULAI DARI NOL
+-------------------------------------------------------------------------------
+
+Kamu mengerjakan project open-source bernama Pusaka di direktori ini.
+Direktori masih kosong kecuali dokumen perencanaan.
+
+LANGKAH PERTAMA, sebelum menulis kode apa pun:
+Baca SPEC.md dari awal sampai habis. Jangan dilewat, jangan diskim.
+Bagian §12 "Jangan mengarang" wajib kamu pahami sebelum lanjut.
+Lalu baca TASKS.md bagian "Peta dokumen" dan "Aturan yang berlaku untuk SEMUA task".
+
+Setelah itu kerjakan T1.1 di TASKS.md. Satu task pada satu waktu.
+Jangan lanjut ke task berikutnya sebelum "Kriteria selesai" task sekarang
+benar-benar terpenuhi dan sudah kamu buktikan dengan menjalankannya.
+
+Ada enam dokumen dan masing-masing punya peran:
+- SPEC.md          arsitektur, kontrak data, aturan keras, alasan tiap keputusan
+- TASKS.md         urutan pekerjaan + kriteria selesai tiap task
+- REFERENCE.md     bentuk response asli 43 endpoint (nama field, tipe, contoh)
+- REGISTRY-SEED.md 22 file YAML siap tempel, sudah divalidasi
+- UI-SPEC.md       tampilan tiap alat + pengikatan elemen UI ke jalur field
+- BACKLOG-API.md   inventaris 151 API, bertingkat menurut kesiapan
+
+ATURAN YANG TIDAK BOLEH DILANGGAR:
+
+1. Jangan pernah menebak nama field. Ambil dari REFERENCE.md.
+   Kalau endpoint yang kamu butuhkan belum ada di sana: panggil dengan curl,
+   lihat responsnya, catat ke REFERENCE.md, BARU tulis kodenya. Urutan ini
+   tidak boleh dibalik.
+
+2. Jangan pernah menebak base URL atau path endpoint. Ambil dari
+   REGISTRY-SEED.md atau BACKLOG-API.md tier A.
+
+3. Jangan menulis YAML registry dari nol. Salin dari REGISTRY-SEED.md.
+
+4. Jangan bikin alat di muka awam untuk API yang belum terbukti mengeluarkan
+   data JSON asli.
+
+5. Kalau kenyataan berbeda dengan yang tertulis di dokumen, dokumennya yang
+   benar sampai kamu buktikan sebaliknya - lalu PERBARUI dokumennya.
+   Jangan diamkan selisihnya. Semua data bertanggal 2026-08-06/07; API berubah,
+   dan itu justru premis project ini.
+
+6. Kalau kamu merasa perlu menebak sesuatu, berhenti dan tanya saya.
+   Menebak di project ini menghasilkan bug yang diam-diam, bukan error yang
+   kelihatan.
+
+Laporkan hasilnya apa adanya. Kalau ada yang gagal, bilang gagal beserta
+outputnya. Jangan bilang selesai kalau belum diverifikasi.
+
+
+-------------------------------------------------------------------------------
+[B] MELANJUTKAN - SESI BERIKUTNYA
+-------------------------------------------------------------------------------
+
+Lanjutkan project Pusaka di direktori ini.
+
+Baca dulu:
+- TASKS.md bagian "Aturan yang berlaku untuk SEMUA task"
+- SPEC.md §12 "Jangan mengarang"
+
+Lalu cek sampai mana progresnya, dan kerjakan task berikutnya di TASKS.md.
+Satu task pada satu waktu, dan buktikan "Kriteria selesai" sebelum lanjut.
+
+Aturan yang sama masih berlaku: nama field selalu dari REFERENCE.md, base URL
+dan path dari REGISTRY-SEED.md, YAML disalin bukan ditulis ulang. Jangan menebak
+apa pun - kalau perlu menebak, berhenti dan tanya saya.
+
+
+-------------------------------------------------------------------------------
+[C] KALAU AGENT-NYA TIDAK OTOMATIS BACA FILE
+-------------------------------------------------------------------------------
+
+Sebagian agent tidak membuka file sendiri. Tambahkan di awal prompt [A]:
+
+Buka dan baca file-file ini dulu sebelum menjawab apa pun:
+SPEC.md, TASKS.md. Konfirmasi ke saya isi ringkasnya, baru mulai kerja.
+
+
+===============================================================================
+CATATAN UNTUK KAMU (bukan bagian dari prompt)
+===============================================================================
+
+TUJUH JEBAKAN YANG SUDAH MENELAN KORBAN WAKTU RISET
+Semuanya sudah tertulis di dokumen. Kalau agent melanggar, tunjukkan baris ini.
+
+1. User-Agent "Mozilla/5.0" telanjang atau default Python
+   -> BMKG membalas 403, seluruh API BMKG divonis mati
+
+2. Membaca body response dengan batas, misalnya read(2500)
+   -> response 341 KB kepotong, API sehat dilaporkan rusak
+
+3. Cuma cek status code
+   -> halaman HTML 200 dianggap API hidup (jebakan Bukuacak)
+
+4. Cuma cek "JSON tidak kosong"
+   -> scraper mati yang membalas bungkus normal dengan isi kosong lolos.
+      Tiga API di katalog mati dengan cara ini
+
+5. headers dari registry tidak dikirim
+   -> dua-dhikr membalas 400, terlihat seperti endpoint rusak padahal
+      cuma kurang header Accept-Language
+
+6. Kode wilayah emsifa dipakai untuk BMKG
+   -> 404 Data not found. Dua dataset ini angkanya memang beda,
+      bukan sekadar beda format. Pakai wilayah-idn-area
+
+7. params[].contoh tidak dikutip di YAML
+   -> 1301 jadi integer, 08 jadi ambigu, validasi zod gagal
+
+
+KALAU AGENT BILANG "SUDAH SELESAI", MINTA BUKTI
+
+- npm run build lolos tanpa error tipe?
+- Kriteria selesai task itu sudah dijalankan, bukan cuma dibaca?
+- Untuk alat: angkanya sudah dicocokkan dengan response asli API-nya?
+- Ada field yang ditampilkan tapi tidak ada di REFERENCE.md?

@@ -1,0 +1,52 @@
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
+import { DAFTAR_ALAT, cariAlat } from '@/alat/daftar'
+import { muatApi } from '@/lib/registry'
+
+export function generateStaticParams() {
+  return DAFTAR_ALAT.map((a) => ({ slug: a.slug }))
+}
+
+export async function generateMetadata({ params }: PageProps<'/alat/[slug]'>): Promise<Metadata> {
+  const { slug } = await params
+  const alat = cariAlat(slug)
+  if (!alat) return { title: 'Alat tidak ditemukan' }
+  return { title: alat.judul, description: alat.deskripsi }
+}
+
+export default async function HalamanAlat({ params }: PageProps<'/alat/[slug]'>) {
+  const { slug } = await params
+  const alat = cariAlat(slug)
+  if (!alat) notFound()
+
+  // Registry dimuat di server (pakai fs), lalu diteruskan sebagai prop ke komponen alat.
+  const api = muatApi(alat.apiSlug)
+  if (!api) notFound()
+
+  const { Komponen } = alat
+
+  return (
+    <div className="space-y-6">
+      <div className="space-y-1">
+        <Link href="/" className="text-sm text-zinc-600 hover:underline dark:text-zinc-400">
+          ← Semua alat
+        </Link>
+        <h1 className="text-2xl font-semibold tracking-tight">
+          <span aria-hidden="true">{alat.ikon}</span> {alat.judul}
+        </h1>
+        <p className="text-zinc-600 dark:text-zinc-400">{alat.deskripsi}</p>
+      </div>
+
+      <Komponen api={api} />
+
+      <p className="text-xs text-zinc-500 dark:text-zinc-500">
+        Sumber data:{' '}
+        <a href={api.dokumentasi} className="underline" rel="noopener noreferrer" target="_blank">
+          {api.nama}
+        </a>{' '}
+        oleh {api.developer.nama}.
+      </p>
+    </div>
+  )
+}

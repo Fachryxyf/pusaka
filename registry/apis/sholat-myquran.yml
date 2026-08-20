@@ -1,0 +1,44 @@
+slug: sholat-myquran
+nama: Jadwal Sholat myQuran
+kategori: agama-islam
+deskripsi: Jadwal sholat harian untuk seluruh kota di Indonesia.
+developer:
+  nama: myQuran
+  profil: 'https://api.myquran.com'
+dokumentasi: 'https://documenter.getpostman.com/view/841292/2s9YsGittd'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.myquran.com'
+mirror: false
+endpoints:
+  - id: daftarKota
+    method: GET
+    path: /v2/sholat/kota/semua
+    deskripsi: Daftar semua kota beserta id-nya. Statis — layak di-mirror.
+    params: []
+    contohPath: /v2/sholat/kota/semua
+    minUkuranByte: 10649
+  - id: jadwal
+    method: GET
+    path: '/v2/sholat/jadwal/{idKota}/{tahun}/{bulan}/{tanggal}'
+    deskripsi: 'Jadwal sholat satu kota satu hari. Bulan & tanggal WAJIB dua digit.'
+    params:
+      - nama: idKota
+        contoh: '1301'
+        wajib: true
+        keterangan: Ambil dari endpoint daftarKota. 1301 = KOTA JAKARTA
+      - nama: tahun
+        contoh: '2026'
+        wajib: true
+        keterangan: Empat digit
+      - nama: bulan
+        contoh: '08'
+        wajib: true
+        keterangan: DUA DIGIT — 08, bukan 8
+      - nama: tanggal
+        contoh: '06'
+        wajib: true
+        keterangan: DUA DIGIT — 06, bukan 6
+    contohPath: /v2/sholat/jadwal/1301/2026/08/06
+    minUkuranByte: 153

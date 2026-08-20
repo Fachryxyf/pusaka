@@ -1,0 +1,35 @@
+slug: gempa-bmkg
+nama: Info Gempa BMKG
+kategori: cuaca
+deskripsi: Data gempa bumi terkini, terbaru, dan yang dirasakan, langsung dari BMKG.
+developer:
+  nama: BMKG
+  profil: 'https://bmkg.go.id'
+dokumentasi: 'https://data.bmkg.go.id/gempabumi/'
+upstreamName: Data BMKG
+auth: none
+cors: open
+baseUrl: 'https://data.bmkg.go.id'
+mirror: false
+endpoints:
+  - id: autogempa
+    method: GET
+    path: /DataMKG/TEWS/autogempa.json
+    deskripsi: Gempa bumi terkini — SATU objek, bukan array.
+    params: []
+    contohPath: /DataMKG/TEWS/autogempa.json
+    minUkuranByte: 204
+  - id: terkini
+    method: GET
+    path: /DataMKG/TEWS/gempaterkini.json
+    deskripsi: '15 gempa M>=5.0 terakhir — ARRAY.'
+    params: []
+    contohPath: /DataMKG/TEWS/gempaterkini.json
+    minUkuranByte: 2099
+  - id: dirasakan
+    method: GET
+    path: /DataMKG/TEWS/gempadirasakan.json
+    deskripsi: 15 gempa terakhir yang dirasakan masyarakat — ARRAY.
+    params: []
+    contohPath: /DataMKG/TEWS/gempadirasakan.json
+    minUkuranByte: 2406

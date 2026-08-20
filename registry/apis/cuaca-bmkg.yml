@@ -1,0 +1,25 @@
+slug: cuaca-bmkg
+nama: Prakiraan Cuaca BMKG
+kategori: cuaca
+deskripsi: Prakiraan cuaca resmi BMKG sampai tingkat desa/kelurahan.
+developer:
+  nama: BMKG
+  profil: 'https://bmkg.go.id'
+dokumentasi: 'https://data.bmkg.go.id/prakiraan-cuaca/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.bmkg.go.id'
+mirror: false
+endpoints:
+  - id: prakiraan
+    method: GET
+    path: '/publik/prakiraan-cuaca?adm4={kodeDesa}'
+    deskripsi: Butuh kode adm4 Kemendagri bertitik (32.04.15.2003). Ambil dari wilayah-idn-area, BUKAN dari wilayah-emsifa.
+    params:
+      - nama: kodeDesa
+        contoh: '32.04.15.2003'
+        wajib: true
+        keterangan: 'Kode adm4 Kemendagri BERTITIK. Ambil apa adanya dari wilayah-idn-area (data[].code). JANGAN pakai kode wilayah-emsifa — angkanya beda dan BMKG membalas 404'
+    contohPath: /publik/prakiraan-cuaca?adm4=32.04.15.2003
+    minUkuranByte: 3942

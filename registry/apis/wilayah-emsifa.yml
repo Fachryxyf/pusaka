@@ -1,0 +1,54 @@
+slug: wilayah-emsifa
+nama: Wilayah Indonesia
+kategori: lokasi
+deskripsi: Daftar provinsi, kabupaten/kota, kecamatan, dan kelurahan se-Indonesia.
+developer:
+  nama: Muhammad Syifa
+  profil: 'https://github.com/emsifa'
+dokumentasi: 'https://github.com/emsifa/api-wilayah-indonesia'
+upstreamName: Nama Provinsi, Kota, Kabupaten Seluruh Indonesia
+auth: none
+cors: open
+baseUrl: 'https://www.emsifa.com'
+mirror: true
+endpoints:
+  - id: provinsi
+    method: GET
+    path: /api-wilayah-indonesia/api/provinces.json
+    deskripsi: Semua provinsi. Data statis. KODE LAMA — tidak cocok dengan BMKG, jangan dipakai untuk alat Cuaca.
+    params: []
+    contohPath: /api-wilayah-indonesia/api/provinces.json
+    minUkuranByte: 563
+  - id: kabupaten
+    method: GET
+    path: '/api-wilayah-indonesia/api/regencies/{idProvinsi}.json'
+    deskripsi: Kabupaten/kota dalam satu provinsi.
+    params:
+      - nama: idProvinsi
+        contoh: '32'
+        wajib: true
+        keterangan: 'Kode provinsi, STRING. Contoh: 32 = Jawa Barat'
+    contohPath: /api-wilayah-indonesia/api/regencies/32.json
+    minUkuranByte: 819
+  - id: kecamatan
+    method: GET
+    path: '/api-wilayah-indonesia/api/districts/{idKabupaten}.json'
+    deskripsi: Kecamatan dalam satu kabupaten.
+    params:
+      - nama: idKabupaten
+        contoh: '3204'
+        wajib: true
+        keterangan: Kode kabupaten, STRING 4 digit
+    contohPath: /api-wilayah-indonesia/api/districts/3204.json
+    minUkuranByte: 870
+  - id: kelurahan
+    method: GET
+    path: '/api-wilayah-indonesia/api/villages/{idKecamatan}.json'
+    deskripsi: Kelurahan/desa dalam satu kecamatan.
+    params:
+      - nama: idKecamatan
+        contoh: '3204150'
+        wajib: true
+        keterangan: Kode kecamatan, STRING 7 digit
+    contohPath: /api-wilayah-indonesia/api/villages/3204150.json
+    minUkuranByte: 358
