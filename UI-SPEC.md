@@ -55,6 +55,8 @@ bisa diseragamkan antar platform. Yang dilarang beserta penggantinya:
 | `<select>` mentah | `komponen/Pilih.tsx` | Dropdown bawaan dirender OS. Penggantinya mengikuti pola ARIA combobox utuh — panah, Home/End, Enter, Escape, Tab, klik-luar, dan pencarian ketik |
 | `alert()`, `confirm()`, `prompt()` | pesan di halaman, `role="status"` + `aria-live` | Dialog bawaan memblokir dan tidak bisa ditata |
 | emoji sebagai ikon | `komponen/Ikon.tsx` | Emoji dirender beda tiap OS dan tidak bisa diwarnai |
+| `<audio controls>` | `komponen/PemutarAudio.tsx` | Bilah pemutar bawaan dirender OS. Elemen `<audio>` tetap dipakai sebagai mesinnya, hanya kontrolnya yang diganti |
+| `dangerouslySetInnerHTML` | `komponen/TeksBertag.tsx` | Tidak ada jalur dari data pihak ketiga ke `innerHTML`. Daftar-putih tag dilakukan saat mengurai, bukan setelahnya |
 | `outline: none` tanpa pengganti | kelas `.fokus-cincin` | Indikator fokus **wajib ada** — satu-satunya petunjuk posisi bagi pengguna papan tombol. Boleh diganti, tidak boleh dihapus |
 
 Scrollbar ditata tipis mengikuti tema di `app/globals.css`, dan
@@ -406,11 +408,23 @@ lokal yang benar, dan cocok dengan
 ### Aturan
 
 - **Kunci audio adalah string berangka `"01"`–`"06"`**, satu per qari, bukan array.
-  Akses dengan `audio["05"]`, bukan `audio[5]`. Sediakan pemilih qari kalau sempat;
-  kalau tidak, pakai `"05"` sebagai bawaan dan sebutkan nama qarinya.
+  Akses dengan `audio["05"]`, bukan `audio[5]` (`audio[5]` sudah dipastikan `undefined`).
+  Pemilih qari **sudah** disediakan; bawaannya `"05"` (Misyari Rasyid Al-Afasi).
+  Nama qari tidak ada di response — pemetaannya ada di `REFERENCE.md` dan dijaga tes.
 - Teks Arab wajib `dir="rtl"` dan ukuran font lebih besar dari teks latin.
-- `data.deskripsi` **jangan** di-render dengan `dangerouslySetInnerHTML` tanpa sanitasi.
+- **`data.deskripsi` sama sekali TIDAK dirender sebagai HTML.** Bukan "disanitasi lalu
+  dirender": ia diurai jadi potongan React oleh `komponen/TeksBertag.tsx`, dan hanya `<i>`
+  serta `<br>` yang dihormati. `<a>` dibuang beserta atributnya — di surat 38 ada
+  `<a href="s002a001.htm">`, tautan relatif yang mati di situs kita, dan `href` dari data
+  pihak ketiga adalah permukaan serangan. **Tidak ada `dangerouslySetInnerHTML` di project
+  ini, dan jangan menambahkannya.**
 - `/surat` → `data` array, `/surat/{n}` → `data` objek. Beda bentuk.
+- `data.suratSebelumnya` dan `.suratSelanjutnya` bertipe objek **atau `false`** — bukan
+  `null`. Periksa dengan `if (x)`, jangan `x?.nomor`.
+- **Audio memakai `komponen/PemutarAudio.tsx`, bukan `<audio controls>`** — kontrol bawaan
+  dirender OS dan tidak bisa ditata (§1.4). Elemen `<audio>` tetap jadi mesinnya.
+- `/surat/2` berukuran **397 KB**. Jangan memuat semua surat sekaligus, dan jangan pasang
+  batas baca di client (SPEC §9).
 
 **Selesai kalau:** daftar 114 surat tampil, Al-Fatihah menampilkan 7 ayat lengkap dengan
 Arab + latin + terjemahan, dan audio bisa diputar.

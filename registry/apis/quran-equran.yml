@@ -20,19 +20,19 @@ provenance:
   redistribusi: 'tidak-boleh'
   kebijakanMirror: 'TIDAK - syarat layanan pasal 7 menyatakan teks Al-Quran bebas dipakai, TAPI terjemahan, tafsir, dan audio yang mereka kembangkan dilindungi hak cipta. Jadi menyalinnya ke mirror tidak boleh.'
   batasAkses: null
-  diperiksa: '2026-08-20'
+  diperiksa: '2026-08-21'
 endpoints:
   - id: daftarSurat
     method: GET
     path: /api/v2/surat
-    deskripsi: 114 surat — data berupa ARRAY.
+    deskripsi: 114 surat — data berupa ARRAY. Deskripsi tiap surat memuat tag HTML dan identik dengan yang ada di detailSurat.
     params: []
     contohPath: /api/v2/surat
     minUkuranByte: 61644
   - id: detailSurat
     method: GET
     path: '/api/v2/surat/{nomor}'
-    deskripsi: Detail satu surat — data berupa OBJEK, bukan array.
+    deskripsi: 'Detail satu surat — data berupa OBJEK, bukan array. Kunci audio string 01-06. suratSebelumnya/suratSelanjutnya bertipe objek ATAU false. Surat 2 berukuran ~397 KB.'
     params:
       - nama: nomor
         contoh: '1'

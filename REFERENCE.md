@@ -543,6 +543,86 @@ Content-Type `application/json` · CORS: * · ukuran ~6.2 KB
 
 ---
 
+### Nama qari di balik kunci audio — dicatat 2026-08-21
+
+Kunci `"01"`–`"06"` tidak menyebut nama qari; namanya hanya ada di dalam URL. Dipetakan
+dari `audioFull` surat 1:
+
+| Kunci | Qari |
+|---|---|
+| `01` | Abdullah Al-Juhany |
+| `02` | Abdul Muhsin Al-Qasim |
+| `03` | Abdurrahman as-Sudais |
+| `04` | Ibrahim Al-Dossari |
+| `05` | Misyari Rasyid Al-Afasi |
+| `06` | Yasser Al-Dosari |
+
+Kunci yang sama dipakai di `data.ayat[].audio`. Host audionya `cdn.equran.id`.
+
+### `deskripsi` — tag HTML yang sungguh muncul
+
+Diperiksa pada **seluruh 114 surat**, bukan cuma Al-Fatihah:
+
+| Tag | Kemunculan |
+|---|---|
+| `<i>` | 554 |
+| `<br>` | 31 |
+| `<a href="s002a001.htm">` | **2** — hanya di surat 38 (Sad) |
+
+Tidak ada entitas HTML (`&amp;`, `&nbsp;`, dan sebagainya) sama sekali.
+
+Tautan di surat 38 berbunyi `<a href="s002a001.htm">[10)</a>` — **tautan relatif ke berkas
+yang tidak ada di situs kita**, sisa dari sumber aslinya. Jadi tag `<a>` tidak boleh
+diloloskan: hasilnya tautan mati, dan lebih buruk, `href` dari data pihak ketiga adalah
+permukaan serangan (`javascript:` dan sejenisnya).
+
+**Yang diterapkan:** `deskripsi` **tidak** dirender sebagai HTML. Ia diurai jadi potongan
+teks + penekanan, dan hanya `<i>` serta `<br>` yang dihormati; sisanya dibuang beserta
+isinya dipertahankan sebagai teks biasa. Tidak ada `dangerouslySetInnerHTML` di project ini.
+
+### `deskripsi` sama di kedua endpoint
+
+`data[].deskripsi` pada `/surat` **identik** dengan `data.deskripsi` pada `/surat/{n}`
+(dibandingkan untuk surat 1). Jadi tidak perlu memanggil detail hanya untuk mendapatkan
+deskripsi.
+
+### Ukuran response — jauh lebih besar dari dugaan
+
+| Endpoint | Ukuran |
+|---|---|
+| `/surat` | **123 KB** |
+| `/surat/1` (7 ayat) | 6,4 KB |
+| `/surat/2` (286 ayat) | **397 KB** |
+| `/surat/3` | 247 KB · `/surat/7` 247 KB · `/surat/26` 176 KB |
+
+397 KB itu **lebih besar dari 341 KB** yang tercatat sebagai response terbesar di katalog.
+Ini alasan konkret aturan "baca body sampai habis" (SPEC §9): batas baca 2500 byte akan
+membuat Al-Baqarah terlihat seperti JSON rusak.
+
+### Bentuk galat
+
+```
+GET /surat/0    -> 404  {"code":404,"message":"Data not found"}
+GET /surat/115  -> 404  {"code":404,"message":"Data not found"}
+GET /surat/abc  -> 400  {"code":400,"message":"Invalid input"}
+```
+
+Ketiganya `Content-Type: application/json`, jadi galatnya bisa dibaca sebagai JSON —
+berbeda dari 429 myQuran yang mengirim teks biasa.
+
+### Field yang belum tercatat sebelumnya
+
+`data` pada `/surat/{n}` juga memuat navigasi surat:
+
+| Jalur field | Tipe | Contoh |
+|---|---|---|
+| `data.suratSelanjutnya` | objek **atau `false`** | `{"nomor":2,"nama":"البقرة","namaLatin":"Al-Baqarah","jumlahAyat":286}` |
+| `data.suratSebelumnya` | objek **atau `false`** | `false` pada surat 1 |
+
+**Perhatikan tipenya bisa `false`, bukan `null`.** Jadi `if (data.suratSebelumnya)` aman,
+tapi `data.suratSebelumnya?.nomor` akan lolos tanpa peringatan dan menghasilkan `undefined`
+pada nilai `false` — periksa dengan benar sebelum dipakai.
+
 ## Prakiraan Cuaca — BMKG resmi
 
 `slug: cuaca-bmkg`

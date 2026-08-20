@@ -27,6 +27,14 @@ const JALUR: Record<string, React.ReactNode> = {
       <path d="M4.9 6.3 4.2 5.6M8 3.5V2.6M12 5.1l.7-.8" />
     </>
   ),
+  kitab: (
+    // Kitab terbuka
+    <>
+      <path d="M12 6.5v13" />
+      <path d="M12 6.5C10.5 5 8.5 4.5 6 4.5c-1 0-1.5.1-1.5.1v12c0 0 .5-.1 1.5-.1 2.5 0 4.5.5 6 2" />
+      <path d="M12 6.5c1.5-1.5 3.5-2 6-2 1 0 1.5.1 1.5.1v12c0 0-.5-.1-1.5-.1-2.5 0-4.5.5-6 2" />
+    </>
+  ),
   peta: (
     // Penanda lokasi
     <>

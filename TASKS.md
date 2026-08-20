@@ -330,16 +330,39 @@ terhadap godaan menulis fungsi konversi kode wilayah.
 
 ---
 
-### T2.10 — Alat: Al-Qur'an
+### T2.10 — Alat: Al-Qur'an — SELESAI 2026-08-21
 **Blocked by:** T2.8
 
 `alat/quran/index.tsx`. Spesifikasi lengkap: [`UI-SPEC.md`](./UI-SPEC.md) Alat 5.
 
-Perhatikan: kunci audio berupa string berangka `"01"`–`"06"` (akses `audio["05"]`,
-bukan `audio[5]`), dan `data.deskripsi` mengandung tag HTML yang **wajib disanitasi**.
+Kedua jebakan yang sudah tercatat terbukti benar: kunci audio berupa string berangka
+(`audio["05"]`, dan `audio[5]` memang `undefined`), dan `data.deskripsi` mengandung HTML.
 
-**Kriteria selesai:** 114 surat tampil, Al-Fatihah menampilkan 7 ayat lengkap
-(Arab + latin + terjemahan), audio bisa diputar.
+**Empat temuan tambahan**, semuanya masuk `REFERENCE.md`:
+
+1. **Tag di `deskripsi` diperiksa pada seluruh 114 surat**, bukan cuma Al-Fatihah:
+   `<i>` 554 kali, `<br>` 31 kali, dan `<a href="s002a001.htm">` **2 kali** — hanya di surat
+   38. Tautan itu relatif ke berkas yang tidak ada di situs kita.
+   **Yang diterapkan: tidak ada `dangerouslySetInnerHTML` sama sekali.**
+   `komponen/TeksBertag.tsx` mengurai teksnya jadi potongan React; hanya `<i>` dan `<br>`
+   dihormati, tag lain dibuang tapi isinya dipertahankan sebagai teks. Dengan begitu tidak
+   ada jalur mana pun dari data API ke `innerHTML`.
+2. **`/surat/2` berukuran 397 KB** — lebih besar dari 341 KB yang tercatat sebagai response
+   terbesar di katalog. Bukti konkret aturan "baca body sampai habis" (SPEC §9).
+3. **Nama qari tidak ada di response**, hanya di dalam URL-nya. Pemetaan `01`–`06` ke nama
+   dicatat di `REFERENCE.md` dan dijaga tes: kalau URL-nya berubah, tesnya gagal.
+4. **`suratSebelumnya` bertipe `false`, bukan `null`**, pada surat 1. Jadi
+   `data.suratSebelumnya?.nomor` lolos tanpa peringatan tapi menghasilkan `undefined`.
+
+Sekalian: `<audio controls>` diganti `komponen/PemutarAudio.tsx`, karena kontrol bawaan
+dirender OS dan tidak bisa ditata (UI-SPEC §1.4).
+
+**Kriteria selesai:** TERPENUHI. Dibuktikan `scripts/tes-quran.ts` (8 tes): 114 surat,
+Al-Fatihah 7 ayat lengkap Arab + latin + terjemahan, kunci audio string dengan `audioFull[5]`
+memang `undefined`, pemetaan qari masih cocok, `suratSebelumnya === false`, himpunan tag
+deskripsi tetap `{a, br, i}`, Al-Baqarah utuh 286 ayat pada 387 KB, dan nomor 0/115 → 404.
+Ditambah `scripts/tes-teks.ts` (7 tes) yang memaksa `<a>`, `<script>`, `<img onerror>`, dan
+`javascript:` tidak pernah menjadi elemen.
 
 ---
 

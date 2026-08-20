@@ -378,6 +378,14 @@ memuatnya berurutan.
 Alternatif setara: `https://api.myquran.com/v2/quran/surat/{n}` (juga terverifikasi hidup,
 punya `audio_url`). Boleh didaftarkan sebagai API kedua.
 
+**Diukur ulang 2026-08-21:** `/surat` **123 KB**, `/surat/2` (Al-Baqarah) **397 KB** — lebih
+besar dari 341 KB yang tercatat di §9 sebagai response terbesar. Angka terbesar di katalog
+sekarang 397 KB, dan itu memperkuat, bukan melemahkan, aturan membaca body sampai habis.
+
+`data.deskripsi` memuat HTML. Seluruh 114 surat sudah diperiksa: hanya `<i>`, `<br>`, dan
+satu `<a href>` yang muncul. Keputusannya bukan menyanitasi lalu merender, tapi **tidak
+merender HTML sama sekali** — lihat §11 dan `komponen/TeksBertag.tsx`.
+
 ### 6.5 Prakiraan Cuaca — BMKG resmi
 `baseUrl: https://api.bmkg.go.id`
 
@@ -610,6 +618,13 @@ Jalan tiap 6 jam. **Jangan lebih sering** — banyak API ini dihosting developer
 - Tiap alat = folder `alat/<slug>/index.tsx` yang meng-export komponen default + metadata
   (`judul`, `ikon`, `deskripsi`, `apiSlug`). Halaman `/alat/[slug]` merakit otomatis.
 - Server Component secara default. `'use client'` cuma di komponen yang butuh interaksi.
+- **Jangan pakai `dangerouslySetInnerHTML`.** Sebagian API mengirim teks bertag (`deskripsi`
+  equran.id memuat `<i>`, `<br>`, dan `<a href>`). Teks semacam itu diurai jadi potongan
+  React oleh `komponen/TeksBertag.tsx` dengan daftar-putih tag, sehingga tidak ada jalur dari
+  data pihak ketiga ke `innerHTML`. Dijaga `scripts/tes-teks.ts`.
+- **Jangan pakai kontrol bawaan browser yang tidak bisa ditata.** `<select>` →
+  `komponen/Pilih.tsx`; `<audio controls>` → `komponen/PemutarAudio.tsx`; `alert()`/
+  `confirm()` → pesan di halaman dengan `aria-live`. Daftar lengkap di UI-SPEC §1.4.
 
 ---
 

@@ -50,8 +50,11 @@ lahir dari bug yang sudah benar-benar terjadi, bukan dari selera.
 - **Tidak ada emoji** di kode, dokumen, maupun UI. Ikon memakai
   `komponen/Ikon.tsx` (SVG garis monokrom).
 - **Tidak ada kontrol bawaan browser** yang tampilannya tidak bisa ditata: `alert()`,
-  `confirm()`, `prompt()`, dan `<select>` mentah. Untuk dropdown, pakai
-  `komponen/Pilih.tsx`.
+  `confirm()`, `prompt()`, `<select>` mentah, dan `<audio controls>`. Penggantinya
+  `komponen/Pilih.tsx` dan `komponen/PemutarAudio.tsx`.
+- **Tidak ada `dangerouslySetInnerHTML`.** Teks bertag dari API diurai lewat
+  `komponen/TeksBertag.tsx`, yang hanya menghormati `<i>` dan `<br>`. Ini bukan preferensi
+  gaya: `deskripsi` equran.id memuat `<a href>` dari sumber pihak ketiga.
 - **Indikator fokus tidak boleh dihilangkan.** Boleh diganti (`.fokus-cincin`), tidak boleh
   dimatikan — itu satu-satunya petunjuk posisi bagi pengguna papan tombol.
 - **Jangan tampilkan nilai turunan yang belum pasti benar.** Kalau sebuah hitungan
