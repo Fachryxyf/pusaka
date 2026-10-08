@@ -24,9 +24,23 @@ export default function Home() {
         </h1>
         <p className="max-w-2xl leading-relaxed text-zinc-600 dark:text-zinc-400">
           Gempa, wilayah, jadwal sholat, cuaca, Al-Qur&apos;an. Semuanya menarik data langsung
-          dari sumber resminya, dan tetap jalan saat sumbernya bermasalah. Tidak perlu ngerti
-          API.
+          dari sumber resminya, dengan percobaan ulang otomatis dan pemberitahuan yang jelas
+          saat sumbernya bermasalah. Tidak perlu ngerti API.
         </p>
+        <ul className="flex max-w-2xl flex-wrap gap-x-5 gap-y-1 pt-1 text-sm text-zinc-600 dark:text-zinc-400">
+          <li>Tanpa iklan, tanpa pelacak</li>
+          <li>Berbahasa Indonesia</li>
+          <li>Ringan — halaman statis</li>
+          <li>
+            Status tiap endpoint dipantau{' '}
+            <a
+              href="/dev/status"
+              className="underline decoration-zinc-300 underline-offset-2 dark:decoration-zinc-600"
+            >
+              terbuka
+            </a>
+          </li>
+        </ul>
         <dl className="flex flex-wrap gap-x-10 gap-y-3 pt-1">
           <Angka jumlah={DAFTAR_META.length} label="alat siap pakai" />
           <Angka jumlah={api.length} label="API terdaftar" />

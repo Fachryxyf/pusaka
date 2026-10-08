@@ -7,12 +7,14 @@ import { petaKesehatan, type RingkasApi } from '@/lib/status'
 export const metadata: Metadata = {
   title: 'Katalog API',
   description:
-    'Katalog API publik Indonesia yang bisa dipanggil program: base URL, endpoint, params, dan status hidup/mati yang diperiksa otomatis.',
+    'Katalog API publik yang bisa dipanggil program — berawal dari daftar API lokal Indonesia: base URL, endpoint, params, dan status hidup/mati yang diperiksa otomatis.',
 }
 
 export default function HalamanDev() {
   const api = muatSemuaApi()
   const jumlahEndpoint = api.reduce((n, a) => n + a.endpoints.length, 0)
+  // Dihitung juga saat build: yang memetakan balik ke inventaris Indonesia vs tambahan global.
+  const warisan = api.filter((a) => a.upstreamName).length
 
   // Objek Api penuh tidak diteruskan ke klien — contohResponse bisa besar dan tidak
   // dipakai daftar.
@@ -35,9 +37,10 @@ export default function HalamanDev() {
       <section className="space-y-5">
         <h1 className="text-[1.75rem] font-semibold leading-tight tracking-tight sm:text-4xl">Katalog API</h1>
         <p className="max-w-2xl leading-relaxed text-zinc-600 dark:text-zinc-400">
-          Katalog API publik Indonesia yang <strong>bisa dipanggil program</strong>. Tiap entri
-          memuat base URL, path endpoint, params beserta contoh nilainya, ambang ukuran response,
-          dan status hidup/mati yang diperiksa otomatis tiap 6 jam.
+          Katalog API publik yang <strong>bisa dipanggil program</strong> — berawal dari
+          daftar API lokal Indonesia, kini mencakup API global juga. Tiap entri memuat base
+          URL, path endpoint, params beserta contoh nilainya, ambang ukuran response, dan
+          status hidup/mati yang diperiksa otomatis tiap 6 jam.
         </p>
 
         <div className="space-y-2 rounded-xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-800 dark:bg-zinc-900/40">
@@ -48,9 +51,9 @@ export default function HalamanDev() {
             di sini.
           </p>
           <p className="teks-badan text-zinc-600 dark:text-zinc-400">
-            Registry ini masih memuat {api.length} API dari 151 yang ada di inventaris. Sisanya
-            dikerjakan bertahap — API baru hanya masuk setelah endpointnya dipanggil sungguhan dan
-            bentuk responsnya dicatat.
+            Dari 151 entri inventaris API lokal Indonesia, {warisan} sudah masuk; bersama API
+            publik global, totalnya {api.length}. Sisanya dikerjakan bertahap — API baru hanya
+            masuk setelah endpointnya dipanggil sungguhan dan bentuk responsnya dicatat.
           </p>
         </div>
 

@@ -3,7 +3,7 @@
 # Pusaka
 
 **Alat harian dari data publik Indonesia — gempa, wilayah, jadwal sholat, cuaca —
-plus katalog API lokal yang statusnya dipantau otomatis.**
+plus katalog API publik — berawal dari daftar lokal Indonesia — yang statusnya dipantau otomatis.**
 
 [![Deploy](https://github.com/Fachryxyf/pusaka/actions/workflows/pages.yml/badge.svg)](https://github.com/Fachryxyf/pusaka/actions/workflows/pages.yml)
 [![CI](https://github.com/Fachryxyf/pusaka/actions/workflows/ci.yml/badge.svg)](https://github.com/Fachryxyf/pusaka/actions/workflows/ci.yml)
