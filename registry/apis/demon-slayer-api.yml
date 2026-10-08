@@ -1,0 +1,46 @@
+slug: demon-slayer-api
+nama: 'Demon Slayer'
+kategori: hiburan
+deskripsi: Data tokoh anime Demon Slayer (Kimetsu no Yaiba) - usia, ras, dan deskripsi.
+developer:
+  nama: Daniela Carrasco
+  profil: 'https://www.demonslayer-api.com/'
+dokumentasi: 'https://www.demonslayer-api.com/documentation'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://www.demonslayer-api.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'demonslayer-api.com; Demon Slayer milik Koyoharu Gotouge/Ufotable'
+  syaratUrl: 'https://www.demonslayer-api.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data waralaba adalah kekayaan intelektual pemiliknya. Catatan: hanya endpoint daftar/cari yang balas JSON; detail per-id membalas halaman web.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: daftar
+    method: GET
+    path: '/api/v1/characters?limit={batas}'
+    deskripsi: 'Daftar tokoh: name, age, gender, race, description, img.'
+    params:
+      - nama: batas
+        contoh: '5'
+        wajib: true
+        keterangan: 'jumlah tokoh per halaman'
+    contohPath: '/api/v1/characters?limit=5'
+    minUkuranByte: 200
+  - id: cari
+    method: GET
+    path: '/api/v1/characters?name={nama}'
+    deskripsi: 'Cari tokoh menurut nama.'
+    params:
+      - nama: nama
+        contoh: 'tanjiro'
+        wajib: true
+        keterangan: 'nama tokoh'
+    contohPath: '/api/v1/characters?name=tanjiro'
+    minUkuranByte: 100

@@ -1,0 +1,46 @@
+slug: game-gratis-freetogame
+nama: 'Game Gratis'
+kategori: hiburan
+deskripsi: Katalog game komputer gratis (free-to-play) dari FreeToGame, bisa disaring per platform dan dilihat detailnya per judul.
+developer:
+  nama: FreeToGame
+  profil: 'https://www.freetogame.com/'
+dokumentasi: 'https://www.freetogame.com/api-doc'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://www.freetogame.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'FreeToGame (freetogame.com)'
+  syaratUrl: 'https://www.freetogame.com/api-doc'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: daftar
+    method: GET
+    path: '/api/games?platform={platform}'
+    deskripsi: 'Daftar game gratis tersaring per platform (pc, browser, all).'
+    params:
+      - nama: platform
+        contoh: 'pc'
+        wajib: true
+        keterangan: 'pc, browser, atau all'
+    contohPath: '/api/games?platform=pc'
+    minUkuranByte: 300
+  - id: detail
+    method: GET
+    path: '/api/game?id={id}'
+    deskripsi: 'Detail satu game: deskripsi panjang, spesifikasi minimum, galeri, penerbit.'
+    params:
+      - nama: id
+        contoh: '540'
+        wajib: true
+        keterangan: 'id game dari daftar'
+    contohPath: '/api/game?id=540'
+    minUkuranByte: 200

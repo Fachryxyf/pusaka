@@ -1,0 +1,42 @@
+slug: puisi-poetrydb
+nama: 'Puisi (PoetryDB)'
+kategori: referensi
+deskripsi: Basis data puisi klasik berbahasa Inggris - cari per penyair atau ambil puisi acak lengkap dengan baris-barisnya.
+developer:
+  nama: Thundercomb
+  profil: 'https://github.com/thundercomb/poetrydb'
+dokumentasi: 'https://poetrydb.org/index.html'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://poetrydb.org'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'PoetryDB (thundercomb)'
+  syaratUrl: 'https://poetrydb.org/index.html'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - isi puisi umumnya domain publik, tetapi lisensi basis datanya tidak dinyatakan tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: penyair
+    method: GET
+    path: '/author/{penyair}/title'
+    deskripsi: 'Daftar judul puisi dari seorang penyair.'
+    params:
+      - nama: penyair
+        contoh: 'Emily Dickinson'
+        wajib: true
+        keterangan: 'nama penyair'
+    contohPath: '/author/Emily Dickinson/title'
+    minUkuranByte: 50
+  - id: acak
+    method: GET
+    path: /random
+    deskripsi: 'Satu puisi acak: title, author, lines, linecount.'
+    params: []
+    contohPath: /random
+    minUkuranByte: 100

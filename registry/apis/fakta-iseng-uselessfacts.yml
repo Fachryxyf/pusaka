@@ -1,0 +1,38 @@
+slug: fakta-iseng-uselessfacts
+nama: 'Fakta Iseng'
+kategori: hiburan
+deskripsi: Fakta-fakta remeh nan iseng dalam bahasa Inggris, acak atau "fakta hari ini".
+developer:
+  nama: Jasper Hempel
+  profil: 'https://github.com/jsph-ex/useless-facts-api'
+dokumentasi: 'https://uselessfacts.jsph.pl/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://uselessfacts.jsph.pl'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Useless Facts API (uselessfacts.jsph.pl)'
+  syaratUrl: 'https://uselessfacts.jsph.pl/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: acak
+    method: GET
+    path: /api/v2/facts/random
+    deskripsi: 'Satu fakta iseng acak: text, source, permalink.'
+    params: []
+    contohPath: /api/v2/facts/random
+    minUkuranByte: 60
+  - id: hariIni
+    method: GET
+    path: /api/v2/facts/today
+    deskripsi: 'Fakta iseng pilihan hari ini (tetap sepanjang hari).'
+    params: []
+    contohPath: /api/v2/facts/today
+    minUkuranByte: 60

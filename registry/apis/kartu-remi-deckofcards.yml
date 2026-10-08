@@ -1,0 +1,46 @@
+slug: kartu-remi-deckofcards
+nama: 'Kartu Remi'
+kategori: hiburan
+deskripsi: Kocok setumpuk kartu remi lalu tarik beberapa kartu acak. Berguna untuk permainan, undian, atau contoh pembelajaran peluang.
+developer:
+  nama: Chase Roberts
+  profil: 'https://deckofcardsapi.com/'
+dokumentasi: 'https://deckofcardsapi.com/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://deckofcardsapi.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Deck of Cards API (deckofcardsapi.com)'
+  syaratUrl: 'https://deckofcardsapi.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi; lagipula respons bersifat acak sehingga tidak masuk akal untuk di-mirror.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: kocokBaru
+    method: GET
+    path: '/api/deck/new/shuffle/?deck_count={jumlahDek}'
+    deskripsi: 'Buat dek baru yang sudah dikocok; balas deck_id untuk penarikan berikutnya.'
+    params:
+      - nama: jumlahDek
+        contoh: '1'
+        wajib: true
+        keterangan: 'berapa dek digabung (1 dek = 52 kartu)'
+    contohPath: '/api/deck/new/shuffle/?deck_count=1'
+    minUkuranByte: 50
+  - id: tarik
+    method: GET
+    path: '/api/deck/new/draw/?count={jumlah}'
+    deskripsi: 'Buat dek baru lalu langsung tarik sejumlah kartu acak (kode, nilai, jenis, gambar).'
+    params:
+      - nama: jumlah
+        contoh: '2'
+        wajib: true
+        keterangan: 'berapa kartu ditarik'
+    contohPath: '/api/deck/new/draw/?count=2'
+    minUkuranByte: 150

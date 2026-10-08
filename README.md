@@ -11,8 +11,8 @@ plus katalog API lokal yang statusnya dipantau otomatis.**
 [![Katalog: CC BY 4.0](https://img.shields.io/badge/katalog-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 [![Stack](https://img.shields.io/badge/stack-Next.js%2016%20%2B%20TypeScript%20%2B%20Tailwind%204-black.svg)](#struktur)
-[![API terdaftar](https://img.shields.io/badge/API%20terdaftar-23-informational.svg)](./registry/apis)
-[![Alat](https://img.shields.io/badge/alat-10-informational.svg)](./alat)
+[![API terdaftar](https://img.shields.io/badge/API%20terdaftar-119-informational.svg)](./registry/apis)
+[![Alat](https://img.shields.io/badge/alat-16-informational.svg)](./alat)
 [![Tahap](https://img.shields.io/badge/tahap-6%20dari%207-yellow.svg)](./TASKS.md)
 [![Lisensi data](https://img.shields.io/badge/data-lihat%20NOTICE-lightgrey.svg)](./NOTICE.md)
 
@@ -45,13 +45,13 @@ hidup saat kamu membacanya. Status API berubah terus — itu justru premis proje
 
 | Yang diklaim | Artinya |
 |---|---|
-| 23 API terdaftar | ada 23 berkas di `registry/apis/`, semuanya pernah dipanggil sungguhan dan lolos validasi skema |
-| 57 endpoint | jumlah yang diprobe tiap 6 jam; hasil terakhir 57 sehat, 0 gagal |
-| 10 alat | jumlah yang benar-benar bisa dipakai orang awam, bukan jumlah API |
+| 119 API terdaftar | ada 119 berkas di `registry/apis/`, semuanya pernah dipanggil sungguhan dan lolos validasi skema |
+| 233 endpoint | jumlah yang diprobe tiap 6 jam; hasil terakhir 226 sehat, 7 gagal: kodepos vanmason (HTML di hulu) dan tiga API tebak-nama (agify/genderize/nationalize) kena batas 100/hari (di produksi tiap pengunjung punya kuota IP sendiri), ditambah tiga gangguan sesaat (musicbrainz 503, poetrydb & iNaturalist timeout) yang pulih saat dicek ulang |
+| 16 alat | jumlah yang benar-benar bisa dipakai orang awam, bukan jumlah API |
 | 151 API di backlog | inventaris upstream, bertingkat menurut kesiapan di [`BACKLOG-API.md`](./BACKLOG-API.md) |
-| Snapshot riset | **6 Agustus 2026** untuk katalog awal · **20 Agustus 2026** untuk NASA/JPL, batas paginasi idn-area, dan seluruh data lisensi · **21 Agustus 2026** untuk batas permintaan myQuran, bentuk dan zona waktu prakiraan BMKG, tag HTML dan ukuran response equran.id, batas hasil kodepos.vercel.app, probe ulang seluruh 14 sumber berita, 18 sumber harga emas, dan endpoint api-sekolah-indonesia |
+| Snapshot riset | **6 Agustus 2026** untuk katalog awal · **20 Agustus 2026** untuk NASA/JPL, batas paginasi idn-area, dan seluruh data lisensi · **21 Agustus 2026** untuk batas permintaan myQuran, bentuk dan zona waktu prakiraan BMKG, tag HTML dan ukuran response equran.id, batas hasil kodepos.vercel.app, probe ulang seluruh 14 sumber berita, 18 sumber harga emas, dan endpoint api-sekolah-indonesia · **7 Oktober 2026** untuk 18 API global dari direktori public-apis (hari libur Nager.Date, kurs Frankfurter, cuaca/geocoding/kualitas udara Open-Meteo, indikator World Bank, buku Open Library, harga kripto CoinGecko, Wikipedia Indonesia, matahari Sunrise-Sunset, resep TheMealDB, data PokéAPI, produk Open Food Facts, geolokasi ipapi.co, waktu TimeAPI, gambar Dog CEO, nasihat Advice Slip, tebak-negara Nationalize, elevasi Open-Meteo, tebak-umur Agify, tebak-gender Genderize, orang-acak Random User, Rick and Morty, acara TV TVmaze, kamus Free Dictionary, pencari kata Datamuse, berita antariksa Spaceflight News, minuman TheCocktailDB, lelucon Chuck Norris, lelucon JokeAPI, seni Art Institute of Chicago, seni The Met, pasar kripto CoinPaprika, fakta kucing Cat Facts, sejarah Wikipedia, musik MusicBrainz, gelombang laut & debit sungai Open-Meteo, gempa global USGS, posisi ISS WhereTheISS, geolokasi ipwho.is, profil GitHub; lalu geocoding alamat Nominatim/OpenStreetMap, peluncuran roket Launch Library 2, statistik COVID-19 disease.sh, film Studio Ghibli, gambar kucing TheCatAPI, cuaca historis Open-Meteo; lalu hadiah Nobel, kartu remi Deck of Cards, lelucon bapak icanhazdadjoke, kota/bendera CountriesNow, game gratis FreeToGame, jawaban ya/tidak yesno.wtf; lalu data dummy DummyJSON, toko palsu Fake Store, fakta iseng Useless Facts, karakter Genshin Impact, kutipan Kanye, lelucon Official Joke; lalu data palsu JSONPlaceholder, uji HTTP httpbin, IP publik ipify, kartu Magic The Gathering, Digimon, menu kopi SampleAPIs; lalu Star Wars SWAPI, Harry Potter, D&D 5e, kartu Yu-Gi-Oh, Game of Thrones, Dragon Ball; lalu terjemahan MyMemory, info warna The Color API, catur Chess.com, olahraga TheSportsDB, Valorant, Formula 1 Ergast; lalu hero Dota 2 OpenDota, kuis The Trivia API, puisi PoetryDB, anime Kitsu, Final Space, fakta anjing dogapi.dog; lalu biodiversitas GBIF, takson iNaturalist, templat meme Imgflip, meme Reddit, catur Lichess, tokoh Disney; lalu galeri NASA, diskon game CheapShark, kartu Pokémon TCG, Demon Slayer, game Nintendo Switch, kartu Magic Scryfall) |
 
-**Status hidup/mati sekarang punya stempel waktu.** Sejak Tahap 3, seluruh 57 endpoint
+**Status hidup/mati sekarang punya stempel waktu.** Sejak Tahap 3, seluruh 233 endpoint
 diprobe tiap 6 jam langsung ke alamat aslinya, dan hasilnya terbuka:
 
 - Dashboard: [pusaka.fachryxyf.com/dev/status](https://pusaka.fachryxyf.com/dev/status/)
@@ -75,6 +75,12 @@ Untuk itu, lihat dashboard.
 | [Berita](https://pusaka.fachryxyf.com/alat/berita/) | berita-indo-api | 9 media nasional, waktu terbit di zona pembaca, peringatan sumber basi |
 | [Harga Emas](https://pusaka.fachryxyf.com/alat/harga-emas/) | logam-mulia-api | 18 sumber, dibandingkan per gram, buyback kosong tidak ditulis nol |
 | [Data Sekolah](https://pusaka.fachryxyf.com/alat/sekolah/) | api-sekolah-indonesia | 215 ribu sekolah, dicari lewat nama atau NPSN |
+| [Konversi Kurs](https://pusaka.fachryxyf.com/alat/kurs/) | Frankfurter / ECB | konversi antar mata uang, kurs referensi harian Bank Sentral Eropa |
+| [Hari Libur Nasional](https://pusaka.fachryxyf.com/alat/hari-libur/) | Nager.Date | hari libur Indonesia per tahun, dengan nama lokal |
+| [Harga Kripto](https://pusaka.fachryxyf.com/alat/kripto/) | CoinGecko | 20 kripto teratas dalam Rupiah, perubahan 24 jam |
+| [Cari Alamat](https://pusaka.fachryxyf.com/alat/alamat/) | Nominatim / OpenStreetMap | ubah nama tempat jadi koordinat lintang-bujur, ambil hanya saat tombol ditekan |
+| [Tarik Kartu Remi](https://pusaka.fachryxyf.com/alat/kartu/) | Deck of Cards API | kocok dek lalu tarik 1–10 kartu acak lengkap dengan gambarnya |
+| [Terjemahan](https://pusaka.fachryxyf.com/alat/terjemahan/) | MyMemory | terjemahkan teks antar bahasa (Inggris, Arab, Jepang, Mandarin ↔ Indonesia) |
 
 **Tahap 1 sampai 5 tuntas.** Yang tersisa di [`TASKS.md`](./TASKS.md): sinkronisasi otomatis
 dengan katalog upstream (Tahap 6) dan riset 39 API tier C yang path-nya belum ketemu (Tahap 7).
@@ -193,7 +199,7 @@ Cara berkontribusi yang paling berguna, dari yang paling mudah:
 | Buat alat baru | baca bagian alatnya di [`UI-SPEC.md`](./UI-SPEC.md), lalu ikuti pola di `alat/` |
 | Perbaiki lisensi yang `unknown` | kalau kamu menemukan pernyataan lisensi sebuah API, perbarui `provenance` di registry-nya |
 
-Yang terakhir itu bernilai lebih dari yang terlihat: **12 dari 23 API masih `unknown`**, dan
+Yang terakhir itu bernilai lebih dari yang terlihat: **88 dari 119 API masih `unknown`**, dan
 tiap satu yang terjawab membuat lebih banyak data boleh di-mirror — artinya lebih banyak alat
 yang tetap jalan saat sumbernya mati.
 
@@ -221,9 +227,103 @@ Katalog API diturunkan dari
 oleh farizdotid, dipakai di bawah lisensi
 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
+Sejak 7 Oktober 2026, katalog juga memuat API global hasil pemetaan dari direktori
+[public-apis/public-apis](https://github.com/public-apis/public-apis) (MIT). Entri yang
+diambil hanya yang bebas-auth dan terbukti bisa dipanggil, lalu tiap endpoint diprobe
+sendiri sebelum masuk registry — nama API dan deskripsinya ditulis ulang, bukan disalin.
+
 Data tiap alat milik penerbit aslinya masing-masing:
 
 - BMKG — gempa & prakiraan cuaca
 - NASA/JPL Solar System Dynamics (SSD-CNEOS) — objek dekat Bumi
 - myQuran, equran.id — jadwal sholat & Al-Qur'an
 - emsifa — data wilayah Indonesia
+- Nager.Date — hari libur nasional (MIT)
+- Frankfurter / Bank Sentral Eropa — kurs mata uang (MIT)
+- Open-Meteo — cuaca global & geocoding (data CC BY 4.0)
+- The World Bank — indikator pembangunan (CC BY 4.0)
+- Open Library / Internet Archive — katalog buku (lisensi data belum dinyatakan tegas)
+- CoinGecko — harga kripto (gratis dengan atribusi, tanpa lisensi data terbuka)
+- Wikipedia bahasa Indonesia — ringkasan artikel (CC BY-SA 4.0)
+- Sunrise-Sunset.org — waktu matahari (gratis, lisensi data tidak dinyatakan)
+- TheMealDB — resep masakan (test key pengembangan, lisensi data tidak dinyatakan)
+- PokeAPI — data Pokemon (kode BSD-3; data milik The Pokemon Company)
+- Open Food Facts — produk makanan dari barcode (ODbL)
+- ipapi.co — geolokasi IP (tier gratis, lisensi data tidak dinyatakan)
+- TimeAPI.io — waktu & zona waktu (gratis, lisensi data tidak dinyatakan)
+- Dog CEO — gambar anjing (data Stanford Dogs Dataset)
+- Advice Slip & Nationalize.io — nasihat acak & tebak negara (gratis, lisensi tidak dinyatakan)
+- Open-Meteo — elevasi/ketinggian tanah (CC BY 4.0, berbasis Copernicus DEM)
+- Agify & Genderize — tebak umur & gender dari nama (gratis, lisensi tidak dinyatakan)
+- Random User Generator — data orang fiktif (bebas dipakai)
+- Rick and Morty API — data serial (kekayaan intelektual pembuatnya)
+- TVmaze — data acara TV (CC BY-SA 4.0)
+- Free Dictionary API — kamus Inggris (definisi dari Wiktionary, CC BY-SA)
+- Datamuse — pencari kata (gratis, lisensi tidak dinyatakan)
+- Spaceflight News API (The Space Devs) — berita antariksa (isi milik media penerbit)
+- TheCocktailDB — resep minuman (test key pengembangan)
+- Chuck Norris IO & JokeAPI (Sv443) — lelucon acak (gratis, lisensi tidak dinyatakan)
+- Art Institute of Chicago & The Met — data koleksi seni (CC0)
+- CoinPaprika — pasar kripto (tier gratis, lisensi data tidak dinyatakan)
+- Cat Facts — fakta kucing (gratis, lisensi tidak dinyatakan)
+- Wikipedia (On This Day) — peristiwa sejarah (CC BY-SA 4.0)
+- MusicBrainz (MetaBrainz) — basis data musik (data inti CC0)
+- Open-Meteo — gelombang laut & debit sungai/potensi banjir (CC BY 4.0)
+- USGS — katalog gempa global (domain publik)
+- WhereTheISS.at — posisi ISS (gratis, lisensi tidak dinyatakan)
+- ipwho.is — geolokasi IP (tier gratis, lisensi tidak dinyatakan)
+- GitHub — profil & repositori publik (tunduk Ketentuan Layanan GitHub)
+- Nominatim / OpenStreetMap — geocoding alamat ke koordinat (data ODbL 1.0)
+- Launch Library 2 (The Space Devs) — jadwal peluncuran roket (lisensi tidak dinyatakan)
+- disease.sh — statistik COVID-19 global & per negara (gratis, lisensi tidak dinyatakan)
+- Studio Ghibli API — data film Ghibli (gratis, lisensi tidak dinyatakan)
+- TheCatAPI — gambar kucing acak (gratis, lisensi tidak dinyatakan)
+- Open-Meteo — cuaca historis harian (CC BY 4.0, reanalisis ERA5)
+- Nobel Prize Outreach — data hadiah & peraih Nobel (atribusi diminta, lisensi data tidak dinyatakan)
+- Deck of Cards API — kartu remi acak (gratis, lisensi tidak dinyatakan)
+- icanhazdadjoke (C653 Labs) — lelucon bapak (gratis, lisensi tidak dinyatakan)
+- CountriesNow — daftar kota, bendera & ibu kota negara (gratis, lisensi tidak dinyatakan)
+- FreeToGame — katalog game gratis (gratis, lisensi tidak dinyatakan)
+- yesno.wtf — jawaban ya/tidak acak (gratis, lisensi tidak dinyatakan)
+- DummyJSON — data palsu untuk pengujian (gratis, lisensi tidak dinyatakan)
+- Fake Store API — produk e-commerce palsu untuk pengujian (gratis, lisensi tidak dinyatakan)
+- Useless Facts — fakta iseng acak (gratis, lisensi tidak dinyatakan)
+- genshin.jmp.blue — data karakter Genshin Impact (API komunitas; data milik HoYoverse)
+- kanye.rest — kutipan Kanye West (gratis, lisensi tidak dinyatakan)
+- Official Joke API (15Dkatz) — lelucon setup-punchline (gratis, lisensi tidak dinyatakan)
+- JSONPlaceholder (Typicode) — data REST palsu untuk latihan (gratis, lisensi tidak dinyatakan)
+- httpbin (Kenneth Reitz / Postman) — uji & pantul permintaan HTTP (gratis, lisensi tidak dinyatakan)
+- ipify — alamat IP publik pemanggil (gratis, lisensi tidak dinyatakan)
+- magicthegathering.io — kartu Magic The Gathering (data milik Wizards of the Coast)
+- digi-api.com — data Digimon (data milik Bandai)
+- SampleAPIs — menu kopi (gratis, lisensi tidak dinyatakan)
+- swapi.tech — data Star Wars (data milik Lucasfilm/Disney)
+- hp-api — data Harry Potter (data milik Warner Bros./J.K. Rowling)
+- dnd5eapi.co — aturan dasar D&D 5e (konten SRD di bawah OGL 1.0a)
+- YGOPRODeck — kartu Yu-Gi-Oh (data milik Konami)
+- An API of Ice and Fire — data Game of Thrones (data milik George R. R. Martin/HBO)
+- dragonball-api.com — data Dragon Ball (data milik Bird Studio/Shueisha/Toei)
+- MyMemory (Translated) — terjemahan teks (memori terjemahan komunitas + mesin)
+- The Color API — info & skema warna (gratis, lisensi tidak dinyatakan)
+- Chess.com Published-Data API — profil & statistik catur (data milik Chess.com)
+- TheSportsDB — klub & pemain olahraga (test key publik, lisensi tidak dinyatakan)
+- valorant-api.com — aset game Valorant (data milik Riot Games)
+- Jolpica-F1 (penerus Ergast) — data Formula 1 (lisensi tidak dinyatakan)
+- OpenDota — data hero Dota 2 (data milik Valve)
+- The Trivia API — soal kuis trivia (gratis, lisensi tidak dinyatakan)
+- PoetryDB — puisi klasik berbahasa Inggris (isi umumnya domain publik)
+- Kitsu — data anime (gratis, lisensi tidak dinyatakan)
+- finalspaceapi.com — data serial Final Space (data milik pemiliknya)
+- dogapi.dog — fakta anjing acak (gratis, lisensi tidak dinyatakan)
+- GBIF — data biodiversitas global (atribusi diminta; lisensi beragam per dataset)
+- iNaturalist — data takson/spesies (lisensi beragam per penyumbang)
+- Imgflip — templat meme populer (gratis, lisensi tidak dinyatakan)
+- Meme API (D3vd) — meme acak dari Reddit (konten milik pengunggah)
+- Lichess — profil catur publik (perangkat lunak AGPL-3.0; data profil milik Lichess)
+- disneyapi.dev — tokoh Disney (data milik The Walt Disney Company)
+- NASA Image and Video Library — galeri gambar antariksa (mayoritas bebas hak cipta)
+- CheapShark — diskon & harga game PC (gratis, lisensi tidak dinyatakan)
+- pokemontcg.io — kartu Pokémon TCG (data milik The Pokémon Company/Nintendo)
+- demonslayer-api.com — tokoh Demon Slayer (data milik Koyoharu Gotouge/Ufotable)
+- SampleAPIs — katalog game Nintendo Switch (gratis, lisensi tidak dinyatakan)
+- Scryfall — kartu Magic The Gathering (data kartu milik Wizards of the Coast)

@@ -1,0 +1,35 @@
+slug: kartu-pokemon-tcg
+nama: 'Kartu Pokémon TCG'
+kategori: hiburan
+deskripsi: Basis data kartu Pokémon Trading Card Game - nama, tipe, HP, kemampuan, dan gambar.
+developer:
+  nama: Pokémon TCG Developers
+  profil: 'https://pokemontcg.io/'
+dokumentasi: 'https://docs.pokemontcg.io/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.pokemontcg.io'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'pokemontcg.io; Pokémon milik The Pokémon Company/Nintendo'
+  syaratUrl: 'https://docs.pokemontcg.io/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data waralaba milik The Pokémon Company. Catatan: tanpa API key kena batas laju ketat (pencarian terfilter kadang balas 502).'
+  batasAkses: 'Gratis tanpa API key (batas laju ketat).'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: daftar
+    method: GET
+    path: '/v2/cards?pageSize={batas}'
+    deskripsi: 'Daftar kartu: id, name, supertype, hp, types, rarity, images.'
+    params:
+      - nama: batas
+        contoh: '5'
+        wajib: true
+        keterangan: 'jumlah kartu per halaman'
+    contohPath: '/v2/cards?pageSize=5'
+    minUkuranByte: 300

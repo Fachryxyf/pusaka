@@ -1,0 +1,46 @@
+slug: dnd-5e
+nama: 'Dungeons & Dragons 5e'
+kategori: hiburan
+deskripsi: Data aturan dasar (SRD) Dungeons & Dragons edisi ke-5 - mantra dan monster.
+developer:
+  nama: 5e-bits
+  profil: 'https://github.com/5e-bits/5e-srd-api'
+dokumentasi: 'https://www.dnd5eapi.co/docs/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://www.dnd5eapi.co'
+mirror: false
+provenance:
+  lisensi: 'OGL-1.0a'
+  sumberLisensi: 'https://www.dnd5eapi.co/docs/'
+  atribusiWajib: false
+  atribusi: 'dnd5eapi.co; konten SRD di bawah Open Game License'
+  syaratUrl: 'https://www.dnd5eapi.co/docs/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - konten SRD tunduk pada Open Game License (OGL 1.0a).'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: mantra
+    method: GET
+    path: '/api/2014/spells/{idx}'
+    deskripsi: 'Satu mantra: name, desc, level, range, components, durasi.'
+    params:
+      - nama: idx
+        contoh: 'fireball'
+        wajib: true
+        keterangan: 'indeks mantra (mis. fireball)'
+    contohPath: /api/2014/spells/fireball
+    minUkuranByte: 150
+  - id: monster
+    method: GET
+    path: '/api/2014/monsters/{idx}'
+    deskripsi: 'Satu monster: ukuran, tipe, armor class, hit points, aksi.'
+    params:
+      - nama: idx
+        contoh: 'goblin'
+        wajib: true
+        keterangan: 'indeks monster (mis. goblin)'
+    contohPath: /api/2014/monsters/goblin
+    minUkuranByte: 150

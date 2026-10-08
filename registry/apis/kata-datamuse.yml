@@ -1,0 +1,46 @@
+slug: kata-datamuse
+nama: 'Pencari Kata (Datamuse)'
+kategori: pendidikan
+deskripsi: Cari kata berdasarkan makna serupa atau rima, berguna untuk menulis dan belajar kosakata Inggris.
+developer:
+  nama: Datamuse
+  profil: 'https://www.datamuse.com'
+dokumentasi: 'https://www.datamuse.com/api/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.datamuse.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://www.datamuse.com/api/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - Datamuse menggabungkan beberapa sumber data; lisensi data tidak dinyatakan terbuka.'
+  batasAkses: 'Gratis tanpa API key sampai 100.000 permintaan/hari.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: maknaSerupa
+    method: GET
+    path: '/words?ml={kata}&max=10'
+    deskripsi: 'Kata-kata dengan makna serupa (means-like). Balas array {word, score}.'
+    params:
+      - nama: kata
+        contoh: 'happy'
+        wajib: true
+        keterangan: 'kata acuan bahasa Inggris'
+    contohPath: '/words?ml=happy&max=10'
+    minUkuranByte: 30
+  - id: rima
+    method: GET
+    path: '/words?rel_rhy={kata}&max=10'
+    deskripsi: 'Kata-kata yang berima dengan kata acuan.'
+    params:
+      - nama: kata
+        contoh: 'test'
+        wajib: true
+        keterangan: 'kata acuan bahasa Inggris'
+    contohPath: '/words?rel_rhy=test&max=10'
+    minUkuranByte: 20

@@ -1,0 +1,35 @@
+slug: gender-genderize
+nama: 'Tebak Gender dari Nama'
+kategori: hiburan
+deskripsi: Memperkirakan jenis kelamin dari nama depan, lengkap dengan probabilitasnya.
+developer:
+  nama: genderize.io
+  profil: 'https://genderize.io'
+dokumentasi: 'https://genderize.io/documentation'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.genderize.io'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://genderize.io/terms-of-use'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - model prediksi milik genderize.io; lisensi data tidak dinyatakan terbuka.'
+  batasAkses: 'Tanpa API key: 100 permintaan/hari. Melebihi itu balas 429.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: tebak
+    method: GET
+    path: /
+    deskripsi: 'Perkiraan gender dari nama depan. Balas {"name","gender","probability","count"}.'
+    params:
+      - nama: name
+        contoh: 'budi'
+        wajib: true
+        keterangan: 'nama depan'
+    contohPath: '/?name=budi'
+    minUkuranByte: 20

@@ -1,0 +1,38 @@
+slug: fakta-kucing-catfact
+nama: 'Fakta Kucing (Cat Facts)'
+kategori: hiburan
+deskripsi: Fakta acak tentang kucing dalam bahasa Inggris.
+developer:
+  nama: catfact.ninja
+  profil: 'https://catfact.ninja'
+dokumentasi: 'https://catfact.ninja/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://catfact.ninja'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://catfact.ninja/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - layanan gratis tanpa pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: acak
+    method: GET
+    path: /fact
+    deskripsi: 'Satu fakta acak. Balas {fact, length}.'
+    params: []
+    contohPath: /fact
+    minUkuranByte: 30
+  - id: daftar
+    method: GET
+    path: '/facts?limit=10'
+    deskripsi: 'Beberapa fakta sekaligus, berpaginasi.'
+    params: []
+    contohPath: '/facts?limit=10'
+    minUkuranByte: 300

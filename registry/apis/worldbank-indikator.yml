@@ -1,0 +1,51 @@
+slug: worldbank-indikator
+nama: 'Indikator Pembangunan (World Bank)'
+kategori: referensi
+deskripsi: Indikator pembangunan dunia dari World Bank, mis. populasi dan PDB, bisa disaring per negara dan rentang tahun.
+developer:
+  nama: The World Bank
+  profil: 'https://github.com/worldbank'
+dokumentasi: 'https://datahelpdesk.worldbank.org/knowledgebase/articles/889392'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.worldbank.org'
+mirror: false
+provenance:
+  lisensi: CC-BY-4.0
+  sumberLisensi: 'https://datacatalog.worldbank.org/public-licenses#cc-by'
+  atribusiWajib: true
+  atribusi: 'The World Bank, World Development Indicators (CC BY 4.0)'
+  syaratUrl: 'https://datacatalog.worldbank.org/public-licenses'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh dengan atribusi - mayoritas dataset World Development Indicators berlisensi CC BY 4.0.'
+  batasAkses: 'Tidak ada API key untuk data publik; pemakaian wajar.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: indikatorNegara
+    method: GET
+    path: '/v2/country/{kode}/indicator/{indikator}'
+    deskripsi: 'Nilai satu indikator untuk satu negara. WAJIB ?format=json, tanpa itu balas XML. Pakai ?date= untuk rentang tahun dan ?per_page= untuk jumlah baris.'
+    params:
+      - nama: kode
+        contoh: 'ID'
+        wajib: true
+        keterangan: 'kode negara ISO-2 atau ISO-3, mis. ID atau IDN'
+      - nama: indikator
+        contoh: 'SP.POP.TOTL'
+        wajib: true
+        keterangan: 'kode indikator, mis. SP.POP.TOTL (populasi) atau NY.GDP.MKTP.CD (PDB)'
+      - nama: format
+        contoh: 'json'
+        wajib: true
+        keterangan: 'wajib json; default server adalah XML'
+      - nama: date
+        contoh: '2022:2023'
+        wajib: false
+        keterangan: 'tahun tunggal atau rentang TAHUN:TAHUN'
+      - nama: per_page
+        contoh: '5'
+        wajib: false
+        keterangan: 'jumlah baris per halaman'
+    contohPath: '/v2/country/ID/indicator/SP.POP.TOTL?format=json&per_page=5&date=2022:2023'
+    minUkuranByte: 150

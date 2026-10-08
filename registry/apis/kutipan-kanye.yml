@@ -1,0 +1,31 @@
+slug: kutipan-kanye
+nama: 'Kutipan Kanye'
+kategori: hiburan
+deskripsi: Kutipan acak dari Kanye West (Ye). Ringan, satu kalimat per panggilan.
+developer:
+  nama: Andrew Jazbec
+  profil: 'https://kanye.rest/'
+dokumentasi: 'https://kanye.rest/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.kanye.rest'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'kanye.rest'
+  syaratUrl: 'https://kanye.rest/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - respons acak; tidak masuk akal di-mirror.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: acak
+    method: GET
+    path: /
+    deskripsi: 'Satu kutipan acak: {quote}.'
+    params: []
+    contohPath: /
+    minUkuranByte: 15

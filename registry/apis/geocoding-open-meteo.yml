@@ -1,0 +1,43 @@
+slug: geocoding-open-meteo
+nama: 'Pencari Koordinat (Geocoding)'
+kategori: lokasi
+deskripsi: Ubah nama kota menjadi koordinat lintang-bujur beserta zona waktunya. Berguna sebagai masukan ke API cuaca berbasis koordinat.
+developer:
+  nama: Open-Meteo
+  profil: 'https://github.com/open-meteo'
+dokumentasi: 'https://open-meteo.com/en/docs/geocoding-api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://geocoding-api.open-meteo.com'
+mirror: false
+provenance:
+  lisensi: CC-BY-4.0
+  sumberLisensi: 'https://open-meteo.com/en/terms'
+  atribusiWajib: true
+  atribusi: 'Geocoding oleh Open-Meteo.com, basis data GeoNames (CC BY 4.0)'
+  syaratUrl: 'https://open-meteo.com/en/terms'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh dengan atribusi - data geocoding bersumber dari GeoNames dan disajikan di bawah CC BY 4.0.'
+  batasAkses: 'Gratis untuk penggunaan non-komersial tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: cari
+    method: GET
+    path: /v1/search
+    deskripsi: 'Cari lokasi berdasarkan nama. Pakai count= untuk jumlah hasil dan language= untuk bahasa label (mis. id).'
+    params:
+      - nama: name
+        contoh: 'Bandung'
+        wajib: true
+        keterangan: 'nama kota atau tempat'
+      - nama: count
+        contoh: '1'
+        wajib: false
+        keterangan: 'jumlah hasil, default 10'
+      - nama: language
+        contoh: 'id'
+        wajib: false
+        keterangan: 'kode bahasa label hasil'
+    contohPath: '/v1/search?name=Bandung&count=1&language=id'
+    minUkuranByte: 100

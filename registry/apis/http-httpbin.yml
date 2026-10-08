@@ -1,0 +1,45 @@
+slug: http-httpbin
+nama: 'Uji HTTP (httpbin)'
+kategori: referensi
+deskripsi: Layanan uji permintaan HTTP - memantulkan header, IP, dan menghasilkan UUID. Berguna untuk men-debug klien HTTP.
+developer:
+  nama: Kenneth Reitz
+  profil: 'https://github.com/postmanlabs/httpbin'
+dokumentasi: 'https://httpbin.org/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://httpbin.org'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'httpbin.org (Kenneth Reitz / Postman)'
+  syaratUrl: 'https://httpbin.org/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - respons mencerminkan permintaan pemanggil; tidak masuk akal di-mirror.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: info
+    method: GET
+    path: /get
+    deskripsi: 'Pantulkan permintaan GET: args, headers, origin (IP), url.'
+    params: []
+    contohPath: /get
+    minUkuranByte: 100
+  - id: ip
+    method: GET
+    path: /ip
+    deskripsi: 'Alamat IP asal pemanggil: {origin}.'
+    params: []
+    contohPath: /ip
+    minUkuranByte: 15
+  - id: uuid
+    method: GET
+    path: /uuid
+    deskripsi: 'Hasilkan satu UUID v4 acak: {uuid}.'
+    params: []
+    contohPath: /uuid
+    minUkuranByte: 40

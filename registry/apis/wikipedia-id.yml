@@ -1,0 +1,35 @@
+slug: wikipedia-id
+nama: 'Wikipedia Bahasa Indonesia'
+kategori: referensi
+deskripsi: Ringkasan artikel Wikipedia bahasa Indonesia lewat REST API resmi Wikimedia.
+developer:
+  nama: Wikimedia Foundation
+  profil: 'https://github.com/wikimedia'
+dokumentasi: 'https://id.wikipedia.org/api/rest_v1/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://id.wikipedia.org'
+mirror: false
+provenance:
+  lisensi: CC-BY-SA-4.0
+  sumberLisensi: 'https://id.wikipedia.org/wiki/Wikipedia:Hak_cipta'
+  atribusiWajib: true
+  atribusi: 'Teks dari Wikipedia bahasa Indonesia, berlisensi CC BY-SA 4.0'
+  syaratUrl: 'https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh dengan berbagi-serupa - teks Wikipedia berlisensi CC BY-SA 4.0; turunannya wajib memakai lisensi yang sama dan mencantumkan sumber.'
+  batasAkses: 'REST API Wikimedia: wajib User-Agent deskriptif, ada batas laju. Tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: ringkasan
+    method: GET
+    path: '/api/rest_v1/page/summary/{judul}'
+    deskripsi: 'Ringkasan satu artikel: judul, ekstrak, dan gambar utama. judul = nama halaman, spasi boleh pakai underscore.'
+    params:
+      - nama: judul
+        contoh: 'Soekarno'
+        wajib: true
+        keterangan: 'judul halaman Wikipedia'
+    contohPath: /api/rest_v1/page/summary/Soekarno
+    minUkuranByte: 300

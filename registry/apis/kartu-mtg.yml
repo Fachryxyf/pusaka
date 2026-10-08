@@ -1,0 +1,57 @@
+slug: kartu-mtg
+nama: 'Kartu Magic: The Gathering'
+kategori: hiburan
+deskripsi: 'Basis data kartu game Magic: The Gathering - nama, biaya mana, tipe, teks, dan set rilis.'
+developer:
+  nama: andrewbackes
+  profil: 'https://github.com/MagicTheGathering/mtg-sdk'
+dokumentasi: 'https://docs.magicthegathering.io/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.magicthegathering.io'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'magicthegathering.io; kartu Magic milik Wizards of the Coast'
+  syaratUrl: 'https://docs.magicthegathering.io/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data game adalah kekayaan intelektual Wizards of the Coast.'
+  batasAkses: 'Gratis tanpa API key (ada batas laju per IP).'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: kartu
+    method: GET
+    path: '/v1/cards?pageSize={batas}'
+    deskripsi: 'Daftar kartu: name, manaCost, cmc, colors, type, rarity, set.'
+    params:
+      - nama: batas
+        contoh: '5'
+        wajib: true
+        keterangan: 'jumlah kartu per halaman'
+    contohPath: '/v1/cards?pageSize=5'
+    minUkuranByte: 300
+  - id: detail
+    method: GET
+    path: '/v1/cards/{id}'
+    deskripsi: 'Detail satu kartu menurut multiverseid.'
+    params:
+      - nama: id
+        contoh: '386616'
+        wajib: true
+        keterangan: 'multiverseid kartu'
+    contohPath: /v1/cards/386616
+    minUkuranByte: 150
+  - id: set
+    method: GET
+    path: '/v1/sets?pageSize={batas}'
+    deskripsi: 'Daftar set rilis: code, name, type, releaseDate, block.'
+    params:
+      - nama: batas
+        contoh: '5'
+        wajib: true
+        keterangan: 'jumlah set per halaman'
+    contohPath: '/v1/sets?pageSize=5'
+    minUkuranByte: 150

@@ -1,0 +1,35 @@
+slug: iss-wheretheiss
+nama: 'Posisi Stasiun Antariksa (ISS)'
+kategori: astronomi
+deskripsi: Posisi terkini Stasiun Antariksa Internasional (ISS) - lintang, bujur, ketinggian, dan kecepatan.
+developer:
+  nama: WhereTheISS.at
+  profil: 'https://wheretheiss.at'
+dokumentasi: 'https://wheretheiss.at/w/developer'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.wheretheiss.at'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://wheretheiss.at/w/developer'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - layanan gratis tanpa pernyataan lisensi data yang tegas. Datanya posisi faktual, tetapi hak salin tidak dipastikan.'
+  batasAkses: 'Gratis tanpa API key; sekitar 1 permintaan/detik.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: posisi
+    method: GET
+    path: '/v1/satellites/{id}'
+    deskripsi: 'Posisi satu satelit. id 25544 = ISS. Balas {latitude, longitude, altitude, velocity, timestamp}.'
+    params:
+      - nama: id
+        contoh: '25544'
+        wajib: true
+        keterangan: 'NORAD id satelit (25544 = ISS)'
+    contohPath: /v1/satellites/25544
+    minUkuranByte: 100

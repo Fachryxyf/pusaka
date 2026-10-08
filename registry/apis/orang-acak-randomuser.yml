@@ -1,0 +1,39 @@
+slug: orang-acak-randomuser
+nama: 'Data Orang Acak (Random User)'
+kategori: hiburan
+deskripsi: Menghasilkan data identitas orang fiktif secara acak - nama, alamat, foto, email - berguna untuk data contoh.
+developer:
+  nama: Random User Generator
+  profil: 'https://randomuser.me'
+dokumentasi: 'https://randomuser.me/documentation'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://randomuser.me'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://randomuser.me/'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh - data orang bersifat fiktif dan dihasilkan acak; layanan menyatakan bebas dipakai. Foto berasal dari sumber pihak ketiga, jadi lisensi dicatat unknown.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: acak
+    method: GET
+    path: /api/
+    deskripsi: 'Satu atau beberapa identitas acak. Pakai results= untuk jumlah dan nat= untuk negara (mis. us, gb).'
+    params:
+      - nama: results
+        contoh: '1'
+        wajib: false
+        keterangan: 'jumlah identitas, default 1'
+      - nama: nat
+        contoh: 'us'
+        wajib: false
+        keterangan: 'kode negara untuk gaya data'
+    contohPath: '/api/?nat=us&results=1'
+    minUkuranByte: 300

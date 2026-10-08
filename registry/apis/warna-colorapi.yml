@@ -1,0 +1,46 @@
+slug: warna-colorapi
+nama: 'Info Warna'
+kategori: referensi
+deskripsi: Ubah kode heksa warna menjadi nama, nilai RGB/HSL, dan skema warna yang serasi.
+developer:
+  nama: Josh Beckman
+  profil: 'https://www.thecolorapi.com/'
+dokumentasi: 'https://www.thecolorapi.com/docs'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://www.thecolorapi.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'The Color API (thecolorapi.com)'
+  syaratUrl: 'https://www.thecolorapi.com/docs'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: info
+    method: GET
+    path: '/id?hex={hex}'
+    deskripsi: 'Detail satu warna: nama, rgb, hsl, hsv, cmyk, kontras teks.'
+    params:
+      - nama: hex
+        contoh: '0047AB'
+        wajib: true
+        keterangan: 'kode heksa tanpa tanda pagar, mis. 0047AB'
+    contohPath: '/id?hex=0047AB'
+    minUkuranByte: 150
+  - id: skema
+    method: GET
+    path: '/scheme?hex={hex}&count=5'
+    deskripsi: 'Lima warna yang serasi dari warna dasar.'
+    params:
+      - nama: hex
+        contoh: '0047AB'
+        wajib: true
+        keterangan: 'kode heksa warna dasar tanpa tanda pagar'
+    contohPath: '/scheme?hex=0047AB&count=5'
+    minUkuranByte: 200

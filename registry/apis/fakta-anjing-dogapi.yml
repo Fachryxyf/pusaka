@@ -1,0 +1,35 @@
+slug: fakta-anjing-dogapi
+nama: 'Fakta Anjing'
+kategori: hiburan
+deskripsi: Fakta acak seputar anjing dalam bahasa Inggris. Pelengkap Fakta Kucing.
+developer:
+  nama: Kinduff
+  profil: 'https://dogapi.dog/'
+dokumentasi: 'https://dogapi.dog/docs/api-v2'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://dogapi.dog'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'dogapi.dog'
+  syaratUrl: 'https://dogapi.dog/docs/api-v2'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - respons acak; tidak masuk akal di-mirror.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: acak
+    method: GET
+    path: '/api/v2/facts?limit={batas}'
+    deskripsi: 'Fakta anjing acak dalam format JSON:API: data[].attributes.body.'
+    params:
+      - nama: batas
+        contoh: '1'
+        wajib: true
+        keterangan: 'jumlah fakta (1-5)'
+    contohPath: '/api/v2/facts?limit=1'
+    minUkuranByte: 60

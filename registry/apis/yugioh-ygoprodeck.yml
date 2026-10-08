@@ -1,0 +1,46 @@
+slug: yugioh-ygoprodeck
+nama: 'Kartu Yu-Gi-Oh'
+kategori: hiburan
+deskripsi: Basis data kartu Yu-Gi-Oh - cari per nama atau kumpulkan per arketipe.
+developer:
+  nama: YGOPRODeck
+  profil: 'https://ygoprodeck.com/api-guide/'
+dokumentasi: 'https://ygoprodeck.com/api-guide/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://db.ygoprodeck.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'YGOPRODeck; Yu-Gi-Oh milik Konami'
+  syaratUrl: 'https://ygoprodeck.com/api-guide/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data waralaba adalah kekayaan intelektual Konami.'
+  batasAkses: 'Gratis tanpa API key (batas laju per IP).'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: cari
+    method: GET
+    path: '/api/v7/cardinfo.php?name={nama}'
+    deskripsi: 'Cari satu kartu persis menurut nama: tipe, atk/def, ras, deskripsi.'
+    params:
+      - nama: nama
+        contoh: 'Dark Magician'
+        wajib: true
+        keterangan: 'nama kartu persis'
+    contohPath: '/api/v7/cardinfo.php?name=Dark Magician'
+    minUkuranByte: 200
+  - id: arketipe
+    method: GET
+    path: '/api/v7/cardinfo.php?archetype={arketipe}'
+    deskripsi: 'Semua kartu dalam satu arketipe.'
+    params:
+      - nama: arketipe
+        contoh: 'Blue-Eyes'
+        wajib: true
+        keterangan: 'nama arketipe (mis. Blue-Eyes)'
+    contohPath: '/api/v7/cardinfo.php?archetype=Blue-Eyes'
+    minUkuranByte: 300

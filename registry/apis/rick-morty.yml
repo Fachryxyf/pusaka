@@ -1,0 +1,42 @@
+slug: rick-morty
+nama: 'Rick and Morty'
+kategori: hiburan
+deskripsi: Data karakter, lokasi, dan episode dari serial animasi Rick and Morty.
+developer:
+  nama: Axel Fuhrmann
+  profil: 'https://github.com/afuh/rick-and-morty-api'
+dokumentasi: 'https://rickandmortyapi.com/documentation'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://rickandmortyapi.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://rickandmortyapi.com/documentation/#license'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - kode API bersumber terbuka, tetapi tokoh dan datanya adalah kekayaan intelektual pembuat serial. Hak salin data tidak diberikan.'
+  batasAkses: 'Gratis tanpa API key; diminta meng-cache hasil.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: karakter
+    method: GET
+    path: '/api/character/{id}'
+    deskripsi: 'Data satu karakter berdasarkan id: nama, status, spesies, asal, lokasi, gambar.'
+    params:
+      - nama: id
+        contoh: '1'
+        wajib: true
+        keterangan: 'id karakter (angka)'
+    contohPath: /api/character/1
+    minUkuranByte: 300
+  - id: daftarKarakter
+    method: GET
+    path: /api/character
+    deskripsi: 'Daftar karakter berpaginasi. Objek info (count, pages, next, prev) + array results.'
+    params: []
+    contohPath: /api/character
+    minUkuranByte: 2000

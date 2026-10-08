@@ -1,0 +1,46 @@
+slug: got-ice-and-fire
+nama: 'Game of Thrones (Ice and Fire)'
+kategori: hiburan
+deskripsi: Data semesta A Song of Ice and Fire - tokoh dan wangsa (house).
+developer:
+  nama: Joakim Skoog
+  profil: 'https://anapioficeandfire.com/'
+dokumentasi: 'https://anapioficeandfire.com/Documentation'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://anapioficeandfire.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'anapioficeandfire.com; A Song of Ice and Fire milik George R. R. Martin/HBO'
+  syaratUrl: 'https://anapioficeandfire.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data waralaba adalah kekayaan intelektual pemiliknya.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: tokoh
+    method: GET
+    path: '/api/characters/{id}'
+    deskripsi: 'Satu tokoh: name, gender, culture, born, titles, aliases.'
+    params:
+      - nama: id
+        contoh: '583'
+        wajib: true
+        keterangan: 'id tokoh (mis. 583 = Jon Snow)'
+    contohPath: /api/characters/583
+    minUkuranByte: 100
+  - id: wangsa
+    method: GET
+    path: '/api/houses/{id}'
+    deskripsi: 'Satu wangsa: name, region, coatOfArms, words, seats.'
+    params:
+      - nama: id
+        contoh: '362'
+        wajib: true
+        keterangan: 'id wangsa (mis. 362 = House Stark)'
+    contohPath: /api/houses/362
+    minUkuranByte: 100

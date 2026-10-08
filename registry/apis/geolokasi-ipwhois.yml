@@ -1,0 +1,35 @@
+slug: geolokasi-ipwhois
+nama: 'Geolokasi IP (ipwho.is)'
+kategori: lokasi
+deskripsi: Informasi lokasi dari alamat IP - negara, kota, koordinat, zona waktu, mata uang, dan operator. Alternatif tanpa batas harian ketat.
+developer:
+  nama: ipwho.is
+  profil: 'https://ipwho.is'
+dokumentasi: 'https://ipwho.is/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://ipwho.is'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://ipwho.is/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data geolokasi bersifat komersial dengan tier gratis; lisensi data tidak dinyatakan terbuka.'
+  batasAkses: 'Gratis tanpa API key (dinyatakan hingga 10.000 permintaan/bulan).'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: lokasi
+    method: GET
+    path: '/{ip}'
+    deskripsi: 'Geolokasi satu IP. Balas objek dengan field success; cek success sebelum memakai datanya.'
+    params:
+      - nama: ip
+        contoh: '8.8.8.8'
+        wajib: true
+        keterangan: 'alamat IPv4 atau IPv6'
+    contohPath: /8.8.8.8
+    minUkuranByte: 150

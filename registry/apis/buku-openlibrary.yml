@@ -1,0 +1,54 @@
+slug: buku-openlibrary
+nama: 'Katalog Buku (Open Library)'
+kategori: referensi
+deskripsi: Pencarian buku dan metadata karya dari Open Library (Internet Archive), termasuk judul berbahasa Indonesia.
+developer:
+  nama: Internet Archive / Open Library
+  profil: 'https://github.com/internetarchive'
+dokumentasi: 'https://openlibrary.org/developers/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://openlibrary.org'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://openlibrary.org/developers/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - halaman developer Open Library tidak menyatakan lisensi tegas untuk respons API ini, jadi hak salin belum dipastikan. Ketersediaan bukan izin.'
+  batasAkses: 'Minta User-Agent deskriptif dan hormati rate limit; tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: cari
+    method: GET
+    path: /search.json
+    deskripsi: 'Cari buku berdasarkan kata kunci. Pakai ?fields= untuk membatasi field dan ?limit= untuk jumlah hasil agar response ringkas.'
+    params:
+      - nama: q
+        contoh: 'laskar pelangi'
+        wajib: true
+        keterangan: 'kata kunci pencarian'
+      - nama: fields
+        contoh: 'key,title,author_name,first_publish_year,edition_count'
+        wajib: false
+        keterangan: 'daftar field yang dikembalikan, pisah koma'
+      - nama: limit
+        contoh: '1'
+        wajib: false
+        keterangan: 'jumlah hasil'
+    contohPath: '/search.json?q=laskar+pelangi&limit=1&fields=key,title,author_name,first_publish_year,edition_count'
+    minUkuranByte: 100
+  - id: karya
+    method: GET
+    path: '/works/{id}.json'
+    deskripsi: 'Metadata satu karya berdasarkan ID works (mis. OL45804W).'
+    params:
+      - nama: id
+        contoh: 'OL45804W'
+        wajib: true
+        keterangan: 'ID works Open Library'
+    contohPath: /works/OL45804W.json
+    minUkuranByte: 200

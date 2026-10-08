@@ -1,0 +1,46 @@
+slug: nobel-prize
+nama: 'Hadiah Nobel'
+kategori: referensi
+deskripsi: Daftar hadiah Nobel per tahun/kategori dan profil para peraih (laureate) dari situs resmi Nobel Prize.
+developer:
+  nama: Nobel Prize Outreach
+  profil: 'https://www.nobelprize.org/'
+dokumentasi: 'https://www.nobelprize.org/organization/developer-zone-2/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.nobelprize.org'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Data oleh Nobel Prize Outreach AB (nobelprize.org)'
+  syaratUrl: 'https://www.nobelprize.org/about/terms-of-use-for-api-nobelprize-org-and-data-nobelprize-org/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - ketentuan API meminta atribusi tetapi tidak menyatakan lisensi data terbuka yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: hadiah
+    method: GET
+    path: '/2.1/nobelPrizes?limit={batas}'
+    deskripsi: 'Daftar hadiah Nobel: tahun, kategori, jumlah hadiah, dan peraihnya.'
+    params:
+      - nama: batas
+        contoh: '5'
+        wajib: true
+        keterangan: 'jumlah entri yang diambil'
+    contohPath: '/2.1/nobelPrizes?limit=5'
+    minUkuranByte: 200
+  - id: peraih
+    method: GET
+    path: '/2.1/laureates?limit={batas}'
+    deskripsi: 'Profil para peraih Nobel: nama, kelahiran, afiliasi, dan hadiah yang diterima.'
+    params:
+      - nama: batas
+        contoh: '5'
+        wajib: true
+        keterangan: 'jumlah peraih yang diambil'
+    contohPath: '/2.1/laureates?limit=5'
+    minUkuranByte: 200

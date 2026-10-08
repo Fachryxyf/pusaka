@@ -1,0 +1,46 @@
+slug: peluncuran-roket-launchlibrary
+nama: 'Peluncuran Roket'
+kategori: astronomi
+deskripsi: Jadwal peluncuran roket mendatang dan yang sudah lewat dari seluruh dunia, via Launch Library 2.
+developer:
+  nama: The Space Devs
+  profil: 'https://thespacedevs.com'
+dokumentasi: 'https://ll.thespacedevs.com/2.3.0/swagger/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://ll.thespacedevs.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Data dari The Space Devs (Launch Library 2)'
+  syaratUrl: 'https://thespacedevs.com/llapi'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - layanan gratis dengan atribusi disarankan, tetapi lisensi data tidak dinyatakan terbuka secara tegas.'
+  batasAkses: 'Tanpa API key: sekitar 15 panggilan/jam per IP.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: mendatang
+    method: GET
+    path: '/2.3.0/launches/upcoming/?limit={batas}&mode=list'
+    deskripsi: 'Peluncuran mendatang. Objek {count, next, previous, results[]}.'
+    params:
+      - nama: batas
+        contoh: '5'
+        wajib: true
+        keterangan: 'jumlah peluncuran'
+    contohPath: '/2.3.0/launches/upcoming/?limit=5&mode=list'
+    minUkuranByte: 300
+  - id: lampau
+    method: GET
+    path: '/2.3.0/launches/previous/?limit={batas}&mode=list'
+    deskripsi: 'Peluncuran yang sudah lewat.'
+    params:
+      - nama: batas
+        contoh: '5'
+        wajib: true
+        keterangan: 'jumlah peluncuran'
+    contohPath: '/2.3.0/launches/previous/?limit=5&mode=list'
+    minUkuranByte: 300

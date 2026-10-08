@@ -1,0 +1,53 @@
+slug: data-dummyjson
+nama: 'Data Dummy (DummyJSON)'
+kategori: referensi
+deskripsi: Data palsu siap pakai untuk uji coba antarmuka - kutipan, produk, dan resep. Berguna buat developer yang butuh contoh JSON tanpa menyiapkan server sendiri.
+developer:
+  nama: Muhammad Ovi (Owais)
+  profil: 'https://github.com/Ovi/DummyJSON'
+dokumentasi: 'https://dummyjson.com/docs'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://dummyjson.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'DummyJSON (dummyjson.com)'
+  syaratUrl: 'https://dummyjson.com/docs'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data palsu untuk pengujian; tidak ada pernyataan lisensi yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: kutipanAcak
+    method: GET
+    path: /quotes/random
+    deskripsi: 'Satu kutipan acak: id, quote, author.'
+    params: []
+    contohPath: /quotes/random
+    minUkuranByte: 40
+  - id: cariProduk
+    method: GET
+    path: '/products/search?q={kata}&limit=5'
+    deskripsi: 'Cari produk dummy menurut kata kunci (judul, harga, kategori, stok).'
+    params:
+      - nama: kata
+        contoh: 'laptop'
+        wajib: true
+        keterangan: 'kata kunci pencarian produk'
+    contohPath: '/products/search?q=laptop&limit=5'
+    minUkuranByte: 100
+  - id: resep
+    method: GET
+    path: '/recipes/{id}'
+    deskripsi: 'Satu resep dummy: nama, bahan, langkah, kalori.'
+    params:
+      - nama: id
+        contoh: '1'
+        wajib: true
+        keterangan: 'id resep (1 ke atas)'
+    contohPath: /recipes/1
+    minUkuranByte: 80

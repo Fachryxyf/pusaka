@@ -1,0 +1,57 @@
+slug: waktu-timeapi
+nama: 'Waktu & Zona Waktu'
+kategori: referensi
+deskripsi: Waktu saat ini untuk zona waktu atau koordinat mana pun, plus daftar zona waktu IANA yang tersedia.
+developer:
+  nama: TimeAPI.io
+  profil: 'https://timeapi.io'
+dokumentasi: 'https://timeapi.io/swagger/index.html'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://timeapi.io'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://timeapi.io'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - layanan gratis tetapi tidak menyatakan lisensi data yang tegas. Datanya faktual (waktu), tetapi hak salin tidak dipastikan.'
+  batasAkses: 'Gratis tanpa API key; pemakaian wajar.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: zona
+    method: GET
+    path: /api/Time/current/zone
+    deskripsi: 'Waktu saat ini pada satu zona waktu IANA.'
+    params:
+      - nama: timeZone
+        contoh: 'Asia/Jakarta'
+        wajib: true
+        keterangan: 'nama zona waktu IANA'
+    contohPath: '/api/Time/current/zone?timeZone=Asia/Jakarta'
+    minUkuranByte: 100
+  - id: koordinat
+    method: GET
+    path: /api/Time/current/coordinate
+    deskripsi: 'Waktu saat ini pada satu titik koordinat (zona dideteksi dari lokasi).'
+    params:
+      - nama: latitude
+        contoh: '-6.2'
+        wajib: true
+        keterangan: 'lintang titik'
+      - nama: longitude
+        contoh: '106.8'
+        wajib: true
+        keterangan: 'bujur titik'
+    contohPath: '/api/Time/current/coordinate?latitude=-6.2&longitude=106.8'
+    minUkuranByte: 100
+  - id: daftarZona
+    method: GET
+    path: /api/TimeZone/AvailableTimeZones
+    deskripsi: Daftar seluruh nama zona waktu IANA yang didukung.
+    params: []
+    contohPath: /api/TimeZone/AvailableTimeZones
+    minUkuranByte: 2000

@@ -1,0 +1,35 @@
+slug: prediksi-nama-nationalize
+nama: 'Tebak Negara dari Nama'
+kategori: hiburan
+deskripsi: Memperkirakan negara asal yang paling mungkin dari sebuah nama depan, lengkap dengan probabilitasnya.
+developer:
+  nama: nationalize.io
+  profil: 'https://nationalize.io'
+dokumentasi: 'https://nationalize.io/documentation'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.nationalize.io'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://nationalize.io/terms-of-use'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - model prediksi milik nationalize.io; lisensi data tidak dinyatakan terbuka.'
+  batasAkses: 'Tanpa API key: 100 permintaan/hari. Melebihi itu balas 429.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: tebak
+    method: GET
+    path: /
+    deskripsi: 'Perkiraan negara dari nama depan. Balas array country berisi country_id (ISO-2) dan probability, terurut dari yang paling mungkin.'
+    params:
+      - nama: name
+        contoh: 'budi'
+        wajib: true
+        keterangan: 'nama depan'
+    contohPath: '/?name=budi'
+    minUkuranByte: 40

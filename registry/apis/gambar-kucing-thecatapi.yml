@@ -1,0 +1,31 @@
+slug: gambar-kucing-thecatapi
+nama: 'Gambar Kucing (TheCatAPI)'
+kategori: hiburan
+deskripsi: URL gambar kucing acak dari TheCatAPI.
+developer:
+  nama: TheCatAPI
+  profil: 'https://thecatapi.com'
+dokumentasi: 'https://developers.thecatapi.com/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.thecatapi.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://thecatapi.com/terms'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - gambar berasal dari berbagai sumber; lisensi data tidak dinyatakan terbuka.'
+  batasAkses: 'Pencarian dasar gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: acak
+    method: GET
+    path: /v1/images/search
+    deskripsi: 'Satu gambar kucing acak. Balas array berisi satu objek {id, url, width, height}.'
+    params: []
+    contohPath: /v1/images/search
+    minUkuranByte: 40

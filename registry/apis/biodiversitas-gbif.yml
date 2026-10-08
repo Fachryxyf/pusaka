@@ -1,0 +1,42 @@
+slug: biodiversitas-gbif
+nama: 'Biodiversitas (GBIF)'
+kategori: referensi
+deskripsi: Data keanekaragaman hayati global dari GBIF - cari spesies dan catatan kemunculan, termasuk yang di Indonesia.
+developer:
+  nama: GBIF Secretariat
+  profil: 'https://www.gbif.org/'
+dokumentasi: 'https://techdocs.gbif.org/en/openapi/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.gbif.org'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: true
+  atribusi: 'Data difasilitasi GBIF.org dan jaringan penyumbangnya'
+  syaratUrl: 'https://www.gbif.org/terms'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tiap dataset punya lisensi sendiri (umumnya CC0/CC-BY/CC-BY-NC); periksa per dataset sebelum redistribusi.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: spesies
+    method: GET
+    path: '/v1/species/search?q={nama}&limit=5'
+    deskripsi: 'Cari takson menurut nama ilmiah atau umum: key, scientificName, rank, kingdom.'
+    params:
+      - nama: nama
+        contoh: 'komodo'
+        wajib: true
+        keterangan: 'nama spesies (ilmiah atau umum)'
+    contohPath: '/v1/species/search?q=komodo&limit=5'
+    minUkuranByte: 200
+  - id: kemunculanIndonesia
+    method: GET
+    path: '/v1/occurrence/search?country=ID&limit=5'
+    deskripsi: 'Catatan kemunculan spesies yang tercatat di Indonesia.'
+    params: []
+    contohPath: '/v1/occurrence/search?country=ID&limit=5'
+    minUkuranByte: 300

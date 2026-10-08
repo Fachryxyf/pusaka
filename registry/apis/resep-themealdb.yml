@@ -1,0 +1,60 @@
+slug: resep-themealdb
+nama: 'Resep Masakan (TheMealDB)'
+kategori: hiburan
+deskripsi: Basis data resep masakan dunia, bisa dicari per nama atau kategori. Memuat sejumlah masakan Nusantara.
+developer:
+  nama: TheMealDB
+  profil: 'https://www.themealdb.com'
+dokumentasi: 'https://www.themealdb.com/api.php'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://www.themealdb.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://www.themealdb.com/api.php'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - TheMealDB menyediakan test key "1" untuk pengembangan tetapi tidak menyatakan lisensi data yang tegas, jadi hak salin tidak dipastikan.'
+  batasAkses: 'Pakai test key "1" di path untuk pengembangan/edukasi; penggunaan produksi lewat langganan.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: cari
+    method: GET
+    path: /api/json/v1/1/search.php
+    deskripsi: 'Cari resep berdasarkan nama. Balas {"meals": null} kalau tidak ada yang cocok.'
+    params:
+      - nama: s
+        contoh: 'rendang'
+        wajib: true
+        keterangan: 'kata kunci nama masakan'
+    contohPath: '/api/json/v1/1/search.php?s=rendang'
+    minUkuranByte: 100
+  - id: detail
+    method: GET
+    path: /api/json/v1/1/lookup.php
+    deskripsi: 'Detail satu resep berdasarkan idMeal.'
+    params:
+      - nama: i
+        contoh: '53053'
+        wajib: true
+        keterangan: 'idMeal'
+    contohPath: '/api/json/v1/1/lookup.php?i=53053'
+    minUkuranByte: 300
+  - id: kategori
+    method: GET
+    path: /api/json/v1/1/categories.php
+    deskripsi: Daftar kategori masakan beserta gambar dan deskripsinya.
+    params: []
+    contohPath: /api/json/v1/1/categories.php
+    minUkuranByte: 1000
+  - id: acak
+    method: GET
+    path: /api/json/v1/1/random.php
+    deskripsi: Satu resep acak. Ukuran berubah tiap panggilan, tapi selalu satu objek meal penuh.
+    params: []
+    contohPath: /api/json/v1/1/random.php
+    minUkuranByte: 300

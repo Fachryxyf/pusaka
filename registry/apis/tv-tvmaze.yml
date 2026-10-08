@@ -1,0 +1,46 @@
+slug: tv-tvmaze
+nama: 'Acara TV (TVmaze)'
+kategori: hiburan
+deskripsi: Cari serial dan acara televisi beserta jadwal, pemeran, dan ringkasannya dari TVmaze.
+developer:
+  nama: TVmaze
+  profil: 'https://www.tvmaze.com'
+dokumentasi: 'https://www.tvmaze.com/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.tvmaze.com'
+mirror: false
+provenance:
+  lisensi: CC-BY-SA-4.0
+  sumberLisensi: 'https://www.tvmaze.com/api'
+  atribusiWajib: true
+  atribusi: 'Data acara TV oleh TVmaze (CC BY-SA 4.0)'
+  syaratUrl: 'https://www.tvmaze.com/api'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh dengan berbagi-serupa - TVmaze melisensikan datanya CC BY-SA; turunan wajib memakai lisensi yang sama dan mencantumkan sumber.'
+  batasAkses: 'Tanpa API key untuk endpoint publik; ada batas laju (sekitar 20 panggilan/10 detik per IP).'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: cari
+    method: GET
+    path: /search/shows
+    deskripsi: 'Cari acara berdasarkan kata kunci. Balas array {score, show}.'
+    params:
+      - nama: q
+        contoh: 'batman'
+        wajib: true
+        keterangan: 'kata kunci judul'
+    contohPath: '/search/shows?q=batman'
+    minUkuranByte: 300
+  - id: detail
+    method: GET
+    path: '/shows/{id}'
+    deskripsi: 'Detail satu acara berdasarkan id: genre, status, jadwal tayang, rating, ringkasan.'
+    params:
+      - nama: id
+        contoh: '975'
+        wajib: true
+        keterangan: 'id acara (angka)'
+    contohPath: /shows/975
+    minUkuranByte: 300

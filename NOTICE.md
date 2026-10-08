@@ -28,6 +28,35 @@ hasil probe, dan penilaian tier — adalah karya sendiri, tapi karena tercampur 
 yang sama, perlakukan `BACKLOG-API.md`, `REGISTRY-SEED.md`, dan `registry/apis/*.yml`
 sebagai **CC BY 4.0** dan cantumkan atribusi ke farizdotid saat menyebarkannya.
 
+**Pengecualian — sembilan puluh enam entri dari public-apis.** Sembilan puluh enam berkas registry
+(`hari-libur-nager.yml`, `kurs-frankfurter.yml`, `cuaca-open-meteo.yml`,
+`geocoding-open-meteo.yml`, `worldbank-indikator.yml`, `buku-openlibrary.yml`,
+`kripto-coingecko.yml`, `kualitas-udara-open-meteo.yml`, `wikipedia-id.yml`,
+`matahari-sunrise-sunset.yml`, `resep-themealdb.yml`, `pokemon-pokeapi.yml`,
+`produk-openfoodfacts.yml`, `geolokasi-ipapi.yml`, `waktu-timeapi.yml`,
+`anjing-dogceo.yml`, `nasihat-adviceslip.yml`, `prediksi-nama-nationalize.yml`,
+`ketinggian-open-meteo.yml`, `umur-agify.yml`, `gender-genderize.yml`,
+`orang-acak-randomuser.yml`, `rick-morty.yml`, `tv-tvmaze.yml`,
+`kamus-dictionary.yml`, `kata-datamuse.yml`, `berita-antariksa-spaceflight.yml`,
+`minuman-cocktaildb.yml`, `jokes-chucknorris.yml`, `jokes-jokeapi.yml`,
+`seni-artic.yml`, `seni-metmuseum.yml`, `kripto-coinpaprika.yml`,
+`fakta-kucing-catfact.yml`, `sejarah-wikipedia.yml`, `musik-musicbrainz.yml`,
+`gelombang-laut-open-meteo.yml`, `banjir-open-meteo.yml`, `gempa-global-usgs.yml`,
+`iss-wheretheiss.yml`, `geolokasi-ipwhois.yml`, `github-pengguna.yml`, `alamat-nominatim.yml`, `peluncuran-roket-launchlibrary.yml`, `covid-disease.yml`, `film-ghibli.yml`, `gambar-kucing-thecatapi.yml`, `cuaca-historis-open-meteo.yml`, `nobel-prize.yml`, `kartu-remi-deckofcards.yml`, `lelucon-bapak-dadjoke.yml`, `negara-countriesnow.yml`, `game-gratis-freetogame.yml`, `ya-tidak-yesno.yml`, `data-dummyjson.yml`, `toko-palsu-fakestore.yml`, `fakta-iseng-uselessfacts.yml`, `genshin-jmp.yml`, `kutipan-kanye.yml`, `lelucon-official-joke.yml`, `data-jsonplaceholder.yml`, `http-httpbin.yml`, `ip-saya-ipify.yml`, `kartu-mtg.yml`, `digimon-digiapi.yml`, `kopi-sampleapis.yml`, `star-wars-swapi.yml`, `harry-potter-hpapi.yml`, `dnd-5e.yml`, `yugioh-ygoprodeck.yml`, `got-ice-and-fire.yml`, `dragon-ball-api.yml`, `terjemahan-mymemory.yml`, `warna-colorapi.yml`, `catur-chesscom.yml`, `olahraga-thesportsdb.yml`, `valorant-api.yml`, `formula1-ergast.yml`, `dota-opendota.yml`, `trivia-the-trivia-api.yml`, `puisi-poetrydb.yml`, `anime-kitsu.yml`, `final-space-api.yml`, `fakta-anjing-dogapi.yml`, `biodiversitas-gbif.yml`, `takson-inaturalist.yml`, `meme-templat-imgflip.yml`, `meme-reddit-memeapi.yml`, `catur-lichess.yml`, `disney-api.yml`, `nasa-gambar.yml`, `game-diskon-cheapshark.yml`, `kartu-pokemon-tcg.yml`, `demon-slayer-api.yml`, `switch-games-sampleapis.yml`, dan `kartu-scryfall.yml`)
+**tidak** diturunkan dari daftar farizdotid, melainkan dipetakan dari direktori
+[public-apis/public-apis](https://github.com/public-apis/public-apis) yang berlisensi
+**MIT**. Untuk berkas-berkas itu, atribusi ke farizdotid tidak berlaku; yang
+berlaku adalah ketentuan MIT public-apis (pertahankan pemberitahuan lisensinya). Hak atas
+**data** yang dikembalikan tiap API tetap milik penerbit masing-masing dan dicatat
+per-berkas di field `provenance` — mulai dari MIT (Nager.Date, Frankfurter), CC BY 4.0
+(Open-Meteo, World Bank), CC BY-SA 4.0 (Wikipedia, TVmaze), ODbL (Open Food Facts, Nominatim/OpenStreetMap), CC0 (Art Institute of Chicago,
+The Met, MusicBrainz), domain publik (USGS), OGL 1.0a (D&D 5e SRD), sampai
+`unknown` untuk yang belum menyatakan lisensi data API-nya secara tegas (Open Library,
+CoinGecko, Sunrise-Sunset, TheMealDB, PokeAPI, ipapi.co, TimeAPI, Dog CEO, Advice Slip,
+Nationalize, Agify, Genderize, Random User, Rick and Morty, Free Dictionary, Datamuse,
+Spaceflight News, TheCocktailDB, Chuck Norris IO, JokeAPI, CoinPaprika, Cat Facts,
+WhereTheISS.at, ipwho.is, GitHub, Launch Library 2, disease.sh, Studio Ghibli, TheCatAPI, Nobel Prize, Deck of Cards, icanhazdadjoke, CountriesNow, FreeToGame, yesno.wtf, DummyJSON, Fake Store, Useless Facts, Genshin (jmp.blue), kanye.rest, Official Joke, JSONPlaceholder, httpbin, ipify, Magic The Gathering, Digimon, SampleAPIs, Star Wars, Harry Potter, Yu-Gi-Oh, Game of Thrones, Dragon Ball, MyMemory, The Color API, Chess.com, TheSportsDB, Valorant, Formula 1 (Ergast), OpenDota, The Trivia API, PoetryDB, Kitsu, Final Space, dogapi.dog, GBIF, iNaturalist, Imgflip, Meme API, Lichess, Disney, NASA Images, CheapShark, Pokémon TCG, Demon Slayer, SampleAPIs, Scryfall).
+
 ## 3. Cuplikan response di dokumen
 
 `REFERENCE.md` memuat potongan response asli dari API pihak ketiga, dipakai sebatas yang

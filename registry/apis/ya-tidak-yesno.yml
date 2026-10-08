@@ -1,0 +1,31 @@
+slug: ya-tidak-yesno
+nama: 'Ya atau Tidak'
+kategori: hiburan
+deskripsi: Jawaban acak ya/tidak/mungkin beserta GIF yang cocok. Pengganti lempar koin untuk mengambil keputusan iseng.
+developer:
+  nama: yesno.wtf
+  profil: 'https://yesno.wtf/'
+dokumentasi: 'https://yesno.wtf/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://yesno.wtf'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'yesno.wtf'
+  syaratUrl: 'https://yesno.wtf/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi; respons acak sehingga tidak masuk akal di-mirror.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: acak
+    method: GET
+    path: /api
+    deskripsi: 'Jawaban acak: answer (yes/no/maybe), forced, dan URL image GIF.'
+    params: []
+    contohPath: /api
+    minUkuranByte: 50

@@ -1,0 +1,31 @@
+slug: nasihat-adviceslip
+nama: 'Nasihat Acak (Advice Slip)'
+kategori: hiburan
+deskripsi: Satu potongan nasihat acak dalam bahasa Inggris dari Advice Slip API.
+developer:
+  nama: Tom Kiss
+  profil: 'https://api.adviceslip.com'
+dokumentasi: 'https://api.adviceslip.com/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.adviceslip.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://api.adviceslip.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - layanan gratis tanpa pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key; hasil di-cache sekitar 2 detik per permintaan sama.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: acak
+    method: GET
+    path: /advice
+    deskripsi: 'Satu nasihat acak: objek slip berisi id dan teks advice.'
+    params: []
+    contohPath: /advice
+    minUkuranByte: 30

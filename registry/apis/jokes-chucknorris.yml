@@ -1,0 +1,38 @@
+slug: jokes-chucknorris
+nama: 'Lelucon Chuck Norris'
+kategori: hiburan
+deskripsi: Lelucon acak bertema Chuck Norris, bisa disaring per kategori.
+developer:
+  nama: chucknorris.io
+  profil: 'https://github.com/chucknorris-io'
+dokumentasi: 'https://api.chucknorris.io/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.chucknorris.io'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://api.chucknorris.io/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - layanan gratis tanpa pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: acak
+    method: GET
+    path: /jokes/random
+    deskripsi: 'Satu lelucon acak. Balas {id, value, categories, url, ...}.'
+    params: []
+    contohPath: /jokes/random
+    minUkuranByte: 100
+  - id: kategori
+    method: GET
+    path: /jokes/categories
+    deskripsi: Daftar kategori lelucon yang tersedia (array string).
+    params: []
+    contohPath: /jokes/categories
+    minUkuranByte: 50

@@ -1,0 +1,46 @@
+slug: negara-countriesnow
+nama: 'Data Negara & Kota'
+kategori: referensi
+deskripsi: Daftar kota per negara, bendera, dan ibu kota dari CountriesNow. Berguna untuk mengisi dropdown kota termasuk kota-kota di Indonesia.
+developer:
+  nama: CountriesNow
+  profil: 'https://countriesnow.space/'
+dokumentasi: 'https://documenter.getpostman.com/view/1134062/T1LJjU52'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://countriesnow.space'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'CountriesNow (countriesnow.space)'
+  syaratUrl: 'https://countriesnow.space/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: kota
+    method: GET
+    path: '/api/v0.1/countries/cities/q?country={negara}'
+    deskripsi: 'Daftar nama kota pada sebuah negara.'
+    params:
+      - nama: negara
+        contoh: 'indonesia'
+        wajib: true
+        keterangan: 'nama negara dalam bahasa Inggris'
+    contohPath: '/api/v0.1/countries/cities/q?country=indonesia'
+    minUkuranByte: 200
+  - id: bendera
+    method: GET
+    path: '/api/v0.1/countries/flag/images/q?country={negara}'
+    deskripsi: 'URL gambar bendera (SVG) sebuah negara beserta kode iso2/iso3.'
+    params:
+      - nama: negara
+        contoh: 'indonesia'
+        wajib: true
+        keterangan: 'nama negara dalam bahasa Inggris'
+    contohPath: '/api/v0.1/countries/flag/images/q?country=indonesia'
+    minUkuranByte: 100

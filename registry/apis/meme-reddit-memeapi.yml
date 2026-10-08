@@ -1,0 +1,31 @@
+slug: meme-reddit-memeapi
+nama: 'Meme Wholesome'
+kategori: hiburan
+deskripsi: Meme acak dari subreddit r/wholesomememes - dipilih yang ramah supaya aman ditampilkan.
+developer:
+  nama: D3vd
+  profil: 'https://github.com/D3vd/Meme_Api'
+dokumentasi: 'https://github.com/D3vd/Meme_Api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://meme-api.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Meme API (D3vd); konten dari Reddit'
+  syaratUrl: 'https://github.com/D3vd/Meme_Api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - konten milik pengunggah Reddit masing-masing; respons acak.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: acak
+    method: GET
+    path: /gimme/wholesomememes
+    deskripsi: 'Satu meme acak dari r/wholesomememes: title, url, postLink, author.'
+    params: []
+    contohPath: /gimme/wholesomememes
+    minUkuranByte: 100

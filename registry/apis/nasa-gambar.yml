@@ -1,0 +1,35 @@
+slug: nasa-gambar
+nama: 'Galeri NASA'
+kategori: astronomi
+deskripsi: Cari gambar dari pustaka media publik NASA - antariksa, planet, misi, dan Bumi.
+developer:
+  nama: NASA
+  profil: 'https://images.nasa.gov/'
+dokumentasi: 'https://api.nasa.gov/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://images-api.nasa.gov'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'NASA Image and Video Library (images.nasa.gov)'
+  syaratUrl: 'https://www.nasa.gov/nasa-brand-center/images-and-media/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - mayoritas materi NASA bebas hak cipta, tetapi sebagian memuat materi pihak ketiga yang dilindungi; periksa tiap aset.'
+  batasAkses: 'Pencarian gambar gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: cari
+    method: GET
+    path: '/search?q={kata}&media_type=image'
+    deskripsi: 'Cari gambar: title, description, nasa_id, dan tautan pratinjau.'
+    params:
+      - nama: kata
+        contoh: 'jupiter'
+        wajib: true
+        keterangan: 'kata kunci pencarian'
+    contohPath: '/search?q=jupiter&media_type=image'
+    minUkuranByte: 200

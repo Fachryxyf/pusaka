@@ -1,0 +1,53 @@
+slug: minuman-cocktaildb
+nama: 'Resep Minuman (TheCocktailDB)'
+kategori: hiburan
+deskripsi: Basis data resep minuman dan koktail dunia, bisa dicari per nama.
+developer:
+  nama: TheCocktailDB
+  profil: 'https://www.thecocktaildb.com'
+dokumentasi: 'https://www.thecocktaildb.com/api.php'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://www.thecocktaildb.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://www.thecocktaildb.com/api.php'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - menyediakan test key "1" untuk pengembangan tetapi tidak menyatakan lisensi data yang tegas.'
+  batasAkses: 'Pakai test key "1" di path untuk pengembangan/edukasi.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: cari
+    method: GET
+    path: '/api/json/v1/1/search.php?s={nama}'
+    deskripsi: 'Cari minuman berdasarkan nama. Balas {"drinks": null} kalau tidak ada.'
+    params:
+      - nama: nama
+        contoh: 'margarita'
+        wajib: true
+        keterangan: 'kata kunci nama minuman'
+    contohPath: '/api/json/v1/1/search.php?s=margarita'
+    minUkuranByte: 300
+  - id: detail
+    method: GET
+    path: '/api/json/v1/1/lookup.php?i={id}'
+    deskripsi: 'Detail satu minuman berdasarkan idDrink.'
+    params:
+      - nama: id
+        contoh: '11007'
+        wajib: true
+        keterangan: 'idDrink'
+    contohPath: '/api/json/v1/1/lookup.php?i=11007'
+    minUkuranByte: 300
+  - id: acak
+    method: GET
+    path: /api/json/v1/1/random.php
+    deskripsi: Satu minuman acak.
+    params: []
+    contohPath: /api/json/v1/1/random.php
+    minUkuranByte: 300

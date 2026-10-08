@@ -1,0 +1,53 @@
+slug: kartu-scryfall
+nama: 'Kartu Magic (Scryfall)'
+kategori: hiburan
+deskripsi: 'Basis data kartu Magic: The Gathering yang lengkap dari Scryfall - cari teks penuh, lihat kartu persis, atau ambil kartu acak dengan gambar beresolusi tinggi.'
+developer:
+  nama: Scryfall
+  profil: 'https://scryfall.com/'
+dokumentasi: 'https://scryfall.com/docs/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.scryfall.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Scryfall; teks & gambar kartu milik Wizards of the Coast'
+  syaratUrl: 'https://scryfall.com/docs/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - Scryfall meminta jeda antar permintaan; data kartu milik Wizards of the Coast.'
+  batasAkses: 'Gratis tanpa API key (disarankan jeda ~100 ms antar permintaan).'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: namaKartu
+    method: GET
+    path: '/cards/named?exact={nama}'
+    deskripsi: 'Satu kartu dengan nama persis: mana cost, tipe, teks, harga, gambar.'
+    params:
+      - nama: nama
+        contoh: 'Black Lotus'
+        wajib: true
+        keterangan: 'nama kartu persis'
+    contohPath: '/cards/named?exact=Black Lotus'
+    minUkuranByte: 200
+  - id: cari
+    method: GET
+    path: '/cards/search?q={kata}'
+    deskripsi: 'Cari kartu dengan sintaks pencarian Scryfall (teks penuh).'
+    params:
+      - nama: kata
+        contoh: 'lightning'
+        wajib: true
+        keterangan: 'kata kunci atau sintaks pencarian Scryfall'
+    contohPath: '/cards/search?q=lightning'
+    minUkuranByte: 300
+  - id: acak
+    method: GET
+    path: /cards/random
+    deskripsi: 'Satu kartu Magic acak lengkap dengan gambar.'
+    params: []
+    contohPath: /cards/random
+    minUkuranByte: 200

@@ -1,0 +1,35 @@
+slug: kamus-dictionary
+nama: 'Kamus Inggris'
+kategori: pendidikan
+deskripsi: Arti, pelafalan, dan contoh pemakaian kata bahasa Inggris dari Free Dictionary API.
+developer:
+  nama: freeDictionaryAPI
+  profil: 'https://github.com/meetDeveloper/freeDictionaryAPI'
+dokumentasi: 'https://dictionaryapi.dev/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.dictionaryapi.dev'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Definisi bersumber dari Wiktionary (CC BY-SA)'
+  syaratUrl: 'https://dictionaryapi.dev/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - kode API bersumber terbuka, tetapi definisi berasal dari Wiktionary (CC BY-SA); status gabungannya tidak dinyatakan tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: arti
+    method: GET
+    path: '/api/v2/entries/en/{kata}'
+    deskripsi: 'Arti satu kata bahasa Inggris. Balas array entri (phonetics, meanings[].definitions). Kata tak ditemukan balas 404.'
+    params:
+      - nama: kata
+        contoh: 'hello'
+        wajib: true
+        keterangan: 'kata bahasa Inggris'
+    contohPath: /api/v2/entries/en/hello
+    minUkuranByte: 300

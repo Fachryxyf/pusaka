@@ -1,0 +1,35 @@
+slug: catur-lichess
+nama: 'Profil Catur (Lichess)'
+kategori: hiburan
+deskripsi: Profil publik pengguna di Lichess - rating tiap mode, jumlah permainan, dan status online.
+developer:
+  nama: Lichess
+  profil: 'https://lichess.org/'
+dokumentasi: 'https://lichess.org/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://lichess.org'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Lichess.org (nirlaba, sumber terbuka)'
+  syaratUrl: 'https://lichess.org/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - perangkat lunaknya AGPL-3.0; data profil publik milik Lichess dan penggunanya.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: pengguna
+    method: GET
+    path: '/api/user/{username}'
+    deskripsi: 'Profil pengguna: perfs (rating bullet/blitz/rapid/classical), count, playTime.'
+    params:
+      - nama: username
+        contoh: 'thibault'
+        wajib: true
+        keterangan: 'nama pengguna Lichess'
+    contohPath: /api/user/thibault
+    minUkuranByte: 100

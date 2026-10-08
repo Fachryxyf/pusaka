@@ -1,0 +1,46 @@
+slug: seni-artic
+nama: 'Koleksi Seni (Art Institute of Chicago)'
+kategori: seni
+deskripsi: Cari karya seni dari koleksi Art Institute of Chicago beserta data senimannya.
+developer:
+  nama: Art Institute of Chicago
+  profil: 'https://www.artic.edu'
+dokumentasi: 'https://api.artic.edu/docs/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.artic.edu'
+mirror: false
+provenance:
+  lisensi: CC0-1.0
+  sumberLisensi: 'https://www.artic.edu/open-access/public-api'
+  atribusiWajib: false
+  atribusi: 'Data koleksi dari Art Institute of Chicago (CC0)'
+  syaratUrl: 'https://www.artic.edu/terms'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh - data koleksi dilepas sebagai CC0. Catatan: hak atas berkas gambar bisa berbeda per karya (lihat field image rights).'
+  batasAkses: 'Gratis tanpa API key; sarankan User-Agent dengan kontak untuk pemakaian berat.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: cari
+    method: GET
+    path: '/api/v1/artworks/search?q={kata}&limit=10&fields=id,title,artist_display,date_display'
+    deskripsi: 'Cari karya berdasarkan kata kunci. Objek {pagination, data[]}.'
+    params:
+      - nama: kata
+        contoh: 'sunflower'
+        wajib: true
+        keterangan: 'kata kunci judul/subjek'
+    contohPath: '/api/v1/artworks/search?q=sunflower&limit=10&fields=id,title,artist_display,date_display'
+    minUkuranByte: 200
+  - id: detail
+    method: GET
+    path: '/api/v1/artworks/{id}?fields=id,title,artist_display,date_display,image_id'
+    deskripsi: 'Detail satu karya berdasarkan id.'
+    params:
+      - nama: id
+        contoh: '27992'
+        wajib: true
+        keterangan: 'id karya (angka)'
+    contohPath: '/api/v1/artworks/27992?fields=id,title,artist_display,date_display,image_id'
+    minUkuranByte: 100

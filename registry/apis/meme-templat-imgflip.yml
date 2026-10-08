@@ -1,0 +1,31 @@
+slug: meme-templat-imgflip
+nama: 'Templat Meme (Imgflip)'
+kategori: hiburan
+deskripsi: Daftar 100 templat meme terpopuler di Imgflip beserta gambar dan jumlah kotak teksnya.
+developer:
+  nama: Imgflip
+  profil: 'https://imgflip.com/'
+dokumentasi: 'https://imgflip.com/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.imgflip.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Imgflip (imgflip.com)'
+  syaratUrl: 'https://imgflip.com/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Daftar templat gratis tanpa API key (pembuatan meme perlu akun).'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: templat
+    method: GET
+    path: /get_memes
+    deskripsi: 'Daftar templat meme populer: id, name, url, width, height, box_count.'
+    params: []
+    contohPath: /get_memes
+    minUkuranByte: 500

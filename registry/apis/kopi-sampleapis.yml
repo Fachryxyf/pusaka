@@ -1,0 +1,38 @@
+slug: kopi-sampleapis
+nama: 'Menu Kopi'
+kategori: referensi
+deskripsi: Daftar minuman kopi panas dan dingin beserta deskripsi dan bahannya, dari SampleAPIs.
+developer:
+  nama: SampleAPIs
+  profil: 'https://sampleapis.com/'
+dokumentasi: 'https://sampleapis.com/api-list/coffee'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.sampleapis.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'SampleAPIs (sampleapis.com)'
+  syaratUrl: 'https://sampleapis.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: panas
+    method: GET
+    path: /coffee/hot
+    deskripsi: 'Daftar kopi panas: title, description, ingredients, image.'
+    params: []
+    contohPath: /coffee/hot
+    minUkuranByte: 200
+  - id: dingin
+    method: GET
+    path: /coffee/iced
+    deskripsi: 'Daftar kopi dingin: title, description, ingredients, image.'
+    params: []
+    contohPath: /coffee/iced
+    minUkuranByte: 200

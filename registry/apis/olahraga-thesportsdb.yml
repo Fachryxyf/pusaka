@@ -1,0 +1,46 @@
+slug: olahraga-thesportsdb
+nama: 'Olahraga (TheSportsDB)'
+kategori: hiburan
+deskripsi: Cari klub dan pemain olahraga dari TheSportsDB - sepak bola dan cabang lain.
+developer:
+  nama: TheSportsDB
+  profil: 'https://www.thesportsdb.com/'
+dokumentasi: 'https://www.thesportsdb.com/documentation'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://www.thesportsdb.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'TheSportsDB (thesportsdb.com)'
+  syaratUrl: 'https://www.thesportsdb.com/documentation'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - memakai test key publik "3"; tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis dengan test key publik "3".'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: cariTim
+    method: GET
+    path: '/api/v1/json/3/searchteams.php?t={tim}'
+    deskripsi: 'Cari klub menurut nama: liga, stadion, tahun berdiri, lambang.'
+    params:
+      - nama: tim
+        contoh: 'Arsenal'
+        wajib: true
+        keterangan: 'nama klub'
+    contohPath: '/api/v1/json/3/searchteams.php?t=Arsenal'
+    minUkuranByte: 200
+  - id: cariPemain
+    method: GET
+    path: '/api/v1/json/3/searchplayers.php?p={pemain}'
+    deskripsi: 'Cari pemain menurut nama: klub, cabang, kewarganegaraan, posisi.'
+    params:
+      - nama: pemain
+        contoh: 'Messi'
+        wajib: true
+        keterangan: 'nama pemain'
+    contohPath: '/api/v1/json/3/searchplayers.php?p=Messi'
+    minUkuranByte: 200

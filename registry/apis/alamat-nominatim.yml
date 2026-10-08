@@ -1,0 +1,50 @@
+slug: alamat-nominatim
+nama: 'Cari Alamat (OpenStreetMap)'
+kategori: lokasi
+deskripsi: Ubah nama tempat atau alamat menjadi koordinat (dan sebaliknya) memakai Nominatim OpenStreetMap.
+developer:
+  nama: OpenStreetMap Foundation
+  profil: 'https://www.openstreetmap.org'
+dokumentasi: 'https://nominatim.org/release-docs/latest/api/Overview/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://nominatim.openstreetmap.org'
+mirror: false
+provenance:
+  lisensi: ODbL-1.0
+  sumberLisensi: 'https://www.openstreetmap.org/copyright'
+  atribusiWajib: true
+  atribusi: '© OpenStreetMap contributors, ODbL 1.0'
+  syaratUrl: 'https://operations.osmfoundation.org/policies/nominatim/'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh dengan berbagi-serupa - data OpenStreetMap berlisensi ODbL; turunan basis data wajib ODbL dan mencantumkan atribusi.'
+  batasAkses: 'Maks 1 permintaan/detik, wajib User-Agent deskriptif, dilarang panggilan massal (kebijakan pemakaian Nominatim).'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: cari
+    method: GET
+    path: '/search?q={kata}&format=jsonv2&limit=5'
+    deskripsi: 'Cari tempat/alamat. Balas array {place_id, lat, lon, display_name, type, ...}.'
+    params:
+      - nama: kata
+        contoh: 'Monas Jakarta'
+        wajib: true
+        keterangan: 'nama tempat atau alamat'
+    contohPath: '/search?q=Monas+Jakarta&format=jsonv2&limit=5'
+    minUkuranByte: 100
+  - id: balik
+    method: GET
+    path: '/reverse?lat={lintang}&lon={bujur}&format=jsonv2'
+    deskripsi: 'Reverse geocoding: koordinat menjadi alamat terdekat.'
+    params:
+      - nama: lintang
+        contoh: '-6.1754'
+        wajib: true
+        keterangan: 'lintang'
+      - nama: bujur
+        contoh: '106.8272'
+        wajib: true
+        keterangan: 'bujur'
+    contohPath: '/reverse?lat=-6.1754&lon=106.8272&format=jsonv2'
+    minUkuranByte: 100

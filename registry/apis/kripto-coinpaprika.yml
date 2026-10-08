@@ -1,0 +1,42 @@
+slug: kripto-coinpaprika
+nama: 'Pasar Kripto (CoinPaprika)'
+kategori: finansial
+deskripsi: Data harga dan kapitalisasi mata uang kripto, plus ringkasan pasar global, dari CoinPaprika.
+developer:
+  nama: Coinpaprika
+  profil: 'https://coinpaprika.com'
+dokumentasi: 'https://api.coinpaprika.com/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.coinpaprika.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://coinpaprika.com/terms-of-use/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data pasar CoinPaprika bersifat komersial dengan tier gratis; lisensi data tidak dinyatakan terbuka.'
+  batasAkses: 'Tanpa API key: sekitar 20.000-25.000 panggilan/bulan.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: ticker
+    method: GET
+    path: '/v1/tickers/{id}?quotes=USD'
+    deskripsi: 'Data satu koin: harga, kapitalisasi, suplai, perubahan. id = slug koin, mis. btc-bitcoin.'
+    params:
+      - nama: id
+        contoh: 'btc-bitcoin'
+        wajib: true
+        keterangan: 'id koin, mis. btc-bitcoin, eth-ethereum'
+    contohPath: '/v1/tickers/btc-bitcoin?quotes=USD'
+    minUkuranByte: 200
+  - id: global
+    method: GET
+    path: /v1/global
+    deskripsi: 'Ringkasan pasar kripto global: total kapitalisasi, volume, dominasi Bitcoin.'
+    params: []
+    contohPath: /v1/global
+    minUkuranByte: 100

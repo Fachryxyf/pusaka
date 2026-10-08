@@ -1,0 +1,42 @@
+slug: lelucon-official-joke
+nama: 'Lelucon Setup-Punchline'
+kategori: hiburan
+deskripsi: Lelucon bahasa Inggris berformat tanya-jawab (setup lalu punchline), bisa acak atau per kategori.
+developer:
+  nama: 15Dkatz
+  profil: 'https://github.com/15Dkatz/official_joke_api'
+dokumentasi: 'https://github.com/15Dkatz/official_joke_api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://official-joke-api.appspot.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Official Joke API (15Dkatz)'
+  syaratUrl: 'https://github.com/15Dkatz/official_joke_api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - respons acak; tidak masuk akal di-mirror.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: acak
+    method: GET
+    path: /random_joke
+    deskripsi: 'Satu lelucon acak: type, setup, punchline, id.'
+    params: []
+    contohPath: /random_joke
+    minUkuranByte: 50
+  - id: kategori
+    method: GET
+    path: '/jokes/{tipe}/random'
+    deskripsi: 'Satu lelucon acak dari kategori tertentu (array satu elemen).'
+    params:
+      - nama: tipe
+        contoh: 'programming'
+        wajib: true
+        keterangan: 'general, programming, knock-knock, atau dad'
+    contohPath: /jokes/programming/random
+    minUkuranByte: 50

@@ -1,0 +1,46 @@
+slug: berita-antariksa-spaceflight
+nama: 'Berita Antariksa'
+kategori: berita
+deskripsi: Berita terbaru seputar antariksa dan peluncuran roket, dihimpun dari berbagai media oleh Spaceflight News API.
+developer:
+  nama: The Space Devs
+  profil: 'https://github.com/TheSpaceDevs'
+dokumentasi: 'https://api.spaceflightnewsapi.net/v4/docs/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.spaceflightnewsapi.net'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://api.spaceflightnewsapi.net/v4/docs/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - API-nya gratis, tetapi isi beritanya milik media penerbit masing-masing. Hak salin tidak dipastikan.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: artikel
+    method: GET
+    path: '/v4/articles/?limit={batas}'
+    deskripsi: 'Daftar artikel terbaru. Objek {count, next, previous, results[]}.'
+    params:
+      - nama: batas
+        contoh: '5'
+        wajib: true
+        keterangan: 'jumlah artikel'
+    contohPath: '/v4/articles/?limit=5'
+    minUkuranByte: 300
+  - id: detail
+    method: GET
+    path: '/v4/articles/{id}/'
+    deskripsi: 'Detail satu artikel berdasarkan id.'
+    params:
+      - nama: id
+        contoh: '40277'
+        wajib: true
+        keterangan: 'id artikel (angka)'
+    contohPath: /v4/articles/40277/
+    minUkuranByte: 200

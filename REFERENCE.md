@@ -2004,3 +2004,847 @@ GET https://ssd-api.jpl.nasa.gov/scout.api
 ~18.6 KB · `count` **str** `"50"` · `data` array objek (`objectName`, `Vmag`, `moid`,
 `neoScore`, `phaScore`, `caDist`, `lastRun`). Isinya berubah cepat dan sering kosong
 di luar musim pengamatan, jadi **belum** dipakai alat mana pun.
+
+---
+
+# Sumber global dari public-apis (diprobe 2026-10-07)
+
+Enam API berikut berasal dari direktori [public-apis/public-apis](https://github.com/public-apis/public-apis)
+(MIT). Semua dipanggil langsung dengan `curl` sebelum ditulis ke registry. Catatan CORS:
+server-server ini mengirim `access-control-allow-origin: *` **hanya saat request membawa
+header `Origin`** (perilaku CORS normal). Probe internal tidak mengirim `Origin`, jadi ia
+mengukur `none` dan menuliskan catatan — tetapi di browser (yang selalu mengirim `Origin`)
+semuanya terbukti terbuka, karena itu registry menulis `cors: open`.
+
+## hari-libur-nager — `https://date.nager.at`
+
+`GET /api/v3/PublicHolidays/{tahun}/{kode}` → array objek:
+
+```json
+[{"date":"2026-01-01","localName":"Tahun Baru Masehi","name":"New Year's Day",
+  "countryCode":"ID","fixed":false,"global":true,"counties":null,
+  "launchYear":null,"types":["Public"]}]
+```
+
+Field tanggal `date` **str** `YYYY-MM-DD` · `localName` **str** (nama lokal, mis. Indonesia) ·
+`name` **str** (nama Inggris) · `types` array str. `/api/v3/AvailableCountries` → array
+`{countryCode, name}`. `/api/v3/NextPublicHolidays/{kode}` → bentuk sama dengan PublicHolidays.
+
+## kurs-frankfurter — `https://api.frankfurter.dev`
+
+`GET /v1/latest?base=USD&symbols=IDR,EUR,SGD` →
+
+```json
+{"amount":1.0,"base":"USD","date":"2026-10-06","rates":{"EUR":0.88739,"IDR":17841,"SGD":1.2771}}
+```
+
+`amount` **num** · `base` **str** · `date` **str** `YYYY-MM-DD` · `rates` objek `kode->num`.
+`/v1/currencies` → objek `kode->namaLengkap`. `/v1/{YYYY-MM-DD}?base=&symbols=` → bentuk sama
+dengan latest; tanggal libur bursa dibulatkan ke hari kerja terakhir. Sumber angka: kurs
+referensi harian Bank Sentral Eropa.
+
+## cuaca-open-meteo — `https://api.open-meteo.com`
+
+`GET /v1/forecast?latitude=&longitude=&current=...&timezone=Asia/Jakarta` →
+
+```json
+{"latitude":-6.22,"longitude":106.78,"utc_offset_seconds":25200,
+ "timezone":"Asia/Jakarta","timezone_abbreviation":"GMT+7","elevation":15.0,
+ "current_units":{"temperature_2m":"°C","wind_speed_10m":"km/h"},
+ "current":{"time":"2026-10-07T20:15","temperature_2m":29.4,"weather_code":2,"wind_speed_10m":0.7}}
+```
+
+Tanpa `timezone=`, `utc_offset_seconds` 0 dan waktunya GMT. `weather_code` memakai kode WMO.
+Varian harian: `daily=temperature_2m_max,temperature_2m_min,precipitation_sum&forecast_days=3`
+→ objek `daily` berisi array sejajar dengan `daily.time`.
+
+## geocoding-open-meteo — `https://geocoding-api.open-meteo.com`
+
+`GET /v1/search?name=Bandung&count=1&language=id` →
+
+```json
+{"results":[{"id":1650357,"name":"Kota Bandung","latitude":-6.92222,"longitude":107.60694,
+  "country_code":"ID","timezone":"Asia/Jakarta","population":2444160,
+  "country":"Indonesia","admin1":"Jawa Barat","admin2":"Kotamadya Bandung"}],
+ "generationtime_ms":0.61}
+```
+
+Kalau tidak ada hasil, `results` tidak muncul (hanya `generationtime_ms`) — itulah kenapa
+`minUkuranByte` dipasang rendah (100). Host **berbeda** dari API cuaca, maka API terpisah.
+
+## worldbank-indikator — `https://api.worldbank.org`
+
+`GET /v2/country/{kode}/indicator/{indikator}?format=json&date=2022:2023` → array **dua
+elemen**: elemen 0 metadata paginasi, elemen 1 array data:
+
+```json
+[{"page":1,"pages":1,"per_page":2,"total":1,"lastupdated":"2026-07-13"},
+ [{"indicator":{"id":"SP.POP.TOTL","value":"Population, total"},
+   "country":{"id":"ID","value":"Indonesia"},"countryiso3code":"IDN",
+   "date":"2023","value":281190067}]]
+```
+
+**WAJIB `?format=json`** — default server adalah XML (bukan JSON). Indikator umum:
+`SP.POP.TOTL` (populasi), `NY.GDP.MKTP.CD` (PDB US$).
+
+## buku-openlibrary — `https://openlibrary.org`
+
+`GET /search.json?q=...&limit=1&fields=key,title,author_name,first_publish_year,edition_count` →
+
+```json
+{"numFound":8,"start":0,"docs":[{"author_name":["Andrea Hirata"],"edition_count":1,
+  "first_publish_year":2005,"key":"/works/OL15302003W","title":"Laskar Pelangi"}]}
+```
+
+Tanpa `fields=`, tiap `docs[]` sangat besar — selalu batasi. `/works/{id}.json` → metadata satu
+karya (`title`, `description`, `authors[].author.key`). **Lisensi data respons API ini tidak
+dinyatakan tegas di halaman developer Open Library**, maka `provenance.lisensi` ditulis
+`unknown` — ketersediaan bukan izin.
+
+---
+
+# Batch kedua public-apis (diprobe 2026-10-07)
+
+Enam API tambahan dari [public-apis/public-apis](https://github.com/public-apis/public-apis).
+Semua `cors: open` terverifikasi di browser; CoinGecko, Wikipedia, TheMealDB, dan PokeAPI
+bahkan mengirim `access-control-allow-origin: *` tanpa perlu header `Origin`.
+
+## kripto-coingecko — `https://api.coingecko.com`
+
+`GET /api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=idr,usd` →
+
+```json
+{"bitcoin":{"idr":1492644801,"usd":83371},"ethereum":{"idr":45943341,"usd":2566.14}}
+```
+
+Objek bersarang `idKoin -> {kodeMataUang: harga}`. `/api/v3/coins/markets?vs_currency=idr`
+→ array objek pasar (`id`, `symbol`, `name`, `current_price`, `market_cap`, dll).
+`/api/v3/simple/supported_vs_currencies` → array string kode (memuat `"idr"`). Tier publik
+membatasi laju (bisa 429) dan **mewajibkan atribusi** — lisensi data ditulis `unknown`.
+
+## kualitas-udara-open-meteo — `https://air-quality-api.open-meteo.com`
+
+`GET /v1/air-quality?latitude=&longitude=&current=pm10,pm2_5,us_aqi&timezone=Asia/Jakarta` →
+bentuk sama dengan API cuaca Open-Meteo: objek `current_units` + `current` berisi nilai polutan.
+Data CC BY 4.0 (berbasis CAMS). Host berbeda dari API cuaca, maka API terpisah.
+
+## wikipedia-id — `https://id.wikipedia.org`
+
+`GET /api/rest_v1/page/summary/{judul}` →
+
+```json
+{"type":"standard","title":"Soekarno","displaytitle":"<span ...>Soekarno</span>",
+ "extract":"...","extract_html":"...","thumbnail":{"source":"...","width":...},
+ "content_urls":{"desktop":{"page":"https://id.wikipedia.org/wiki/Soekarno"}}}
+```
+
+`extract` **str** teks polos ringkasan · `extract_html` **str** dengan tag · `thumbnail`
+objek (opsional). Teks CC BY-SA 4.0 — turunan wajib berbagi-serupa dan mencantumkan sumber.
+
+## matahari-sunrise-sunset — `https://api.sunrise-sunset.org`
+
+`GET /json?lat=&lng=&formatted=0&date=YYYY-MM-DD` →
+
+```json
+{"results":{"sunrise":"2026-10-06T22:33:51+00:00","sunset":"2026-10-07T10:47:32+00:00",
+  "solar_noon":"2026-10-07T04:40:42+00:00","day_length":44021,
+  "civil_twilight_begin":"...","civil_twilight_end":"..."},"status":"OK"}
+```
+
+**WAJIB `formatted=0`** agar waktunya ISO 8601 UTC; tanpa itu `results` berisi string lokal
+("6:33:51 AM") yang susah diparse. Semua waktu **UTC** — konversi ke zona lokasi di sisi klien.
+
+## resep-themealdb — `https://www.themealdb.com`
+
+`GET /api/json/v1/1/search.php?s=rendang` →
+
+```json
+{"meals":[{"idMeal":"53053","strMeal":"Beef Rendang","strCategory":"Beef",
+  "strArea":"Malaysian","strInstructions":"...","strMealThumb":"...",
+  "strIngredient1":"...","strMeasure1":"...","strYoutube":"..."}]}
+```
+
+Bahan tersebar di `strIngredient1..20` + `strMeasure1..20` (bukan array — field bernomor).
+Pencarian nihil balas `{"meals":null}`. Endpoint lain: `lookup.php?i={idMeal}` (detail),
+`categories.php` (daftar kategori), `random.php` (satu resep acak). Angka `1` di path adalah
+test key pengembangan; lisensi data `unknown`.
+
+## pokemon-pokeapi — `https://pokeapi.co`
+
+`GET /api/v2/pokemon/{nama}` → objek besar (~300 KB): `id`, `name`, `height`, `weight`,
+`stats[]` (`base_stat`, `stat.name`), `types[]` (`type.name`), `abilities[]`, `sprites`
+(URL gambar). `GET /api/v2/pokemon-species/{nama}` → info spesies (`evolution_chain`,
+`color`, `habitat`, `flavor_text_entries[]` multi-bahasa). Kode PokeAPI BSD-3-Clause, tetapi
+**data milik The Pokemon Company** — `provenance.lisensi` ditulis `unknown`, cache dianjurkan.
+
+---
+
+# Batch ketiga public-apis (diprobe 2026-10-07)
+
+Enam API tambahan. Catatan lapangan: endpoint **pencarian** Open Food Facts kini balas 503
+untuk anonim, maka hanya **lookup produk per barcode** yang didaftarkan. **OpenTDB** sempat
+dilirik tapi balas HTTP 000 (koneksi gagal) berulang kali dari lingkungan ini, jadi **tidak**
+didaftarkan — ketersediaan belum terbukti.
+
+## produk-openfoodfacts — `https://world.openfoodfacts.org`
+
+`GET /api/v2/product/{barcode}.json?fields=product_name,brands,nutriscore_grade,categories` →
+
+```json
+{"code":"3017620422003","product":{"brands":"Nutella, Ferrero",
+  "categories":"...","nutriscore_grade":"e","product_name":"Nutella"},
+ "status":1,"status_verbose":"product found"}
+```
+
+`status` **int** 1 = ketemu, 0 = tidak (dan `product` kosong). **Selalu pakai `fields=`** —
+tanpa itu objek `product` sangat besar (ratusan field). Data ODbL, wajib atribusi + berbagi-serupa.
+
+## geolokasi-ipapi — `https://ipapi.co`
+
+`GET /{ip}/json/` →
+
+```json
+{"ip":"8.8.8.8","city":"Mountain View","region":"California","country_code":"US",
+ "country_name":"United States","latitude":37.42301,"longitude":-122.083352,
+ "timezone":"America/Los_Angeles","currency":"USD","asn":"AS15169","org":"Google LLC"}
+```
+
+Saat limit terlampaui, balas 200 dengan `{"error":true,"reason":"RateLimited"}` — bukan 429,
+jadi pengguna perlu memeriksa field `error`. CORS: server **memantulkan** Origin pemanggil
+(bukan `*`), tetapi fungsinya tetap terbuka untuk browser.
+
+## waktu-timeapi — `https://timeapi.io`
+
+`GET /api/Time/current/zone?timeZone=Asia/Jakarta` →
+
+```json
+{"year":2026,"month":10,"day":7,"hour":20,"minute":42,"seconds":32,
+ "dateTime":"2026-10-07T20:42:32.611848","date":"10/07/2026","time":"20:42",
+ "timeZone":"Asia/Jakarta","dayOfWeek":"Wednesday","dstActive":false}
+```
+
+`/api/Time/current/coordinate?latitude=&longitude=` → bentuk sama (zona dideteksi dari titik).
+`/api/TimeZone/AvailableTimeZones` → array string nama zona IANA.
+
+## anjing-dogceo — `https://dog.ceo`
+
+`/api/breeds/list/all` → `{"message":{"ras":["sub-ras",...]},"status":"success"}` (objek
+bersarang). `/api/breeds/image/random` dan `/api/breed/{ras}/images/random` →
+`{"message":"<url gambar>","status":"success"}`. Pola konsisten: `message` + `status`.
+
+## nasihat-adviceslip — `https://api.adviceslip.com`
+
+`GET /advice` → `{"slip":{"id":15,"advice":"If it ain't broke don't fix it."}}`. Permintaan
+berulang dalam ~2 detik mengembalikan slip yang sama (cache). Bahasa Inggris.
+
+## prediksi-nama-nationalize — `https://api.nationalize.io`
+
+`GET /?name=budi` →
+
+```json
+{"count":25095,"name":"budi","country":[{"country_id":"ID","probability":0.859},
+  {"country_id":"MY","probability":0.038}]}
+```
+
+`country` **array** terurut dari probabilitas tertinggi; `country_id` kode ISO-2. Batas 100
+permintaan/hari tanpa key (lalu 429).
+
+---
+
+# Batch keempat public-apis (diprobe 2026-10-07)
+
+Enam API. `restcountries.com` tetap membalas 301 ke host berkas `legacy.json` (tidak andal
+untuk pemanggilan program) → **tidak didaftarkan**. `zenquotes.io` tidak mengirim header CORS
+→ tidak bisa jadi alat browser di situs statis, **dilewati**.
+
+## ketinggian-open-meteo — `https://api.open-meteo.com`
+
+`GET /v1/elevation?latitude=-6.2&longitude=106.8` → `{"elevation":[15.0]}`. Array (mendukung
+banyak titik sekaligus). Data CC BY 4.0 berbasis Copernicus DEM.
+
+## umur-agify — `https://api.agify.io`
+
+`GET /?name=budi` → `{"count":3118,"name":"budi","age":51}`. `age` **int** (bisa null kalau
+nama tak dikenal). Batas 100/hari tanpa key.
+
+## gender-genderize — `https://api.genderize.io`
+
+`GET /?name=budi` → `{"count":5437,"name":"budi","gender":"male","probability":0.94}`.
+`gender` "male"/"female"/null · `probability` 0..1. Batas 100/hari tanpa key.
+
+## orang-acak-randomuser — `https://randomuser.me`
+
+`GET /api/?results=1&nat=us` → `{"results":[{...}],"info":{...}}`. Tiap `results[]`: `name`
+(`title`,`first`,`last`), `location`, `email`, `login`, `dob`, `phone`, `picture` (URL foto).
+Data **fiktif**; foto dari sumber pihak ketiga.
+
+## rick-morty — `https://rickandmortyapi.com`
+
+`GET /api/character/{id}` → objek karakter (`name`,`status`,`species`,`origin`,`location`,
+`image`,`episode[]`). `GET /api/character` → `{"info":{count,pages,next,prev},"results":[...]}`.
+Tokoh adalah kekayaan intelektual pembuat serial → lisensi `unknown`.
+
+## tv-tvmaze — `https://api.tvmaze.com`
+
+`GET /search/shows?q=batman` → array `{"score":num,"show":{...}}`. `GET /shows/{id}` → objek
+acara (`name`,`genres[]`,`status`,`premiered`,`rating.average`,`network`,`summary` HTML,
+`image`). Data CC BY-SA 4.0 — turunan wajib berbagi-serupa + atribusi TVmaze.
+
+---
+
+# Batch kelima public-apis (diprobe 2026-10-07)
+
+Enam API. Catatan status saat probe: `api.dictionaryapi.dev` labil (sempat 522, lalu 200,
+lalu timeout dalam satu hari) — tetap didaftarkan karena terbukti mengeluarkan data, dan
+status labilnya memang itu yang dipantau dashboard. Tiga API tebak-nama (Agify, Genderize,
+Nationalize) kena 429 saat probe karena batas 100/hari habis oleh pengujian berulang; di
+produksi tiap pengunjung memakai kuota IP masing-masing.
+
+## kamus-dictionary — `https://api.dictionaryapi.dev`
+
+`GET /api/v2/entries/en/{kata}` → array entri:
+
+```json
+[{"word":"hello","phonetics":[{"audio":"...mp3","text":"/həˈloʊ/"}],
+  "meanings":[{"partOfSpeech":"noun","definitions":[{"definition":"...","example":"..."}]}]}]
+```
+
+Kata tak ditemukan balas **404** dengan objek `{title,message,resolution}` (bukan array).
+Definisi bersumber dari Wiktionary (CC BY-SA).
+
+## kata-datamuse — `https://api.datamuse.com`
+
+`GET /words?ml={kata}&max=10` (makna serupa) dan `GET /words?rel_rhy={kata}&max=10` (rima) →
+array `{"word":str,"score":int,"numSyllables":int}` terurut skor menurun. CORS memantulkan
+Origin pemanggil (fungsinya terbuka). Batas 100.000/hari tanpa key.
+
+## berita-antariksa-spaceflight — `https://api.spaceflightnewsapi.net`
+
+`GET /v4/articles/?limit={batas}` → `{"count":int,"next":url,"previous":url,"results":[...]}`.
+Tiap artikel: `title`, `url`, `image_url`, `news_site`, `summary`, `published_at`,
+`authors[]`. `GET /v4/articles/{id}/` → satu objek artikel. Isi berita milik media penerbit.
+
+## minuman-cocktaildb — `https://www.thecocktaildb.com`
+
+`GET /api/json/v1/1/search.php?s=margarita` → `{"drinks":[{...}]}`. Tiap minuman mirip pola
+TheMealDB: `idDrink`, `strDrink`, `strCategory`, `strInstructions`, dan bahan tersebar di
+`strIngredient1..15` + `strMeasure1..15` (field bernomor, bukan array). Pencarian nihil balas
+`{"drinks":null}`. Endpoint lain: `lookup.php?i={id}`, `random.php`. Angka `1` di path = test key.
+
+## jokes-chucknorris — `https://api.chucknorris.io`
+
+`GET /jokes/random` → `{"id":str,"value":str,"categories":[...],"url":str,"icon_url":str}`.
+`GET /jokes/categories` → array string kategori.
+
+## jokes-jokeapi — `https://v2.jokeapi.dev`
+
+`GET /joke/{kategori}?safe-mode&type=single` → `{"error":false,"category":str,"type":"single",
+"joke":str,"flags":{...},"safe":bool,"lang":"en"}`. Flag `safe-mode` menyaring konten sensitif.
+`GET /categories` → `{"categories":[...],"categoryAliases":[...]}`. Batas 120/menit tanpa key.
+
+---
+
+# Batch keenam public-apis (diprobe 2026-10-07)
+
+Enam API, condong ke lisensi terbuka (museum & MusicBrainz CC0). Yang didrop: `itunes`
+(Content-Type `text/javascript`, bukan JSON, ditolak klien), `googlebooks` (kuota anonim 0,
+butuh API key), `jikan` (HTTP 000 dari lingkungan ini), `quotable`/`lyrics.ovh` (000, labil).
+The Met **memensiunkan `/search` pada 1 Oktober 2026** → hanya lookup objek per id yang didaftarkan.
+
+## seni-artic — `https://api.artic.edu`
+
+`GET /api/v1/artworks/search?q={kata}&fields=...` → `{"pagination":{...},"data":[{id,title,
+artist_display,date_display}]}`. `GET /api/v1/artworks/{id}?fields=...,image_id` → `{"data":{...},
+"config":{"iiif_url":...}}`; URL gambar dibangun `{iiif_url}/{image_id}/full/843,/0/default.jpg`.
+Data koleksi CC0.
+
+## seni-metmuseum — `https://collectionapi.metmuseum.org`
+
+`GET /public/collection/v1/objects/{id}` → `{objectID, title, artistDisplayName, objectDate,
+medium, primaryImage, isPublicDomain, ...}`. `isPublicDomain` **bool** menandai status hak
+gambar. Data Open Access CC0. Endpoint `/search` sudah pensiun (410).
+
+## kripto-coinpaprika — `https://api.coinpaprika.com`
+
+`GET /v1/tickers/{id}?quotes=USD` → `{id,name,symbol,rank,total_supply,quotes:{USD:{price,
+market_cap,percent_change_24h,...}}}`. id = slug, mis. `btc-bitcoin`. `GET /v1/global` →
+`{market_cap_usd,volume_24h_usd,bitcoin_dominance_percentage,cryptocurrencies_number}`.
+
+## fakta-kucing-catfact — `https://catfact.ninja`
+
+`GET /fact` → `{"fact":str,"length":int}`. `GET /facts?limit=10` → `{current_page,data:[{fact,
+length}],...}` (berpaginasi).
+
+## sejarah-wikipedia — `https://en.wikipedia.org`
+
+`GET /api/rest_v1/feed/onthisday/events/{bulan}/{tanggal}` → `{"events":[{"year":int,"text":str,
+"pages":[{...ringkasan artikel}]}]}`. Varian `selected` = peristiwa paling menonjol. **Hanya
+bahasa Inggris** (feed On This Day belum mendukung Indonesia — balas 404). Response besar
+(~190-290 KB). Teks CC BY-SA 4.0.
+
+## musik-musicbrainz — `https://musicbrainz.org`
+
+`GET /ws/2/artist?query={kata}&fmt=json&limit=10` → `{created,count,offset,artists:[{id,name,
+type,country,...}]}`. `GET /ws/2/recording?query={kata}&fmt=json` → `{...,recordings:[...]}`.
+**WAJIB `fmt=json`** (default XML). Batas ~1 permintaan/detik. Data inti CC0.
+
+---
+
+# Batch ketujuh public-apis (diprobe 2026-10-07)
+
+Enam API, condong ke bahaya alam & lisensi terbuka. Yang didrop: `spacex` (525, origin SSL
+gagal), `googlebooks` sudah didrop di batch 6. The Met `/search` tetap pensiun.
+
+## gelombang-laut-open-meteo — `https://marine-api.open-meteo.com`
+
+`GET /v1/marine?latitude=&longitude=&current=wave_height,wave_direction,wave_period&timezone=` →
+pola sama API cuaca Open-Meteo: `current_units` + `current` (tinggi gelombang m, arah derajat,
+periode detik). Varian `daily=wave_height_max`. CC BY 4.0.
+
+## banjir-open-meteo — `https://flood-api.open-meteo.com`
+
+`GET /v1/flood?latitude=&longitude=&daily=river_discharge&forecast_days=3` → `{daily:{time:[...],
+river_discharge:[m3/s,...]}}`. Model GloFAS, indikator potensi banjir. CC BY 4.0.
+
+## gempa-global-usgs — `https://earthquake.usgs.gov`
+
+`GET /fdsnws/event/1/query?format=geojson&limit={batas}&orderby=time` → GeoJSON
+`{type:"FeatureCollection","features":[{properties:{mag,place,time (epoch ms),url},geometry:
+{coordinates:[lon,lat,depth]}}]}`. Varian `&minmagnitude=5`. **Waktu dalam epoch milidetik**,
+bukan ISO. Data domain publik (karya pemerintah AS).
+
+## iss-wheretheiss — `https://api.wheretheiss.at`
+
+`GET /v1/satellites/25544` → `{name,id,latitude,longitude,altitude (km),velocity (km/h),
+visibility,timestamp (epoch detik)}`. 25544 = ISS.
+
+## geolokasi-ipwhois — `https://ipwho.is`
+
+`GET /{ip}` → `{ip,success:bool,type,continent,country,country_code,city,latitude,longitude,
+timezone:{id,utc,...},connection:{asn,org,isp}}`. **Cek `success`** sebelum memakai data —
+galat pun balas 200 dengan `success:false`.
+
+## github-pengguna — `https://api.github.com`
+
+`GET /users/{username}` → `{login,name,bio,public_repos,followers,following,avatar_url,...}`.
+`GET /users/{username}/repos?per_page=10&sort=updated` → array repo (`name`,`description`,
+`language`,`stargazers_count`,`html_url`). **Tanpa auth dibatasi 60/jam per IP** (lalu 403).
+
+# Batch kedelapan public-apis (diprobe 2026-10-07)
+
+Enam API: satu geocoding (menggerakkan alat Cari Alamat), antariksa, kesehatan, hiburan, dan
+cuaca historis. Semua lolos probe kecuali tidak ada yang didrop di batch ini.
+
+## alamat-nominatim — `https://nominatim.openstreetmap.org`
+
+`GET /search?q={kata}&format=jsonv2&limit=1` → array
+`[{place_id,licence,osm_type,osm_id,lat,lon,category,type,addresstype,name,display_name,
+boundingbox:[...]}]`. **`lat`/`lon` berupa string**, bukan angka. `licence` mencantumkan ODbL
+1.0 OpenStreetMap. Wajib `User-Agent` identitas aplikasi — hulu memblokir UA kosong. Batas
+sopan: 1 permintaan/detik. Menggerakkan alat **Cari Alamat** (fetch hanya saat tombol ditekan).
+
+## peluncuran-roket-launchlibrary — `https://ll.thespacedevs.com`
+
+`GET /2.2.0/launch/upcoming/?limit={batas}&mode=list` → `{count,next,previous,results:[{id,url,
+slug,name,status:{id,name,abbrev,description},...}]}`. Mode `list` memangkas payload. Tier
+gratis dibatasi ~15 permintaan/jam per IP. Lisensi data tidak dinyatakan tegas → `unknown`.
+
+## covid-disease — `https://disease.sh`
+
+`GET /v3/covid-19/all` → `{updated (epoch ms),cases,todayCases,deaths,recovered,active,critical,
+casesPerOneMillion,tests,population,...}`. `GET /v3/covid-19/countries/{negara}` → objek sama
+plus `{country,countryInfo:{_id,iso2,iso3,lat,long,flag}}`. **Angka kumulatif historis** (pandemi
+sudah mereda; `todayCases` kerap 0). Lisensi tidak dinyatakan → `unknown`.
+
+## film-ghibli — `https://ghibliapi.vercel.app`
+
+`GET /films?limit={batas}` → array `[{id (UUID),title,original_title,original_title_romanised,
+image,movie_banner,description,director,producer,release_date,running_time,rt_score,...}]`.
+`GET /films/{id}` → satu objek film. Lisensi tidak dinyatakan → `unknown`.
+
+## gambar-kucing-thecatapi — `https://api.thecatapi.com`
+
+`GET /v1/images/search` → array satu elemen `[{id,url,width,height}]`. Tanpa API key hanya
+mengembalikan satu gambar acak per panggilan. Lisensi data tidak dinyatakan → `unknown`.
+
+## cuaca-historis-open-meteo — `https://archive-api.open-meteo.com`
+
+`GET /v1/archive?latitude=&longitude=&start_date=&end_date=&daily=temperature_2m_max,
+temperature_2m_min&timezone=` → `{latitude,longitude,utc_offset_seconds,timezone,elevation,
+daily_units:{...},daily:{time:[...],temperature_2m_max:[...],temperature_2m_min:[...]}}`.
+Berbasis reanalisis ERA5; data mulai 1940. CC BY 4.0.
+
+# Batch kesembilan public-apis (diprobe 2026-10-07)
+
+Enam API: referensi, hiburan, dan data negara. Menggerakkan alat **Tarik Kartu Remi**. Yang
+didrop: `restcountries` v3.1 (tetap 301→legacy), `numbersapi` (http & kena blokir Internet
+Positif), `open-notify` astros (http-only → konten campur di browser), `exchangerate.host`
+(kini wajib access key), `openaq` (401 wajib API key), `foodish` (503 layanan dihentikan
+pemiliknya), `bible-api` (tak ada terjemahan Indonesia), `hipolabs` universities (http-only,
+tanpa HTTPS → konten campur).
+
+## nobel-prize — `https://api.nobelprize.org`
+
+`GET /2.1/nobelPrizes?limit={batas}` → `{nobelPrizes:[{awardYear,category:{en,no,se},
+categoryFullName,dateAwarded,prizeAmount,laureates:[{id,knownName:{en},motivation:{en},...}]}]}`.
+`GET /2.1/laureates?limit={batas}` → `{laureates:[{id,knownName:{en},givenName,familyName,
+fullName,fileName,gender,...}]}`. **Teks multibahasa** (en/no/se). Dukung filter `&gender=`,
+`&nobelPrizeYear=`. Lisensi data tidak dinyatakan tegas → `unknown`.
+
+## kartu-remi-deckofcards — `https://deckofcardsapi.com`
+
+`GET /api/deck/new/shuffle/?deck_count={jumlahDek}` → `{success,deck_id,remaining,shuffled}`.
+`GET /api/deck/new/draw/?count={jumlah}` → `{success,deck_id,remaining,cards:[{code,value,suit,
+image,images:{svg,png}}]}`. Dek baru per panggilan (acak); `image` berupa PNG kartu. Menggerakkan
+alat **Tarik Kartu Remi**. Lisensi tidak dinyatakan → `unknown`.
+
+## lelucon-bapak-dadjoke — `https://icanhazdadjoke.com`
+
+`GET /` → `{id,joke,status}`. `GET /search?term={kata}&limit=5` → `{current_page,limit,
+next_page,results:[{id,joke}]}`. **Wajib header `Accept: application/json`** — tanpa itu server
+balas halaman HTML (demo pemakaian `endpoint.headers` di registry). Lisensi tidak dinyatakan →
+`unknown`.
+
+## negara-countriesnow — `https://countriesnow.space`
+
+`GET /api/v0.1/countries/cities/q?country={negara}` → `{error:false,msg,data:[nama kota,...]}`.
+`GET /api/v0.1/countries/flag/images/q?country={negara}` → `{error:false,msg,data:{name,flag
+(URL SVG),iso2,iso3}}`. Varian POST yang disebut dokumentasi redirect 301 ke bentuk GET `/q?`.
+Lisensi data tidak dinyatakan → `unknown`.
+
+## game-gratis-freetogame — `https://www.freetogame.com`
+
+`GET /api/games?platform={platform}` → array `[{id,title,thumbnail,short_description,game_url,
+genre,platform,publisher,developer,release_date,freetogame_profile_url}]` (pc/browser/all).
+`GET /api/game?id={id}` → satu objek plus `description` panjang, `minimum_system_requirements`,
+`screenshots`. Daftar penuh berukuran besar (~160 KB). Lisensi tidak dinyatakan → `unknown`.
+
+## ya-tidak-yesno — `https://yesno.wtf`
+
+`GET /api` → `{answer:"yes"|"no"|"maybe",forced:bool,image (URL GIF)}`. Jawaban acak; pengganti
+lempar koin. Lisensi tidak dinyatakan → `unknown`.
+
+# Batch kesepuluh public-apis (diprobe 2026-10-07)
+
+Enam API: dua data palsu untuk developer (DummyJSON, Fake Store), sisanya referensi ringan dan
+hiburan. Yang didrop: `xkcd` dan `affirmations.dev` (**tanpa header CORS** → sama alasannya
+dengan fruityvice/zenquotes), `datausa.io` (balas HTML di endpoint data), `escuelajs`/Platzi
+(mubazir dengan Fake Store), `gutendex` (host tak stabil dari lingkungan probe: 000 lalu 301),
+`nasa` APOD (DEMO_KEY balas 500/000), `opentdb`/`boredapi` (tetap 000, konsisten dengan drop
+sebelumnya).
+
+Catatan CORS: DummyJSON dan genshin.jmp.blue **memantulkan** Origin (bukan `*`), jadi probe
+internal yang tak mengirim Origin mengukurnya `none`; dengan `-H "Origin:"` keduanya membalas
+header yang benar, maka registry menulis `open`.
+
+## data-dummyjson — `https://dummyjson.com`
+
+`GET /quotes/random` → `{id,quote,author}`. `GET /products/search?q={kata}&limit=5` →
+`{products:[{id,title,description,category,price,discountPercentage,rating,stock,tags,...}],
+total,skip,limit}`. `GET /recipes/{id}` → `{id,name,ingredients:[...],instructions:[...],
+prepTimeMinutes,caloriesPerServing,...}`. Data palsu untuk pengujian UI. Lisensi tidak
+dinyatakan → `unknown`.
+
+## toko-palsu-fakestore — `https://fakestoreapi.com`
+
+`GET /products?limit={batas}` → array `[{id,title,price,description,category,image,
+rating:{rate,count}}]`. `GET /products/{id}` → satu objek produk. `GET /products/categories` →
+array nama kategori (`["electronics","jewelery","men's clothing","women's clothing"]`). Data
+palsu untuk uji keranjang belanja. Lisensi tidak dinyatakan → `unknown`.
+
+## fakta-iseng-uselessfacts — `https://uselessfacts.jsph.pl`
+
+`GET /api/v2/facts/random` → `{id,text,source,source_url,language,permalink}`.
+`GET /api/v2/facts/today` → bentuk sama, tetap sepanjang hari. Teks bahasa Inggris. Lisensi
+tidak dinyatakan → `unknown`.
+
+## genshin-jmp — `https://genshin.jmp.blue`
+
+`GET /characters` → array slug karakter (`["albedo","alhaitham",...]`). `GET /characters/{nama}`
+→ `{name,title,vision,weapon,gender,nation,affiliation,rarity,release,constellation,birthday,
+description}`. API komunitas; data game milik HoYoverse. Lisensi → `unknown`.
+
+## kutipan-kanye — `https://api.kanye.rest`
+
+`GET /` → `{quote}`. Satu kutipan acak Kanye West. Lisensi tidak dinyatakan → `unknown`.
+
+## lelucon-official-joke — `https://official-joke-api.appspot.com`
+
+`GET /random_joke` → `{type,setup,punchline,id}`. `GET /jokes/{tipe}/random` → **array satu
+elemen** berisi lelucon dari kategori (general/programming/knock-knock/dad). Lisensi tidak
+dinyatakan → `unknown`.
+
+# Batch kesebelas public-apis (diprobe 2026-10-07)
+
+Enam API: tiga alat developer (JSONPlaceholder, httpbin, ipify) dan tiga data koleksi (Magic:
+The Gathering, Digimon, menu kopi). Yang didrop: `random-data-api` (000), `animechan` (404 +
+tanpa CORS), `beers`/`openbrewerydb` (konten alkohol, relevansi rendah untuk audiens ini),
+`iseven` (novelty murni). Catatan CORS: JSONPlaceholder, ipify, dan MTG memantulkan Origin
+(bukan `*`), jadi probe internal mengukurnya `none` padahal benar `open`.
+
+## data-jsonplaceholder — `https://jsonplaceholder.typicode.com`
+
+`GET /posts/{id}` → `{userId,id,title,body}`. `GET /users/{id}` → `{id,name,username,email,
+address:{street,suite,city,zipcode,geo},phone,website,company}`. `GET /posts?userId={userId}` →
+array postingan milik satu pengguna. Data palsu stabil untuk latihan fetch. Lisensi → `unknown`.
+
+## http-httpbin — `https://httpbin.org`
+
+`GET /get` → `{args,headers,origin,url}` (pantulan permintaan). `GET /ip` → `{origin}` (IP
+pemanggil). `GET /uuid` → `{uuid}` (UUID v4 acak). Alat debug klien HTTP. Lisensi → `unknown`.
+
+## ip-saya-ipify — `https://api.ipify.org`
+
+`GET /?format=json` → `{ip}`. Alamat IP publik pemanggil, satu field. Lisensi → `unknown`.
+
+## kartu-mtg — `https://api.magicthegathering.io`
+
+`GET /v1/cards?pageSize={batas}` → `{cards:[{name,manaCost,cmc,colors,type,rarity,set,text,
+imageUrl,...}]}`. `GET /v1/cards/{id}` → `{card:{...}}` menurut multiverseid. `GET /v1/sets?
+pageSize={batas}` → `{sets:[{code,name,type,releaseDate,block}]}`. Data kartu milik Wizards of
+the Coast. Lisensi → `unknown`.
+
+## digimon-digiapi — `https://digi-api.com`
+
+`GET /api/v1/digimon?pageSize={batas}` → `{content:[{id,name,href,image}],pageable:{...}}`.
+`GET /api/v1/digimon/{nama}` → `{id,name,images:[...],levels:[...],types:[...],attributes:[...],
+descriptions:[...]}`. Data waralaba milik Bandai. Lisensi → `unknown`.
+
+## kopi-sampleapis — `https://api.sampleapis.com`
+
+`GET /coffee/hot` dan `GET /coffee/iced` → array `[{title,description,ingredients:[...],image,
+id}]`. Daftar minuman kopi panas/dingin. Lisensi → `unknown`.
+
+# Batch kedua belas public-apis (diprobe 2026-10-07)
+
+Enam API pop-culture/game — yang tersisa di direktori public-apis memang condong ke sini. Yang
+didrop: `le-systeme-solaire` (kini wajib API key), `7timer` (302 ke perl, tanpa CORS), `swapi.dev`
+(mubazir dengan swapi.tech yang lebih terawat). Catatan CORS: Dragon Ball dan Ice-and-Fire
+memantulkan Origin (bukan `*`), jadi probe internal mengukurnya `none` padahal benar `open`.
+
+## star-wars-swapi — `https://www.swapi.tech`
+
+`GET /api/people/{id}` → `{message,result:{uid,properties:{name,height,mass,hair_color,
+skin_color,eye_color,birth_year,gender,...}}}`. `GET /api/planets/{id}` → serupa dengan
+`{climate,terrain,population,diameter,...}`. **Hasil dibungkus `result.properties`.** Data milik
+Lucasfilm. Lisensi → `unknown`.
+
+## harry-potter-hpapi — `https://hp-api.onrender.com`
+
+`GET /api/characters` → array besar (~180 KB) `[{id,name,house,dateOfBirth,patronus,actor,
+image,...}]`. `GET /api/spells` → `[{id,name,description}]`. Host gratis onrender bisa lambat
+saat baru bangun. Data milik Warner Bros. Lisensi → `unknown`.
+
+## dnd-5e — `https://www.dnd5eapi.co`
+
+`GET /api/2014/spells/{idx}` → `{index,name,desc,level,range,components,duration,...}`.
+`GET /api/2014/monsters/{idx}` → `{name,size,type,alignment,armor_class,hit_points,actions,...}`.
+**Perhatikan prefiks `/api/2014/`** — `/api/spells/...` lama kini 301 redirect. Konten SRD di
+bawah **OGL 1.0a** (bukan `unknown`).
+
+## yugioh-ygoprodeck — `https://db.ygoprodeck.com`
+
+`GET /api/v7/cardinfo.php?name={nama}` → `{data:[{id,name,type,typeline,desc,atk,def,level,
+race,attribute,card_images:[...]}]}` (nama harus persis). `GET /api/v7/cardinfo.php?archetype=
+{arketipe}` → semua kartu satu arketipe (bisa besar, ~95 KB). Data milik Konami. Lisensi →
+`unknown`.
+
+## got-ice-and-fire — `https://anapioficeandfire.com`
+
+`GET /api/characters/{id}` → `{url,name,gender,culture,born,died,titles:[...],aliases:[...],
+allegiances:[...]}`. `GET /api/houses/{id}` → `{name,region,coatOfArms,words,titles,seats,
+currentLord,...}`. Data milik George R. R. Martin/HBO. Lisensi → `unknown`.
+
+## dragon-ball-api — `https://dragonball-api.com`
+
+`GET /api/characters?limit={batas}` → `{items:[{id,name,ki,maxKi,race,gender,description,image,
+affiliation}],meta:{...},links:{...}}`. `GET /api/characters/{id}` → satu tokoh plus
+`transformations` dan `originPlanet`. **Sebagian deskripsi berbahasa Spanyol.** Data milik Bird
+Studio/Toei. Lisensi → `unknown`.
+
+# Batch ketiga belas public-apis (diprobe 2026-10-07)
+
+Enam API yang lebih berguna lagi: terjemahan, warna, dan olahraga/game. Menggerakkan alat
+**Terjemahan**. Semua kandidat yang diprobe lolos (tidak ada yang didrop di batch ini) — selain
+`lichess` yang sengaja dilewati karena mubazir dengan Chess.com. Catatan CORS: Formula 1
+(jolpi) dan Valorant memantulkan Origin, jadi probe internal mengukurnya `none`
+padahal benar `open`.
+
+## terjemahan-mymemory — `https://api.mymemory.translated.net`
+
+`GET /get?q={teks}&langpair={pasangan}` → `{responseData:{translatedText,match},
+responderId,responseStatus,matches:[...]}`. `langpair` berupa `en|id` (pipe; di URL jadi `%7C`).
+**Kualitas bervariasi** — campuran memori terjemahan komunitas dan mesin, kadang ada entri
+keliru. Gratis hingga 5.000 kata/hari per IP anonim. Menggerakkan alat **Terjemahan**. Lisensi →
+`unknown`.
+
+## warna-colorapi — `https://www.thecolorapi.com`
+
+`GET /id?hex={hex}` → `{hex:{value,clean},rgb:{...},hsl:{...},hsv:{...},cmyk:{...},
+name:{value,closest_named_hex},contrast:{value}}`. `GET /scheme?hex={hex}&count=5` →
+`{colors:[...],scheme,seed}`. `hex` tanpa tanda pagar. Lisensi → `unknown`.
+
+## catur-chesscom — `https://api.chess.com`
+
+`GET /pub/player/{username}` → `{avatar,player_id,url,name,username,country,followers,
+joined,last_online,status}`. `GET /pub/player/{username}/stats` → `{chess_daily,chess_blitz,
+chess_bullet,chess_rapid,tactics,puzzle_rush}` masing-masing `{last:{rating},best,record}`.
+Lisensi → `unknown`.
+
+## olahraga-thesportsdb — `https://www.thesportsdb.com`
+
+`GET /api/v1/json/3/searchteams.php?t={tim}` → `{teams:[{idTeam,strTeam,strLeague,strStadium,
+intFormedYear,strBadge,strDescriptionEN,...}]}`. `GET /api/v1/json/3/searchplayers.php?p={pemain}`
+→ `{player:[{idPlayer,strPlayer,strTeam,strSport,strNationality,strPosition,...}]}`. Memakai
+**test key publik "3"** di path. Lisensi → `unknown`.
+
+## valorant-api — `https://valorant-api.com`
+
+`GET /v1/agents?language=en-US` → `{status,data:[{uuid,displayName,description,role,abilities,
+...}]}`. `GET /v1/maps` → daftar peta. `GET /v1/weapons?language=en-US` → daftar senjata
+(**response besar, ~3,5 MB** karena menyertakan skin). Data milik Riot Games. Lisensi → `unknown`.
+
+## formula1-ergast — `https://api.jolpi.ca`
+
+`GET /ergast/f1/{tahun}/drivers/?format=json` → `{MRData:{DriverTable:{season,Drivers:[{driverId,
+givenName,familyName,nationality,permanentNumber,code}]}}}`. `GET /ergast/f1/{tahun}/
+constructors/?format=json` → `{MRData:{ConstructorTable:{Constructors:[{constructorId,name,
+nationality}]}}}`. Penerus Ergast (jolpica). Lisensi → `unknown`.
+
+# Batch keempat belas public-apis (diprobe 2026-10-07)
+
+Enam API: game, kuis, sastra, dan hiburan. Yang didrop: `type.fit` (tanpa CORS) dan `deezer`
+(tanpa CORS, berorientasi JSONP). Catatan: Kitsu dan dogapi.dog membalas Content-Type
+`application/vnd.api+json` (standar JSON:API) — tetap lolos karena cek kita mencari substring
+`json`. CORS OpenDota, Kitsu, dan dogapi.dog memantulkan Origin → terukur `none`, ditulis `open`.
+
+## dota-opendota — `https://api.opendota.com`
+
+`GET /api/heroes` → array `[{id,name,localized_name,primary_attr,attack_type,roles:[...],legs}]`.
+`GET /api/heroStats` → serupa plus basis atribut, gambar, dan statistik per posisi (besar,
+~165 KB). Data game milik Valve. Lisensi → `unknown`.
+
+## trivia-the-trivia-api — `https://the-trivia-api.com`
+
+`GET /v2/questions?limit={batas}` → array `[{category,id,correctAnswer,incorrectAnswers:[...],
+question:{text},tags,difficulty,regions,type}]`. `GET /v2/questions?categories={kategori}&limit=5`
+menyaring per kategori (science/geography/history/music/sport_and_leisure/dsb). Lisensi →
+`unknown`.
+
+## puisi-poetrydb — `https://poetrydb.org`
+
+`GET /author/{penyair}/title` → `[{title}]` (daftar judul karya penyair). `GET /random` → satu
+puisi `[{title,author,lines:[...],linecount}]`. Isi puisi umumnya domain publik; lisensi basis
+data tidak dinyatakan → `unknown`.
+
+## anime-kitsu — `https://kitsu.io`
+
+`GET /api/edge/anime?filter[text]={judul}&page[limit]=5` → format JSON:API
+`{data:[{id,type,attributes:{canonicalTitle,synopsis,averageRating,episodeCount,startDate,
+posterImage,...}}]}`. **Content-Type `application/vnd.api+json`.** Perhatikan tanda kurung siku
+pada query (`filter[text]`, `page[limit]`). Lisensi → `unknown`.
+
+## final-space-api — `https://finalspaceapi.com`
+
+`GET /api/v0/character?limit={batas}` → array `[{id,name,status,species,gender,hair,alias:[...],
+origin,abilities:[...],img_url}]`. `GET /api/v0/character/{id}` → satu tokoh. Data waralaba milik
+pemiliknya. Lisensi → `unknown`.
+
+## fakta-anjing-dogapi — `https://dogapi.dog`
+
+`GET /api/v2/facts?limit={batas}` → format JSON:API `{data:[{id,type:"fact",attributes:{body}}]}`.
+**Content-Type `application/vnd.api+json`.** Pelengkap Fakta Kucing. Lisensi → `unknown`.
+
+# Batch kelima belas public-apis (diprobe 2026-10-07)
+
+Enam API: dua biodiversitas yang relevan untuk Indonesia (GBIF, iNaturalist) dan empat
+hiburan. Yang didrop: `mathjs` (balas text/plain, bukan JSON), `fishwatch.gov` (301 + tanpa
+CORS), `theaudiodb` (404 dengan test key), `jikan` (tetap 000), `age-of-empires-2-api` (host
+heroku mati), `waifu.im` (403 Cloudflare), `evilinsult` & `wikidata` (tanpa CORS). Catatan CORS:
+GBIF dan Meme API memantulkan Origin → terukur `none`, ditulis `open`.
+
+## biodiversitas-gbif — `https://api.gbif.org`
+
+`GET /v1/species/search?q={nama}&limit=5` → `{offset,limit,count,results:[{key,scientificName,
+canonicalName,rank,kingdom,phylum,family,...}]}`. `GET /v1/occurrence/search?country=ID&limit=5`
+→ catatan kemunculan di Indonesia `{count,results:[{key,scientificName,decimalLatitude,
+decimalLongitude,eventDate,datasetKey,...}]}`. **Lisensi beragam per dataset** (CC0/CC-BY/
+CC-BY-NC); GBIF meminta atribusi → `atribusiWajib: true`, lisensi `unknown`.
+
+## takson-inaturalist — `https://api.inaturalist.org`
+
+`GET /v1/taxa?q={nama}&per_page=5` → `{total_results,results:[{id,rank,name,
+preferred_common_name,observations_count,default_photo:{medium_url},iconic_taxon_name}]}`.
+Observasi & foto berlisensi beragam per penyumbang → `unknown`.
+
+## meme-templat-imgflip — `https://api.imgflip.com`
+
+`GET /get_memes` → `{success,data:{memes:[{id,name,url,width,height,box_count,captions}]}}`.
+Daftar 100 templat meme terpopuler. Lisensi → `unknown`.
+
+## meme-reddit-memeapi — `https://meme-api.com`
+
+`GET /gimme/wholesomememes` → `{postLink,subreddit,title,url,nsfw,spoiler,author,ups,
+preview:[...]}`. Dibatasi ke r/wholesomememes supaya aman. Konten milik pengunggah Reddit.
+Lisensi → `unknown`.
+
+## catur-lichess — `https://lichess.org`
+
+`GET /api/user/{username}` → `{id,username,perfs:{bullet,blitz,rapid,classical,puzzle:{...}},
+createdAt,seenAt,playTime,count:{all,win,loss,draw}}`. Perangkat lunak Lichess AGPL-3.0; data
+profil publik → `unknown`.
+
+## disney-api — `https://api.disneyapi.dev`
+
+`GET /character?pageSize={batas}` → `{info:{count,totalPages,nextPage},data:[{_id,name,films:[...],
+tvShows:[...],parkAttractions:[...],imageUrl}]}`. `GET /character/{id}` → satu tokoh. Data milik
+The Walt Disney Company. Lisensi → `unknown`.
+
+# Batch keenam belas public-apis (diprobe 2026-10-07) — batch terakhir
+
+Enam API: antariksa, game, dan koleksi kartu/anime. Ini **batch terakhir** — setelah ini sumur
+public-apis yang keyless + HTTPS + JSON + CORS + relevan sudah kering; sisanya butuh API key,
+tanpa CORS, host mati, atau mubazir. Yang didrop di batch ini: `spacex` v4 (525, tetap), `amiibo`
+(404 + tanpa CORS), `restcountries` (301, tetap), `jikan`/`worldtimeapi` (000), `nekos.best`
+(dilewati, nilai rendah). Scryfall ditambahkan meski sudah ada MTG karena jauh lebih lengkap
+(teks penuh, harga, gambar hi-res, rulings). Tiga endpoint lama sempat gagal transien saat probe
+ini (musicbrainz 503, poetrydb & iNaturalist timeout) tetapi pulih saat dicek ulang.
+
+## nasa-gambar — `https://images-api.nasa.gov`
+
+`GET /search?q={kata}&media_type=image` → `{collection:{items:[{href,data:[{title,description,
+nasa_id,date_created,keywords}],links:[{href (pratinjau)}]}]}}`. Mayoritas materi NASA bebas hak
+cipta, sebagian memuat materi pihak ketiga. Lisensi → `unknown`.
+
+## game-diskon-cheapshark — `https://www.cheapshark.com`
+
+`GET /api/1.0/deals?pageSize={batas}` → array `[{title,dealID,storeID,salePrice,normalPrice,
+savings,metacriticScore,steamRatingText,thumb}]`. `GET /api/1.0/stores` → daftar toko
+`[{storeID,storeName,isActive,images}]`. Lisensi → `unknown`.
+
+## kartu-pokemon-tcg — `https://api.pokemontcg.io`
+
+`GET /v2/cards?pageSize={batas}` → `{data:[{id,name,supertype,subtypes,hp,types,rarity,set,
+images:{small,large}}],page,pageSize,count,totalCount}`. **Tanpa API key batas lajunya ketat**;
+pencarian terfilter (`q=name:...`) kerap balas 502, jadi hanya endpoint daftar yang didaftarkan.
+Data milik The Pokémon Company. Lisensi → `unknown`.
+
+## demon-slayer-api — `https://www.demonslayer-api.com`
+
+`GET /api/v1/characters?limit={batas}` → `{content:[{id,name,age,gender,race,description,img,
+quote}],pagination:{...}}`. `GET /api/v1/characters?name={nama}` menyaring per nama. **Detail
+per-id (`/characters/1`) membalas HTML halaman web**, jadi tidak dipakai. Data milik Koyoharu
+Gotouge/Ufotable. Lisensi → `unknown`.
+
+## switch-games-sampleapis — `https://api.sampleapis.com`
+
+`GET /switch/games` → array besar (~267 KB) `[{id,name,genre:[...],developers:[...],
+publishers:[...],releaseDates:{...}}]`. Katalog game Nintendo Switch. Lisensi → `unknown`.
+
+## kartu-scryfall — `https://api.scryfall.com`
+
+`GET /cards/named?exact={nama}` → objek kartu lengkap `{name,mana_cost,type_line,oracle_text,
+prices,image_uris:{normal,large},set_name,...}`. `GET /cards/search?q={kata}` → `{object:"list",
+total_cards,data:[...]}` (sintaks pencarian Scryfall, bisa besar). `GET /cards/random` → satu
+kartu acak. Scryfall meminta jeda ~100 ms antar permintaan. Teks & gambar milik Wizards of the
+Coast. Lisensi → `unknown`.

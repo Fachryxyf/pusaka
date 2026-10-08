@@ -1,0 +1,46 @@
+slug: musik-musicbrainz
+nama: 'Basis Data Musik (MusicBrainz)'
+kategori: referensi
+deskripsi: Cari artis, rilisan, dan rekaman dari ensiklopedia musik terbuka MusicBrainz.
+developer:
+  nama: MetaBrainz Foundation
+  profil: 'https://musicbrainz.org'
+dokumentasi: 'https://musicbrainz.org/doc/MusicBrainz_API'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://musicbrainz.org'
+mirror: false
+provenance:
+  lisensi: CC0-1.0
+  sumberLisensi: 'https://musicbrainz.org/doc/About/Data_License'
+  atribusiWajib: false
+  atribusi: 'Data inti dari MusicBrainz (CC0)'
+  syaratUrl: 'https://musicbrainz.org/doc/About/Data_License'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh - data inti MusicBrainz dilepas sebagai CC0. Sebagian data tambahan (anotasi, dsb.) berlisensi CC BY-NC-SA, jadi mirror hanya untuk field inti.'
+  batasAkses: 'Tanpa API key: sekitar 1 permintaan/detik, wajib User-Agent deskriptif (di browser dipakai User-Agent browser).'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: artis
+    method: GET
+    path: '/ws/2/artist?query={kata}&fmt=json&limit=10'
+    deskripsi: 'Cari artis. WAJIB fmt=json (default server adalah XML). Balas {count, artists[]}.'
+    params:
+      - nama: kata
+        contoh: 'coldplay'
+        wajib: true
+        keterangan: 'nama artis'
+    contohPath: '/ws/2/artist?query=coldplay&fmt=json&limit=10'
+    minUkuranByte: 300
+  - id: rekaman
+    method: GET
+    path: '/ws/2/recording?query={kata}&fmt=json&limit=10'
+    deskripsi: 'Cari rekaman/lagu. WAJIB fmt=json. Balas {count, recordings[]}.'
+    params:
+      - nama: kata
+        contoh: 'yellow coldplay'
+        wajib: true
+        keterangan: 'judul lagu dan/atau artis'
+    contohPath: '/ws/2/recording?query=yellow%20coldplay&fmt=json&limit=10'
+    minUkuranByte: 300

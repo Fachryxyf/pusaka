@@ -1,0 +1,42 @@
+slug: genshin-jmp
+nama: 'Karakter Genshin Impact'
+kategori: hiburan
+deskripsi: Daftar dan profil karakter game Genshin Impact - visi (elemen), senjata, wilayah, dan afiliasi.
+developer:
+  nama: genshin.jmp.blue
+  profil: 'https://github.com/genshindev/api'
+dokumentasi: 'https://genshin.jmp.blue/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://genshin.jmp.blue'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'genshin.jmp.blue; data game milik HoYoverse/miHoYo'
+  syaratUrl: 'https://genshin.jmp.blue/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - API komunitas; data game adalah kekayaan intelektual HoYoverse.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: daftar
+    method: GET
+    path: /characters
+    deskripsi: 'Daftar slug seluruh karakter yang tersedia.'
+    params: []
+    contohPath: /characters
+    minUkuranByte: 200
+  - id: detail
+    method: GET
+    path: '/characters/{nama}'
+    deskripsi: 'Profil satu karakter: name, title, vision, weapon, nation, affiliation, rarity.'
+    params:
+      - nama: nama
+        contoh: 'hu-tao'
+        wajib: true
+        keterangan: 'slug karakter dari daftar (mis. hu-tao)'
+    contohPath: /characters/hu-tao
+    minUkuranByte: 150

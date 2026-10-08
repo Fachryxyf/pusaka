@@ -1,0 +1,46 @@
+slug: github-pengguna
+nama: 'Profil GitHub'
+kategori: referensi
+deskripsi: Data publik profil dan repositori pengguna GitHub.
+developer:
+  nama: GitHub
+  profil: 'https://github.com'
+dokumentasi: 'https://docs.github.com/en/rest'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.github.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://docs.github.com/en/site-policy/github-terms/github-terms-of-service'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data profil dan repositori milik pengguna dan GitHub; tunduk pada Ketentuan Layanan GitHub, bukan lisensi terbuka.'
+  batasAkses: 'Tanpa autentikasi: 60 permintaan/jam per IP. Melebihi itu balas 403.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: pengguna
+    method: GET
+    path: '/users/{username}'
+    deskripsi: 'Profil publik satu pengguna: nama, bio, jumlah repo, pengikut, dll.'
+    params:
+      - nama: username
+        contoh: 'torvalds'
+        wajib: true
+        keterangan: 'nama pengguna GitHub'
+    contohPath: /users/torvalds
+    minUkuranByte: 300
+  - id: repositori
+    method: GET
+    path: '/users/{username}/repos?per_page=10&sort=updated'
+    deskripsi: 'Daftar repositori publik pengguna, diurutkan dari yang terakhir diperbarui.'
+    params:
+      - nama: username
+        contoh: 'torvalds'
+        wajib: true
+        keterangan: 'nama pengguna GitHub'
+    contohPath: '/users/torvalds/repos?per_page=10&sort=updated'
+    minUkuranByte: 300

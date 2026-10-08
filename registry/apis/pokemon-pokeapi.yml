@@ -1,0 +1,46 @@
+slug: pokemon-pokeapi
+nama: 'Data Pokémon (PokéAPI)'
+kategori: hiburan
+deskripsi: Data lengkap Pokémon - statistik, tipe, kemampuan, dan info spesies - dari PokéAPI.
+developer:
+  nama: PokéAPI
+  profil: 'https://github.com/PokeAPI'
+dokumentasi: 'https://pokeapi.co/docs/v2'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://pokeapi.co'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://pokeapi.co/docs/v2'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - kode PokéAPI berlisensi BSD-3-Clause, tetapi datanya adalah kekayaan intelektual The Pokemon Company. Hak salin data tidak diberikan.'
+  batasAkses: 'Tanpa API key; diminta meng-cache hasil dan tidak membanjiri (fair use).'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: pokemon
+    method: GET
+    path: '/api/v2/pokemon/{nama}'
+    deskripsi: 'Data satu Pokémon: statistik, tipe, kemampuan, sprite. nama atau nomor id.'
+    params:
+      - nama: nama
+        contoh: 'pikachu'
+        wajib: true
+        keterangan: 'nama Pokémon atau id angka'
+    contohPath: /api/v2/pokemon/pikachu
+    minUkuranByte: 1000
+  - id: spesies
+    method: GET
+    path: '/api/v2/pokemon-species/{nama}'
+    deskripsi: 'Info spesies: tingkat evolusi, warna, habitat, deskripsi pokedex multi-bahasa.'
+    params:
+      - nama: nama
+        contoh: 'pikachu'
+        wajib: true
+        keterangan: 'nama spesies atau id angka'
+    contohPath: /api/v2/pokemon-species/pikachu
+    minUkuranByte: 1000

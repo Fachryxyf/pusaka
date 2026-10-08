@@ -1,0 +1,38 @@
+slug: harry-potter-hpapi
+nama: 'Harry Potter'
+kategori: hiburan
+deskripsi: Data tokoh dan mantra dari semesta Harry Potter.
+developer:
+  nama: Kostas Vrouvas
+  profil: 'https://hp-api.onrender.com/'
+dokumentasi: 'https://hp-api.onrender.com/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://hp-api.onrender.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'hp-api.onrender.com; Harry Potter milik Warner Bros./J.K. Rowling'
+  syaratUrl: 'https://hp-api.onrender.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data waralaba adalah kekayaan intelektual pemiliknya. Catatan: host gratis onrender bisa lambat saat baru bangun dari tidur.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: tokoh
+    method: GET
+    path: /api/characters
+    deskripsi: 'Daftar seluruh tokoh: name, house, patronus, actor, dll.'
+    params: []
+    contohPath: /api/characters
+    minUkuranByte: 500
+  - id: mantra
+    method: GET
+    path: /api/spells
+    deskripsi: 'Daftar mantra: name dan description.'
+    params: []
+    contohPath: /api/spells
+    minUkuranByte: 300

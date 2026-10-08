@@ -1,0 +1,57 @@
+slug: hari-libur-nager
+nama: 'Hari Libur Nasional'
+kategori: kalender
+deskripsi: Daftar hari libur nasional 200+ negara, termasuk Indonesia, lengkap dengan nama lokalnya.
+developer:
+  nama: Nager (Tino Hager)
+  profil: 'https://github.com/nager'
+dokumentasi: 'https://date.nager.at/swagger/index.html'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://date.nager.at'
+mirror: false
+provenance:
+  lisensi: MIT
+  sumberLisensi: 'https://github.com/nager/Nager.Date'
+  atribusiWajib: false
+  atribusi: 'Nager.Date (MIT)'
+  syaratUrl: 'https://date.nager.at'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh - kode sumbernya MIT dan datanya kalender faktual. Belum diaktifkan karena CORS terbuka, alat bisa memanggil langsung.'
+  batasAkses: null
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: liburTahun
+    method: GET
+    path: '/api/v3/PublicHolidays/{tahun}/{kode}'
+    deskripsi: 'Hari libur satu tahun penuh untuk satu negara. kode = ISO-3166 alpha-2, mis. ID untuk Indonesia.'
+    params:
+      - nama: tahun
+        contoh: '2026'
+        wajib: true
+        keterangan: 'tahun 4 digit'
+      - nama: kode
+        contoh: 'ID'
+        wajib: true
+        keterangan: 'kode negara ISO-3166 alpha-2'
+    contohPath: /api/v3/PublicHolidays/2026/ID
+    minUkuranByte: 300
+  - id: negara
+    method: GET
+    path: /api/v3/AvailableCountries
+    deskripsi: Daftar seluruh negara yang didukung beserta kode ISO-nya.
+    params: []
+    contohPath: /api/v3/AvailableCountries
+    minUkuranByte: 2000
+  - id: liburBerikutnya
+    method: GET
+    path: '/api/v3/NextPublicHolidays/{kode}'
+    deskripsi: Hari libur dalam 365 hari ke depan untuk satu negara.
+    params:
+      - nama: kode
+        contoh: 'ID'
+        wajib: true
+        keterangan: 'kode negara ISO-3166 alpha-2'
+    contohPath: /api/v3/NextPublicHolidays/ID
+    minUkuranByte: 300

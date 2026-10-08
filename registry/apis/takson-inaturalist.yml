@@ -1,0 +1,35 @@
+slug: takson-inaturalist
+nama: 'Takson (iNaturalist)'
+kategori: referensi
+deskripsi: Cari takson (spesies, genus, famili) di iNaturalist beserta nama umum, foto, dan status.
+developer:
+  nama: iNaturalist
+  profil: 'https://www.inaturalist.org/'
+dokumentasi: 'https://api.inaturalist.org/v1/docs/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.inaturalist.org'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'iNaturalist (inaturalist.org)'
+  syaratUrl: 'https://www.inaturalist.org/pages/terms'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - observasi dan foto punya lisensi beragam per penyumbang.'
+  batasAkses: 'Gratis tanpa API key (batas sopan ~60 permintaan/menit).'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: cari
+    method: GET
+    path: '/v1/taxa?q={nama}&per_page=5'
+    deskripsi: 'Cari takson: name, preferred_common_name, rank, observations_count, foto.'
+    params:
+      - nama: nama
+        contoh: 'komodo'
+        wajib: true
+        keterangan: 'nama takson (ilmiah atau umum)'
+    contohPath: '/v1/taxa?q=komodo&per_page=5'
+    minUkuranByte: 150

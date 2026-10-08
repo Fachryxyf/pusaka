@@ -1,0 +1,46 @@
+slug: catur-chesscom
+nama: 'Profil Catur (Chess.com)'
+kategori: hiburan
+deskripsi: Profil dan statistik pemain di Chess.com - rating blitz, bullet, rapid, dan harian.
+developer:
+  nama: Chess.com
+  profil: 'https://www.chess.com/news/view/published-data-api'
+dokumentasi: 'https://www.chess.com/news/view/published-data-api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.chess.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Chess.com Published-Data API'
+  syaratUrl: 'https://www.chess.com/news/view/published-data-api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data profil publik milik Chess.com dan penggunanya.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: profil
+    method: GET
+    path: '/pub/player/{username}'
+    deskripsi: 'Profil pemain: nama, negara, status, tanggal gabung, follower.'
+    params:
+      - nama: username
+        contoh: 'hikaru'
+        wajib: true
+        keterangan: 'nama pengguna Chess.com'
+    contohPath: /pub/player/hikaru
+    minUkuranByte: 100
+  - id: statistik
+    method: GET
+    path: '/pub/player/{username}/stats'
+    deskripsi: 'Statistik rating per mode: blitz, bullet, rapid, daily, puzzle.'
+    params:
+      - nama: username
+        contoh: 'hikaru'
+        wajib: true
+        keterangan: 'nama pengguna Chess.com'
+    contohPath: /pub/player/hikaru/stats
+    minUkuranByte: 100

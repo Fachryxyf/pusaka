@@ -1,0 +1,31 @@
+slug: switch-games-sampleapis
+nama: 'Game Nintendo Switch'
+kategori: hiburan
+deskripsi: Katalog game Nintendo Switch beserta genre, pengembang, penerbit, dan tanggal rilis.
+developer:
+  nama: SampleAPIs
+  profil: 'https://sampleapis.com/'
+dokumentasi: 'https://sampleapis.com/api-list/switch'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.sampleapis.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'SampleAPIs (sampleapis.com)'
+  syaratUrl: 'https://sampleapis.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: game
+    method: GET
+    path: /switch/games
+    deskripsi: 'Daftar game Switch: name, genre, developers, publishers, releaseDates.'
+    params: []
+    contohPath: /switch/games
+    minUkuranByte: 1000

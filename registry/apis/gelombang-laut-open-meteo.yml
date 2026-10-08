@@ -1,0 +1,74 @@
+slug: gelombang-laut-open-meteo
+nama: 'Gelombang Laut'
+kategori: cuaca
+deskripsi: Tinggi, arah, dan periode gelombang laut untuk titik pesisir mana pun, tanpa API key.
+developer:
+  nama: Open-Meteo
+  profil: 'https://github.com/open-meteo'
+dokumentasi: 'https://open-meteo.com/en/docs/marine-weather-api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://marine-api.open-meteo.com'
+mirror: false
+provenance:
+  lisensi: CC-BY-4.0
+  sumberLisensi: 'https://open-meteo.com/en/terms'
+  atribusiWajib: true
+  atribusi: 'Data gelombang oleh Open-Meteo.com (CC BY 4.0)'
+  syaratUrl: 'https://open-meteo.com/en/terms'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh dengan atribusi - data API berlisensi CC BY 4.0.'
+  batasAkses: 'Gratis untuk penggunaan non-komersial tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: sekarang
+    method: GET
+    path: /v1/marine
+    deskripsi: 'Kondisi gelombang saat ini pada satu titik pesisir.'
+    params:
+      - nama: latitude
+        contoh: '-6.8'
+        wajib: true
+        keterangan: 'lintang titik'
+      - nama: longitude
+        contoh: '106.8'
+        wajib: true
+        keterangan: 'bujur titik'
+      - nama: current
+        contoh: 'wave_height,wave_direction,wave_period'
+        wajib: false
+        keterangan: 'variabel gelombang saat ini, pisah koma'
+      - nama: timezone
+        contoh: 'Asia/Jakarta'
+        wajib: false
+        keterangan: 'zona waktu IANA'
+    contohPath: '/v1/marine?latitude=-6.8&longitude=106.8&current=wave_height,wave_direction,wave_period&timezone=Asia%2FJakarta'
+    minUkuranByte: 150
+  - id: harian
+    method: GET
+    path: /v1/marine
+    deskripsi: 'Prakiraan gelombang harian (tinggi maksimum).'
+    params:
+      - nama: latitude
+        contoh: '-6.8'
+        wajib: true
+        keterangan: 'lintang titik'
+      - nama: longitude
+        contoh: '106.8'
+        wajib: true
+        keterangan: 'bujur titik'
+      - nama: daily
+        contoh: 'wave_height_max'
+        wajib: false
+        keterangan: 'variabel gelombang harian'
+      - nama: forecast_days
+        contoh: '3'
+        wajib: false
+        keterangan: 'jumlah hari'
+      - nama: timezone
+        contoh: 'Asia/Jakarta'
+        wajib: false
+        keterangan: 'zona waktu IANA'
+    contohPath: '/v1/marine?latitude=-6.8&longitude=106.8&daily=wave_height_max&timezone=Asia%2FJakarta&forecast_days=3'
+    minUkuranByte: 150

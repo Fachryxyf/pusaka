@@ -74,6 +74,20 @@ const JALUR: Record<string, React.ReactNode> = {
       <circle cx="12" cy="10" r="2.5" />
     </>
   ),
+  kartu: (
+    // Dua kartu remi bertumpuk
+    <>
+      <rect x="7" y="4.5" width="11" height="15" rx="1.6" transform="rotate(8 12.5 12)" />
+      <path d="M12.5 9.5l1.6 2.6-1.6 2.6-1.6-2.6z" />
+    </>
+  ),
+  bahasa: (
+    // Dua gelembung percakapan (terjemahan)
+    <>
+      <path d="M4 6.5h9a1.5 1.5 0 0 1 1.5 1.5v3A1.5 1.5 0 0 1 13 12.5H8l-3 2.5v-2.5a1.5 1.5 0 0 1-1-1.4V8A1.5 1.5 0 0 1 4 6.5z" />
+      <path d="M17 9.5h3A1.5 1.5 0 0 1 21.5 11v3a1.5 1.5 0 0 1-1.5 1.5v2l-2.5-2H14" />
+    </>
+  ),
 }
 
 export type NamaIkon = keyof typeof JALUR

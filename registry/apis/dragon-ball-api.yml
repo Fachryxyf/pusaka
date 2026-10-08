@@ -1,0 +1,46 @@
+slug: dragon-ball-api
+nama: 'Dragon Ball'
+kategori: hiburan
+deskripsi: Data tokoh semesta Dragon Ball - ras, afiliasi, ki, dan deskripsi.
+developer:
+  nama: Alexis Rengifo
+  profil: 'https://web.dragonball-api.com/'
+dokumentasi: 'https://web.dragonball-api.com/documentation'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://dragonball-api.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'dragonball-api.com; Dragon Ball milik Bird Studio/Shueisha/Toei'
+  syaratUrl: 'https://web.dragonball-api.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data waralaba adalah kekayaan intelektual pemiliknya. Catatan: sebagian deskripsi berbahasa Spanyol.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: daftar
+    method: GET
+    path: '/api/characters?limit={batas}'
+    deskripsi: 'Daftar tokoh: name, ki, race, gender, affiliation, image.'
+    params:
+      - nama: batas
+        contoh: '5'
+        wajib: true
+        keterangan: 'jumlah tokoh per halaman'
+    contohPath: '/api/characters?limit=5'
+    minUkuranByte: 200
+  - id: detail
+    method: GET
+    path: '/api/characters/{id}'
+    deskripsi: 'Detail satu tokoh beserta transformasi dan planet asal.'
+    params:
+      - nama: id
+        contoh: '1'
+        wajib: true
+        keterangan: 'id tokoh (mis. 1 = Goku)'
+    contohPath: /api/characters/1
+    minUkuranByte: 150

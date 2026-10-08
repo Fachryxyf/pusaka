@@ -1,0 +1,35 @@
+slug: seni-metmuseum
+nama: 'Koleksi Seni (The Met)'
+kategori: seni
+deskripsi: Data satu objek koleksi The Metropolitan Museum of Art berdasarkan nomor objeknya.
+developer:
+  nama: The Metropolitan Museum of Art
+  profil: 'https://www.metmuseum.org'
+dokumentasi: 'https://metmuseum.github.io/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://collectionapi.metmuseum.org'
+mirror: false
+provenance:
+  lisensi: CC0-1.0
+  sumberLisensi: 'https://www.metmuseum.org/about-the-met/policies-and-documents/open-access'
+  atribusiWajib: false
+  atribusi: 'Data koleksi dari The Metropolitan Museum of Art (CC0)'
+  syaratUrl: 'https://metmuseum.github.io/'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh - data Open Access The Met dilepas sebagai CC0. Field isPublicDomain menandai status hak tiap gambar.'
+  batasAkses: 'Gratis tanpa API key. Catatan: endpoint /search dipensiunkan 1 Oktober 2026, jadi hanya lookup objek per id yang didaftarkan.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: objek
+    method: GET
+    path: '/public/collection/v1/objects/{id}'
+    deskripsi: 'Data satu objek koleksi: judul, seniman, tahun, medium, gambar, status hak cipta.'
+    params:
+      - nama: id
+        contoh: '436524'
+        wajib: true
+        keterangan: 'objectID (angka)'
+    contohPath: /public/collection/v1/objects/436524
+    minUkuranByte: 300

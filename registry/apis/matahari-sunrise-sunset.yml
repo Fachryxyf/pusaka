@@ -1,0 +1,47 @@
+slug: matahari-sunrise-sunset
+nama: 'Matahari Terbit & Terbenam'
+kategori: astronomi
+deskripsi: Waktu matahari terbit, terbenam, dan senja untuk koordinat mana pun. Berguna sebagai acuan terbit/terbenam di luar jadwal sholat.
+developer:
+  nama: Sunrise-Sunset.org
+  profil: 'https://sunrise-sunset.org'
+dokumentasi: 'https://sunrise-sunset.org/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.sunrise-sunset.org'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://sunrise-sunset.org/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - layanan menyatakan gratis dipakai, tetapi tidak menyebut lisensi data yang tegas, jadi hak salin tidak dipastikan.'
+  batasAkses: 'Gratis tanpa API key; diminta tidak membebani server berlebihan.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: waktu
+    method: GET
+    path: /json
+    deskripsi: 'Waktu matahari untuk satu titik. WAJIB formatted=0 agar hasilnya format ISO 8601 UTC (tanpa itu string lokal yang susah diparse). date opsional (YYYY-MM-DD).'
+    params:
+      - nama: lat
+        contoh: '-6.2'
+        wajib: true
+        keterangan: 'lintang titik'
+      - nama: lng
+        contoh: '106.8'
+        wajib: true
+        keterangan: 'bujur titik'
+      - nama: formatted
+        contoh: '0'
+        wajib: true
+        keterangan: 'set 0 untuk ISO 8601 UTC'
+      - nama: date
+        contoh: '2026-12-25'
+        wajib: false
+        keterangan: 'tanggal YYYY-MM-DD, default hari ini'
+    contohPath: '/json?lat=-6.2&lng=106.8&formatted=0&date=2026-12-25'
+    minUkuranByte: 100

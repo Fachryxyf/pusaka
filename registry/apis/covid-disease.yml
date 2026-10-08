@@ -1,0 +1,42 @@
+slug: covid-disease
+nama: 'Statistik COVID-19'
+kategori: referensi
+deskripsi: Statistik kumulatif COVID-19 per negara dan global dari disease.sh.
+developer:
+  nama: disease.sh
+  profil: 'https://github.com/disease-sh/API'
+dokumentasi: 'https://disease.sh/docs/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://disease.sh'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Data agregat oleh disease.sh (sumber JHU, Worldometer, dll.)'
+  syaratUrl: 'https://disease.sh/docs/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data digabung dari beberapa sumber dengan lisensi berbeda-beda; status gabungannya tidak dinyatakan tegas. Catatan: pelaporan COVID global sebagian besar sudah berhenti, jadi angkanya cenderung beku.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: negara
+    method: GET
+    path: '/v3/covid-19/countries/{negara}'
+    deskripsi: 'Statistik satu negara: cases, deaths, recovered, tests, population.'
+    params:
+      - nama: negara
+        contoh: 'indonesia'
+        wajib: true
+        keterangan: 'nama negara atau kode iso2/iso3'
+    contohPath: /v3/covid-19/countries/indonesia
+    minUkuranByte: 150
+  - id: global
+    method: GET
+    path: /v3/covid-19/all
+    deskripsi: 'Statistik agregat seluruh dunia.'
+    params: []
+    contohPath: /v3/covid-19/all
+    minUkuranByte: 150

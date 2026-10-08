@@ -1,0 +1,73 @@
+slug: kripto-coingecko
+nama: 'Harga Kripto'
+kategori: finansial
+deskripsi: Harga mata uang kripto real-time dari CoinGecko, bisa langsung dalam Rupiah.
+developer:
+  nama: CoinGecko
+  profil: 'https://www.coingecko.com'
+dokumentasi: 'https://docs.coingecko.com/reference/introduction'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.coingecko.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: true
+  atribusi: 'Data harga oleh CoinGecko'
+  syaratUrl: 'https://www.coingecko.com/en/api/terms'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data harga CoinGecko tidak berlisensi terbuka; tier publik hanya mewajibkan atribusi dan membatasi laju. Hak salin tidak dipastikan.'
+  batasAkses: 'Tanpa API key (tier publik): sekitar 5-15 panggilan/menit, bisa balas 429. Wajib cantumkan atribusi CoinGecko.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: harga
+    method: GET
+    path: /api/v3/simple/price
+    deskripsi: 'Harga satu atau beberapa koin. ids = id koin (pisah koma), vs_currencies = mata uang target (mis. idr,usd).'
+    params:
+      - nama: ids
+        contoh: 'bitcoin,ethereum'
+        wajib: true
+        keterangan: 'id koin, pisah koma'
+      - nama: vs_currencies
+        contoh: 'idr,usd'
+        wajib: true
+        keterangan: 'mata uang target, pisah koma'
+    contohPath: '/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=idr,usd'
+    minUkuranByte: 20
+  - id: pasar
+    method: GET
+    path: /api/v3/coins/markets
+    deskripsi: 'Data pasar terurut kapitalisasi. WAJIB vs_currency. Pakai per_page & page untuk paginasi.'
+    params:
+      - nama: vs_currency
+        contoh: 'idr'
+        wajib: true
+        keterangan: 'mata uang dasar, mis. idr'
+      - nama: per_page
+        contoh: '3'
+        wajib: false
+        keterangan: 'jumlah baris, 1 sampai 250'
+      - nama: page
+        contoh: '1'
+        wajib: false
+        keterangan: 'nomor halaman'
+    contohPath: '/api/v3/coins/markets?vs_currency=idr&per_page=3&page=1'
+    minUkuranByte: 200
+  - id: mataUang
+    method: GET
+    path: /api/v3/simple/supported_vs_currencies
+    deskripsi: Daftar kode mata uang yang didukung sebagai target harga (termasuk idr).
+    params: []
+    contohPath: /api/v3/simple/supported_vs_currencies
+    minUkuranByte: 100
+
+  - id: top
+    method: GET
+    path: '/api/v3/coins/markets?vs_currency=idr&order=market_cap_desc&per_page=20&page=1'
+    deskripsi: '20 koin teratas menurut kapitalisasi, harga dalam Rupiah. Dipakai alat Harga Kripto.'
+    params: []
+    contohPath: '/api/v3/coins/markets?vs_currency=idr&order=market_cap_desc&per_page=20&page=1'
+    minUkuranByte: 1000

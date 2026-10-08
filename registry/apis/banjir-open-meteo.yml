@@ -1,0 +1,47 @@
+slug: banjir-open-meteo
+nama: 'Debit Sungai (Potensi Banjir)'
+kategori: cuaca
+deskripsi: Prakiraan debit sungai harian untuk satu titik, indikator potensi banjir, dari model GloFAS. Tanpa API key.
+developer:
+  nama: Open-Meteo
+  profil: 'https://github.com/open-meteo'
+dokumentasi: 'https://open-meteo.com/en/docs/flood-api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://flood-api.open-meteo.com'
+mirror: false
+provenance:
+  lisensi: CC-BY-4.0
+  sumberLisensi: 'https://open-meteo.com/en/terms'
+  atribusiWajib: true
+  atribusi: 'Data debit sungai oleh Open-Meteo.com (CC BY 4.0), berbasis GloFAS'
+  syaratUrl: 'https://open-meteo.com/en/terms'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh dengan atribusi - data API berlisensi CC BY 4.0.'
+  batasAkses: 'Gratis untuk penggunaan non-komersial tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: harian
+    method: GET
+    path: /v1/flood
+    deskripsi: 'Debit sungai harian (m3/detik) pada satu titik. Pakai daily=river_discharge.'
+    params:
+      - nama: latitude
+        contoh: '-6.8'
+        wajib: true
+        keterangan: 'lintang titik'
+      - nama: longitude
+        contoh: '106.8'
+        wajib: true
+        keterangan: 'bujur titik'
+      - nama: daily
+        contoh: 'river_discharge'
+        wajib: false
+        keterangan: 'variabel harian'
+      - nama: forecast_days
+        contoh: '3'
+        wajib: false
+        keterangan: 'jumlah hari'
+    contohPath: '/v1/flood?latitude=-6.8&longitude=106.8&daily=river_discharge&forecast_days=3'
+    minUkuranByte: 100

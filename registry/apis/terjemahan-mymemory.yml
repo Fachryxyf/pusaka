@@ -1,0 +1,39 @@
+slug: terjemahan-mymemory
+nama: 'Terjemahan (MyMemory)'
+kategori: referensi
+deskripsi: Terjemahan teks antar bahasa dari memori terjemahan MyMemory. Mendukung Inggris-Indonesia dan banyak pasangan lain.
+developer:
+  nama: Translated
+  profil: 'https://mymemory.translated.net/'
+dokumentasi: 'https://mymemory.translated.net/doc/spec.php'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.mymemory.translated.net'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'MyMemory oleh Translated (mymemory.translated.net)'
+  syaratUrl: 'https://mymemory.translated.net/doc/usagelimits.php'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - hasil campuran memori terjemahan komunitas dan mesin; kualitas bisa bervariasi.'
+  batasAkses: 'Gratis tanpa API key hingga 5.000 kata/hari per IP anonim.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: terjemah
+    method: GET
+    path: '/get?q={teks}&langpair={pasangan}'
+    deskripsi: 'Terjemahkan teks; balas translatedText dan skor match.'
+    params:
+      - nama: teks
+        contoh: 'where is the hospital'
+        wajib: true
+        keterangan: 'teks yang ingin diterjemahkan'
+      - nama: pasangan
+        contoh: 'en|id'
+        wajib: true
+        keterangan: 'pasangan bahasa, mis. en|id atau id|en'
+    contohPath: '/get?q=where is the hospital&langpair=en|id'
+    minUkuranByte: 60

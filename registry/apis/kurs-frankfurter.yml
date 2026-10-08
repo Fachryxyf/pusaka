@@ -1,0 +1,81 @@
+slug: kurs-frankfurter
+nama: 'Kurs Mata Uang'
+kategori: finansial
+deskripsi: Kurs referensi harian dari Bank Sentral Eropa (ECB), termasuk nilai tukar terhadap Rupiah.
+developer:
+  nama: Line of Flight
+  profil: 'https://github.com/lineofflight'
+dokumentasi: 'https://frankfurter.dev/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.frankfurter.dev'
+mirror: false
+provenance:
+  lisensi: MIT
+  sumberLisensi: 'https://github.com/lineofflight/frankfurter'
+  atribusiWajib: false
+  atribusi: 'Frankfurter (MIT); kurs referensi dari Bank Sentral Eropa'
+  syaratUrl: 'https://frankfurter.dev/'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh - kode sumbernya MIT dan kurs ECB bebas dipakai ulang. Belum diaktifkan karena CORS terbuka.'
+  batasAkses: 'Tidak ada API key; pemakaian wajar. Kurs ECB diperbarui tiap hari kerja sekitar 16:00 CET.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: terbaru
+    method: GET
+    path: /v1/latest
+    deskripsi: 'Kurs terbaru. Pakai ?base= untuk mata uang dasar dan ?symbols= untuk membatasi target (pisah koma).'
+    params:
+      - nama: base
+        contoh: 'USD'
+        wajib: false
+        keterangan: 'mata uang dasar, default EUR'
+      - nama: symbols
+        contoh: 'IDR,EUR,SGD'
+        wajib: false
+        keterangan: 'daftar mata uang target, pisah koma'
+    contohPath: '/v1/latest?base=USD&symbols=IDR,EUR,SGD'
+    minUkuranByte: 60
+  - id: mataUang
+    method: GET
+    path: /v1/currencies
+    deskripsi: Daftar kode mata uang yang didukung beserta nama lengkapnya.
+    params: []
+    contohPath: /v1/currencies
+    minUkuranByte: 300
+  - id: historis
+    method: GET
+    path: '/v1/{tanggal}'
+    deskripsi: 'Kurs pada tanggal tertentu (format YYYY-MM-DD). Hari libur bursa dibulatkan ke hari kerja terakhir.'
+    params:
+      - nama: tanggal
+        contoh: '2024-03-01'
+        wajib: true
+        keterangan: 'format YYYY-MM-DD'
+      - nama: base
+        contoh: 'USD'
+        wajib: false
+        keterangan: 'mata uang dasar, default EUR'
+      - nama: symbols
+        contoh: 'IDR,EUR'
+        wajib: false
+        keterangan: 'daftar mata uang target, pisah koma'
+    contohPath: '/v1/2024-03-01?base=USD&symbols=IDR,EUR'
+    minUkuranByte: 50
+
+  - id: konversi
+    method: GET
+    path: '/v1/latest?base={dari}&symbols={ke}'
+    deskripsi: 'Kurs satu mata uang ke satu mata uang lain, untuk konversi langsung.'
+    params:
+      - nama: dari
+        contoh: 'USD'
+        wajib: true
+        keterangan: 'kode mata uang asal'
+      - nama: ke
+        contoh: 'IDR'
+        wajib: true
+        keterangan: 'kode mata uang tujuan'
+    contohPath: '/v1/latest?base=USD&symbols=IDR'
+    minUkuranByte: 50

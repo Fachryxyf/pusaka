@@ -1,0 +1,46 @@
+slug: final-space-api
+nama: 'Final Space'
+kategori: hiburan
+deskripsi: Data tokoh serial animasi Final Space - status, spesies, gender, dan asal.
+developer:
+  nama: David Erbelding
+  profil: 'https://finalspaceapi.com/'
+dokumentasi: 'https://finalspaceapi.com/docs/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://finalspaceapi.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'finalspaceapi.com; Final Space milik pembuat/penyiarnya'
+  syaratUrl: 'https://finalspaceapi.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data waralaba adalah kekayaan intelektual pemiliknya.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: daftar
+    method: GET
+    path: '/api/v0/character?limit={batas}'
+    deskripsi: 'Daftar tokoh: name, status, species, gender, alias.'
+    params:
+      - nama: batas
+        contoh: '5'
+        wajib: true
+        keterangan: 'jumlah tokoh'
+    contohPath: '/api/v0/character?limit=5'
+    minUkuranByte: 200
+  - id: detail
+    method: GET
+    path: '/api/v0/character/{id}'
+    deskripsi: 'Detail satu tokoh menurut id.'
+    params:
+      - nama: id
+        contoh: '1'
+        wajib: true
+        keterangan: 'id tokoh'
+    contohPath: /api/v0/character/1
+    minUkuranByte: 100

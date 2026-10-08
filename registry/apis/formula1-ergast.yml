@@ -1,0 +1,46 @@
+slug: formula1-ergast
+nama: 'Formula 1 (Ergast)'
+kategori: hiburan
+deskripsi: Data historis Formula 1 - daftar pembalap dan konstruktor per musim.
+developer:
+  nama: Jolpica (penerus Ergast)
+  profil: 'https://github.com/jolpica/jolpica-f1'
+dokumentasi: 'https://api.jolpi.ca/ergast/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.jolpi.ca'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Jolpica-F1 (penerus Ergast Developer API)'
+  syaratUrl: 'https://api.jolpi.ca/ergast/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data olahraga; tidak ada pernyataan lisensi yang tegas. Formula 1 adalah merek dagang Formula One Group.'
+  batasAkses: 'Gratis tanpa API key (ada batas laju).'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: pembalap
+    method: GET
+    path: '/ergast/f1/{tahun}/drivers/?format=json'
+    deskripsi: 'Daftar pembalap pada satu musim: nama, kebangsaan, nomor.'
+    params:
+      - nama: tahun
+        contoh: '2023'
+        wajib: true
+        keterangan: 'tahun musim, mis. 2023'
+    contohPath: '/ergast/f1/2023/drivers/?format=json'
+    minUkuranByte: 300
+  - id: tim
+    method: GET
+    path: '/ergast/f1/{tahun}/constructors/?format=json'
+    deskripsi: 'Daftar konstruktor (tim) pada satu musim: nama, kebangsaan.'
+    params:
+      - nama: tahun
+        contoh: '2023'
+        wajib: true
+        keterangan: 'tahun musim, mis. 2023'
+    contohPath: '/ergast/f1/2023/constructors/?format=json'
+    minUkuranByte: 200

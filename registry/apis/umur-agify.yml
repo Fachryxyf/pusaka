@@ -1,0 +1,35 @@
+slug: umur-agify
+nama: 'Tebak Umur dari Nama'
+kategori: hiburan
+deskripsi: Memperkirakan umur rata-rata seseorang dari nama depannya.
+developer:
+  nama: agify.io
+  profil: 'https://agify.io'
+dokumentasi: 'https://agify.io/documentation'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.agify.io'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://agify.io/terms-of-use'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - model prediksi milik agify.io; lisensi data tidak dinyatakan terbuka.'
+  batasAkses: 'Tanpa API key: 100 permintaan/hari. Melebihi itu balas 429.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: tebak
+    method: GET
+    path: /
+    deskripsi: 'Perkiraan umur dari nama depan. Balas {"name","age","count"}.'
+    params:
+      - nama: name
+        contoh: 'budi'
+        wajib: true
+        keterangan: 'nama depan'
+    contohPath: '/?name=budi'
+    minUkuranByte: 15

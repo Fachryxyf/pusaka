@@ -1,0 +1,42 @@
+slug: gempa-global-usgs
+nama: 'Gempa Global (USGS)'
+kategori: cuaca
+deskripsi: Katalog gempa bumi seluruh dunia dari USGS, pelengkap global untuk data gempa BMKG yang khusus Indonesia.
+developer:
+  nama: USGS Earthquake Hazards Program
+  profil: 'https://www.usgs.gov'
+dokumentasi: 'https://earthquake.usgs.gov/fdsnws/event/1/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://earthquake.usgs.gov'
+mirror: false
+provenance:
+  lisensi: public-domain
+  sumberLisensi: 'https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits'
+  atribusiWajib: false
+  atribusi: 'Data gempa dari U.S. Geological Survey (domain publik)'
+  syaratUrl: 'https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh - karya lembaga pemerintah AS umumnya domain publik; USGS meminta sitasi, bukan melarang penyalinan.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: terkini
+    method: GET
+    path: '/fdsnws/event/1/query?format=geojson&limit={batas}&orderby=time'
+    deskripsi: 'Gempa terkini (GeoJSON FeatureCollection). Tiap fitur punya properties.mag, properties.place, properties.time (epoch ms).'
+    params:
+      - nama: batas
+        contoh: '10'
+        wajib: true
+        keterangan: 'jumlah gempa'
+    contohPath: '/fdsnws/event/1/query?format=geojson&limit=10&orderby=time'
+    minUkuranByte: 300
+  - id: besar
+    method: GET
+    path: '/fdsnws/event/1/query?format=geojson&minmagnitude=5&orderby=time&limit=10'
+    deskripsi: 'Gempa bermagnitudo >= 5 terbaru di seluruh dunia.'
+    params: []
+    contohPath: '/fdsnws/event/1/query?format=geojson&minmagnitude=5&orderby=time&limit=10'
+    minUkuranByte: 300

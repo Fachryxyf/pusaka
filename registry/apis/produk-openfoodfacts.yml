@@ -1,0 +1,39 @@
+slug: produk-openfoodfacts
+nama: 'Produk Makanan (Open Food Facts)'
+kategori: referensi
+deskripsi: Cari informasi produk makanan dari barcode - merek, kategori, komposisi, Nutri-Score - dari basis data terbuka Open Food Facts.
+developer:
+  nama: Open Food Facts
+  profil: 'https://world.openfoodfacts.org'
+dokumentasi: 'https://openfoodfacts.github.io/openfoodfacts-server/api/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://world.openfoodfacts.org'
+mirror: false
+provenance:
+  lisensi: ODbL-1.0
+  sumberLisensi: 'https://opendatacommons.org/licenses/odbl/1-0/'
+  atribusiWajib: true
+  atribusi: 'Data dari Open Food Facts, berlisensi Open Database License (ODbL)'
+  syaratUrl: 'https://world.openfoodfacts.org/terms-of-use'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh dengan berbagi-serupa - basis data Open Food Facts berlisensi ODbL; turunan basis data wajib memakai lisensi yang sama dan mencantumkan sumber.'
+  batasAkses: 'Endpoint produk terbuka untuk anonim; endpoint pencarian kini membatasi akses anonim. Minta User-Agent deskriptif.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: produk
+    method: GET
+    path: '/api/v2/product/{barcode}.json'
+    deskripsi: 'Data satu produk dari barcode (EAN/UPC). Pakai ?fields= untuk membatasi field agar response ringkas. Kode tidak ditemukan balas status 0.'
+    params:
+      - nama: barcode
+        contoh: '3017620422003'
+        wajib: true
+        keterangan: 'nomor barcode produk (EAN/UPC)'
+      - nama: fields
+        contoh: 'product_name,brands,nutriscore_grade,categories,quantity'
+        wajib: false
+        keterangan: 'daftar field yang dikembalikan, pisah koma'
+    contohPath: '/api/v2/product/3017620422003.json?fields=product_name,brands,nutriscore_grade,categories,quantity'
+    minUkuranByte: 100

@@ -1,0 +1,46 @@
+slug: digimon-digiapi
+nama: 'Digimon'
+kategori: hiburan
+deskripsi: Daftar dan profil Digimon - level, tipe, atribut, dan gambar.
+developer:
+  nama: Nic Robert H.
+  profil: 'https://github.com/MakotoKurauchi/digimon-api'
+dokumentasi: 'https://digi-api.com/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://digi-api.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'digi-api.com; Digimon milik Bandai'
+  syaratUrl: 'https://digi-api.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data waralaba adalah kekayaan intelektual Bandai.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: daftar
+    method: GET
+    path: '/api/v1/digimon?pageSize={batas}'
+    deskripsi: 'Daftar Digimon: id, name, href, image.'
+    params:
+      - nama: batas
+        contoh: '5'
+        wajib: true
+        keterangan: 'jumlah entri per halaman'
+    contohPath: '/api/v1/digimon?pageSize=5'
+    minUkuranByte: 150
+  - id: detail
+    method: GET
+    path: '/api/v1/digimon/{nama}'
+    deskripsi: 'Profil satu Digimon: level, tipe, atribut, gambar, deskripsi.'
+    params:
+      - nama: nama
+        contoh: 'agumon'
+        wajib: true
+        keterangan: 'nama Digimon (mis. agumon)'
+    contohPath: /api/v1/digimon/agumon
+    minUkuranByte: 100

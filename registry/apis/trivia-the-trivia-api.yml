@@ -1,0 +1,46 @@
+slug: trivia-the-trivia-api
+nama: 'Kuis Trivia'
+kategori: hiburan
+deskripsi: Soal trivia pilihan ganda dalam bahasa Inggris, acak atau per kategori.
+developer:
+  nama: Will Rowley
+  profil: 'https://the-trivia-api.com/'
+dokumentasi: 'https://the-trivia-api.com/docs/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://the-trivia-api.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'The Trivia API (the-trivia-api.com)'
+  syaratUrl: 'https://the-trivia-api.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: acak
+    method: GET
+    path: '/v2/questions?limit={batas}'
+    deskripsi: 'Soal trivia acak: category, question, correctAnswer, incorrectAnswers.'
+    params:
+      - nama: batas
+        contoh: '5'
+        wajib: true
+        keterangan: 'jumlah soal'
+    contohPath: '/v2/questions?limit=5'
+    minUkuranByte: 150
+  - id: kategori
+    method: GET
+    path: '/v2/questions?categories={kategori}&limit=5'
+    deskripsi: 'Soal trivia dari kategori tertentu.'
+    params:
+      - nama: kategori
+        contoh: 'science'
+        wajib: true
+        keterangan: 'mis. science, geography, history, music, sport_and_leisure'
+    contohPath: '/v2/questions?categories=science&limit=5'
+    minUkuranByte: 150

@@ -1,0 +1,31 @@
+slug: ip-saya-ipify
+nama: 'IP Saya (ipify)'
+kategori: referensi
+deskripsi: Mengembalikan alamat IP publik pemanggil. Sederhana, satu field.
+developer:
+  nama: Matt Pow
+  profil: 'https://github.com/rdegges/ipify-api'
+dokumentasi: 'https://www.ipify.org/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.ipify.org'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'ipify (ipify.org)'
+  syaratUrl: 'https://www.ipify.org/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - respons bergantung IP pemanggil; tidak masuk akal di-mirror.'
+  batasAkses: 'Gratis tanpa API key, tanpa batas permintaan yang disebut.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: ip
+    method: GET
+    path: '/?format=json'
+    deskripsi: 'Alamat IP publik pemanggil: {ip}.'
+    params: []
+    contohPath: '/?format=json'
+    minUkuranByte: 10

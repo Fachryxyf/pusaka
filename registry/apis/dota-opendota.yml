@@ -1,0 +1,38 @@
+slug: dota-opendota
+nama: 'Hero Dota 2 (OpenDota)'
+kategori: hiburan
+deskripsi: Data hero game Dota 2 - atribut utama, tipe serangan, peran, dan statistik dasar.
+developer:
+  nama: OpenDota
+  profil: 'https://www.opendota.com/'
+dokumentasi: 'https://docs.opendota.com/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.opendota.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'OpenDota; Dota 2 milik Valve'
+  syaratUrl: 'https://docs.opendota.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data game adalah kekayaan intelektual Valve.'
+  batasAkses: 'Gratis tanpa API key (ada batas laju; endpoint tertentu perlu key).'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: hero
+    method: GET
+    path: /api/heroes
+    deskripsi: 'Daftar hero: id, nama, atribut utama, tipe serangan, peran.'
+    params: []
+    contohPath: /api/heroes
+    minUkuranByte: 500
+  - id: statistik
+    method: GET
+    path: /api/heroStats
+    deskripsi: 'Statistik hero lengkap termasuk basis atribut dan gambar.'
+    params: []
+    contohPath: /api/heroStats
+    minUkuranByte: 1000

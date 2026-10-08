@@ -1,0 +1,46 @@
+slug: disney-api
+nama: 'Tokoh Disney'
+kategori: hiburan
+deskripsi: Data tokoh semesta Disney - film, serial, dan taman tempat mereka muncul.
+developer:
+  nama: Manu Coll
+  profil: 'https://disneyapi.dev/'
+dokumentasi: 'https://disneyapi.dev/docs/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.disneyapi.dev'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'disneyapi.dev; tokoh Disney milik The Walt Disney Company'
+  syaratUrl: 'https://disneyapi.dev/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data waralaba adalah kekayaan intelektual Disney.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: daftar
+    method: GET
+    path: '/character?pageSize={batas}'
+    deskripsi: 'Daftar tokoh: name, films, tvShows, parkAttractions, imageUrl.'
+    params:
+      - nama: batas
+        contoh: '5'
+        wajib: true
+        keterangan: 'jumlah tokoh per halaman'
+    contohPath: '/character?pageSize=5'
+    minUkuranByte: 200
+  - id: detail
+    method: GET
+    path: '/character/{id}'
+    deskripsi: 'Detail satu tokoh menurut id.'
+    params:
+      - nama: id
+        contoh: '112'
+        wajib: true
+        keterangan: 'id tokoh'
+    contohPath: /character/112
+    minUkuranByte: 100

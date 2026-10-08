@@ -1,0 +1,35 @@
+slug: geolokasi-ipapi
+nama: 'Geolokasi IP'
+kategori: lokasi
+deskripsi: Ubah alamat IP menjadi informasi lokasi - kota, negara, koordinat, zona waktu, dan operator jaringan.
+developer:
+  nama: ipapi.co
+  profil: 'https://ipapi.co'
+dokumentasi: 'https://ipapi.co/api/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://ipapi.co'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://ipapi.co/terms/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data geolokasi ipapi.co bersifat komersial dengan tier gratis terbatas; lisensi data tidak dinyatakan terbuka, hak salin tidak dipastikan.'
+  batasAkses: 'Tanpa API key: sekitar 1.000 permintaan/hari (30.000/bulan). Melebihi itu balas galat berbentuk JSON.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: lokasi
+    method: GET
+    path: '/{ip}/json/'
+    deskripsi: 'Geolokasi lengkap satu alamat IP dalam JSON. Kosongkan dengan /json/ untuk IP pemanggil (tapi di sini wajib isi IP).'
+    params:
+      - nama: ip
+        contoh: '8.8.8.8'
+        wajib: true
+        keterangan: 'alamat IPv4 atau IPv6'
+    contohPath: /8.8.8.8/json/
+    minUkuranByte: 150

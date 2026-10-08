@@ -1,0 +1,46 @@
+slug: star-wars-swapi
+nama: 'Star Wars (SWAPI)'
+kategori: hiburan
+deskripsi: Data semesta Star Wars - tokoh dan planet beserta ciri-cirinya.
+developer:
+  nama: Juan José Guerra Haba
+  profil: 'https://www.swapi.tech/'
+dokumentasi: 'https://www.swapi.tech/documentation'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://www.swapi.tech'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'swapi.tech; Star Wars milik Lucasfilm/Disney'
+  syaratUrl: 'https://www.swapi.tech/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data waralaba adalah kekayaan intelektual Lucasfilm.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: tokoh
+    method: GET
+    path: '/api/people/{id}'
+    deskripsi: 'Satu tokoh: name, height, mass, hair_color, birth_year, gender.'
+    params:
+      - nama: id
+        contoh: '1'
+        wajib: true
+        keterangan: 'id tokoh (mis. 1 = Luke Skywalker)'
+    contohPath: /api/people/1
+    minUkuranByte: 150
+  - id: planet
+    method: GET
+    path: '/api/planets/{id}'
+    deskripsi: 'Satu planet: name, climate, terrain, population, diameter.'
+    params:
+      - nama: id
+        contoh: '1'
+        wajib: true
+        keterangan: 'id planet (mis. 1 = Tatooine)'
+    contohPath: /api/planets/1
+    minUkuranByte: 150

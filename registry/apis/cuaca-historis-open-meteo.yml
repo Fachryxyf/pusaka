@@ -1,0 +1,55 @@
+slug: cuaca-historis-open-meteo
+nama: 'Cuaca Historis'
+kategori: cuaca
+deskripsi: Data cuaca masa lampau (reanalisis ERA5) untuk titik koordinat mana pun, tanpa API key.
+developer:
+  nama: Open-Meteo
+  profil: 'https://github.com/open-meteo'
+dokumentasi: 'https://open-meteo.com/en/docs/historical-weather-api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://archive-api.open-meteo.com'
+mirror: false
+provenance:
+  lisensi: CC-BY-4.0
+  sumberLisensi: 'https://open-meteo.com/en/terms'
+  atribusiWajib: true
+  atribusi: 'Data cuaca historis oleh Open-Meteo.com (CC BY 4.0), berbasis ERA5'
+  syaratUrl: 'https://open-meteo.com/en/terms'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh dengan atribusi - data API berlisensi CC BY 4.0.'
+  batasAkses: 'Gratis untuk penggunaan non-komersial tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: harian
+    method: GET
+    path: /v1/archive
+    deskripsi: 'Ringkasan cuaca harian pada rentang tanggal lampau. Pakai start_date, end_date (YYYY-MM-DD), dan daily=.'
+    params:
+      - nama: latitude
+        contoh: '-6.2'
+        wajib: true
+        keterangan: 'lintang titik'
+      - nama: longitude
+        contoh: '106.8'
+        wajib: true
+        keterangan: 'bujur titik'
+      - nama: start_date
+        contoh: '2025-01-01'
+        wajib: true
+        keterangan: 'tanggal awal YYYY-MM-DD'
+      - nama: end_date
+        contoh: '2025-01-03'
+        wajib: true
+        keterangan: 'tanggal akhir YYYY-MM-DD'
+      - nama: daily
+        contoh: 'temperature_2m_max,temperature_2m_min'
+        wajib: false
+        keterangan: 'variabel harian, pisah koma'
+      - nama: timezone
+        contoh: 'Asia/Jakarta'
+        wajib: false
+        keterangan: 'zona waktu IANA'
+    contohPath: '/v1/archive?latitude=-6.2&longitude=106.8&start_date=2025-01-01&end_date=2025-01-03&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FJakarta'
+    minUkuranByte: 150

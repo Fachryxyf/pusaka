@@ -1,0 +1,57 @@
+slug: data-jsonplaceholder
+nama: 'Data Contoh (JSONPlaceholder)'
+kategori: referensi
+deskripsi: Data REST palsu yang stabil - postingan, pengguna, komentar - untuk latihan fetch dan uji coba antarmuka tanpa menyiapkan backend.
+developer:
+  nama: Typicode
+  profil: 'https://github.com/typicode/jsonplaceholder'
+dokumentasi: 'https://jsonplaceholder.typicode.com/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://jsonplaceholder.typicode.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'JSONPlaceholder (Typicode)'
+  syaratUrl: 'https://jsonplaceholder.typicode.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data palsu untuk pengujian; tidak ada pernyataan lisensi yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: postingan
+    method: GET
+    path: '/posts/{id}'
+    deskripsi: 'Satu postingan palsu: userId, id, title, body.'
+    params:
+      - nama: id
+        contoh: '1'
+        wajib: true
+        keterangan: 'id postingan (1-100)'
+    contohPath: /posts/1
+    minUkuranByte: 100
+  - id: pengguna
+    method: GET
+    path: '/users/{id}'
+    deskripsi: 'Satu pengguna palsu: nama, email, alamat, perusahaan.'
+    params:
+      - nama: id
+        contoh: '1'
+        wajib: true
+        keterangan: 'id pengguna (1-10)'
+    contohPath: /users/1
+    minUkuranByte: 150
+  - id: postinganPengguna
+    method: GET
+    path: '/posts?userId={userId}'
+    deskripsi: 'Semua postingan milik satu pengguna.'
+    params:
+      - nama: userId
+        contoh: '1'
+        wajib: true
+        keterangan: 'id pengguna (1-10)'
+    contohPath: '/posts?userId=1'
+    minUkuranByte: 200

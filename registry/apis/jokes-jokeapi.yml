@@ -1,0 +1,42 @@
+slug: jokes-jokeapi
+nama: 'Lelucon (JokeAPI)'
+kategori: hiburan
+deskripsi: Lelucon acak dari berbagai kategori dengan mode aman (menyaring konten sensitif).
+developer:
+  nama: Sv443
+  profil: 'https://github.com/Sv443/JokeAPI'
+dokumentasi: 'https://jokeapi.dev/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://v2.jokeapi.dev'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://jokeapi.dev/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - kode API bersumber terbuka, tetapi lisensi kumpulan leluconnya tidak dinyatakan terbuka.'
+  batasAkses: 'Gratis tanpa API key: 120 permintaan/menit.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: lelucon
+    method: GET
+    path: '/joke/{kategori}?safe-mode&type=single'
+    deskripsi: 'Satu lelucon mode aman bertipe single. kategori = Any, Misc, Pun, Spooky, Christmas, dll.'
+    params:
+      - nama: kategori
+        contoh: 'Any'
+        wajib: true
+        keterangan: 'kategori lelucon atau Any'
+    contohPath: '/joke/Any?safe-mode&type=single'
+    minUkuranByte: 50
+  - id: kategori
+    method: GET
+    path: /categories
+    deskripsi: Daftar kategori lelucon yang tersedia.
+    params: []
+    contohPath: /categories
+    minUkuranByte: 100

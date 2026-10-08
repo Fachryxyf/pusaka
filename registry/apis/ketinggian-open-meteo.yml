@@ -1,0 +1,39 @@
+slug: ketinggian-open-meteo
+nama: 'Ketinggian Tanah (Elevasi)'
+kategori: lokasi
+deskripsi: Ketinggian permukaan tanah di atas permukaan laut untuk satu titik koordinat, tanpa API key.
+developer:
+  nama: Open-Meteo
+  profil: 'https://github.com/open-meteo'
+dokumentasi: 'https://open-meteo.com/en/docs/elevation-api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.open-meteo.com'
+mirror: false
+provenance:
+  lisensi: CC-BY-4.0
+  sumberLisensi: 'https://open-meteo.com/en/terms'
+  atribusiWajib: true
+  atribusi: 'Data elevasi oleh Open-Meteo.com (CC BY 4.0), berbasis Copernicus DEM'
+  syaratUrl: 'https://open-meteo.com/en/terms'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh dengan atribusi - data API berlisensi CC BY 4.0.'
+  batasAkses: 'Gratis untuk penggunaan non-komersial tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: titik
+    method: GET
+    path: /v1/elevation
+    deskripsi: 'Ketinggian (meter dpl) pada satu titik. Balas {"elevation":[nilai]}.'
+    params:
+      - nama: latitude
+        contoh: '-6.2'
+        wajib: true
+        keterangan: 'lintang titik'
+      - nama: longitude
+        contoh: '106.8'
+        wajib: true
+        keterangan: 'bujur titik'
+    contohPath: '/v1/elevation?latitude=-6.2&longitude=106.8'
+    minUkuranByte: 10

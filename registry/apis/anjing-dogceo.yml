@@ -1,0 +1,49 @@
+slug: anjing-dogceo
+nama: 'Gambar Anjing (Dog CEO)'
+kategori: hiburan
+deskripsi: Daftar ras anjing dan gambar acak dari Dog CEO, berbasis Stanford Dogs Dataset.
+developer:
+  nama: Dog CEO
+  profil: 'https://github.com/ElliottLandsborough/dog-ceo-api'
+dokumentasi: 'https://dog.ceo/dog-api/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://dog.ceo'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Gambar dari Dog CEO (dog.ceo), berbasis Stanford Dogs Dataset'
+  syaratUrl: 'https://dog.ceo/dog-api/about'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - kode API bersumber terbuka, tetapi gambar berasal dari Stanford Dogs Dataset yang ditujukan untuk riset; hak salin ulang tidak dipastikan.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: daftarRas
+    method: GET
+    path: /api/breeds/list/all
+    deskripsi: Daftar seluruh ras dan sub-rasnya dalam objek bersarang.
+    params: []
+    contohPath: /api/breeds/list/all
+    minUkuranByte: 500
+  - id: gambarAcak
+    method: GET
+    path: /api/breeds/image/random
+    deskripsi: Satu URL gambar anjing acak dari ras mana saja.
+    params: []
+    contohPath: /api/breeds/image/random
+    minUkuranByte: 40
+  - id: gambarRas
+    method: GET
+    path: '/api/breed/{ras}/images/random'
+    deskripsi: 'Satu URL gambar acak dari ras tertentu. ras = kunci dari endpoint daftarRas, mis. hound.'
+    params:
+      - nama: ras
+        contoh: 'hound'
+        wajib: true
+        keterangan: 'nama ras (kunci dari daftar ras)'
+    contohPath: /api/breed/hound/images/random
+    minUkuranByte: 40

@@ -1,0 +1,35 @@
+slug: anime-kitsu
+nama: 'Anime (Kitsu)'
+kategori: hiburan
+deskripsi: Cari judul anime di Kitsu - sinopsis, rating, jumlah episode, dan tanggal tayang.
+developer:
+  nama: Kitsu
+  profil: 'https://kitsu.docs.apiary.io/'
+dokumentasi: 'https://kitsu.docs.apiary.io/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://kitsu.io'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Kitsu (kitsu.io)'
+  syaratUrl: 'https://kitsu.docs.apiary.io/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - mengikuti standar JSON:API; lisensi data tidak dinyatakan tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: cari
+    method: GET
+    path: '/api/edge/anime?filter[text]={judul}&page[limit]=5'
+    deskripsi: 'Cari anime menurut teks: canonicalTitle, synopsis, averageRating, episodeCount.'
+    params:
+      - nama: judul
+        contoh: 'naruto'
+        wajib: true
+        keterangan: 'kata kunci judul anime'
+    contohPath: '/api/edge/anime?filter[text]=naruto&page[limit]=5'
+    minUkuranByte: 200

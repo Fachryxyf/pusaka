@@ -1,0 +1,46 @@
+slug: lelucon-bapak-dadjoke
+nama: 'Lelucon Bapak'
+kategori: hiburan
+deskripsi: Lelucon receh ala "dad joke" acak dalam bahasa Inggris. Perlu header Accept json; tanpa itu server membalas halaman HTML.
+developer:
+  nama: C653 Labs
+  profil: 'https://icanhazdadjoke.com/'
+dokumentasi: 'https://icanhazdadjoke.com/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://icanhazdadjoke.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'icanhazdadjoke.com (C653 Labs)'
+  syaratUrl: 'https://icanhazdadjoke.com/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi; respons acak sehingga tidak masuk akal di-mirror.'
+  batasAkses: 'Gratis tanpa API key. Wajib kirim header Accept: application/json.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: acak
+    method: GET
+    path: /
+    deskripsi: 'Satu lelucon acak: id, joke, status.'
+    params: []
+    headers:
+      Accept: application/json
+    contohPath: /
+    minUkuranByte: 40
+  - id: cari
+    method: GET
+    path: '/search?term={kata}&limit=5'
+    deskripsi: 'Cari lelucon yang mengandung kata kunci (maksimal 5 hasil).'
+    params:
+      - nama: kata
+        contoh: 'cat'
+        wajib: true
+        keterangan: 'kata kunci pencarian'
+    headers:
+      Accept: application/json
+    contohPath: '/search?term=cat&limit=5'
+    minUkuranByte: 40

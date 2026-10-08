@@ -1,0 +1,74 @@
+slug: cuaca-open-meteo
+nama: 'Cuaca Global (Open-Meteo)'
+kategori: cuaca
+deskripsi: Prakiraan cuaca untuk titik koordinat mana pun di dunia, tanpa API key. Pelengkap global untuk prakiraan BMKG yang khusus Indonesia.
+developer:
+  nama: Open-Meteo
+  profil: 'https://github.com/open-meteo'
+dokumentasi: 'https://open-meteo.com/en/docs'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.open-meteo.com'
+mirror: false
+provenance:
+  lisensi: CC-BY-4.0
+  sumberLisensi: 'https://open-meteo.com/en/terms'
+  atribusiWajib: true
+  atribusi: 'Data cuaca oleh Open-Meteo.com (CC BY 4.0)'
+  syaratUrl: 'https://open-meteo.com/en/terms'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh dengan atribusi - data API berlisensi CC BY 4.0. Catatan: kode server Open-Meteo berlisensi AGPL-3.0, tetapi itu lisensi perangkat lunak, bukan lisensi datanya.'
+  batasAkses: 'Gratis untuk penggunaan non-komersial, kira-kira 10.000 panggilan/hari tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: sekarang
+    method: GET
+    path: /v1/forecast
+    deskripsi: 'Kondisi cuaca saat ini pada satu koordinat. Pakai current= untuk memilih variabel dan timezone= untuk zona waktu lokal.'
+    params:
+      - nama: latitude
+        contoh: '-6.2'
+        wajib: true
+        keterangan: 'lintang titik'
+      - nama: longitude
+        contoh: '106.8'
+        wajib: true
+        keterangan: 'bujur titik'
+      - nama: current
+        contoh: 'temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m'
+        wajib: false
+        keterangan: 'daftar variabel saat ini, pisah koma'
+      - nama: timezone
+        contoh: 'Asia/Jakarta'
+        wajib: false
+        keterangan: 'zona waktu IANA; tanpa ini waktunya GMT'
+    contohPath: '/v1/forecast?latitude=-6.2&longitude=106.8&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=Asia%2FJakarta'
+    minUkuranByte: 150
+  - id: harian
+    method: GET
+    path: /v1/forecast
+    deskripsi: 'Prakiraan harian (suhu maksimum/minimum, akumulasi hujan). Pakai daily= dan forecast_days= untuk rentangnya.'
+    params:
+      - nama: latitude
+        contoh: '-6.2'
+        wajib: true
+        keterangan: 'lintang titik'
+      - nama: longitude
+        contoh: '106.8'
+        wajib: true
+        keterangan: 'bujur titik'
+      - nama: daily
+        contoh: 'temperature_2m_max,temperature_2m_min,precipitation_sum'
+        wajib: false
+        keterangan: 'daftar variabel harian, pisah koma'
+      - nama: forecast_days
+        contoh: '3'
+        wajib: false
+        keterangan: 'jumlah hari, 1 sampai 16'
+      - nama: timezone
+        contoh: 'Asia/Jakarta'
+        wajib: false
+        keterangan: 'zona waktu IANA; tanpa ini waktunya GMT'
+    contohPath: '/v1/forecast?latitude=-6.2&longitude=106.8&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=Asia%2FJakarta&forecast_days=3'
+    minUkuranByte: 150

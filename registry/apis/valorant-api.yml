@@ -1,0 +1,45 @@
+slug: valorant-api
+nama: 'Valorant'
+kategori: hiburan
+deskripsi: Data aset game Valorant - agen, peta, dan senjata beserta deskripsinya.
+developer:
+  nama: Project Blitz
+  profil: 'https://dash.valorant-api.com/'
+dokumentasi: 'https://dash.valorant-api.com/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://valorant-api.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'valorant-api.com; Valorant milik Riot Games'
+  syaratUrl: 'https://dash.valorant-api.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data game adalah kekayaan intelektual Riot Games.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: agen
+    method: GET
+    path: '/v1/agents?language=en-US'
+    deskripsi: 'Daftar agen: nama, peran, kemampuan, deskripsi.'
+    params: []
+    contohPath: '/v1/agents?language=en-US'
+    minUkuranByte: 500
+  - id: peta
+    method: GET
+    path: /v1/maps
+    deskripsi: 'Daftar peta: nama, koordinat, gambar.'
+    params: []
+    contohPath: /v1/maps
+    minUkuranByte: 300
+  - id: senjata
+    method: GET
+    path: '/v1/weapons?language=en-US'
+    deskripsi: 'Daftar senjata: nama, kategori, biaya, statistik.'
+    params: []
+    contohPath: '/v1/weapons?language=en-US'
+    minUkuranByte: 500

@@ -1,0 +1,54 @@
+slug: sejarah-wikipedia
+nama: 'Peristiwa Hari Ini dalam Sejarah'
+kategori: referensi
+deskripsi: Peristiwa penting yang terjadi pada tanggal tertentu sepanjang sejarah, dari Wikipedia (bahasa Inggris).
+developer:
+  nama: Wikimedia Foundation
+  profil: 'https://github.com/wikimedia'
+dokumentasi: 'https://en.wikipedia.org/api/rest_v1/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://en.wikipedia.org'
+mirror: false
+provenance:
+  lisensi: CC-BY-SA-4.0
+  sumberLisensi: 'https://en.wikipedia.org/wiki/Wikipedia:Copyrights'
+  atribusiWajib: true
+  atribusi: 'Teks dari Wikipedia bahasa Inggris, berlisensi CC BY-SA 4.0'
+  syaratUrl: 'https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use'
+  redistribusi: boleh
+  kebijakanMirror: 'Boleh dengan berbagi-serupa - teks Wikipedia berlisensi CC BY-SA 4.0. Catatan: feed On This Day hanya tersedia untuk sebagian bahasa, Indonesia belum didukung.'
+  batasAkses: 'REST API Wikimedia: wajib User-Agent deskriptif, ada batas laju. Tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: peristiwa
+    method: GET
+    path: '/api/rest_v1/feed/onthisday/events/{bulan}/{tanggal}'
+    deskripsi: 'Peristiwa pada tanggal tertentu. bulan & tanggal dua digit. Objek {events:[{year,text,pages}]}.'
+    params:
+      - nama: bulan
+        contoh: '10'
+        wajib: true
+        keterangan: 'bulan dua digit (01-12)'
+      - nama: tanggal
+        contoh: '07'
+        wajib: true
+        keterangan: 'tanggal dua digit (01-31)'
+    contohPath: /api/rest_v1/feed/onthisday/events/10/07
+    minUkuranByte: 1000
+  - id: pilihan
+    method: GET
+    path: '/api/rest_v1/feed/onthisday/selected/{bulan}/{tanggal}'
+    deskripsi: 'Peristiwa pilihan/paling menonjol pada tanggal tertentu.'
+    params:
+      - nama: bulan
+        contoh: '10'
+        wajib: true
+        keterangan: 'bulan dua digit (01-12)'
+      - nama: tanggal
+        contoh: '07'
+        wajib: true
+        keterangan: 'tanggal dua digit (01-31)'
+    contohPath: /api/rest_v1/feed/onthisday/selected/10/07
+    minUkuranByte: 1000

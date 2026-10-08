@@ -1,0 +1,42 @@
+slug: game-diskon-cheapshark
+nama: 'Diskon Game PC (CheapShark)'
+kategori: hiburan
+deskripsi: Penawaran dan harga game PC dari banyak toko digital, plus daftar tokonya.
+developer:
+  nama: CheapShark
+  profil: 'https://www.cheapshark.com/'
+dokumentasi: 'https://apidocs.cheapshark.com/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://www.cheapshark.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'CheapShark (cheapshark.com)'
+  syaratUrl: 'https://apidocs.cheapshark.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: penawaran
+    method: GET
+    path: '/api/1.0/deals?pageSize={batas}'
+    deskripsi: 'Daftar penawaran: judul, harga normal & diskon, toko, skor Metacritic.'
+    params:
+      - nama: batas
+        contoh: '10'
+        wajib: true
+        keterangan: 'jumlah penawaran per halaman'
+    contohPath: '/api/1.0/deals?pageSize=10'
+    minUkuranByte: 300
+  - id: toko
+    method: GET
+    path: /api/1.0/stores
+    deskripsi: 'Daftar toko digital yang dilacak: storeID, nama, status, logo.'
+    params: []
+    contohPath: /api/1.0/stores
+    minUkuranByte: 200

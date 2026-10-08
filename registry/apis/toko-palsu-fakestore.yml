@@ -1,0 +1,53 @@
+slug: toko-palsu-fakestore
+nama: 'Toko Palsu (Fake Store)'
+kategori: referensi
+deskripsi: Katalog produk e-commerce palsu untuk uji coba keranjang belanja dan tata letak toko. Lengkap dengan harga, kategori, gambar, dan rating.
+developer:
+  nama: keikaavousi
+  profil: 'https://github.com/keikaavousi/fake-store-api'
+dokumentasi: 'https://fakestoreapi.com/docs'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://fakestoreapi.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Fake Store API (fakestoreapi.com)'
+  syaratUrl: 'https://fakestoreapi.com/docs'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - data palsu untuk pengujian; tidak ada pernyataan lisensi yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: produk
+    method: GET
+    path: '/products?limit={batas}'
+    deskripsi: 'Daftar produk palsu: judul, harga, deskripsi, kategori, gambar, rating.'
+    params:
+      - nama: batas
+        contoh: '5'
+        wajib: true
+        keterangan: 'jumlah produk yang diambil'
+    contohPath: '/products?limit=5'
+    minUkuranByte: 200
+  - id: detail
+    method: GET
+    path: '/products/{id}'
+    deskripsi: 'Detail satu produk menurut id.'
+    params:
+      - nama: id
+        contoh: '1'
+        wajib: true
+        keterangan: 'id produk (1-20)'
+    contohPath: /products/1
+    minUkuranByte: 100
+  - id: kategori
+    method: GET
+    path: /products/categories
+    deskripsi: 'Daftar nama kategori produk yang tersedia.'
+    params: []
+    contohPath: /products/categories
+    minUkuranByte: 30

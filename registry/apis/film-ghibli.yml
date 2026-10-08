@@ -1,0 +1,42 @@
+slug: film-ghibli
+nama: 'Film Studio Ghibli'
+kategori: hiburan
+deskripsi: Daftar film Studio Ghibli beserta sutradara, tahun rilis, dan ringkasannya.
+developer:
+  nama: Studio Ghibli API
+  profil: 'https://github.com/janaipakos/ghibliapi'
+dokumentasi: 'https://ghibliapi.vercel.app/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://ghibliapi.vercel.app'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: null
+  syaratUrl: 'https://ghibliapi.vercel.app/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - API bersumber terbuka, tetapi film dan datanya adalah kekayaan intelektual Studio Ghibli.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-07'
+endpoints:
+  - id: daftar
+    method: GET
+    path: '/films?fields=id,title,original_title,director,release_date,rt_score'
+    deskripsi: 'Daftar film. Array objek film.'
+    params: []
+    contohPath: '/films?fields=id,title,original_title,director,release_date,rt_score'
+    minUkuranByte: 300
+  - id: detail
+    method: GET
+    path: '/films/{id}'
+    deskripsi: 'Detail satu film berdasarkan id (UUID).'
+    params:
+      - nama: id
+        contoh: '2baf70d1-42bb-4437-b551-e5fed5a87abe'
+        wajib: true
+        keterangan: 'UUID film'
+    contohPath: /films/2baf70d1-42bb-4437-b551-e5fed5a87abe
+    minUkuranByte: 100
