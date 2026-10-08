@@ -1,6 +1,8 @@
 // T3.3 & T3.4 kriteria selesai. Tanpa jaringan — yang diuji lib/status.ts terhadap
 // berkas status.json yang sungguh ada, plus perilaku saat satu endpoint dipaksa gagal.
 import assert from 'node:assert/strict'
+import { join } from 'node:path'
+import { statSync } from 'node:fs'
 import { muatStatus, petaKesehatan, rentetanGagal, ringkasApi, type StatusApi } from '@/lib/status'
 import { muatSemuaApi } from '@/lib/registry'
 import type { Catatan } from '@/lib/probe'
@@ -160,6 +162,13 @@ tes('endpoint pantauUmur:false tercatat null tapi tetap ok (Chuck Norris)', () =
   const akhir = st?.endpoints.find((e) => e.endpointId === 'acak')?.catatan.at(-1)
   assert.equal(akhir?.ok, true)
   assert.equal(akhir?.umurDataHari ?? null, null, 'created_at lelucon bukan kesegaran data')
+})
+
+tes('ukuran status.json di bawah anggaran 12 MB', () => {
+  // Anggaran: 233 endpoint × 200 titik × ±217 byte ≈ 10 MB terburuk. Kalau tes
+  // ini merah, batas SIMPAN_HARI/BATAS_CATATAN di scripts/probe.ts jebol.
+  const byte = statSync(join(process.cwd(), 'public', 'status.json')).size
+  assert.ok(byte < 12_000_000, `status.json ${(byte / 1e6).toFixed(1)} MB melebihi anggaran`)
 })
 
 console.log(`\n${lolos} tes lolos.`)
