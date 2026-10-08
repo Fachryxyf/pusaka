@@ -1,0 +1,38 @@
+slug: literatur-inspire
+nama: 'Fisika Energi Tinggi (INSPIRE)'
+kategori: referensi
+deskripsi: 'Literatur fisika energi tinggi: sitasi, penulis, afiliasi.'
+developer:
+  nama: INSPIRE-HEP
+  profil: 'https://inspirehep.net/'
+dokumentasi: 'https://github.com/inspirehep/rest-api-doc'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://inspirehep.net'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'INSPIRE-HEP'
+  syaratUrl: 'https://github.com/inspirehep/rest-api-doc'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: cari
+    method: GET
+    path: '/api/literature?q={q}&size=3'
+    deskripsi: 'Cari literatur menurut kata kunci.'
+    params:
+      - nama: q
+        contoh: 'higgs'
+        wajib: true
+        keterangan: 'kata kunci'
+
+    contohPath: '/api/literature?q=higgs&size=3'
+    pantauUmur: false
+    minUkuranByte: 5000

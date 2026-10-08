@@ -1,0 +1,37 @@
+slug: wiki-runescape
+nama: 'Wiki RuneScape'
+kategori: hiburan
+deskripsi: 'Pencarian artikel wiki RuneScape dan Old School.'
+developer:
+  nama: RuneScape Wiki
+  profil: 'https://runescape.wiki/'
+dokumentasi: 'https://runescape.wiki/w/Application_programming_interface'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://runescape.wiki'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'RuneScape Wiki'
+  syaratUrl: 'https://runescape.wiki/w/Application_programming_interface'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: cari
+    method: GET
+    path: '/api.php?action=query&list=search&srsearch={kata}&format=json&srlimit=3'
+    deskripsi: 'Cari artikel menurut kata kunci.'
+    params:
+      - nama: kata
+        contoh: 'dragon'
+        wajib: true
+        keterangan: 'kata kunci'
+
+    contohPath: '/api.php?action=query&list=search&srsearch=dragon&format=json&srlimit=3'
+    minUkuranByte: 200

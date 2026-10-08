@@ -1,0 +1,49 @@
+slug: quran-qurancloud
+nama: 'Quran Cloud'
+kategori: agama-islam
+deskripsi: 'Ayat, surah, dan juz Al-Quran dengan banyak edisi.'
+developer:
+  nama: Quran Cloud
+  profil: 'https://alquran.cloud/'
+dokumentasi: 'https://alquran.cloud/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.alquran.cloud'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Quran Cloud'
+  syaratUrl: 'https://alquran.cloud/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: indonesia
+endpoints:
+  - id: ayat
+    method: GET
+    path: '/v1/ayah/{ref}/editions/quran-uthmani,en-sahih'
+    deskripsi: 'Satu ayat dua edisi (Arab + Inggris).'
+    params:
+      - nama: ref
+        contoh: '2:255'
+        wajib: true
+        keterangan: 'mis. 2:255'
+
+    contohPath: '/v1/ayah/2:255/editions/quran-uthmani,en-sahih'
+    minUkuranByte: 1000
+  - id: surah
+    method: GET
+    path: '/v1/surah/{nomor}/quran-uthmani'
+    deskripsi: 'Satu surah penuh edisi Utsmani.'
+    params:
+      - nama: nomor
+        contoh: '114'
+        wajib: true
+        keterangan: '1-114'
+
+    contohPath: '/v1/surah/114/quran-uthmani'
+    minUkuranByte: 500

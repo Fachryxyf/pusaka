@@ -1,0 +1,37 @@
+slug: game-gw2
+nama: 'Guild Wars 2'
+kategori: hiburan
+deskripsi: 'Data resmi Guild Wars 2: benda, harga, resep.'
+developer:
+  nama: ArenaNet
+  profil: 'https://www.guildwars2.com/'
+dokumentasi: 'https://wiki.guildwars2.com/wiki/API'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.guildwars2.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Guild Wars 2 API (ArenaNet)'
+  syaratUrl: 'https://wiki.guildwars2.com/wiki/API'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: benda
+    method: GET
+    path: '/v2/items?ids={ids}'
+    deskripsi: 'Detail benda menurut id. '
+    params:
+      - nama: ids
+        contoh: '15'
+        wajib: true
+        keterangan: 'id benda, koma untuk banyak'
+
+    contohPath: '/v2/items?ids=15'
+    minUkuranByte: 300

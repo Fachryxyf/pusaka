@@ -1,0 +1,32 @@
+slug: makan-racion
+nama: 'Resep Racion'
+kategori: hiburan
+deskripsi: 'Resep mingguan beserta harga belanja 22 negara.'
+developer:
+  nama: Racion
+  profil: 'https://racion.app/'
+dokumentasi: 'https://racion.app/developers'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://racion.app'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Racion'
+  syaratUrl: 'https://racion.app/developers'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: resep
+    method: GET
+    path: '/api/recipes'
+    deskripsi: 'Daftar resep: judul, slot, waktu.'
+    params: []
+    contohPath: '/api/recipes'
+    minUkuranByte: 5000

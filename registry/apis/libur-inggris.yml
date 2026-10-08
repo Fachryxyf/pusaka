@@ -1,0 +1,32 @@
+slug: libur-inggris
+nama: 'Hari Libur Inggris'
+kategori: kalender
+deskripsi: 'Hari libur bank Inggris, Skotlandia, Irlandia Utara.'
+developer:
+  nama: GOV.UK
+  profil: 'https://www.gov.uk/'
+dokumentasi: 'https://www.gov.uk/bank-holidays.json'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://www.gov.uk'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'GOV.UK'
+  syaratUrl: 'https://www.gov.uk/bank-holidays.json'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: daftar
+    method: GET
+    path: '/bank-holidays.json'
+    deskripsi: 'Seluruh divisi dan acaranya.'
+    params: []
+    contohPath: '/bank-holidays.json'
+    minUkuranByte: 3000

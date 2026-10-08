@@ -1,0 +1,32 @@
+slug: meta-apisguru
+nama: 'Direktori API (APIs.guru)'
+kategori: referensi
+deskripsi: 'Metrik direktori spesifikasi OpenAPI publik.'
+developer:
+  nama: APIs.guru
+  profil: 'https://apis.guru/'
+dokumentasi: 'https://apis.guru/api-doc/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.apis.guru'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'APIs.guru'
+  syaratUrl: 'https://apis.guru/api-doc/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: metrik
+    method: GET
+    path: '/v2/metrics.json'
+    deskripsi: 'Jumlah API dan versi terdaftar.'
+    params: []
+    contohPath: '/v2/metrics.json'
+    minUkuranByte: 400

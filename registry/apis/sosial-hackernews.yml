@@ -1,0 +1,44 @@
+slug: sosial-hackernews
+nama: 'Hacker News'
+kategori: berita
+deskripsi: 'Cerita teratas dan butir forum Hacker News.'
+developer:
+  nama: Y Combinator
+  profil: 'https://news.ycombinator.com/'
+dokumentasi: 'https://github.com/HackerNews/API'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://hacker-news.firebaseio.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Hacker News API'
+  syaratUrl: 'https://github.com/HackerNews/API'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: teratas
+    method: GET
+    path: '/v0/topstories.json'
+    deskripsi: 'ID cerita teratas saat ini.'
+    params: []
+    contohPath: '/v0/topstories.json'
+    minUkuranByte: 1000
+  - id: butir
+    method: GET
+    path: '/v0/item/{id}.json'
+    deskripsi: 'Satu butir: judul, penulis, komentar.'
+    params:
+      - nama: id
+        contoh: '8863'
+        wajib: true
+        keterangan: 'id butir'
+
+    contohPath: '/v0/item/8863.json'
+    minUkuranByte: 150

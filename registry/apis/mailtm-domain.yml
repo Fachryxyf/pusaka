@@ -1,0 +1,37 @@
+slug: mailtm-domain
+nama: 'Domain Mail.TM'
+kategori: referensi
+deskripsi: 'Daftar domain email sementara Mail.TM.'
+developer:
+  nama: Mail.TM
+  profil: 'https://docs.mail.tm/'
+dokumentasi: 'https://docs.mail.tm/'
+upstreamName: null
+auth: none
+cors: none
+baseUrl: 'https://api.mail.tm'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Mail.TM'
+  syaratUrl: 'https://docs.mail.tm/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: domain
+    method: GET
+    path: '/domains?page={hal}'
+    deskripsi: 'Domain yang tersedia.'
+    params:
+      - nama: hal
+        contoh: '1'
+        wajib: true
+        keterangan: 'halaman'
+
+    contohPath: '/domains?page=1'
+    minUkuranByte: 150

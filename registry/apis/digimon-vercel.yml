@@ -1,0 +1,32 @@
+slug: digimon-vercel
+nama: 'Digimon (Vercel)'
+kategori: hiburan
+deskripsi: 'Daftar Digimon: nama, level, dan gambar.'
+developer:
+  nama: Digimon API
+  profil: 'https://digimon-api.vercel.app/'
+dokumentasi: 'https://digimon-api.vercel.app/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://digimon-api.vercel.app'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'digimon-api (Vercel)'
+  syaratUrl: 'https://digimon-api.vercel.app/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: daftar
+    method: GET
+    path: '/api/digimon'
+    deskripsi: 'Daftar Digimon: nama, level, gambar.'
+    params: []
+    contohPath: '/api/digimon'
+    minUkuranByte: 3000

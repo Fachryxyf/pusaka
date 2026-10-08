@@ -1,0 +1,37 @@
+slug: makanan-bacon
+nama: 'Kalimat Daging (Bacon Ipsum)'
+kategori: hiburan
+deskripsi: 'Pembangkit teks plasebo rasa daging untuk mockup.'
+developer:
+  nama: Bacon Ipsum
+  profil: 'https://baconipsum.com/'
+dokumentasi: 'https://baconipsum.com/json-api/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://baconipsum.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Bacon Ipsum'
+  syaratUrl: 'https://baconipsum.com/json-api/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: acak
+    method: GET
+    path: '/api/?type={jenis}&paras=2'
+    deskripsi: 'Dua paragraf teks plasebo.'
+    params:
+      - nama: jenis
+        contoh: 'all-meat'
+        wajib: true
+        keterangan: 'all-meat atau meat-and-filler'
+
+    contohPath: '/api/?type=all-meat&paras=2'
+    minUkuranByte: 200

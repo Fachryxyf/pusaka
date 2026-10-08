@@ -1,0 +1,37 @@
+slug: game-mcsrv
+nama: 'Status Server Minecraft'
+kategori: hiburan
+deskripsi: 'Status server Minecraft Java/Bedrock: online, pemain, versi, MOTD.'
+developer:
+  nama: mcsrvstat
+  profil: 'https://api.mcsrvstat.us/'
+dokumentasi: 'https://api.mcsrvstat.us/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.mcsrvstat.us'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'mcsrvstat.us'
+  syaratUrl: 'https://api.mcsrvstat.us/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: server
+    method: GET
+    path: '/3/{alamat}'
+    deskripsi: 'Status satu server menurut alamat.'
+    params:
+      - nama: alamat
+        contoh: 'hypixel.net'
+        wajib: true
+        keterangan: 'alamat server'
+
+    contohPath: '/3/hypixel.net'
+    minUkuranByte: 200

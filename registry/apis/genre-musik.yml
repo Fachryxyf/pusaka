@@ -1,0 +1,32 @@
+slug: genre-musik
+nama: 'Genre Musik Acak'
+kategori: hiburan
+deskripsi: 'Satu nama genre musik acak tiap panggil.'
+developer:
+  nama: Binary Jazz
+  profil: 'https://binaryjazz.us/'
+dokumentasi: 'https://binaryjazz.us/genrenator-api/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://binaryjazz.us'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Genrenator (Binary Jazz)'
+  syaratUrl: 'https://binaryjazz.us/genrenator-api/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: acak
+    method: GET
+    path: '/wp-json/genrenator/v1/genre/'
+    deskripsi: 'Satu genre acak.'
+    params: []
+    contohPath: '/wp-json/genrenator/v1/genre/'
+    minUkuranByte: 10

@@ -15,17 +15,17 @@
 | [`BACKLOG-API.md`](./BACKLOG-API.md) | Inventaris 151 API, bertingkat menurut kesiapan | Tahap 7, dan tiap kali nambah API |
 | `TASKS.md` (ini) | Urutan pekerjaan + kriteria selesai | Terus-menerus |
 
-## Status per 2026-10-08
+## Status per 2026-10-08 (sapu total)
 
 | Tahap | Keadaan |
 |---|---|
 | 1 — Fondasi | **selesai** |
 | 2 — Muka awam | **selesai**, 16 alat (target 6) |
-| 3 — Probe & status | **selesai**, 233 endpoint diprobe tiap 6 jam |
+| 3 — Probe & status | **selesai**, 388 endpoint diprobe tiap 6 jam |
 | 4 — Muka developer | **selesai**, katalog + dokumentasi tergenerate + playground |
 | 5 — Proxy & mirror | **selesai sejauh yang mungkin.** Mirror jalan; proxy **DITUTUP** karena hosting tidak dipindah |
 | 6 — Sync & kontributor | sebagian: dokumen & berkas kontributor **selesai** (T6.3), sinkronisasi otomatis belum (T6.1, T6.2) |
-| 7 — Ekspansi ke 151 API | sebagian: 119 API terdaftar (19 warisan inventaris + 100 global), 39 tier C perlu riset manual |
+| 7 — Ekspansi ke 151 API | sebagian: 251 API terdaftar (28 asal Indonesia + 223 global; Tier C selesai diriset: 7 masuk, sisanya gugur tercatat di REFERENCE.md) |
 
 Angka yang hidup ada di [`status.json`](https://pusaka.fachryxyf.com/status.json), bukan di
 dokumen ini. Kalau keduanya berbeda, yang benar `status.json`.

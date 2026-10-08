@@ -1,0 +1,39 @@
+slug: tas-birkin
+nama: 'Indeks Birkin'
+kategori: referensi
+deskripsi: 'Indeks pasar resale Hermes: inventaris, lelang, berita.'
+developer:
+  nama: BirkinBagStock
+  profil: 'https://birkinbagstock.com/'
+dokumentasi: 'https://birkinbagstock.com/.well-known/openapi.json'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://birkinbagstock.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'BirkinBagStock'
+  syaratUrl: 'https://birkinbagstock.com/.well-known/openapi.json'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: inventaris
+    method: GET
+    path: '/api/v1/inventory'
+    deskripsi: 'Daftar barang resale.'
+    params: []
+    contohPath: '/api/v1/inventory'
+    minUkuranByte: 20000
+  - id: berita
+    method: GET
+    path: '/api/v1/news'
+    deskripsi: 'Berita pasar resale.'
+    params: []
+    contohPath: '/api/v1/news'
+    minUkuranByte: 5000

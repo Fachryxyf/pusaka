@@ -1,0 +1,32 @@
+slug: polisi-inggris
+nama: 'Kepolisian Inggris'
+kategori: referensi
+deskripsi: 'Kesatuan kepolisian Inggris beserta datanya.'
+developer:
+  nama: UK Police
+  profil: 'https://data.police.uk/'
+dokumentasi: 'https://data.police.uk/docs/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://data.police.uk'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'data.police.uk'
+  syaratUrl: 'https://data.police.uk/docs/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: kesatuan
+    method: GET
+    path: '/api/forces'
+    deskripsi: 'Daftar kesatuan kepolisian.'
+    params: []
+    contohPath: '/api/forces'
+    minUkuranByte: 1000

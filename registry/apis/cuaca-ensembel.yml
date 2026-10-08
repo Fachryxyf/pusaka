@@ -1,0 +1,45 @@
+slug: cuaca-ensembel
+nama: 'Ensembel Cuaca (Open-Meteo)'
+kategori: cuaca
+deskripsi: 'Ramalan ensembel multi-model Open-Meteo per titik.'
+developer:
+  nama: Open-Meteo
+  profil: 'https://open-meteo.com/'
+dokumentasi: 'https://open-meteo.com/en/docs/ensemble-api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://ensemble-api.open-meteo.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Open-Meteo Ensemble'
+  syaratUrl: 'https://open-meteo.com/en/docs/ensemble-api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: ramalan
+    method: GET
+    path: '/v1/ensemble?latitude={lat}&longitude={lon}&hourly=temperature_2m&models={model}&forecast_days=3'
+    deskripsi: 'Suhu per jam dari satu model ensembel.'
+    params:
+      - nama: lat
+        contoh: '-6.2'
+        wajib: true
+        keterangan: 'lintang'
+      - nama: lon
+        contoh: '106.8'
+        wajib: true
+        keterangan: 'bujur'
+      - nama: model
+        contoh: 'icon_seamless'
+        wajib: true
+        keterangan: 'nama model'
+
+    contohPath: '/v1/ensemble?latitude=-6.2&longitude=106.8&hourly=temperature_2m&models=icon_seamless&forecast_days=3'
+    minUkuranByte: 5000

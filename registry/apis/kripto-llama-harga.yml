@@ -1,0 +1,37 @@
+slug: kripto-llama-harga
+nama: 'Harga Kripto (DefiLlama)'
+kategori: finansial
+deskripsi: 'Harga koin dari agregator DefiLlama.'
+developer:
+  nama: DefiLlama
+  profil: 'https://defillama.com/'
+dokumentasi: 'https://defillama.com/docs/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://coins.llama.fi'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'DefiLlama Coins'
+  syaratUrl: 'https://defillama.com/docs/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: harga
+    method: GET
+    path: '/prices/current/{koin}'
+    deskripsi: 'Harga satu koin saat ini.'
+    params:
+      - nama: koin
+        contoh: 'coingecko:bitcoin'
+        wajib: true
+        keterangan: 'id koin'
+
+    contohPath: '/prices/current/coingecko:bitcoin'
+    minUkuranByte: 50

@@ -1,0 +1,32 @@
+slug: kurs-fulus
+nama: 'Kurs Fulusly'
+kategori: finansial
+deskripsi: 'Kurs 144 mata uang plus riwayat harian.'
+developer:
+  nama: Fulusly
+  profil: 'https://fulusly.soft9.us/'
+dokumentasi: 'https://fulusly.soft9.us/developers'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://fulusly.soft9.us'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Fulusly'
+  syaratUrl: 'https://fulusly.soft9.us/developers'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: kurs
+    method: GET
+    path: '/api/rates'
+    deskripsi: 'Seluruh kurs terhadap USD.'
+    params: []
+    contohPath: '/api/rates'
+    minUkuranByte: 1000

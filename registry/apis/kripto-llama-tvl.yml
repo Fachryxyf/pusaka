@@ -1,0 +1,32 @@
+slug: kripto-llama-tvl
+nama: 'TVL DeFi (DefiLlama)'
+kategori: finansial
+deskripsi: 'Total nilai terkunci DeFi per rantai, terbuka dan transparan.'
+developer:
+  nama: DefiLlama
+  profil: 'https://defillama.com/'
+dokumentasi: 'https://defillama.com/docs/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.llama.fi'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'DefiLlama'
+  syaratUrl: 'https://defillama.com/docs/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: rantai
+    method: GET
+    path: '/v2/chains'
+    deskripsi: 'TVL tiap rantai.'
+    params: []
+    contohPath: '/v2/chains'
+    minUkuranByte: 5000

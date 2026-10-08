@@ -1,0 +1,32 @@
+slug: kerja-kurator
+nama: 'Lowongan Museum'
+kategori: referensi
+deskripsi: 'Lowongan museum dan galeri dari 400+ institusi.'
+developer:
+  nama: CuratorSearch
+  profil: 'https://curatorsearch.com/'
+dokumentasi: 'https://curatorsearch.com/developers'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://curatorsearch.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'CuratorSearch'
+  syaratUrl: 'https://curatorsearch.com/developers'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: lowongan
+    method: GET
+    path: '/api/jobs'
+    deskripsi: 'Lowongan kuratorial terbaru.'
+    params: []
+    contohPath: '/api/jobs'
+    minUkuranByte: 1000

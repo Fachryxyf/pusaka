@@ -1,0 +1,37 @@
+slug: http-postmanecho
+nama: 'Gema HTTP'
+kategori: referensi
+deskripsi: 'Memantulkan permintaan untuk men-debug klien HTTP.'
+developer:
+  nama: Postman
+  profil: 'https://www.postman-echo.com/'
+dokumentasi: 'https://www.postman-echo.com/'
+upstreamName: null
+auth: none
+cors: none
+baseUrl: 'https://postman-echo.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Postman Echo'
+  syaratUrl: 'https://www.postman-echo.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: gema
+    method: GET
+    path: '/get?contoh={nilai}'
+    deskripsi: 'Pantulkan query dan header pemanggil.'
+    params:
+      - nama: nilai
+        contoh: '1'
+        wajib: true
+        keterangan: 'nilai bebas'
+
+    contohPath: '/get?contoh=1'
+    minUkuranByte: 100

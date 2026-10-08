@@ -1,0 +1,37 @@
+slug: game-playerdb
+nama: 'Pemain Minecraft (PlayerDB)'
+kategori: hiburan
+deskripsi: 'Cari pemain Minecraft menurut nama: UUID dan avatar.'
+developer:
+  nama: PlayerDB
+  profil: 'https://playerdb.co/'
+dokumentasi: 'https://playerdb.co/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://playerdb.co'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'PlayerDB'
+  syaratUrl: 'https://playerdb.co/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: pemain
+    method: GET
+    path: '/api/player/minecraft/{nama}'
+    deskripsi: 'Profil pemain: username, UUID, avatar.'
+    params:
+      - nama: nama
+        contoh: 'Notch'
+        wajib: true
+        keterangan: 'nama pemain'
+
+    contohPath: '/api/player/minecraft/Notch'
+    minUkuranByte: 500

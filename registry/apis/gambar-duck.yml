@@ -1,0 +1,32 @@
+slug: gambar-duck
+nama: 'Bebek Acak'
+kategori: hiburan
+deskripsi: 'Satu gambar bebek acak.'
+developer:
+  nama: RandomDuck
+  profil: 'https://random-d.uk/'
+dokumentasi: 'https://random-d.uk/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://random-d.uk'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'RandomDuck'
+  syaratUrl: 'https://random-d.uk/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: acak
+    method: GET
+    path: '/api/random'
+    deskripsi: 'Satu bebek acak: url.'
+    params: []
+    contohPath: '/api/random'
+    minUkuranByte: 30

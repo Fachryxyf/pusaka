@@ -1,0 +1,37 @@
+slug: f1-openliga
+nama: 'Bundesliga (OpenLigaDB)'
+kategori: hiburan
+deskripsi: 'Hasil liga sepak bola (termasuk Bundesliga) hasil urun daya.'
+developer:
+  nama: OpenLigaDB
+  profil: 'https://www.openligadb.de/'
+dokumentasi: 'https://www.openligadb.de/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.openligadb.de'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'OpenLigaDB'
+  syaratUrl: 'https://www.openligadb.de/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: berjalan
+    method: GET
+    path: '/getcurrentgroup/{liga}'
+    deskripsi: 'Pekan berjalan satu liga.'
+    params:
+      - nama: liga
+        contoh: 'bl1'
+        wajib: true
+        keterangan: 'kode liga (mis. bl1)'
+
+    contohPath: '/getcurrentgroup/bl1'
+    minUkuranByte: 30

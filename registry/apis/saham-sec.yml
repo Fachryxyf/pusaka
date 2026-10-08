@@ -1,0 +1,37 @@
+slug: saham-sec
+nama: 'Pengajuan SEC'
+kategori: finansial
+deskripsi: 'Pengajuan perusahaan publik AS dari arsip SEC EDGAR.'
+developer:
+  nama: SEC
+  profil: 'https://www.sec.gov/'
+dokumentasi: 'https://www.sec.gov/edgar/sec-api-documentation'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://data.sec.gov'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'SEC EDGAR'
+  syaratUrl: 'https://www.sec.gov/edgar/sec-api-documentation'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: pengajuan
+    method: GET
+    path: '/submissions/CIK{nator}.json'
+    deskripsi: 'Arsip pengajuan satu emiten.'
+    params:
+      - nama: nator
+        contoh: '0000320193'
+        wajib: true
+        keterangan: 'CIK 10 digit (mis. Apple)'
+
+    contohPath: '/submissions/CIK0000320193.json'
+    minUkuranByte: 50000

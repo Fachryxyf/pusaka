@@ -1,0 +1,32 @@
+slug: karbon-inggris
+nama: 'Intensitas Karbon Inggris'
+kategori: cuaca
+deskripsi: 'Intensitas karbon listrik Britania Raya saat ini.'
+developer:
+  nama: National Grid ESO
+  profil: 'https://carbon-intensity.github.io/'
+dokumentasi: 'https://carbon-intensity.github.io/api-definitions/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.carbonintensity.org.uk'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Carbon Intensity API'
+  syaratUrl: 'https://carbon-intensity.github.io/api-definitions/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: kini
+    method: GET
+    path: '/intensity'
+    deskripsi: 'Intensitas prakiraan dan aktual.'
+    params: []
+    contohPath: '/intensity'
+    minUkuranByte: 80

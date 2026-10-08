@@ -1,0 +1,37 @@
+slug: reksadana-mfapi
+nama: 'Reksadana India'
+kategori: finansial
+deskripsi: 'Riwayat lengkap reksadana India.'
+developer:
+  nama: mfapi.in
+  profil: 'https://www.mfapi.in/'
+dokumentasi: 'https://www.mfapi.in/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.mfapi.in'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'mfapi.in'
+  syaratUrl: 'https://www.mfapi.in/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: skema
+    method: GET
+    path: '/mf/{kode}'
+    deskripsi: 'Detail dan NAV satu skema.'
+    params:
+      - nama: kode
+        contoh: '119598'
+        wajib: true
+        keterangan: 'kode skema'
+
+    contohPath: '/mf/119598'
+    minUkuranByte: 20000

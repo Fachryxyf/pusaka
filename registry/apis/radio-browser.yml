@@ -1,0 +1,49 @@
+slug: radio-browser
+nama: 'Radio Internet'
+kategori: hiburan
+deskripsi: 'Direktori stasiun radio internet: cari atau ambil yang paling dipilih.'
+developer:
+  nama: Radio Browser
+  profil: 'https://api.radio-browser.info/'
+dokumentasi: 'https://api.radio-browser.info/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://de1.api.radio-browser.info'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Radio Browser'
+  syaratUrl: 'https://api.radio-browser.info/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: cari
+    method: GET
+    path: '/json/stations/search?name={nama}&limit=5'
+    deskripsi: 'Cari stasiun menurut nama.'
+    params:
+      - nama: nama
+        contoh: 'jazz'
+        wajib: true
+        keterangan: 'kata kunci'
+
+    contohPath: '/json/stations/search?name=jazz&limit=5'
+    minUkuranByte: 500
+  - id: top
+    method: GET
+    path: '/json/stations/topvote/{n}'
+    deskripsi: 'Stasiun dengan suara terbanyak.'
+    params:
+      - nama: n
+        contoh: '5'
+        wajib: true
+        keterangan: 'jumlah stasiun'
+
+    contohPath: '/json/stations/topvote/5'
+    minUkuranByte: 1000

@@ -1,0 +1,32 @@
+slug: bitcoin-halving
+nama: 'Halving Bitcoin'
+kategori: finansial
+deskripsi: 'Era halving, imbalan blok, dan jadwal Bitcoin.'
+developer:
+  nama: why21million
+  profil: 'https://why21million.com/'
+dokumentasi: 'https://why21million.com/halving-api/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://why21million.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'why21million'
+  syaratUrl: 'https://why21million.com/halving-api/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: kini
+    method: GET
+    path: '/api/halving'
+    deskripsi: 'Status halving saat ini.'
+    params: []
+    contohPath: '/api/halving'
+    minUkuranByte: 300

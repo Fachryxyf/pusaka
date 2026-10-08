@@ -1,0 +1,37 @@
+slug: kurs-awesome
+nama: 'Kurs AwesomeAPI'
+kategori: finansial
+deskripsi: 'Kurs pasangan mata uang termasuk USD-IDR.'
+developer:
+  nama: AwesomeAPI
+  profil: 'https://docs.awesomeapi.com.br/'
+dokumentasi: 'https://docs.awesomeapi.com.br/api-de-moedas'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://economia.awesomeapi.com.br'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'AwesomeAPI'
+  syaratUrl: 'https://docs.awesomeapi.com.br/api-de-moedas'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: kurs
+    method: GET
+    path: '/json/last/{pasangan}'
+    deskripsi: 'Kurs terakhir satu pasangan.'
+    params:
+      - nama: pasangan
+        contoh: 'USD-IDR'
+        wajib: true
+        keterangan: 'mis. USD-IDR'
+
+    contohPath: '/json/last/USD-IDR'
+    minUkuranByte: 100

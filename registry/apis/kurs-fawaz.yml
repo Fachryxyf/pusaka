@@ -1,0 +1,37 @@
+slug: kurs-fawaz
+nama: 'Kurs Fawaz'
+kategori: finansial
+deskripsi: 'Kurs 150+ mata uang terhadap USD, tanpa batas laju.'
+developer:
+  nama: Fawaz Ahmed
+  profil: 'https://github.com/fawazahmed0/currency-api'
+dokumentasi: 'https://github.com/fawazahmed0/currency-api#readme'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'currency-api (Fawaz Ahmed)'
+  syaratUrl: 'https://github.com/fawazahmed0/currency-api#readme'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: kurs
+    method: GET
+    path: '/v1/currencies/{kode}.json'
+    deskripsi: 'Kurs satu mata uang terhadap semua.'
+    params:
+      - nama: kode
+        contoh: 'usd'
+        wajib: true
+        keterangan: 'kode ISO kecil'
+
+    contohPath: '/v1/currencies/usd.json'
+    minUkuranByte: 3000

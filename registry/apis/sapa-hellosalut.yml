@@ -1,0 +1,37 @@
+slug: sapa-hellosalut
+nama: 'Sapa Dunia (HelloSalut)'
+kategori: hiburan
+deskripsi: 'Kata halo dalam bahasa pengguna menurut kode bahasa.'
+developer:
+  nama: Fourtonfish
+  profil: 'https://fourtonfish.com/'
+dokumentasi: 'https://fourtonfish.com/project/hellosalut-api/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://fourtonfish.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'HelloSalut (Fourtonfish)'
+  syaratUrl: 'https://fourtonfish.com/project/hellosalut-api/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: sapa
+    method: GET
+    path: '/hellosalut/?lang={kode}'
+    deskripsi: 'Halo dalam satu bahasa.'
+    params:
+      - nama: kode
+        contoh: 'id'
+        wajib: true
+        keterangan: 'kode bahasa ISO'
+
+    contohPath: '/hellosalut/?lang=id'
+    minUkuranByte: 15

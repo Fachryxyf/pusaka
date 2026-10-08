@@ -1,0 +1,49 @@
+slug: alamat-moradas
+nama: 'Alamat Portugal (Moradas)'
+kategori: lokasi
+deskripsi: 'Lengkapi alamat dan kode pos 7 digit Portugal.'
+developer:
+  nama: Moradas
+  profil: 'https://moradas.dev/'
+dokumentasi: 'https://moradas.dev/docs'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://moradas.dev'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Moradas'
+  syaratUrl: 'https://moradas.dev/docs'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: saran
+    method: GET
+    path: '/suggest?q={kata}'
+    deskripsi: 'Saran alamat menurut ketikan.'
+    params:
+      - nama: kata
+        contoh: 'lisboa'
+        wajib: true
+        keterangan: 'kata kunci'
+
+    contohPath: '/suggest?q=lisboa'
+    minUkuranByte: 500
+  - id: kodepos
+    method: GET
+    path: '/cp/{kode}'
+    deskripsi: 'Detail satu kode pos CP7.'
+    params:
+      - nama: kode
+        contoh: '1000-001'
+        wajib: true
+        keterangan: 'mis. 1000-001'
+
+    contohPath: '/cp/1000-001'
+    minUkuranByte: 100

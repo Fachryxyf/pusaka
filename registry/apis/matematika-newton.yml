@@ -1,0 +1,49 @@
+slug: matematika-newton
+nama: 'Kalkulator Simbolik (Newton)'
+kategori: referensi
+deskripsi: 'Turunan, integral, dan operasi simbolik lain lewat URL.'
+developer:
+  nama: Newton
+  profil: 'https://newton.vercel.app'
+dokumentasi: 'https://newton.vercel.app'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://newton.vercel.app'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Newton API'
+  syaratUrl: 'https://newton.vercel.app'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: hitung
+    method: GET
+    path: '/api/v2/derive/{ekspresi}'
+    deskripsi: 'Turunan satu ekspresi.'
+    params:
+      - nama: ekspresi
+        contoh: 'x^2'
+        wajib: true
+        keterangan: 'ekspresi matematika'
+
+    contohPath: '/api/v2/derive/x%5E2'
+    minUkuranByte: 30
+  - id: integral
+    method: GET
+    path: '/api/v2/integrate/{ekspresi}'
+    deskripsi: 'Integral satu ekspresi.'
+    params:
+      - nama: ekspresi
+        contoh: 'x^2'
+        wajib: true
+        keterangan: 'ekspresi matematika'
+
+    contohPath: '/api/v2/integrate/x%5E2'
+    minUkuranByte: 30

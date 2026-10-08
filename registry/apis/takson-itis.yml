@@ -1,0 +1,37 @@
+slug: takson-itis
+nama: 'Taksonomi (ITIS)'
+kategori: referensi
+deskripsi: 'Taksonomi terpadu Amerika: hierarki, nama umum, dan TSN.'
+developer:
+  nama: ITIS
+  profil: 'https://www.itis.gov/'
+dokumentasi: 'https://www.itis.gov/ws_description.html'
+upstreamName: null
+auth: none
+cors: none
+baseUrl: 'https://www.itis.gov'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'ITIS (USGS)'
+  syaratUrl: 'https://www.itis.gov/ws_description.html'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: cari
+    method: GET
+    path: '/ITISWebService/jsonservice/searchByScientificName?srchKey={nama}'
+    deskripsi: 'Cari takson menurut nama ilmiah.'
+    params:
+      - nama: nama
+        contoh: 'Panthera tigris'
+        wajib: true
+        keterangan: 'nama ilmiah'
+
+    contohPath: '/ITISWebService/jsonservice/searchByScientificName?srchKey=Panthera%20tigris'
+    minUkuranByte: 1500

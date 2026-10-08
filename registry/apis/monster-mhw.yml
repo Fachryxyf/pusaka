@@ -1,0 +1,37 @@
+slug: monster-mhw
+nama: 'Monster Hunter (MHW-DB)'
+kategori: hiburan
+deskripsi: 'Data monster Monster Hunter World: spesies, elemen, deskripsi.'
+developer:
+  nama: MHW-DB
+  profil: 'https://docs.mhw-db.com/'
+dokumentasi: 'https://docs.mhw-db.com/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://mhw-db.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'MHW-DB'
+  syaratUrl: 'https://docs.mhw-db.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: monster
+    method: GET
+    path: '/monsters/{id}'
+    deskripsi: 'Satu monster menurut id.'
+    params:
+      - nama: id
+        contoh: '1'
+        wajib: true
+        keterangan: 'id monster'
+
+    contohPath: '/monsters/1'
+    minUkuranByte: 400

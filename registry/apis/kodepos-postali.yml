@@ -1,0 +1,37 @@
+slug: kodepos-postali
+nama: 'Kode Pos Meksiko'
+kategori: lokasi
+deskripsi: 'Kode pos Meksiko beserta kota dan pemukimannya.'
+developer:
+  nama: Postali
+  profil: 'https://postali.app/'
+dokumentasi: 'https://postali.app/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://postali.app'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Postali'
+  syaratUrl: 'https://postali.app/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: kodepos
+    method: GET
+    path: '/api/v1/mx/cp/{kode}'
+    deskripsi: 'Detail satu kode pos Meksiko.'
+    params:
+      - nama: kode
+        contoh: '06700'
+        wajib: true
+        keterangan: 'kode pos 5 digit'
+
+    contohPath: '/api/v1/mx/cp/06700'
+    minUkuranByte: 150

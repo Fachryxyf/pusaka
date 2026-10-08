@@ -1,0 +1,37 @@
+slug: arsip-internet
+nama: 'Arsip Internet'
+kategori: referensi
+deskripsi: 'Pencarian koleksi Internet Archive menurut kata kunci.'
+developer:
+  nama: Internet Archive
+  profil: 'https://archive.org/'
+dokumentasi: 'https://archive.readme.io/docs'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://archive.org'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Internet Archive'
+  syaratUrl: 'https://archive.readme.io/docs'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: cari
+    method: GET
+    path: '/advancedsearch.php?q={q}&fl%5B%5D=identifier&rows=5&output=json'
+    deskripsi: 'Cari koleksi, balas identifier.'
+    params:
+      - nama: q
+        contoh: 'wayang'
+        wajib: true
+        keterangan: 'kata kunci'
+
+    contohPath: '/advancedsearch.php?q=wayang&fl%5B%5D=identifier&rows=5&output=json'
+    minUkuranByte: 150

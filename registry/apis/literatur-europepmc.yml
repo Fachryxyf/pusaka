@@ -1,0 +1,37 @@
+slug: literatur-europepmc
+nama: 'Literatur Hayati (Europe PMC)'
+kategori: referensi
+deskripsi: 'Pencarian literatur ilmu hayati: abstrak, jurnal, sitasi.'
+developer:
+  nama: EBI
+  profil: 'https://www.ebi.ac.uk/'
+dokumentasi: 'https://europepmc.org/RestfulWebService'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://www.ebi.ac.uk'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Europe PMC (EBI)'
+  syaratUrl: 'https://europepmc.org/RestfulWebService'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: cari
+    method: GET
+    path: '/europepmc/webservices/rest/search?query={q}&format=json&pageSize=3'
+    deskripsi: 'Cari literatur menurut kata kunci.'
+    params:
+      - nama: q
+        contoh: 'malaria'
+        wajib: true
+        keterangan: 'kata kunci'
+
+    contohPath: '/europepmc/webservices/rest/search?query=malaria&format=json&pageSize=3'
+    minUkuranByte: 500

@@ -1,0 +1,37 @@
+slug: kbbi-raf555
+nama: 'KBBI (raf555)'
+kategori: pendidikan
+deskripsi: 'Entri Kamus Besar Bahasa Indonesia: lema, kata dasar, definisi, dan contoh pakai.'
+developer:
+  nama: raf555
+  profil: 'https://github.com/raf555/kbbi-api'
+dokumentasi: 'https://kbbi.raf555.dev/swagger/index.html'
+upstreamName: null
+auth: none
+cors: none
+baseUrl: 'https://kbbi.raf555.dev'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'kbbi-api (raf555)'
+  syaratUrl: 'https://kbbi.raf555.dev/swagger/index.html'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: indonesia
+endpoints:
+  - id: entri
+    method: GET
+    path: '/api/v1/entry/{kata}'
+    deskripsi: 'Satu entri KBBI menurut kata.'
+    params:
+      - nama: kata
+        contoh: 'bermalas-malasan'
+        wajib: true
+        keterangan: 'kata yang dicari'
+
+    contohPath: '/api/v1/entry/bermalas-malasan'
+    minUkuranByte: 200

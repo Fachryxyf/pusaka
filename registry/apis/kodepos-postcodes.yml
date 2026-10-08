@@ -1,0 +1,37 @@
+slug: kodepos-postcodes
+nama: 'Kode Pos Inggris'
+kategori: lokasi
+deskripsi: 'Kode pos Inggris: koordinat, wilayah, layanan kesehatan.'
+developer:
+  nama: Postcodes.io
+  profil: 'https://postcodes.io/'
+dokumentasi: 'https://postcodes.io/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.postcodes.io'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Postcodes.io'
+  syaratUrl: 'https://postcodes.io/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: kodepos
+    method: GET
+    path: '/postcodes/{kode}'
+    deskripsi: 'Detail satu kode pos.'
+    params:
+      - nama: kode
+        contoh: 'EC1A1BB'
+        wajib: true
+        keterangan: 'kode pos tanpa spasi'
+
+    contohPath: '/postcodes/EC1A1BB'
+    minUkuranByte: 800

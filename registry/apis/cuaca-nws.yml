@@ -1,0 +1,41 @@
+slug: cuaca-nws
+nama: 'Cuaca AS (NWS)'
+kategori: cuaca
+deskripsi: 'Prakiraan resmi Dinas Cuaca Nasional Amerika per titik koordinat.'
+developer:
+  nama: NWS
+  profil: 'https://www.weather.gov/'
+dokumentasi: 'https://www.weather.gov/documentation/services-web-api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.weather.gov'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'US National Weather Service'
+  syaratUrl: 'https://www.weather.gov/documentation/services-web-api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: titik
+    method: GET
+    path: '/points/{lat},{lon}'
+    deskripsi: 'Metadata titik + tautan ramalan per jam dan harian.'
+    params:
+      - nama: lat
+        contoh: '40.7'
+        wajib: true
+        keterangan: 'lintang'
+      - nama: lon
+        contoh: '-74'
+        wajib: true
+        keterangan: 'bujur'
+
+    contohPath: '/points/40.7,-74'
+    minUkuranByte: 1500

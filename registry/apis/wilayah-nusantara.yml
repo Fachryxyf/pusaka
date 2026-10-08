@@ -1,0 +1,71 @@
+slug: wilayah-nusantara
+nama: 'Wilayah Nusantara'
+kategori: lokasi
+deskripsi: 'Wilayah administratif Indonesia sampai desa: provinsi, kabupaten, kecamatan, desa, plus kode pos dan parse NIK.'
+developer:
+  nama: Clowdlab
+  profil: 'https://nusantara.clowdlab.com/docs'
+dokumentasi: 'https://nusantara.clowdlab.com/docs'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://nusantara.clowdlab.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Nusantara API (Clowdlab)'
+  syaratUrl: 'https://nusantara.clowdlab.com/docs'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: indonesia
+endpoints:
+  - id: provinsi
+    method: GET
+    path: '/api/v1/regions/provinces'
+    deskripsi: 'Daftar provinsi: nama, ibu kota, koordinat, zona waktu.'
+    params: []
+    contohPath: '/api/v1/regions/provinces'
+    minUkuranByte: 2000
+
+  - id: detail
+    method: GET
+    path: '/api/v1/regions/provinces/{id}'
+    deskripsi: 'Detail satu provinsi menurut id.'
+    params:
+      - nama: id
+        contoh: '11'
+        wajib: true
+        keterangan: 'id provinsi (mis. 11 = Aceh)'
+
+    contohPath: '/api/v1/regions/provinces/11'
+    minUkuranByte: 150
+
+  - id: cari
+    method: GET
+    path: '/api/v1/regions/search?q={kata}'
+    deskripsi: 'Cari wilayah menurut nama.'
+    params:
+      - nama: kata
+        contoh: 'bandung'
+        wajib: true
+        keterangan: 'kata kunci nama wilayah'
+
+    contohPath: '/api/v1/regions/search?q=bandung'
+    minUkuranByte: 1000
+
+  - id: pos
+    method: GET
+    path: '/api/v1/postal-codes/{kode}'
+    deskripsi: 'Validasi kode pos dan wilayahnya.'
+    params:
+      - nama: kode
+        contoh: '40111'
+        wajib: true
+        keterangan: 'kode pos 5 digit'
+
+    contohPath: '/api/v1/postal-codes/40111'
+    minUkuranByte: 100

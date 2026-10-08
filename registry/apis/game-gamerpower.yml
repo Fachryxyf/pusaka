@@ -1,0 +1,32 @@
+slug: game-gamerpower
+nama: 'Gratisan Game (GamerPower)'
+kategori: hiburan
+deskripsi: 'Daftar giveaway game PC dan konsol yang sedang berjalan.'
+developer:
+  nama: GamerPower
+  profil: 'https://www.gamerpower.com/'
+dokumentasi: 'https://www.gamerpower.com/api-read'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://www.gamerpower.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'GamerPower'
+  syaratUrl: 'https://www.gamerpower.com/api-read'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: daftar
+    method: GET
+    path: '/api/giveaways'
+    deskripsi: 'Giveaway aktif: judul, worth, tautan klaim.'
+    params: []
+    contohPath: '/api/giveaways'
+    minUkuranByte: 20000

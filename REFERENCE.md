@@ -2940,3 +2940,119 @@ jadwal untuk cek pertamanya.
 developer. Filter "Asal katalog" ada di `/dev` dan `/dev/status`, default Indonesia —
 angka 19 warisan inventaris + global = 119 tetap dihitung saat build, bukan tulis tangan.
 Paginasi 10/halaman di kedua halaman karena daftarnya sudah ratusan baris.
+
+# Riset Tier C Indonesia (diprobe 2026-10-08)
+
+Tujuh dari 39 lolos jadi API terdaftar. Sisanya gugur dengan alasan tercatat — pola
+terbanyak: repositori hanya berisi pustaka self-host (tanpa deployment publik),
+deployment demo sudah mati, atau JSON disajikan sebagai text/plain.
+
+## Yang masuk registry
+
+- **kutipan-katanime** — `/api/getrandom`, `/api/getlistanime`,
+  `/api/carikata?kata=&page=`, `/api/getbyanime?anime=&page=`. Kutipan anime
+  Indonesia-Inggris. `carikata`/`getbyanime` wajib `page` (tanpa itu "query page belum ada").
+- **doa-harian-fly** — `/api` array doa (Arab, latin, arti). Tanpa CORS → `cors: none`.
+- **kamus-sunda-hibersunda** — `/undakusukbasa?page=` kamus Sunda 78 KB/halaman.
+- **wilayah-nusantara** — `/api/v1/regions/provinces`, `/provinces/{id}`, `/search?q=`,
+  `/postal-codes/{kode}`. Wilayah Indonesia sampai desa + validasi kode pos + parse NIK.
+- **jadwal-sholat-lakuapik** — `/kota.json` + `/adzan/{kota}/{tahun}/{bulan}.json` lewat
+  jsDelivr (content-type JSON benar; raw.githubusercontent membalas text/plain).
+  Data tahunan sampai 2026.
+- **kbbi-raf555** — `/api/v1/entry/{kata}` (Go, KBBI). Tanpa CORS → `cors: none`.
+- **puasa-sunnah-granite** — `/api/v1/{fastings,categories,types,sources}`, data Oktober 2026.
+
+## Yang gugur (Tier C)
+
+- Mati: Waktu Sholat maftuh (sslip 000), pace11 (000), cuaca-gempa (deployment Vercel
+  hilang), gold-price bramaudi (500), blue-archive (deployment hilang), bank.thecloudalert
+  (landing parkir), animeapi.my.id (redirect ke repo GitHub), manga-api (repo 404).
+- Pustaka self-host, tanpa deployment publik: CNN/Detik (paket Python), Namchee OJK (repo),
+  PDDIKTI (PyPI), strygwyr (npm), diwa Distrowatch, LK21 (self-host + pembajakan),
+  KBBI Kang Cahya (PHP self-host), Batikita (hanya mock Apiary), Maganghub rusak
+  (`items: []`), Ryzumi (blokir IP), Akuari (path tak ditemukan), Katanime OK (masuk).
+- Butuh token: IndiWTF ("API token required"), Whatsapp (Meta), fdciabdul wrapper.
+- JSON sebagai text/plain (aturan probe menolak, klien pun tak bisa pakai): rs-bed-covid
+  (`/api/get-provinces` dkk), dekontaminasi hospitals (beku pula sejak COVID).
+- Dinding bot: JagoKata rf.gd (tantangan aes.js). Demo gate: Holy Quran Kang Cahya.
+- Bukan JSON: Screenshot statically (gambar). Mati di hulu: Liga Indonesia (teams kosong,
+  standings/players 500). WhatGeo (demo SPA). Rekeningku (404, vermutlich keyed).
+
+# Sapu public-apis (diprobe 2026-10-08)
+
+Dari 877 kandidat keyless+HTTPS, yang lolos syarat (200 + JSON + stabil) masuk registry
+di bawah. Aturan sama seperti batch: lisensi `unknown` kecuali terbaca di respons,
+CORS diukur dengan header Origin, payload raksasa dilewati.
+
+## Yang masuk registry (125 API)
+
+- Sains: OpenAlex, Europe PMC, DataCite, MyGene, RCSB PDB, ITIS, INSPIRE-HEP, OSF,
+  USGS Water, Newton (derive+integrate), Botlero.
+- Cuaca & lingkungan: NWS, RainViewer, NASA POWER, IPMA, NOAA Aviation (METAR WIII),
+  HKO, Open-Meteo Ensemble, Carbon Intensity.
+- Game & olahraga: PlayerDB, mcsrvstat, GamerPower, FFXIV Collect, MMOBomb (daftar),
+  L2Calendar, MHW-DB, RuneScape Wiki, TETR.IO, TCGdex, GW2, Open5e, RacingHub, OpenF1,
+  OpenLigaDB (currentgroup, bukan musim penuh 573 KB), NoPunt, NHL, Universalis, GZW,
+  Digimon Vercel, Geek jokes, Lucifer, Stranger Things, ThronesAPI (hanya Characters;
+  Houses membalas HTML), Squid? tidak — lihat gugur.
+- Kalimat & kata: Bacon Ipsum, Genrenator, Wiktionary, UUID, Sampuli, AddressMock.
+- Buku & arsip: Quran Cloud (ayat+surah), Crossref, Internet Archive.
+- Hiburan & sosial: RandomFox/Dog/Duck, Open Brewery DB, Quotes on Design, Racion,
+  Bluesky, Hacker News (top+item), 4chan (threads, CORS locked), Memesio (tanpa CORS),
+  PotterDB, SwarmMemo, Stromberg, Nekos.best, Bucket Dream, Imgflip sudah ada.
+- Geo & pos: GeoJS, Postcodes.io, ViaCep, SearchPinCode, IBGE, PontoFato (tanpa CORS),
+  adresse Etalab, BdAPIs (pakai v1.2; v1.1 deprecated), BrasilAPI, Moradas, HelloSalut,
+  Postali.
+- Finansial & kripto: Fawaz currency, AwesomeAPI (ada USD-IDR), Fulusly, VATComply, NBP,
+  DefiLlama TVL+coins, CoinLore, Mempool (pakai /api/blocks; skalarnya text/plain),
+  IFSC Razorpay, SEC EDGAR, mfapi.in, why21million, SoloLuck.
+- Developer & data: npm, Homebrew, RubyGems, NuGet, Open VSX, Hex, jsDelivr, DO Status,
+  ReqRes, APIs.guru (pakai metrics, bukan daftar 3,4 MB), crates.io (pakai downloads),
+  Guerrilla Mail, Mail.TM (tanpa CORS), SellersCalc, BirkinBagStock, AIDevBoard,
+  FreeHire (tanpa CORS), CuratorSearch, AIJobs, AddressMock, Modelfax, OneFindMe,
+  Postman Echo (tanpa CORS), FBI Wanted, HDX, Legal Georgia (tanpa CORS), NVD, UK Police,
+  food recalls FDA/USDA, Iconify, Wheelwise (tanpa CORS), NHTSA, TETR.IO (CORS locked),
+  SEC, Llama.
+- Kalender: CalDays (lisensi CC BY 4.0 tercantum di respons), GOV.UK.
+
+## Yang gugur (public-apis, alasan per kelompok)
+
+- Mati/000: SpaceX (525), Jikan, WorldTimeAPI, boredapi, opentdb, bored-appbrewery WORK?
+  tidak (404) — drop, PunkAPI, CryptoNator, GeoPlugin, Treasury ( fiscaldata tak terjangkau
+  dari sini), SHIBE, Tronald, Hytale 503, Breaking Bad, CleanURI, Shrtcode, Hashable,
+  PhishStats, EVA, FreeForex, CrossUniverse, Doge-Meme, DreamThreads, Teleport,
+  data.go.id (tak terjangkau dari sini — dicatat, bukan divonis), Catalogopolis,
+  Tenders HU, Helium, Walltime.
+- Butuh key/token/berbayar: balldontlie, CoinCap, CryptoCompare, Messari, Gemini,
+  OpenSky, TransitLand, Pirate Weather, Noozra Pro, Microlink, CollegeScoreCard,
+  Pantry, Pinball 401, CoinLobster 401, Websitecarbon 401, TidyTools 401, Moviodds?
+  tidak — 404; FanLine 403, RBLXDB 403, Binlist 403, IP99/POSTALI/HackMyIP path
+  butuh dokumen (tidak ketemu), OnWater (token), Ziptastic (halaman kunci).
+- Throttle/rate-limit saat probe: geocode.xyz ("Throttled!"), Semantic Scholar (429
+  persisten dari IP ini), RBLXDB 429, DownStatus 429, Agify/Genderize/Nationalize
+  tetap 429 (batas harian).
+- Bukan JSON: wttr.in (text/plain), Mempool skalar (text/plain), ISDAYOFF (text/plain),
+  GOPROXY (text/plain), universities-hipo (text/plain + 2,2 MB), Florida Man
+  (text/plain + 5,3 MB), lakuapik mentah (pakai jsDelivr), BNG (formulir HTML),
+  IP2Country (halaman), Arquivo? tidak.
+- Payload terlalu besar: Wolne Lektury 4,6–4,9 MB, iDigBio 3,5 MB, openSenseMap
+  1,8 MB, quran-fawaz 1,6 MB (tanpa path per-surah), ARBEITNOW 1,4 MB, RemoteOK
+  574 KB, OpenLiga musim penuh 573 KB (pakai currentgroup), Kanari 2,6 MB,
+  Packagist 1 MB, APIS.guru daftar 3,4 MB (pakai metrics), FFXIV list 358 KB
+  (pakai per-id), CityBikes 229–654 KB per jaringan.
+- Tanpa CORS + krusial? tetap didaftarkan dengan `cors: none/locked` (preseden
+  lambang-daerah): DOA, KBBI raf555, ITIS, OSF, Aviation, NHL, PontoFato, Memesio,
+  Legal Georgia, FreeHire, Wheelwise, Lucifer, Stromberg, Postman Echo, Mail.TM,
+  TETR.IO locked, 4chan locked. Yang tanpa CORS dan bernilai rendah dilewati:
+  ZenQuotes, type.fit, Deezer, affirmations, xkcd, waifu.im, waifu.pics.
+- Tanpa endpoint keyless yang bisa ditemukan: mayoritas portal "Open Government"
+  (40+ situs portal HTML, bukan API), DataUSA (HTML), Platzi (mubazir), Wikidata
+  & evilinsult (tanpa CORS), OpenLibrary redundant, Songsterr/RESTful/RESTful-API
+  path salah, Openwhyd 400, Gurbani/KDP/Greenlit/BookRank/Gita/Thirukkural/Runyankole
+  path tak ditemukan, AudioDB 404, Jikan 000, AOE2 mati, Open-Notify http-only,
+  exchangerate.host (key), OpenAQ 401, Foodish suspended, Bible tanpa terjemahan ID,
+  Hipolabs http-only.
+- Tier E (50) tetap di luar: semuanya API KEY/OAuth tanpa kredensial — aturan
+  probe-live melarang mendaftarkan yang tak terprobe.
+- Tier D (42) tetap di luar: mati; skema registry menuntut bentuk respons nyata
+  yang tak bisa dipenuhi tanpa menebak.

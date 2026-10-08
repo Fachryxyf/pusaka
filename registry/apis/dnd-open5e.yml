@@ -1,0 +1,49 @@
+slug: dnd-open5e
+nama: 'D&D Terbuka (Open5e)'
+kategori: hiburan
+deskripsi: 'Aturan terbuka D&D 5e: monster dan mantra beserta statistiknya.'
+developer:
+  nama: Open5e
+  profil: 'https://open5e.com/'
+dokumentasi: 'https://open5e.com/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.open5e.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Open5e'
+  syaratUrl: 'https://open5e.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: monster
+    method: GET
+    path: '/monsters/?format=json&limit={n}'
+    deskripsi: 'Daftar monster: nama, ukuran, armor, aksi.'
+    params:
+      - nama: n
+        contoh: '1'
+        wajib: true
+        keterangan: 'jumlah per halaman'
+
+    contohPath: '/monsters/?format=json&limit=1'
+    minUkuranByte: 1000
+  - id: mantra
+    method: GET
+    path: '/spells/?format=json&limit={n}'
+    deskripsi: 'Daftar mantra: nama, level, jarak, durasi.'
+    params:
+      - nama: n
+        contoh: '1'
+        wajib: true
+        keterangan: 'jumlah per halaman'
+
+    contohPath: '/spells/?format=json&limit=1'
+    minUkuranByte: 500

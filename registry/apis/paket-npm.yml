@@ -1,0 +1,37 @@
+slug: paket-npm
+nama: 'Paket npm'
+kategori: referensi
+deskripsi: 'Metadata versi terbaru paket JavaScript npm.'
+developer:
+  nama: npm
+  profil: 'https://www.npmjs.com/'
+dokumentasi: 'https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://registry.npmjs.org'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'npm Registry'
+  syaratUrl: 'https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: terbaru
+    method: GET
+    path: '/{paket}/latest'
+    deskripsi: 'Versi terbaru satu paket.'
+    params:
+      - nama: paket
+        contoh: 'react'
+        wajib: true
+        keterangan: 'nama paket'
+
+    contohPath: '/react/latest'
+    minUkuranByte: 800

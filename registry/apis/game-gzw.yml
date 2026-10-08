@@ -1,0 +1,32 @@
+slug: game-gzw
+nama: 'Gray Zone Warfare'
+kategori: hiburan
+deskripsi: 'Data game Gray Zone Warfare: senjata, misi, jarahan, armor.'
+developer:
+  nama: GZW Data
+  profil: 'https://gzw-data.vercel.app/'
+dokumentasi: 'https://gzw-data.vercel.app/docs/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://gzw-data.vercel.app'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'GZW Data'
+  syaratUrl: 'https://gzw-data.vercel.app/docs/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: senjata
+    method: GET
+    path: '/api/weapons'
+    deskripsi: 'Daftar senjata: nama, tipe, berat, akurasi.'
+    params: []
+    contohPath: '/api/weapons'
+    minUkuranByte: 3000

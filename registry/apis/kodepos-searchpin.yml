@@ -1,0 +1,37 @@
+slug: kodepos-searchpin
+nama: 'Kode Pos India'
+kategori: lokasi
+deskripsi: 'Kode PIN India: kantor pos dan distriknya.'
+developer:
+  nama: SearchPinCode
+  profil: 'https://searchpincode.in/'
+dokumentasi: 'https://searchpincode.in/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://searchpincode.in'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'SearchPinCode'
+  syaratUrl: 'https://searchpincode.in/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: kodepos
+    method: GET
+    path: '/api/pincode/{kode}'
+    deskripsi: 'Kantor pos pada satu PIN.'
+    params:
+      - nama: kode
+        contoh: '110001'
+        wajib: true
+        keterangan: 'PIN 6 digit'
+
+    contohPath: '/api/pincode/110001'
+    minUkuranByte: 2000

@@ -1,0 +1,32 @@
+slug: kutipan-lucifer
+nama: 'Kutipan Lucifer'
+kategori: hiburan
+deskripsi: 'Kutipan acak serial Lucifer beserta tokohnya.'
+developer:
+  nama: shadowoff09
+  profil: 'https://github.com/shadowoff09/lucifer-quotes'
+dokumentasi: 'https://github.com/shadowoff09/lucifer-quotes'
+upstreamName: null
+auth: none
+cors: none
+baseUrl: 'https://luciferquotes.vercel.app'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'lucifer-quotes (shadowoff09)'
+  syaratUrl: 'https://github.com/shadowoff09/lucifer-quotes'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: acak
+    method: GET
+    path: '/api/quotes'
+    deskripsi: 'Satu kutipan acak: quote, author.'
+    params: []
+    contohPath: '/api/quotes'
+    minUkuranByte: 40

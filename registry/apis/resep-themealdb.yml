@@ -57,4 +57,5 @@ endpoints:
     deskripsi: Satu resep acak. Ukuran berubah tiap panggilan, tapi selalu satu objek meal penuh.
     params: []
     contohPath: /api/json/v1/1/random.php
+    pantauUmur: false
     minUkuranByte: 300

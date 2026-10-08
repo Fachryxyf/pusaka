@@ -1,0 +1,53 @@
+slug: jadwal-sholat-lakuapik
+nama: 'Jadwal Sholat (Lakuapik)'
+kategori: agama-islam
+deskripsi: 'Jadwal sholat statis per kota per bulan dari repositori lakuapik/jadwalsholatorg.'
+developer:
+  nama: lakuapik
+  profil: 'https://github.com/lakuapik/jadwalsholatorg'
+dokumentasi: 'https://github.com/lakuapik/jadwalsholatorg'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://cdn.jsdelivr.net/gh/lakuapik/jadwalsholatorg@master'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'jadwalsholatorg (lakuapik)'
+  syaratUrl: 'https://github.com/lakuapik/jadwalsholatorg'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: indonesia
+endpoints:
+  - id: kota
+    method: GET
+    path: '/kota.json'
+    deskripsi: 'Daftar slug kota yang tersedia.'
+    params: []
+    contohPath: '/kota.json'
+    minUkuranByte: 1000
+
+  - id: jadwal
+    method: GET
+    path: '/adzan/{kota}/{tahun}/{bulan}.json'
+    deskripsi: 'Jadwal sebulan satu kota: imsyak, shubuh, dzuhur, ashr, magrib, isya.'
+    params:
+      - nama: kota
+        contoh: 'semarang'
+        wajib: true
+        keterangan: 'slug kota dari daftar'
+      - nama: tahun
+        contoh: '2026'
+        wajib: true
+        keterangan: 'tahun'
+      - nama: bulan
+        contoh: '01'
+        wajib: true
+        keterangan: 'bulan 2 digit'
+
+    contohPath: '/adzan/semarang/2026/01.json'
+    minUkuranByte: 1000

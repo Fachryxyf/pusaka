@@ -1,0 +1,32 @@
+slug: mempool-blok
+nama: 'Blok Bitcoin (Mempool)'
+kategori: finansial
+deskripsi: 'Blok Bitcoin terbaru: tinggi, transaksi, ukuran, biaya.'
+developer:
+  nama: Mempool
+  profil: 'https://mempool.space/'
+dokumentasi: 'https://mempool.space/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://mempool.space'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'mempool.space'
+  syaratUrl: 'https://mempool.space/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: blok
+    method: GET
+    path: '/api/blocks'
+    deskripsi: '10 blok terakhir.'
+    params: []
+    contohPath: '/api/blocks'
+    minUkuranByte: 1000

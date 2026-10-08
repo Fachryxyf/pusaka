@@ -1,0 +1,32 @@
+slug: fakta-fox
+nama: 'Rubah Acak'
+kategori: hiburan
+deskripsi: 'Satu gambar rubah acak beserta tautannya.'
+developer:
+  nama: RandomFox
+  profil: 'https://randomfox.ca/'
+dokumentasi: 'https://randomfox.ca/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://randomfox.ca'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'RandomFox'
+  syaratUrl: 'https://randomfox.ca/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: acak
+    method: GET
+    path: '/floof/'
+    deskripsi: 'Satu rubah acak: image, link.'
+    params: []
+    contohPath: '/floof/'
+    minUkuranByte: 40

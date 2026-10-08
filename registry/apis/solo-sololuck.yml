@@ -1,0 +1,32 @@
+slug: solo-sololuck
+nama: 'Solo Mining (SoloLuck)'
+kategori: finansial
+deskripsi: 'Statistik pool solo-mining Bitcoin per alamat penambang.'
+developer:
+  nama: SoloLuck
+  profil: 'https://sololuck.io/'
+dokumentasi: 'https://sololuck.io/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://sololuck.io'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'SoloLuck'
+  syaratUrl: 'https://sololuck.io/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: statistik
+    method: GET
+    path: '/api/stats'
+    deskripsi: 'Statistik pool terbuka.'
+    params: []
+    contohPath: '/api/stats'
+    minUkuranByte: 300

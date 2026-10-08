@@ -1,0 +1,37 @@
+slug: crates-statistik
+nama: 'Unduhan Crates.io'
+kategori: referensi
+deskripsi: 'Statistik unduhan paket Rust crates.io.'
+developer:
+  nama: crates.io
+  profil: 'https://crates.io/'
+dokumentasi: 'https://crates.io/data-access'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://crates.io'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'crates.io'
+  syaratUrl: 'https://crates.io/data-access'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: unduhan
+    method: GET
+    path: '/api/v1/crates/{peti}/downloads'
+    deskripsi: 'Unduhan harian satu paket.'
+    params:
+      - nama: peti
+        contoh: 'serde'
+        wajib: true
+        keterangan: 'nama paket'
+
+    contohPath: '/api/v1/crates/serde/downloads'
+    minUkuranByte: 5000

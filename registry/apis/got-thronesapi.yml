@@ -1,0 +1,32 @@
+slug: got-thronesapi
+nama: 'Game of Thrones (ThronesAPI)'
+kategori: hiburan
+deskripsi: 'Data tokoh Game of Thrones beserta gambar dan wangsa.'
+developer:
+  nama: ThronesAPI
+  profil: 'https://thronesapi.com/'
+dokumentasi: 'https://thronesapi.com/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://thronesapi.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'ThronesAPI'
+  syaratUrl: 'https://thronesapi.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: karakter
+    method: GET
+    path: '/api/v2/Characters'
+    deskripsi: 'Daftar tokoh: nama, gelar, wangsa, gambar.'
+    params: []
+    contohPath: '/api/v2/Characters'
+    minUkuranByte: 2000

@@ -1,0 +1,37 @@
+slug: vin-nhtsa
+nama: 'Decode VIN (NHTSA)'
+kategori: referensi
+deskripsi: 'Uraikan nomor rangka kendaraan AS.'
+developer:
+  nama: NHTSA
+  profil: 'https://vpic.nhtsa.dot.gov/'
+dokumentasi: 'https://vpic.nhtsa.dot.gov/api/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://vpic.nhtsa.dot.gov'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'NHTSA vPIC'
+  syaratUrl: 'https://vpic.nhtsa.dot.gov/api/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: vin
+    method: GET
+    path: '/api/vehicles/decodevin/{vin}?format=json'
+    deskripsi: 'Detail kendaraan dari VIN.'
+    params:
+      - nama: vin
+        contoh: '1HGCM82633A004352'
+        wajib: true
+        keterangan: 'VIN 17 karakter'
+
+    contohPath: '/api/vehicles/decodevin/1HGCM82633A004352?format=json'
+    minUkuranByte: 2000

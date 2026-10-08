@@ -1,0 +1,37 @@
+slug: cep-brasilapi
+nama: 'Kode Pos Brasil'
+kategori: lokasi
+deskripsi: 'Kode pos Brasil (CEP) beserta jalan, kota, dan kode IBGE.'
+developer:
+  nama: BrasilAPI
+  profil: 'https://brasilapi.com.br/'
+dokumentasi: 'https://brasilapi.com.br/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://brasilapi.com.br'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'BrasilAPI'
+  syaratUrl: 'https://brasilapi.com.br/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: cep
+    method: GET
+    path: '/api/cep/v1/{cep}'
+    deskripsi: 'Detail satu CEP 8 digit.'
+    params:
+      - nama: cep
+        contoh: '01001000'
+        wajib: true
+        keterangan: 'CEP tanpa tanda hubung'
+
+    contohPath: '/api/cep/v1/01001000'
+    minUkuranByte: 80

@@ -1,0 +1,37 @@
+slug: llm-modelfax
+nama: 'Harga Model LLM'
+kategori: referensi
+deskripsi: 'Harga, jendela konteks, dan tanggal pensiun model LLM.'
+developer:
+  nama: Modelfax
+  profil: 'https://bytebrujo.github.io/modelfax/'
+dokumentasi: 'https://bytebrujo.github.io/modelfax/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://bytebrujo.github.io/modelfax'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Modelfax'
+  syaratUrl: 'https://bytebrujo.github.io/modelfax/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: model
+    method: GET
+    path: '/data/{vendor}.json'
+    deskripsi: 'Model satu vendor: id, harga, konteks.'
+    params:
+      - nama: vendor
+        contoh: 'openai'
+        wajib: true
+        keterangan: 'openai, google, atau anthropic'
+
+    contohPath: '/data/openai.json'
+    minUkuranByte: 2000

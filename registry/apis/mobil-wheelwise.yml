@@ -1,0 +1,37 @@
+slug: mobil-wheelwise
+nama: 'Mobil Bekas Inggris'
+kategori: referensi
+deskripsi: 'Iklan mobil bekas Inggris plus nilai wajar dan ramalan harga.'
+developer:
+  nama: Wheelwise
+  profil: 'https://cars.limoja.ai/'
+dokumentasi: 'https://cars.limoja.ai/api/search?q=BMW&limit=1'
+upstreamName: null
+auth: none
+cors: none
+baseUrl: 'https://cars.limoja.ai'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Wheelwise'
+  syaratUrl: 'https://cars.limoja.ai/api/search?q=BMW&limit=1'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: cari
+    method: GET
+    path: '/api/search?q={q}&limit=3'
+    deskripsi: 'Iklan cocok menurut kata kunci.'
+    params:
+      - nama: q
+        contoh: 'BMW'
+        wajib: true
+        keterangan: 'kata kunci'
+
+    contohPath: '/api/search?q=BMW&limit=3'
+    minUkuranByte: 2000

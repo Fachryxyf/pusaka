@@ -1,0 +1,32 @@
+slug: doa-harian-fly
+nama: 'Doa Harian'
+kategori: agama-islam
+deskripsi: 'Kumpulan doa harian: teks Arab, latin, dan artinya.'
+developer:
+  nama: Ahmad Ramadhan
+  profil: 'https://doa-doa-api-ahmadramadhan.fly.dev'
+dokumentasi: 'https://doa-doa-api-ahmadramadhan.fly.dev'
+upstreamName: null
+auth: none
+cors: none
+baseUrl: 'https://doa-doa-api-ahmadramadhan.fly.dev'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Doa Doa API (Ahmad Ramadhan)'
+  syaratUrl: 'https://doa-doa-api-ahmadramadhan.fly.dev'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: indonesia
+endpoints:
+  - id: semua
+    method: GET
+    path: '/api'
+    deskripsi: 'Seluruh doa: doa, ayat Arab, latin, arti.'
+    params: []
+    contohPath: '/api'
+    minUkuranByte: 3000

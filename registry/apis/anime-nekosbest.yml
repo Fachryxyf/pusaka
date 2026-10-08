@@ -1,0 +1,32 @@
+slug: anime-nekosbest
+nama: 'Neko Anime'
+kategori: hiburan
+deskripsi: 'Gambar anime SFW beserta atribusi artisnya.'
+developer:
+  nama: nekos.best
+  profil: 'https://docs.nekos.best/'
+dokumentasi: 'https://docs.nekos.best/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://nekos.best'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'nekos.best (cantumkan artist_name dari respons)'
+  syaratUrl: 'https://docs.nekos.best/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: acak
+    method: GET
+    path: '/api/v2/neko'
+    deskripsi: 'Satu gambar neko acak + artis.'
+    params: []
+    contohPath: '/api/v2/neko'
+    minUkuranByte: 100

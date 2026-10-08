@@ -1,0 +1,38 @@
+slug: pemain-tetrio
+nama: 'Pemain TETR.IO'
+kategori: hiburan
+deskripsi: 'Profil pemain TETR.IO: rating, permainan, lencana.'
+developer:
+  nama: TETR.IO
+  profil: 'https://tetr.io/'
+dokumentasi: 'https://tetr.io/about/api/'
+upstreamName: null
+auth: none
+cors: locked
+baseUrl: 'https://ch.tetr.io'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'TETR.IO'
+  syaratUrl: 'https://tetr.io/about/api/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: pemain
+    method: GET
+    path: '/api/users/{nama}'
+    deskripsi: 'Profil satu pemain menurut nama.'
+    params:
+      - nama: nama
+        contoh: 'xkai'
+        wajib: true
+        keterangan: 'nama pemain'
+
+    contohPath: '/api/users/xkai'
+    pantauUmur: false
+    minUkuranByte: 200

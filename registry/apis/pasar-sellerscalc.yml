@@ -1,0 +1,32 @@
+slug: pasar-sellerscalc
+nama: 'Biaya Marketplace'
+kategori: referensi
+deskripsi: 'Jadwal biaya 21 marketplace dan pembayaran AS sebagai JSON.'
+developer:
+  nama: SellersCalc
+  profil: 'https://www.sellerscalc.com/'
+dokumentasi: 'https://www.sellerscalc.com/data'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://www.sellerscalc.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'SellersCalc'
+  syaratUrl: 'https://www.sellerscalc.com/data'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: biaya
+    method: GET
+    path: '/data/fees.json'
+    deskripsi: 'Seluruh jadwal biaya.'
+    params: []
+    contohPath: '/data/fees.json'
+    minUkuranByte: 5000

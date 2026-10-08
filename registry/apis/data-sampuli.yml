@@ -1,0 +1,39 @@
+slug: data-sampuli
+nama: 'Data Sintetis (Sampuli)'
+kategori: referensi
+deskripsi: 'Data uji sintetis 90 negara: ID, IBAN, kartu, alamat.'
+developer:
+  nama: Sampuli
+  profil: 'https://sampuli.site/'
+dokumentasi: 'https://sampuli.site/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://sampuli.site'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Sampuli'
+  syaratUrl: 'https://sampuli.site/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: negara
+    method: GET
+    path: '/api/v1/countries'
+    deskripsi: 'Daftar negara yang didukung.'
+    params: []
+    contohPath: '/api/v1/countries'
+    minUkuranByte: 2000
+  - id: uuid
+    method: GET
+    path: '/api/v1/any/uuid'
+    deskripsi: 'Satu UUID sintetis.'
+    params: []
+    contohPath: '/api/v1/any/uuid'
+    minUkuranByte: 20

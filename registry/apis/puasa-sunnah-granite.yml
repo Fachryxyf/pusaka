@@ -1,0 +1,56 @@
+slug: puasa-sunnah-granite
+nama: 'Puasa Sunnah (Granite)'
+kategori: agama-islam
+deskripsi: 'Jadwal puasa sunnah: tanggal, kategori, jenis, dan sumber rujukan.'
+developer:
+  nama: Granite Bagas
+  profil: 'https://api.puasa-sunnah.granitebps.com/swagger/index.html'
+dokumentasi: 'https://api.puasa-sunnah.granitebps.com/swagger/index.html'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.puasa-sunnah.granitebps.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Puasa Sunnah API (Granite Bagas)'
+  syaratUrl: 'https://api.puasa-sunnah.granitebps.com/swagger/index.html'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: indonesia
+endpoints:
+  - id: puasa
+    method: GET
+    path: '/api/v1/fastings'
+    deskripsi: 'Daftar jadwal puasa: tanggal, kategori, jenis.'
+    params: []
+    contohPath: '/api/v1/fastings'
+    minUkuranByte: 500
+
+  - id: kategori
+    method: GET
+    path: '/api/v1/categories'
+    deskripsi: 'Daftar kategori puasa.'
+    params: []
+    contohPath: '/api/v1/categories'
+    minUkuranByte: 50
+
+  - id: jenis
+    method: GET
+    path: '/api/v1/types'
+    deskripsi: 'Daftar jenis puasa (Senin Kamis dsb).'
+    params: []
+    contohPath: '/api/v1/types'
+    minUkuranByte: 100
+
+  - id: sumber
+    method: GET
+    path: '/api/v1/sources'
+    deskripsi: 'Daftar sumber rujukan jadwal.'
+    params: []
+    contohPath: '/api/v1/sources'
+    minUkuranByte: 150

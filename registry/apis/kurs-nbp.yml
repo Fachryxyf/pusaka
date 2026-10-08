@@ -1,0 +1,37 @@
+slug: kurs-nbp
+nama: 'Kurs Bank Polandia'
+kategori: finansial
+deskripsi: 'Tabel kurs resmi Bank Nasional Polandia.'
+developer:
+  nama: NBP
+  profil: 'https://api.nbp.pl/'
+dokumentasi: 'https://api.nbp.pl/en.html'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.nbp.pl'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Narodowy Bank Polski'
+  syaratUrl: 'https://api.nbp.pl/en.html'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: tabel
+    method: GET
+    path: '/api/exchangerates/tables/{tabel}/?format=json'
+    deskripsi: 'Satu tabel kurs (A, B, atau C).'
+    params:
+      - nama: tabel
+        contoh: 'A'
+        wajib: true
+        keterangan: 'kode tabel'
+
+    contohPath: '/api/exchangerates/tables/A/?format=json'
+    minUkuranByte: 800

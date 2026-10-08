@@ -105,6 +105,13 @@ Data asli sudah keluar. Base URL dan path di bawah ini sudah dites.
 
 ---
 
+## Hasil riset Tier C (2026-10-08)
+
+Tujuh lolos ke registry: Katanime, Doa Doa fly.dev, Hibersunda, Nusantara (Clowdlab),
+Lakuapik (via jsDelivr), KBBI raf555, Puasa Granite. 32 sisanya gugur dengan alasan
+tercatat di `REFERENCE.md` ("Riset Tier C Indonesia"): terbanyak pustaka self-host
+tanpa deployment, deployment demo mati, JSON sebagai text/plain, dan butuh token.
+
 ## Tier C — Perlu riset manual (39)
 
 Host hidup tapi balas HTML — biasanya situs demo/dokumentasi, API-nya ada di subdomain atau path lain. Ini bucket terbesar dan paling makan waktu.

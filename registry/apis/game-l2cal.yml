@@ -1,0 +1,32 @@
+slug: game-l2cal
+nama: 'Server Lineage 2 (L2Calendar)'
+kategori: hiburan
+deskripsi: 'Daftar server privat Lineage 2: rate, tanggal buka.'
+developer:
+  nama: L2Calendar
+  profil: 'https://l2calendar.com/'
+dokumentasi: 'https://l2calendar.com/api/servers'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://l2calendar.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'L2Calendar'
+  syaratUrl: 'https://l2calendar.com/api/servers'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: server
+    method: GET
+    path: '/api/servers'
+    deskripsi: 'Daftar server: nama, rate, jadwal buka.'
+    params: []
+    contohPath: '/api/servers'
+    minUkuranByte: 3000

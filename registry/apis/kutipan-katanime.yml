@@ -1,0 +1,66 @@
+slug: kutipan-katanime
+nama: 'Kutipan Anime (Katanime)'
+kategori: hiburan
+deskripsi: 'Kutipan anime dalam bahasa Inggris dan Indonesia - acak, per anime, atau cari kata.'
+developer:
+  nama: Ricko V
+  profil: 'https://github.com/ricko-v/katanime'
+dokumentasi: 'https://katanime.vercel.app/developer-api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://katanime.vercel.app'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Katanime (katanime.vercel.app)'
+  syaratUrl: 'https://katanime.vercel.app/developer-api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: indonesia
+endpoints:
+  - id: acak
+    method: GET
+    path: '/api/getrandom'
+    deskripsi: 'Satu kutipan anime acak: english, indo.'
+    params: []
+    contohPath: '/api/getrandom'
+    minUkuranByte: 500
+
+  - id: daftar
+    method: GET
+    path: '/api/getlistanime'
+    deskripsi: 'Daftar anime beserta jumlah kutipannya.'
+    params: []
+    contohPath: '/api/getlistanime'
+    minUkuranByte: 5000
+
+  - id: cari
+    method: GET
+    path: '/api/carikata?kata={kata}&page=1'
+    deskripsi: 'Cari kutipan mengandung kata ( Inggris ).'
+    params:
+      - nama: kata
+        contoh: 'kuat'
+        wajib: true
+        keterangan: 'kata kunci bahasa Inggris'
+
+    contohPath: '/api/carikata?kata=kuat&page=1'
+    minUkuranByte: 1000
+
+  - id: anime
+    method: GET
+    path: '/api/getbyanime?anime={nama}&page=1'
+    deskripsi: 'Kutipan dari satu anime.'
+    params:
+      - nama: nama
+        contoh: 'naruto'
+        wajib: true
+        keterangan: 'nama anime bahasa Inggris'
+
+    contohPath: '/api/getbyanime?anime=naruto&page=1'
+    minUkuranByte: 1000

@@ -1,0 +1,38 @@
+slug: sosial-bluesky
+nama: 'Profil Bluesky'
+kategori: hiburan
+deskripsi: 'Profil publik pengguna Bluesky via protokol AT.'
+developer:
+  nama: Bluesky
+  profil: 'https://bsky.app/'
+dokumentasi: 'https://docs.bsky.app/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://public.api.bsky.app'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Bluesky'
+  syaratUrl: 'https://docs.bsky.app/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: profil
+    method: GET
+    path: '/xrpc/app.bsky.actor.getProfile?actor={aktor}'
+    deskripsi: 'Profil: nama, bio, pengikut.'
+    params:
+      - nama: aktor
+        contoh: 'bsky.app'
+        wajib: true
+        keterangan: 'handle atau DID'
+
+    contohPath: '/xrpc/app.bsky.actor.getProfile?actor=bsky.app'
+    pantauUmur: false
+    minUkuranByte: 500

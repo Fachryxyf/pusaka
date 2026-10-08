@@ -1,0 +1,37 @@
+slug: game-mmobomb
+nama: 'Game MMO (MMOBomb)'
+kategori: hiburan
+deskripsi: 'Katalog game MMO gratis per platform.'
+developer:
+  nama: MMOBomb
+  profil: 'https://www.mmobomb.com/'
+dokumentasi: 'https://www.mmobomb.com/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://www.mmobomb.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'MMOBomb'
+  syaratUrl: 'https://www.mmobomb.com/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: daftar
+    method: GET
+    path: '/api1/games?platform={platform}'
+    deskripsi: 'Game MMO gratis tersaring per platform.'
+    params:
+      - nama: platform
+        contoh: 'pc'
+        wajib: true
+        keterangan: 'pc, browser, atau all'
+
+    contohPath: '/api1/games?platform=pc'
+    minUkuranByte: 50000

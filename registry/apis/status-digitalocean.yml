@@ -1,0 +1,32 @@
+slug: status-digitalocean
+nama: 'Status DigitalOcean'
+kategori: referensi
+deskripsi: 'Status layanan cloud DigitalOcean saat ini.'
+developer:
+  nama: DigitalOcean
+  profil: 'https://status.digitalocean.com/'
+dokumentasi: 'https://status.digitalocean.com/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://status.digitalocean.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'DigitalOcean Status'
+  syaratUrl: 'https://status.digitalocean.com/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: kini
+    method: GET
+    path: '/api/v2/status.json'
+    deskripsi: 'Status global + waktu respons.'
+    params: []
+    contohPath: '/api/v2/status.json'
+    minUkuranByte: 100

@@ -1,0 +1,32 @@
+slug: recall-makanan
+nama: 'Recall Makanan AS'
+kategori: referensi
+deskripsi: 'Penarikan makanan FDA dan USDA yang digabung dan dinormalkan.'
+developer:
+  nama: Daily Food Recalls
+  profil: 'https://dailyfoodrecalls.com/'
+dokumentasi: 'https://dailyfoodrecalls.com/api/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://dailyfoodrecalls.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Daily Food Recalls'
+  syaratUrl: 'https://dailyfoodrecalls.com/api/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: terbaru
+    method: GET
+    path: '/api/recalls-latest.json'
+    deskripsi: 'Penarikan terbaru beserta sumbernya.'
+    params: []
+    contohPath: '/api/recalls-latest.json'
+    minUkuranByte: 5000

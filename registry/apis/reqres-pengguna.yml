@@ -1,0 +1,37 @@
+slug: reqres-pengguna
+nama: 'Pengguna Contoh (ReqRes)'
+kategori: referensi
+deskripsi: 'Data pengguna palsu untuk latihan REST.'
+developer:
+  nama: ReqRes
+  profil: 'https://reqres.in/'
+dokumentasi: 'https://reqres.in/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://reqres.in'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'ReqRes'
+  syaratUrl: 'https://reqres.in/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: pengguna
+    method: GET
+    path: '/api/users/{id}'
+    deskripsi: 'Satu pengguna palsu.'
+    params:
+      - nama: id
+        contoh: '2'
+        wajib: true
+        keterangan: 'id 1-12'
+
+    contohPath: '/api/users/2'
+    minUkuranByte: 300

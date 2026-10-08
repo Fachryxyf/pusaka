@@ -1,0 +1,32 @@
+slug: cuaca-rainviewer
+nama: 'Radar Hujan (RainViewer)'
+kategori: cuaca
+deskripsi: 'Jadwal dan ubin peta radar hujan global.'
+developer:
+  nama: RainViewer
+  profil: 'https://www.rainviewer.com/'
+dokumentasi: 'https://www.rainviewer.com/api.html'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.rainviewer.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'RainViewer'
+  syaratUrl: 'https://www.rainviewer.com/api.html'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: peta
+    method: GET
+    path: '/public/weather-maps.json'
+    deskripsi: 'Jadwal radar terakhir + host ubin peta.'
+    params: []
+    contohPath: '/public/weather-maps.json'
+    minUkuranByte: 400

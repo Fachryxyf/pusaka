@@ -1,0 +1,39 @@
+slug: kerja-freehire
+nama: 'Lowongan FreeHire'
+kategori: referensi
+deskripsi: 'Lowongan teknologi dari papan ATS perusahaan.'
+developer:
+  nama: freehire
+  profil: 'https://freehire.dev/'
+dokumentasi: 'https://freehire.dev/docs/api'
+upstreamName: null
+auth: none
+cors: none
+baseUrl: 'https://freehire.dev'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'freehire'
+  syaratUrl: 'https://freehire.dev/docs/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: lowongan
+    method: GET
+    path: '/api/v1/jobs'
+    deskripsi: 'Lowongan terbaru.'
+    params: []
+    contohPath: '/api/v1/jobs'
+    minUkuranByte: 10000
+  - id: perusahaan
+    method: GET
+    path: '/api/v1/companies'
+    deskripsi: 'Perusahaan yang membuka lowongan.'
+    params: []
+    contohPath: '/api/v1/companies'
+    minUkuranByte: 2000

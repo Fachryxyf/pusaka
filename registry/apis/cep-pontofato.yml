@@ -1,0 +1,37 @@
+slug: cep-pontofato
+nama: 'CEP Brasil (PontoFato)'
+kategori: lokasi
+deskripsi: 'Kode pos Brasil plus koordinat IBGE dan perusahaan sekitar.'
+developer:
+  nama: PontoFato
+  profil: 'https://pontofato.com/'
+dokumentasi: 'https://pontofato.com/api/'
+upstreamName: null
+auth: none
+cors: none
+baseUrl: 'https://pontofato.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'PontoFato'
+  syaratUrl: 'https://pontofato.com/api/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: cep
+    method: GET
+    path: '/api/cep/{cep}'
+    deskripsi: 'Detail satu CEP beserta titik sekitar.'
+    params:
+      - nama: cep
+        contoh: '01001000'
+        wajib: true
+        keterangan: 'CEP 8 digit'
+
+    contohPath: '/api/cep/01001000'
+    minUkuranByte: 5000

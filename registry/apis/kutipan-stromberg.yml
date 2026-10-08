@@ -1,0 +1,33 @@
+slug: kutipan-stromberg
+nama: 'Kutipan Stromberg'
+kategori: hiburan
+deskripsi: 'Kutipan serial Stromberg (Jerman).'
+developer:
+  nama: Stromberg API
+  profil: 'https://www.stromberg-api.de/'
+dokumentasi: 'https://www.stromberg-api.de/'
+upstreamName: null
+auth: none
+cors: none
+baseUrl: 'https://www.stromberg-api.de'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Stromberg API'
+  syaratUrl: 'https://www.stromberg-api.de/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: acak
+    method: GET
+    path: '/api/quotes'
+    deskripsi: 'Daftar kutipan acak.'
+    params: []
+    contohPath: '/api/quotes'
+    pantauUmur: false
+    minUkuranByte: 20000

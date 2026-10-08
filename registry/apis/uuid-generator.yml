@@ -1,0 +1,37 @@
+slug: uuid-generator
+nama: 'UUID Acak'
+kategori: referensi
+deskripsi: 'Hasilkan UUID v4 sebanyak yang diminta.'
+developer:
+  nama: uuidtools
+  profil: 'https://www.uuidtools.com/'
+dokumentasi: 'https://www.uuidtools.com/docs'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://www.uuidtools.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'uuidtools'
+  syaratUrl: 'https://www.uuidtools.com/docs'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: buat
+    method: GET
+    path: '/api/generate/v4/count/{n}'
+    deskripsi: 'Sejumlah UUID v4 acak.'
+    params:
+      - nama: n
+        contoh: '1'
+        wajib: true
+        keterangan: 'jumlah UUID'
+
+    contohPath: '/api/generate/v4/count/1'
+    minUkuranByte: 20

@@ -1,0 +1,32 @@
+slug: mail-guerrilla
+nama: 'Email Sementara'
+kategori: referensi
+deskripsi: 'Buat alamat email sekali pakai Guerrilla Mail.'
+developer:
+  nama: Guerrilla Mail
+  profil: 'https://www.guerrillamail.com/'
+dokumentasi: 'https://www.guerrillamail.com/GuerrillaMailAPI.html'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.guerrillamail.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Guerrilla Mail'
+  syaratUrl: 'https://www.guerrillamail.com/GuerrillaMailAPI.html'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: alamat
+    method: GET
+    path: '/ajax.php?f=get_email_address'
+    deskripsi: 'Satu alamat sekali pakai + token sid.'
+    params: []
+    contohPath: '/ajax.php?f=get_email_address'
+    minUkuranByte: 60

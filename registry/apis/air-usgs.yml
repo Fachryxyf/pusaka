@@ -1,0 +1,37 @@
+slug: air-usgs
+nama: 'Debit Sungai (USGS)'
+kategori: referensi
+deskripsi: 'Data debit dan muka air sungai Amerika real-time dari dinas geologi AS.'
+developer:
+  nama: USGS
+  profil: 'https://www.usgs.gov/'
+dokumentasi: 'https://waterservices.usgs.gov/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://waterservices.usgs.gov'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'USGS Water Services'
+  syaratUrl: 'https://waterservices.usgs.gov/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: debit
+    method: GET
+    path: '/nwis/iv/?sites={situs}&parameterCd=00060&format=json'
+    deskripsi: 'Data instan debit satu stasiun ukur.'
+    params:
+      - nama: situs
+        contoh: '01491000'
+        wajib: true
+        keterangan: 'kode stasiun'
+
+    contohPath: '/nwis/iv/?sites=01491000&parameterCd=00060&format=json'
+    minUkuranByte: 1000

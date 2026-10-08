@@ -1,0 +1,41 @@
+slug: cuaca-nasapower
+nama: 'Iklim NASA (POWER)'
+kategori: cuaca
+deskripsi: 'Data surya dan iklim global NASA untuk energi dan pertanian.'
+developer:
+  nama: NASA
+  profil: 'https://power.larc.nasa.gov/'
+dokumentasi: 'https://power.larc.nasa.gov/docs/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://power.larc.nasa.gov'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'NASA POWER'
+  syaratUrl: 'https://power.larc.nasa.gov/docs/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: harian
+    method: GET
+    path: '/api/temporal/daily/point?latitude={lat}&longitude={lon}&start=20240101&end=20240102&parameters=T2M&community=AG&format=JSON'
+    deskripsi: 'Suhu harian satu titik (contoh 2 hari).'
+    params:
+      - nama: lat
+        contoh: '-6.2'
+        wajib: true
+        keterangan: 'lintang'
+      - nama: lon
+        contoh: '106.8'
+        wajib: true
+        keterangan: 'bujur'
+
+    contohPath: '/api/temporal/daily/point?latitude=-6.2&longitude=106.8&start=20240101&end=20240102&parameters=T2M&community=AG&format=JSON'
+    minUkuranByte: 200

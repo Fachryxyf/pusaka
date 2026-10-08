@@ -1,0 +1,38 @@
+slug: ekstensi-openvsx
+nama: 'Ekstensi Open VSX'
+kategori: referensi
+deskripsi: 'Cari ekstensi VS Code dari registri Open VSX.'
+developer:
+  nama: Open VSX
+  profil: 'https://open-vsx.org/'
+dokumentasi: 'https://open-vsx.org/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://open-vsx.org'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Open VSX'
+  syaratUrl: 'https://open-vsx.org/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: cari
+    method: GET
+    path: '/api/-/search?query={q}&size=3'
+    deskripsi: 'Ekstensi cocok menurut kata kunci.'
+    params:
+      - nama: q
+        contoh: 'json'
+        wajib: true
+        keterangan: 'kata kunci'
+
+    contohPath: '/api/-/search?query=json&size=3'
+    pantauUmur: false
+    minUkuranByte: 300

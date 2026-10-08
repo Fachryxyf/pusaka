@@ -1,0 +1,37 @@
+slug: paket-hexpm
+nama: 'Paket Hex'
+kategori: referensi
+deskripsi: 'Metadata paket Elixir dan Erlang Hex.'
+developer:
+  nama: Hex
+  profil: 'https://hex.pm/'
+dokumentasi: 'https://github.com/hexpm/specifications'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://hex.pm'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Hex'
+  syaratUrl: 'https://github.com/hexpm/specifications'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: paket
+    method: GET
+    path: '/api/packages/{nama}'
+    deskripsi: 'Detail satu paket.'
+    params:
+      - nama: nama
+        contoh: 'plug'
+        wajib: true
+        keterangan: 'nama paket'
+
+    contohPath: '/api/packages/plug'
+    minUkuranByte: 5000

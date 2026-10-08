@@ -1,0 +1,38 @@
+slug: sihir-potterdb
+nama: 'Dunia Sihir (PotterDB)'
+kategori: hiburan
+deskripsi: 'Basis data Harry Potter: tokoh, mantra, ramuan.'
+developer:
+  nama: PotterDB
+  profil: 'https://docs.potterdb.com/'
+dokumentasi: 'https://docs.potterdb.com/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.potterdb.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'PotterDB'
+  syaratUrl: 'https://docs.potterdb.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: karakter
+    method: GET
+    path: '/v1/characters?page[number]={hal}&page[size]=3'
+    deskripsi: 'Tiga tokoh per halaman.'
+    params:
+      - nama: hal
+        contoh: '1'
+        wajib: true
+        keterangan: 'nomor halaman'
+
+    contohPath: '/v1/characters?page[number]=1&page[size]=3'
+    pantauUmur: false
+    minUkuranByte: 500

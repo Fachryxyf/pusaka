@@ -11,7 +11,7 @@ plus katalog API publik — berawal dari daftar lokal Indonesia — yang statusn
 [![Katalog: CC BY 4.0](https://img.shields.io/badge/katalog-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 [![Stack](https://img.shields.io/badge/stack-Next.js%2016%20%2B%20TypeScript%20%2B%20Tailwind%204-black.svg)](#struktur)
-[![API terdaftar](https://img.shields.io/badge/API%20terdaftar-119-informational.svg)](./registry/apis)
+[![API terdaftar](https://img.shields.io/badge/API%20terdaftar-251-informational.svg)](./registry/apis)
 [![Alat](https://img.shields.io/badge/alat-16-informational.svg)](./alat)
 [![Tahap](https://img.shields.io/badge/tahap-6%20dari%207-yellow.svg)](./TASKS.md)
 [![Lisensi data](https://img.shields.io/badge/data-lihat%20NOTICE-lightgrey.svg)](./NOTICE.md)
@@ -45,8 +45,8 @@ hidup saat kamu membacanya. Status API berubah terus — itu justru premis proje
 
 | Yang diklaim | Artinya |
 |---|---|
-| 119 API terdaftar | ada 119 berkas di `registry/apis/`, semuanya pernah dipanggil sungguhan dan lolos validasi skema |
-| 233 endpoint | diprobe tiap 6 jam; angka live ada di [dashboard status](https://pusaka.fachryxyf.com/dev/status/). Kegagalan berulang yang diketahui: kodepos vanmason (hulu membalas HTML) dan tiga API tebak-nama (agify/genderize/nationalize, batas 100/hari — di produksi tiap pengunjung punya kuota IP sendiri) |
+| 251 API terdaftar | ada 251 berkas di `registry/apis/`, semuanya pernah dipanggil sungguhan dan lolos validasi skema |
+| 388 endpoint | diprobe tiap 6 jam; angka live ada di [dashboard status](https://pusaka.fachryxyf.com/dev/status/). Kegagalan berulang yang diketahui: kodepos vanmason (hulu membalas HTML) dan tiga API tebak-nama (agify/genderize/nationalize, batas 100/hari — di produksi tiap pengunjung punya kuota IP sendiri) |
 | 16 alat | jumlah yang benar-benar bisa dipakai orang awam, bukan jumlah API |
 | 151 API di backlog | inventaris upstream, bertingkat menurut kesiapan di [`BACKLOG-API.md`](./BACKLOG-API.md) |
 | Gelombang riset | tanggal dan isi tiap gelombang ada di tabel bawah |
@@ -59,8 +59,9 @@ hidup saat kamu membacanya. Status API berubah terus — itu justru premis proje
 | 20 Agu 2026 | NASA/JPL, batas paginasi idn-area, seluruh data lisensi |
 | 21 Agu 2026 | Batas permintaan myQuran, zona waktu BMKG, tag equran.id, batas kodepos, probe ulang berita–emas–sekolah |
 | 7 Okt 2026 | 9 batch API global dari public-apis (rincian per batch di REFERENCE.md) |
+| 8 Okt 2026 | Sapu total: 7 Tier C Indonesia + 125 public-apis (sains, cuaca, game, geo, finansial, dev); Tier D/E dan ratusan gugur tercatat di REFERENCE.md |
 
-**Status hidup/mati sekarang punya stempel waktu.** Sejak Tahap 3, seluruh 233 endpoint
+**Status hidup/mati sekarang punya stempel waktu.** Sejak Tahap 3, seluruh 388 endpoint
 diprobe tiap 6 jam langsung ke alamat aslinya, dan hasilnya terbuka:
 
 - Dashboard: [pusaka.fachryxyf.com/dev/status](https://pusaka.fachryxyf.com/dev/status/)
@@ -208,7 +209,7 @@ Cara berkontribusi yang paling berguna, dari yang paling mudah:
 | Buat alat baru | baca bagian alatnya di [`UI-SPEC.md`](./UI-SPEC.md), lalu ikuti pola di `alat/` |
 | Perbaiki lisensi yang `unknown` | kalau kamu menemukan pernyataan lisensi sebuah API, perbarui `provenance` di registry-nya |
 
-Yang terakhir itu bernilai lebih dari yang terlihat: **88 dari 119 API masih `unknown`**, dan
+Yang terakhir itu bernilai lebih dari yang terlihat: **219 dari 251 API masih `unknown`**, dan
 tiap satu yang terjawab membuat lebih banyak data boleh di-mirror — artinya lebih banyak alat
 yang tetap jalan saat sumbernya mati.
 
@@ -336,3 +337,16 @@ Data tiap alat milik penerbit aslinya masing-masing:
 - demonslayer-api.com — tokoh Demon Slayer (data milik Koyoharu Gotouge/Ufotable)
 - SampleAPIs — katalog game Nintendo Switch (gratis, lisensi tidak dinyatakan)
 - Scryfall — kartu Magic The Gathering (data kartu milik Wizards of the Coast)
+- Katanime (Ricko V), Doa Fly (Ahmad Ramadhan), Hibersunda (Hiberin), Nusantara (Clowdlab), Lakuapik, KBBI (raf555), Puasa Granite — riset Tier C Indonesia
+- OpenAlex, Europe PMC, DataCite, MyGene, RCSB PDB, ITIS, INSPIRE-HEP, OSF, USGS Water, Newton, Botlero — sains & riset
+- NWS, RainViewer, NASA POWER, IPMA, NOAA Aviation, HKO, Open-Meteo Ensemble — cuaca dunia
+- Radio Browser, Bacon Ipsum, Genrenator, ISRO, UUID, Open5e, RacingHub, OpenF1, OpenLigaDB, NHL — direktori & olahraga
+- PlayerDB, mcsrvstat, GamerPower, FFXIV Collect, MMOBomb, L2Calendar, MHW-DB, RuneScape Wiki, TETR.IO, TCGdex, GW2, Universalis, GZW, Digimon Vercel — data game
+- Geek jokes, Lucifer, Stranger Things, ThronesAPI, Stromberg, Memesio, PotterDB, SwarmMemo, Nekos.best — hiburan
+- NoPunt, CalDays (CC BY 4.0), GOV.UK, NHTSA, Wheelwise — olahraga, kalender, kendaraan
+- GeoJS, Postcodes.io, ViaCep, SearchPinCode, IBGE, PontoFato, adresse Etalab, BdAPIs, BrasilAPI, Moradas, HelloSalut, Postali, ipgeolocationapi — geo & kode pos dunia
+- Fawaz currency, AwesomeAPI, Fulusly, VATComply, NBP Polandia, DefiLlama, CoinLore, Mempool, IFSC Razorpay, SEC EDGAR, mfapi.in, why21million, SoloLuck — finansial & kripto
+- npm, Homebrew, RubyGems, NuGet, Open VSX, Hex, jsDelivr, DO Status, ReqRes, APIs.guru, crates.io — perkakas developer
+- Guerrilla Mail, Mail.TM, SellersCalc, BirkinBagStock, AIDevBoard, FreeHire, CuratorSearch, AIJobs, Sampuli, AddressMock, Modelfax, OneFindMe, Postman Echo — utilitas & data
+- FBI Wanted, Internet Archive, Quran Cloud, TensorFeed AI, HDX, Legal Georgia, SEC, Llama — arsip & referensi
+- NVD, UK Police, 4chan, Hacker News, Bluesky, food recalls FDA/USDA, Racion, Open Brewery DB, Carbon Intensity — keamanan, sosial, pangan

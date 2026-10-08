@@ -1,0 +1,37 @@
+slug: doi-datacite
+nama: 'DOI Riset (DataCite)'
+kategori: referensi
+deskripsi: 'Pencarian metadata DOI dataset dan publikasi riset.'
+developer:
+  nama: DataCite
+  profil: 'https://datacite.org/'
+dokumentasi: 'https://support.datacite.org/docs/rest-api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.datacite.org'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'DataCite'
+  syaratUrl: 'https://support.datacite.org/docs/rest-api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: cari
+    method: GET
+    path: '/dois?query={q}&page%5Bsize%5D=3'
+    deskripsi: 'Cari DOI menurut kata kunci.'
+    params:
+      - nama: q
+        contoh: 'climate'
+        wajib: true
+        keterangan: 'kata kunci'
+
+    contohPath: '/dois?query=climate&page%5Bsize%5D=3'
+    minUkuranByte: 1500

@@ -1,0 +1,32 @@
+slug: nfl-nopunt
+nama: 'Picks NFL (NoPunt)'
+kategori: hiburan
+deskripsi: 'Prediksi model tiap pekan NFL beserta tingkat keyakinan.'
+developer:
+  nama: NoPunt
+  profil: 'https://www.nopunt.com/'
+dokumentasi: 'https://www.nopunt.com/api/picks.json'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://www.nopunt.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'NoPunt'
+  syaratUrl: 'https://www.nopunt.com/api/picks.json'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: picks
+    method: GET
+    path: '/api/picks.json'
+    deskripsi: 'Pekan berjalan: prediksi, probabilitas, tier.'
+    params: []
+    contohPath: '/api/picks.json'
+    minUkuranByte: 1000

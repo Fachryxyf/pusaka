@@ -1,0 +1,37 @@
+slug: riset-osf
+nama: 'Simpul Riset (OSF)'
+kategori: referensi
+deskripsi: 'Pencarian simpul riset terbuka di Open Science Framework.'
+developer:
+  nama: OSF
+  profil: 'https://osf.io/'
+dokumentasi: 'https://developer.osf.io'
+upstreamName: null
+auth: none
+cors: none
+baseUrl: 'https://api.osf.io'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Open Science Framework'
+  syaratUrl: 'https://developer.osf.io'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: simpul
+    method: GET
+    path: '/v2/nodes/?filter[title]={q}'
+    deskripsi: 'Cari simpul riset menurut judul.'
+    params:
+      - nama: q
+        contoh: 'test'
+        wajib: true
+        keterangan: 'kata kunci judul'
+
+    contohPath: '/v2/nodes/?filter[title]=test'
+    minUkuranByte: 5000

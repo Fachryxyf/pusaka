@@ -1,0 +1,32 @@
+slug: isro-wahana
+nama: 'Wahana ISRO'
+kategori: referensi
+deskripsi: 'Daftar wahana antariksa badan antariksa India.'
+developer:
+  nama: ISRO API
+  profil: 'https://isro.vercel.app'
+dokumentasi: 'https://isro.vercel.app'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://isro.vercel.app'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'ISRO API'
+  syaratUrl: 'https://isro.vercel.app'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: daftar
+    method: GET
+    path: '/api/spacecrafts'
+    deskripsi: 'Daftar wahana: id dan nama.'
+    params: []
+    contohPath: '/api/spacecrafts'
+    minUkuranByte: 1000

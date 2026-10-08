@@ -1,0 +1,37 @@
+slug: cari-onefind
+nama: 'Cari AliExpress'
+kategori: referensi
+deskripsi: 'Cari barang AliExpress: harga, rating, pesanan.'
+developer:
+  nama: OneFindMe
+  profil: 'https://onefindme.com/'
+dokumentasi: 'https://onefindme.com/mcp'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://onefindme.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'OneFindMe'
+  syaratUrl: 'https://onefindme.com/mcp'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: cari
+    method: GET
+    path: '/api/search?q={q}'
+    deskripsi: 'Hasil belanja menurut kata kunci.'
+    params:
+      - nama: q
+        contoh: 'phone'
+        wajib: true
+        keterangan: 'kata kunci'
+
+    contohPath: '/api/search?q=phone'
+    minUkuranByte: 1000

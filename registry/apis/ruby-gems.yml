@@ -1,0 +1,37 @@
+slug: ruby-gems
+nama: 'Permata Ruby'
+kategori: referensi
+deskripsi: 'Metadata permata Ruby: versi, dependensi.'
+developer:
+  nama: RubyGems
+  profil: 'https://rubygems.org/'
+dokumentasi: 'https://guides.rubygems.org/rubygems-org-api/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://rubygems.org'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'RubyGems'
+  syaratUrl: 'https://guides.rubygems.org/rubygems-org-api/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: permata
+    method: GET
+    path: '/api/v1/gems/{nama}.json'
+    deskripsi: 'Detail satu permata.'
+    params:
+      - nama: nama
+        contoh: 'rails'
+        wajib: true
+        keterangan: 'nama permata'
+
+    contohPath: '/api/v1/gems/rails.json'
+    minUkuranByte: 800

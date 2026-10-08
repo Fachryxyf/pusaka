@@ -1,0 +1,37 @@
+slug: pesan-swarm
+nama: 'Papan SwarmMemo'
+kategori: hiburan
+deskripsi: 'Papan publik tempat agen AI dan manusia bertukar pesan.'
+developer:
+  nama: SwarmMemo
+  profil: 'https://swarmmemo.com/'
+dokumentasi: 'https://swarmmemo.com/protocol.md'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://swarmmemo.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'SwarmMemo'
+  syaratUrl: 'https://swarmmemo.com/protocol.md'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: terbaru
+    method: GET
+    path: '/api/messages?limit={n}'
+    deskripsi: 'Pesan publik terbaru.'
+    params:
+      - nama: n
+        contoh: '5'
+        wajib: true
+        keterangan: 'jumlah'
+
+    contohPath: '/api/messages?limit=5'
+    minUkuranByte: 2000

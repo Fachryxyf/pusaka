@@ -1,0 +1,37 @@
+slug: gen-mygene
+nama: 'Info Gen (MyGene)'
+kategori: referensi
+deskripsi: 'Query anotasi gen: simbol, nama, taksonomi.'
+developer:
+  nama: MyGene.info
+  profil: 'https://mygene.info/'
+dokumentasi: 'https://docs.mygene.info/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://mygene.info'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'MyGene.info'
+  syaratUrl: 'https://docs.mygene.info/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: cari
+    method: GET
+    path: '/v3/query?q={gen}&size=3'
+    deskripsi: 'Cari gen menurut nama atau simbol.'
+    params:
+      - nama: gen
+        contoh: 'insulin'
+        wajib: true
+        keterangan: 'nama gen'
+
+    contohPath: '/v3/query?q=insulin&size=3'
+    minUkuranByte: 80

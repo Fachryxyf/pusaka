@@ -1,0 +1,37 @@
+slug: pesawat-aviation
+nama: 'METAR Penerbangan (NOAA)'
+kategori: cuaca
+deskripsi: 'Laporan cuaca bandara (METAR) Amerika dan dunia, mis. WIII Jakarta.'
+developer:
+  nama: NOAA
+  profil: 'https://aviationweather.gov/'
+dokumentasi: 'https://aviationweather.gov/dataserver'
+upstreamName: null
+auth: none
+cors: none
+baseUrl: 'https://aviationweather.gov'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'NOAA Aviation Weather'
+  syaratUrl: 'https://aviationweather.gov/dataserver'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: metar
+    method: GET
+    path: '/api/data/metar?ids={kode}&format=json'
+    deskripsi: 'METAR terbaru satu bandara menurut kode ICAO.'
+    params:
+      - nama: kode
+        contoh: 'WIII'
+        wajib: true
+        keterangan: 'kode ICAO (mis. WIII Jakarta)'
+
+    contohPath: '/api/data/metar?ids=WIII&format=json'
+    minUkuranByte: 200

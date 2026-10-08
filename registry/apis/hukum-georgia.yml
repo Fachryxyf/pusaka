@@ -1,0 +1,37 @@
+slug: hukum-georgia
+nama: 'Hukum Georgia'
+kategori: referensi
+deskripsi: 'Cari layanan dan spesialis hukum Georgia terverifikasi.'
+developer:
+  nama: Legal Georgia
+  profil: 'https://legal.ge/'
+dokumentasi: 'https://legal.ge/api/openapi.json'
+upstreamName: null
+auth: none
+cors: none
+baseUrl: 'https://legal.ge'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Legal Georgia'
+  syaratUrl: 'https://legal.ge/api/openapi.json'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: cari
+    method: GET
+    path: '/api/service-search?q={q}'
+    deskripsi: 'Layanan hukum cocok.'
+    params:
+      - nama: q
+        contoh: 'lawyer'
+        wajib: true
+        keterangan: 'kata kunci Inggris'
+
+    contohPath: '/api/service-search?q=lawyer'
+    minUkuranByte: 1000

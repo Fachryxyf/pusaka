@@ -1,0 +1,37 @@
+slug: alamat-adresse
+nama: 'Alamat Prancis'
+kategori: lokasi
+deskripsi: 'Geocoding resmi pemerintah Prancis.'
+developer:
+  nama: Etalab
+  profil: 'https://adresse.data.gouv.fr/'
+dokumentasi: 'https://adresse.data.gouv.fr/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api-adresse.data.gouv.fr'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'adresse.data.gouv.fr (Etalab)'
+  syaratUrl: 'https://adresse.data.gouv.fr/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: cari
+    method: GET
+    path: '/search/?q={kata}&type=municipality&limit=1'
+    deskripsi: 'Satu kota menurut nama.'
+    params:
+      - nama: kata
+        contoh: 'paris'
+        wajib: true
+        keterangan: 'nama tempat'
+
+    contohPath: '/search/?q=paris&type=municipality&limit=1'
+    minUkuranByte: 200

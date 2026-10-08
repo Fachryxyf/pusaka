@@ -1,0 +1,45 @@
+slug: f1-openf1
+nama: 'Formula 1 (OpenF1)'
+kategori: hiburan
+deskripsi: 'Data Formula 1 real-time dan historis: sesi, pembalap, telemetri.'
+developer:
+  nama: OpenF1
+  profil: 'https://openf1.org/'
+dokumentasi: 'https://openf1.org/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.openf1.org'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'OpenF1'
+  syaratUrl: 'https://openf1.org/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: pembalap
+    method: GET
+    path: '/v1/drivers?session_key=latest'
+    deskripsi: 'Pembalap sesi terakhir: nama, tim, nomor.'
+    params: []
+    contohPath: '/v1/drivers?session_key=latest'
+    minUkuranByte: 2000
+  - id: pertemuan
+    method: GET
+    path: '/v1/meetings?year={tahun}'
+    deskripsi: 'Daftar seri balap satu musim.'
+    params:
+      - nama: tahun
+        contoh: '2024'
+        wajib: true
+        keterangan: 'tahun musim'
+
+    contohPath: '/v1/meetings?year=2024'
+    pantauUmur: false
+    minUkuranByte: 3000

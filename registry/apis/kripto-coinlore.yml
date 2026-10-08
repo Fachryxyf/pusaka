@@ -1,0 +1,41 @@
+slug: kripto-coinlore
+nama: 'Kripto (CoinLore)'
+kategori: finansial
+deskripsi: 'Harga, volume, dan peringkat kripto.'
+developer:
+  nama: CoinLore
+  profil: 'https://www.coinlore.com/'
+dokumentasi: 'https://www.coinlore.com/cryptocurrency-data-api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.coinlore.net'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'CoinLore'
+  syaratUrl: 'https://www.coinlore.com/cryptocurrency-data-api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: daftar
+    method: GET
+    path: '/api/tickers/?start={mulai}&limit={n}'
+    deskripsi: 'Halaman harga kripto.'
+    params:
+      - nama: mulai
+        contoh: '0'
+        wajib: true
+        keterangan: 'indeks awal'
+      - nama: n
+        contoh: '1'
+        wajib: true
+        keterangan: 'jumlah'
+
+    contohPath: '/api/tickers/?start=0&limit=1'
+    minUkuranByte: 200

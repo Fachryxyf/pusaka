@@ -1,0 +1,37 @@
+slug: paket-nuget
+nama: 'Paket NuGet'
+kategori: referensi
+deskripsi: 'Cari paket .NET di registri NuGet.'
+developer:
+  nama: NuGet
+  profil: 'https://www.nuget.org/'
+dokumentasi: 'https://learn.microsoft.com/en-us/nuget/api/overview'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://azuresearch-usnc.nuget.org'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'NuGet'
+  syaratUrl: 'https://learn.microsoft.com/en-us/nuget/api/overview'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: cari
+    method: GET
+    path: '/query?q={q}&take=3'
+    deskripsi: 'Paket cocok menurut kata kunci.'
+    params:
+      - nama: q
+        contoh: 'json'
+        wajib: true
+        keterangan: 'kata kunci'
+
+    contohPath: '/query?q=json&take=3'
+    minUkuranByte: 2000

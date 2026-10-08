@@ -1,0 +1,37 @@
+slug: cep-viacep
+nama: 'CEP Brasil (ViaCep)'
+kategori: lokasi
+deskripsi: 'Kode pos Brasil: jalan, kota, negara bagian.'
+developer:
+  nama: ViaCep
+  profil: 'https://viacep.com.br/'
+dokumentasi: 'https://viacep.com.br/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://viacep.com.br'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'ViaCep'
+  syaratUrl: 'https://viacep.com.br/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: cep
+    method: GET
+    path: '/ws/{cep}/json/'
+    deskripsi: 'Detail satu CEP.'
+    params:
+      - nama: cep
+        contoh: '01001000'
+        wajib: true
+        keterangan: 'CEP 8 digit'
+
+    contohPath: '/ws/01001000/json/'
+    minUkuranByte: 150

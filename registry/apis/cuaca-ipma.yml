@@ -1,0 +1,32 @@
+slug: cuaca-ipma
+nama: 'Cuaca Portugal (IPMA)'
+kategori: cuaca
+deskripsi: 'Distrik dan prakiraan resmi institut cuaca Portugal.'
+developer:
+  nama: IPMA
+  profil: 'https://api.ipma.pt/'
+dokumentasi: 'https://api.ipma.pt/open-data/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.ipma.pt'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'IPMA'
+  syaratUrl: 'https://api.ipma.pt/open-data/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: distrik
+    method: GET
+    path: '/open-data/distrits-islands.json'
+    deskripsi: 'Daftar distrik dan pulau Portugal.'
+    params: []
+    contohPath: '/open-data/distrits-islands.json'
+    minUkuranByte: 2000

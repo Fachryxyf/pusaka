@@ -1,0 +1,32 @@
+slug: gambar-dog
+nama: 'Anjing Acak'
+kategori: hiburan
+deskripsi: 'Satu gambar anjing acak.'
+developer:
+  nama: random.dog
+  profil: 'https://random.dog/'
+dokumentasi: 'https://random.dog/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://random.dog'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'random.dog'
+  syaratUrl: 'https://random.dog/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: acak
+    method: GET
+    path: '/woof.json'
+    deskripsi: 'Satu URL gambar acak.'
+    params: []
+    contohPath: '/woof.json'
+    minUkuranByte: 30

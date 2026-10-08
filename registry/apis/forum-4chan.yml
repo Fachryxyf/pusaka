@@ -1,0 +1,37 @@
+slug: forum-4chan
+nama: 'Utas 4chan'
+kategori: hiburan
+deskripsi: 'Daftar utas aktif satu papan 4chan.'
+developer:
+  nama: 4chan
+  profil: 'https://www.4chan.org/'
+dokumentasi: 'https://github.com/4chan/4chan-API'
+upstreamName: null
+auth: none
+cors: locked
+baseUrl: 'https://a.4cdn.org'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: '4chan API'
+  syaratUrl: 'https://github.com/4chan/4chan-API'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: utas
+    method: GET
+    path: '/{papan}/threads.json'
+    deskripsi: 'Utas aktif: nomor, balasan, gambar.'
+    params:
+      - nama: papan
+        contoh: 'g'
+        wajib: true
+        keterangan: 'kode papan (mis. g)'
+
+    contohPath: '/g/threads.json'
+    minUkuranByte: 3000

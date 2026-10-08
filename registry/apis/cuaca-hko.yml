@@ -1,0 +1,37 @@
+slug: cuaca-hko
+nama: 'Cuaca Hong Kong (HKO)'
+kategori: cuaca
+deskripsi: 'Ramalan lokal Observatorium Hong Kong.'
+developer:
+  nama: HKO
+  profil: 'https://www.hko.gov.hk/'
+dokumentasi: 'https://www.hko.gov.hk/en/abouthko/opendata_intro.htm'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://data.weather.gov.hk'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Hong Kong Observatory'
+  syaratUrl: 'https://www.hko.gov.hk/en/abouthko/opendata_intro.htm'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: ramalan
+    method: GET
+    path: '/weatherAPI/opendata/weather.php?dataType=flw&lang={bahasa}'
+    deskripsi: 'Ramalan lokal Hong Kong.'
+    params:
+      - nama: bahasa
+        contoh: 'en'
+        wajib: true
+        keterangan: 'en, tc, atau sc'
+
+    contohPath: '/weatherAPI/opendata/weather.php?dataType=flw&lang=en'
+    minUkuranByte: 400

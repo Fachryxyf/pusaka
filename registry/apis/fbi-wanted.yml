@@ -1,0 +1,37 @@
+slug: fbi-wanted
+nama: 'Daftar DPO (FBI)'
+kategori: referensi
+deskripsi: 'Daftar orang dicari biro federal AS beserta posternya.'
+developer:
+  nama: FBI
+  profil: 'https://www.fbi.gov/'
+dokumentasi: 'https://www.fbi.gov/wanted/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.fbi.gov'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'FBI Wanted API'
+  syaratUrl: 'https://www.fbi.gov/wanted/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: daftar
+    method: GET
+    path: '/wanted/v1/list?pageSize={n}'
+    deskripsi: 'Satu halaman daftar DPO.'
+    params:
+      - nama: n
+        contoh: '1'
+        wajib: true
+        keterangan: 'jumlah entri'
+
+    contohPath: '/wanted/v1/list?pageSize=1'
+    minUkuranByte: 1000

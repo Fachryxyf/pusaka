@@ -1,0 +1,37 @@
+slug: kurs-vat
+nama: 'Kurs VATComply'
+kategori: finansial
+deskripsi: 'Kurs referensi plus geolokasi dan validasi VAT.'
+developer:
+  nama: VATComply
+  profil: 'https://www.vatcomply.com/'
+dokumentasi: 'https://www.vatcomply.com/documentation'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.vatcomply.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'VATComply'
+  syaratUrl: 'https://www.vatcomply.com/documentation'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: kurs
+    method: GET
+    path: '/rates?base={kode}'
+    deskripsi: 'Kurs terhadap satu basis.'
+    params:
+      - nama: kode
+        contoh: 'USD'
+        wajib: true
+        keterangan: 'kode ISO'
+
+    contohPath: '/rates?base=USD'
+    minUkuranByte: 200

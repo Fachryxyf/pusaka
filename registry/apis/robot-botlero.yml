@@ -1,0 +1,37 @@
+slug: robot-botlero
+nama: 'Robot Humanoid (Botlero)'
+kategori: referensi
+deskripsi: 'Spesifikasi robot humanoid beserta sumber kutipannya.'
+developer:
+  nama: Botlero
+  profil: 'https://botlero.com/'
+dokumentasi: 'https://botlero.com/api/robots'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://botlero.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Botlero'
+  syaratUrl: 'https://botlero.com/api/robots'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: daftar
+    method: GET
+    path: '/api/robots?limit={n}'
+    deskripsi: 'Daftar robot: nama, pabrikan, spesifikasi.'
+    params:
+      - nama: n
+        contoh: '3'
+        wajib: true
+        keterangan: 'jumlah entri'
+
+    contohPath: '/api/robots?limit=3'
+    minUkuranByte: 150

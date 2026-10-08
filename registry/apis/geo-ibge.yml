@@ -1,0 +1,32 @@
+slug: geo-ibge
+nama: 'Wilayah Brasil (IBGE)'
+kategori: lokasi
+deskripsi: 'Negara bagian Brasil dari institut statistiknya.'
+developer:
+  nama: IBGE
+  profil: 'https://servicodados.ibge.gov.br/'
+dokumentasi: 'https://servicodados.ibge.gov.br/api/docs/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://servicodados.ibge.gov.br'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'IBGE'
+  syaratUrl: 'https://servicodados.ibge.gov.br/api/docs/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: negara
+    method: GET
+    path: '/api/v1/localidades/estados'
+    deskripsi: 'Daftar negara bagian Brasil.'
+    params: []
+    contohPath: '/api/v1/localidades/estados'
+    minUkuranByte: 1000

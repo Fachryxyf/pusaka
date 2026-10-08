@@ -1,0 +1,40 @@
+slug: kartu-tcgdex
+nama: 'Kartu Pokemon (TCGdex)'
+kategori: hiburan
+deskripsi: 'Katalog multibahasa kartu Pokemon TCG: seri dan set.'
+developer:
+  nama: TCGdex
+  profil: 'https://www.tcgdex.net/'
+dokumentasi: 'https://www.tcgdex.net/docs'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.tcgdex.net'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'TCGdex'
+  syaratUrl: 'https://www.tcgdex.net/docs'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: seri
+    method: GET
+    path: '/v2/en/series'
+    deskripsi: 'Daftar seri kartu Pokemon.'
+    params: []
+    contohPath: '/v2/en/series'
+    minUkuranByte: 500
+  - id: set
+    method: GET
+    path: '/v2/en/sets'
+    deskripsi: 'Daftar set beserta jumlah kartu.'
+    params: []
+    pantauUmur: false
+    contohPath: '/v2/en/sets'
+    minUkuranByte: 5000

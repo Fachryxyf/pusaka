@@ -1,0 +1,37 @@
+slug: karya-openalex
+nama: 'Karya Ilmiah (OpenAlex)'
+kategori: referensi
+deskripsi: 'Pencarian karya ilmiah terbuka: judul, tahun, jumlah sitasi.'
+developer:
+  nama: OurResearch
+  profil: 'https://openalex.org/'
+dokumentasi: 'https://docs.openalex.org/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.openalex.org'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'OpenAlex (OurResearch)'
+  syaratUrl: 'https://docs.openalex.org/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: cari
+    method: GET
+    path: '/works?search={q}&per-page=3&select=id,title,publication_year'
+    deskripsi: 'Cari karya ilmiah menurut kata kunci.'
+    params:
+      - nama: q
+        contoh: 'malaria'
+        wajib: true
+        keterangan: 'kata kunci'
+
+    contohPath: '/works?search=malaria&per-page=3&select=id,title,publication_year'
+    minUkuranByte: 200

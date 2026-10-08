@@ -1,0 +1,32 @@
+slug: geo-ipjs
+nama: 'Geolokasi IP (GeoJS)'
+kategori: lokasi
+deskripsi: 'Geolokasi IP pemanggil: kota, negara, ASN.'
+developer:
+  nama: GeoJS
+  profil: 'https://www.geojs.io/'
+dokumentasi: 'https://www.geojs.io/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://get.geojs.io'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'GeoJS'
+  syaratUrl: 'https://www.geojs.io/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: lokasi
+    method: GET
+    path: '/v1/ip/geo.json'
+    deskripsi: 'Lokasi IP pemanggil.'
+    params: []
+    contohPath: '/v1/ip/geo.json'
+    minUkuranByte: 150

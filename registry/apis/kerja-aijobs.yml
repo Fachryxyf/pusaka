@@ -1,0 +1,32 @@
+slug: kerja-aijobs
+nama: 'Lowongan AI/ML'
+kategori: referensi
+deskripsi: 'Lowongan AI/ML dari 260+ halaman karir perusahaan.'
+developer:
+  nama: AI Jobs
+  profil: 'https://artificialintelligencejobs.co/'
+dokumentasi: 'https://artificialintelligencejobs.co/developers'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://artificialintelligencejobs.co'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Artificial Intelligence Jobs'
+  syaratUrl: 'https://artificialintelligencejobs.co/developers'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: lowongan
+    method: GET
+    path: '/api/jobs'
+    deskripsi: 'Lowongan terbaru (50 per halaman).'
+    params: []
+    contohPath: '/api/jobs'
+    minUkuranByte: 5000

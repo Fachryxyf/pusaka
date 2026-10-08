@@ -1,0 +1,37 @@
+slug: balap-racinghub
+nama: 'Pembalap (RacingHub)'
+kategori: hiburan
+deskripsi: 'Data historis pembalap Formula 1 dan ajang lain.'
+developer:
+  nama: RacingHub
+  profil: 'https://racinghub.net/'
+dokumentasi: 'https://racinghub.net/api/v1/docs'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://racinghub.net'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'RacingHub'
+  syaratUrl: 'https://racinghub.net/api/v1/docs'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: pembalap
+    method: GET
+    path: '/api/v1/drivers?limit={n}'
+    deskripsi: 'Daftar pembalap: nama, kebangsaan, tim.'
+    params:
+      - nama: n
+        contoh: '3'
+        wajib: true
+        keterangan: 'jumlah per halaman'
+
+    contohPath: '/api/v1/drivers?limit=3'
+    minUkuranByte: 1000

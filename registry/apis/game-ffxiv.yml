@@ -1,0 +1,37 @@
+slug: game-ffxiv
+nama: 'Koleksi FFXIV'
+kategori: hiburan
+deskripsi: 'Data koleksi Final Fantasy XIV: tunggangan dan deskripsinya.'
+developer:
+  nama: FFXIV Collect
+  profil: 'https://ffxivcollect.com/'
+dokumentasi: 'https://ffxivcollect.com/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://ffxivcollect.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'FFXIV Collect'
+  syaratUrl: 'https://ffxivcollect.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: tunggangan
+    method: GET
+    path: '/api/mounts/{id}'
+    deskripsi: 'Satu tunggangan menurut id.'
+    params:
+      - nama: id
+        contoh: '1'
+        wajib: true
+        keterangan: 'id tunggangan'
+
+    contohPath: '/api/mounts/1'
+    minUkuranByte: 500

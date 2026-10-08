@@ -1,0 +1,32 @@
+slug: wilayah-bdapis
+nama: 'Wilayah Bangladesh'
+kategori: lokasi
+deskripsi: 'Divisi, distrik, dan upazila Bangladesh.'
+developer:
+  nama: BdAPIs
+  profil: 'https://bdapis.com/'
+dokumentasi: 'https://bdapis.com/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://bdapis.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'BdAPIs'
+  syaratUrl: 'https://bdapis.com/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: divisi
+    method: GET
+    path: '/api/v1.2/divisions'
+    deskripsi: 'Daftar divisi Bangladesh.'
+    params: []
+    contohPath: '/api/v1.2/divisions'
+    minUkuranByte: 300

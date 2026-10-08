@@ -1,0 +1,32 @@
+slug: pasar-universalis
+nama: 'Pasar FFXIV (Universalis)'
+kategori: hiburan
+deskripsi: 'Data papan pasar Final Fantasy XIV per pusat data.'
+developer:
+  nama: Universalis
+  profil: 'https://universalis.app/'
+dokumentasi: 'https://universalis.app/docs/index.html'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://universalis.app'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Universalis'
+  syaratUrl: 'https://universalis.app/docs/index.html'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: pusatdata
+    method: GET
+    path: '/api/v2/data-centers'
+    deskripsi: 'Daftar pusat data dan dunianya.'
+    params: []
+    contohPath: '/api/v2/data-centers'
+    minUkuranByte: 500

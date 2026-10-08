@@ -1,0 +1,38 @@
+slug: protein-rcsb
+nama: 'Struktur Protein (RCSB PDB)'
+kategori: referensi
+deskripsi: 'Data struktur 3D protein dan asam nukleat dari bank data PDB.'
+developer:
+  nama: RCSB PDB
+  profil: 'https://www.rcsb.org/'
+dokumentasi: 'https://data.rcsb.org/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://data.rcsb.org'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'RCSB Protein Data Bank'
+  syaratUrl: 'https://data.rcsb.org/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: entri
+    method: GET
+    path: '/rest/v1/core/entry/{id}'
+    deskripsi: 'Satu entri struktur menurut ID PDB.'
+    params:
+      - nama: id
+        contoh: '4HHB'
+        wajib: true
+        keterangan: 'ID entri PDB'
+
+    contohPath: '/rest/v1/core/entry/4HHB'
+    pantauUmur: false
+    minUkuranByte: 5000

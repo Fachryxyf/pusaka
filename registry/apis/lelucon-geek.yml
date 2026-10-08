@@ -1,0 +1,32 @@
+slug: lelucon-geek
+nama: 'Lelucon Geek'
+kategori: hiburan
+deskripsi: 'Lelucon acak soal programming dan geek.'
+developer:
+  nama: Sameer Kumar
+  profil: 'https://github.com/sameerkumar18/geek-joke-api'
+dokumentasi: 'https://github.com/sameerkumar18/geek-joke-api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://geek-jokes.sameerkumar.website'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'geek-joke-api (Sameer Kumar)'
+  syaratUrl: 'https://github.com/sameerkumar18/geek-joke-api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: acak
+    method: GET
+    path: '/api'
+    deskripsi: 'Satu lelucon geek acak (string JSON).'
+    params: []
+    contohPath: '/api'
+    minUkuranByte: 30

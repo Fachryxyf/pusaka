@@ -1,0 +1,32 @@
+slug: hoki-nhl
+nama: 'Hoki NHL'
+kategori: hiburan
+deskripsi: 'Klasemen NHL terkini dari API resmi liga.'
+developer:
+  nama: NHL
+  profil: 'https://www.nhl.com/'
+dokumentasi: 'https://gitlab.com/dword4/nhlapi'
+upstreamName: null
+auth: none
+cors: none
+baseUrl: 'https://api-web.nhle.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'NHL API (tidak resmi didokumentasikan)'
+  syaratUrl: 'https://gitlab.com/dword4/nhlapi'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: klasemen
+    method: GET
+    path: '/v1/standings/now'
+    deskripsi: 'Klasemen saat ini per konferensi.'
+    params: []
+    contohPath: '/v1/standings/now'
+    minUkuranByte: 5000

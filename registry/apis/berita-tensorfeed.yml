@@ -1,0 +1,32 @@
+slug: berita-tensorfeed
+nama: 'Berita AI (TensorFeed)'
+kategori: berita
+deskripsi: 'Berita AI, harga model, dan status layanan real-time.'
+developer:
+  nama: TensorFeed
+  profil: 'https://tensorfeed.ai/'
+dokumentasi: 'https://tensorfeed.ai/developers'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://tensorfeed.ai'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'TensorFeed'
+  syaratUrl: 'https://tensorfeed.ai/developers'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: berita
+    method: GET
+    path: '/api/news'
+    deskripsi: 'Artikel AI terbaru (50).'
+    params: []
+    contohPath: '/api/news'
+    minUkuranByte: 5000

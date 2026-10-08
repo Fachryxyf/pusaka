@@ -1,0 +1,37 @@
+slug: bank-ifsc
+nama: 'Cabang Bank India (IFSC)'
+kategori: finansial
+deskripsi: 'Detail cabang bank India dari kode IFSC.'
+developer:
+  nama: Razorpay
+  profil: 'https://razorpay.com/'
+dokumentasi: 'https://razorpay.com/docs/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://ifsc.razorpay.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Razorpay IFSC'
+  syaratUrl: 'https://razorpay.com/docs/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: cabang
+    method: GET
+    path: '/{kode}'
+    deskripsi: 'Bank, cabang, alamat, UPI.'
+    params:
+      - nama: kode
+        contoh: 'HDFC0CAGSBK'
+        wajib: true
+        keterangan: 'kode IFSC'
+
+    contohPath: '/HDFC0CAGSBK'
+    minUkuranByte: 150

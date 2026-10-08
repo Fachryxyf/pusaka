@@ -1,0 +1,32 @@
+slug: alamat-addressmock
+nama: 'Alamat Palsu'
+kategori: referensi
+deskripsi: 'Alamat palsu AS, Hong Kong, Tanjung Verde yang cocok kota-ZIP.'
+developer:
+  nama: AddressMock
+  profil: 'https://addressmock.com/'
+dokumentasi: 'https://addressmock.com/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://addressmock.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'AddressMock'
+  syaratUrl: 'https://addressmock.com/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: acak
+    method: GET
+    path: '/api/addresses'
+    deskripsi: 'Satu alamat palsu acak.'
+    params: []
+    contohPath: '/api/addresses'
+    minUkuranByte: 300

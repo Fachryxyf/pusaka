@@ -1,0 +1,37 @@
+slug: cdn-jsdelivr
+nama: 'Paket jsDelivr'
+kategori: referensi
+deskripsi: 'Info dan statistik unduhan paket CDN jsDelivr.'
+developer:
+  nama: jsDelivr
+  profil: 'https://www.jsdelivr.com/'
+dokumentasi: 'https://github.com/jsdelivr/data.jsdelivr.com'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://data.jsdelivr.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'data.jsdelivr.com'
+  syaratUrl: 'https://github.com/jsdelivr/data.jsdelivr.com'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: paket
+    method: GET
+    path: '/v1/packages/npm/{paket}'
+    deskripsi: 'Versi dan statistik satu paket npm.'
+    params:
+      - nama: paket
+        contoh: 'jquery'
+        wajib: true
+        keterangan: 'nama paket'
+
+    contohPath: '/v1/packages/npm/jquery'
+    minUkuranByte: 3000

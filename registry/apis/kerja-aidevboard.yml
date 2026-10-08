@@ -1,0 +1,46 @@
+slug: kerja-aidevboard
+nama: 'Lowongan AI'
+kategori: referensi
+deskripsi: 'Agregator lowongan rekayasa AI/ML.'
+developer:
+  nama: AI Dev Board
+  profil: 'https://aidevboard.com/'
+dokumentasi: 'https://aidevboard.com/openapi.yaml'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://aidevboard.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'AI Dev Board'
+  syaratUrl: 'https://aidevboard.com/openapi.yaml'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: lowongan
+    method: GET
+    path: '/api/v1/jobs'
+    deskripsi: 'Lowongan terbaru.'
+    params: []
+    contohPath: '/api/v1/jobs'
+    minUkuranByte: 20000
+  - id: statistik
+    method: GET
+    path: '/api/v1/stats'
+    deskripsi: 'Statistik papan lowongan.'
+    params: []
+    contohPath: '/api/v1/stats'
+    minUkuranByte: 1000
+  - id: tagar
+    method: GET
+    path: '/api/v1/tags'
+    deskripsi: 'Daftar tag lowongan.'
+    params: []
+    contohPath: '/api/v1/tags'
+    minUkuranByte: 400

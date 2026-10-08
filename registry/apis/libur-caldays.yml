@@ -1,0 +1,41 @@
+slug: libur-caldays
+nama: 'Hari Libur Dunia (CalDays)'
+kategori: kalender
+deskripsi: 'Hari libur 195+ negara, data CC BY 4.0.'
+developer:
+  nama: CalDays
+  profil: 'https://caldays.com/'
+dokumentasi: 'https://caldays.com/api'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://caldays.com'
+mirror: false
+provenance:
+  lisensi: CC-BY-4.0
+  sumberLisensi: null
+  atribusiWajib: true
+  atribusi: 'Data kalender oleh caldays.com (CC BY 4.0, tercantum di respons)'
+  syaratUrl: 'https://caldays.com/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - CC BY 4.0 mengizinkan berbagi dengan atribusi; redistribusi mentah belum diputuskan.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: libur
+    method: GET
+    path: '/api/holidays?country={kode}&year={tahun}'
+    deskripsi: 'Hari libur satu negara satu tahun.'
+    params:
+      - nama: kode
+        contoh: 'ID'
+        wajib: true
+        keterangan: 'kode ISO2'
+      - nama: tahun
+        contoh: '2026'
+        wajib: true
+        keterangan: 'tahun'
+
+    contohPath: '/api/holidays?country=ID&year=2026'
+    minUkuranByte: 2000

@@ -1,0 +1,37 @@
+slug: paket-homebrew
+nama: 'Formula Homebrew'
+kategori: referensi
+deskripsi: 'Data paket dan cask manajer paket Homebrew.'
+developer:
+  nama: Homebrew
+  profil: 'https://formulae.brew.sh/'
+dokumentasi: 'https://formulae.brew.sh/api/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://formulae.brew.sh'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Homebrew Formulae'
+  syaratUrl: 'https://formulae.brew.sh/api/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: formula
+    method: GET
+    path: '/api/formula/{nama}.json'
+    deskripsi: 'Detail satu formula.'
+    params:
+      - nama: nama
+        contoh: 'wget'
+        wajib: true
+        keterangan: 'nama formula'
+
+    contohPath: '/api/formula/wget.json'
+    minUkuranByte: 2000

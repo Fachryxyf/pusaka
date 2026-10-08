@@ -1,0 +1,37 @@
+slug: ikon-iconify
+nama: 'Ikon Iconify'
+kategori: referensi
+deskripsi: 'Cari ikon SVG dari 200+ set sumber terbuka.'
+developer:
+  nama: Iconify
+  profil: 'https://iconify.design/'
+dokumentasi: 'https://iconify.design/docs/api/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://api.iconify.design'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Iconify'
+  syaratUrl: 'https://iconify.design/docs/api/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: cari
+    method: GET
+    path: '/search?query={q}&limit=5'
+    deskripsi: 'Ikon cocok menurut kata kunci.'
+    params:
+      - nama: q
+        contoh: 'home'
+        wajib: true
+        keterangan: 'kata kunci'
+
+    contohPath: '/search?query=home&limit=5'
+    minUkuranByte: 1000

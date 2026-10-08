@@ -1,0 +1,37 @@
+slug: kemanusiaan-hdx
+nama: 'Data Kemanusiaan (HDX)'
+kategori: referensi
+deskripsi: 'Dataset krisis kemanusiaan platform HDX.'
+developer:
+  nama: HDX
+  profil: 'https://data.humdata.org/'
+dokumentasi: 'https://data.humdata.org/'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://data.humdata.org'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Humanitarian Data Exchange'
+  syaratUrl: 'https://data.humdata.org/'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: cari
+    method: GET
+    path: '/api/3/action/package_search?q={q}&rows=3'
+    deskripsi: 'Dataset cocok menurut kata kunci.'
+    params:
+      - nama: q
+        contoh: 'indonesia'
+        wajib: true
+        keterangan: 'kata kunci'
+
+    contohPath: '/api/3/action/package_search?q=indonesia&rows=3'
+    minUkuranByte: 2000

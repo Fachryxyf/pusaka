@@ -1,0 +1,32 @@
+slug: kutipan-stranger
+nama: 'Kutipan Stranger Things'
+kategori: hiburan
+deskripsi: 'Kutipan acak serial Stranger Things beserta tokohnya.'
+developer:
+  nama: shadowoff09
+  profil: 'https://github.com/shadowoff09/strangerthings-quotes'
+dokumentasi: 'https://github.com/shadowoff09/strangerthings-quotes'
+upstreamName: null
+auth: none
+cors: open
+baseUrl: 'https://strangerthingsquotes.shadowdev.xyz'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'strangerthings-quotes (shadowoff09)'
+  syaratUrl: 'https://github.com/shadowoff09/strangerthings-quotes'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: acak
+    method: GET
+    path: '/api/quotes'
+    deskripsi: 'Satu kutipan acak: quote, author.'
+    params: []
+    contohPath: '/api/quotes'
+    minUkuranByte: 40

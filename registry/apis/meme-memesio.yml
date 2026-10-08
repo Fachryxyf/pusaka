@@ -1,0 +1,32 @@
+slug: meme-memesio
+nama: 'Templat Meme (Memesio)'
+kategori: hiburan
+deskripsi: 'Templat meme siap caption beserta tautan bagikan.'
+developer:
+  nama: Memesio
+  profil: 'https://memesio.com/'
+dokumentasi: 'https://memesio.com/developers/api'
+upstreamName: null
+auth: none
+cors: none
+baseUrl: 'https://memesio.com'
+mirror: false
+provenance:
+  lisensi: unknown
+  sumberLisensi: null
+  atribusiWajib: false
+  atribusi: 'Memesio'
+  syaratUrl: 'https://memesio.com/developers/api'
+  redistribusi: unknown
+  kebijakanMirror: 'unknown - tidak ada pernyataan lisensi data yang tegas.'
+  batasAkses: 'Gratis tanpa API key.'
+  diperiksa: '2026-10-08'
+asal: global
+endpoints:
+  - id: templat
+    method: GET
+    path: '/api/templates'
+    deskripsi: 'Daftar templat meme.'
+    params: []
+    contohPath: '/api/templates'
+    minUkuranByte: 3000
