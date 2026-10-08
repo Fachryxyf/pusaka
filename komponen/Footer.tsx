@@ -85,9 +85,13 @@ export function Footer() {
               DAFTAR-API-LOKAL-INDONESIA
             </Tautan>{' '}
             oleh farizdotid, dipakai di bawah lisensi{' '}
-            <Tautan href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</Tautan>. Data
-            tiap alat tetap milik penerbit aslinya; BMKG dan NASA/JPL mewajibkan pencantuman
-            sumber.
+            <Tautan href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</Tautan>,
+            serta dari direktori{' '}
+            <Tautan href="https://github.com/public-apis/public-apis">public-apis</Tautan>,
+            dipakai di bawah lisensi{' '}
+            <Tautan href="https://github.com/public-apis/public-apis/blob/master/LICENSE">
+              MIT</Tautan>. Data tiap alat tetap milik penerbit aslinya; BMKG dan
+            NASA/JPL mewajibkan pencantuman sumber.
           </p>
 
           <div className="teks-mikro flex flex-wrap items-center gap-x-3 gap-y-2 text-zinc-500">

@@ -718,6 +718,8 @@ ada di `REFERENCE.md`.
 
 - **Atribusi CC-BY-4.0** ke `farizdotid/DAFTAR-API-LOKAL-INDONESIA` di README **dan** footer situs.
   Ini kewajiban lisensi, bukan sopan santun.
+- **Atribusi MIT** ke `public-apis/public-apis` di README (lewat NOTICE.md) **dan** footer
+  situs. Syarat lisensi MIT: pemberitahuan hak cipta dan lisensinya dipertahankan.
 - **Hormati server sumber.** Cache agresif, jangan hajar API orang tiap render.
 - **Jangan janjiin alat yang endpoint-nya belum diverifikasi.** Cek dulu, baru tulis di UI.
 - API unofficial/scraper (LK21, Filmapik, dsb) — **jangan** dijadikan alat di muka awam
