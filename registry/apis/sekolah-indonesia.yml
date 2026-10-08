@@ -6,6 +6,7 @@ developer:
   nama: Alwan (wanrabbae)
   profil: 'https://github.com/wanrabbae'
 dokumentasi: 'https://github.com/wanrabbae/api-sekolah-indonesia'
+asal: indonesia
 upstreamName: API Data Sekolah Indonesia
 auth: none
 cors: open

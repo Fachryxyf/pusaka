@@ -6,6 +6,7 @@ developer:
   nama: equran.id
   profil: 'https://equran.id'
 dokumentasi: 'https://equran.id/apidev'
+asal: indonesia
 upstreamName: null
 auth: none
 cors: open

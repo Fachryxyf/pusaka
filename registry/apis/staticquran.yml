@@ -6,6 +6,7 @@ developer:
   nama: rzkytmgr
   profil: 'https://github.com/rzkytmgr'
 dokumentasi: 'https://github.com/rzkytmgr/quran-api'
+asal: indonesia
 upstreamName: Quran API
 auth: none
 cors: open

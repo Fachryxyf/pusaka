@@ -6,6 +6,7 @@ developer:
   nama: fitrahive
   profil: 'https://github.com/fitrahive'
 dokumentasi: 'https://github.com/fitrahive/dua-dhikr'
+asal: indonesia
 upstreamName: 'Dua & Dhikr'
 auth: none
 cors: open

@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { Pager } from '@/komponen/Pager'
 import { LencanaStatus } from '@/komponen/LencanaStatus'
 import { Pilih } from '@/komponen/Pilih'
 import type { RingkasApi } from '@/lib/status'
@@ -18,6 +19,7 @@ export type BarisApi = {
   jumlahEndpoint: number
   mirror: boolean
   lisensi: string
+  asal: 'indonesia' | 'global'
 }
 
 const AUTH_LABEL: Record<string, string> = {
@@ -45,6 +47,13 @@ export function KatalogApi({
   const [kategori, setKategori] = useState('')
   const [auth, setAuth] = useState('')
   const [status, setStatus] = useState('')
+  // Default Indonesia: katalog berawal dari inventaris lokal; global ikut ada tapi tidak mendominasi.
+  const [asal, setAsal] = useState('indonesia')
+  const [halaman, setHalaman] = useState(1)
+
+  useEffect(() => {
+    setHalaman(1)
+  }, [kueri, kategori, auth, status, asal])
 
   const kategoriTersedia = useMemo(
     () => [...new Set(baris.map((b) => b.kategori))].sort(),
@@ -59,6 +68,7 @@ export function KatalogApi({
       }
       if (kategori && b.kategori !== kategori) return false
       if (auth && b.auth !== auth) return false
+      if (asal !== 'semua' && b.asal !== asal) return false
       if (status) {
         const r = kesehatan[b.slug]
         if (status === 'sehat' && !(r && r.sehat)) return false
@@ -67,7 +77,12 @@ export function KatalogApi({
       }
       return true
     })
-  }, [baris, kueri, kategori, auth, status, kesehatan])
+  }, [baris, kueri, kategori, auth, status, asal, kesehatan])
+
+  const PER_HALAMAN = 10
+  const totalHalaman = Math.max(1, Math.ceil(hasil.length / PER_HALAMAN))
+  const halamanAktif = Math.min(halaman, totalHalaman)
+  const tampil = hasil.slice((halamanAktif - 1) * PER_HALAMAN, halamanAktif * PER_HALAMAN)
 
   return (
     <div className="space-y-5">
@@ -86,7 +101,7 @@ export function KatalogApi({
           />
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Pilih
             id="filter-kategori"
             label="Kategori"
@@ -107,6 +122,17 @@ export function KatalogApi({
               { nilai: 'none', label: 'Tanpa kunci' },
               { nilai: 'apikey', label: 'Perlu API key' },
               { nilai: 'oauth', label: 'OAuth' },
+            ]}
+          />
+          <Pilih
+            id="filter-asal"
+            label="Asal katalog"
+            nilai={asal}
+            onPilih={setAsal}
+            opsi={[
+              { nilai: 'indonesia', label: 'Indonesia' },
+              { nilai: 'global', label: 'Global' },
+              { nilai: 'semua', label: 'Semua' },
             ]}
           />
           <Pilih
@@ -133,8 +159,9 @@ export function KatalogApi({
           Tidak ada API yang cocok. Longgarkan filternya atau ubah kata pencarian.
         </p>
       ) : (
-        <ul className="space-y-3">
-          {hasil.map((b) => (
+        <>
+          <ul className="space-y-3">
+            {tampil.map((b) => (
             <li key={b.slug}>
               <Link
                 href={`/dev/api/${b.slug}`}
@@ -157,13 +184,18 @@ export function KatalogApi({
                   <span>{b.jumlahEndpoint} endpoint</span>
                   <span>{AUTH_LABEL[b.auth]}</span>
                   <span>{CORS_LABEL[b.cors]}</span>
+                  <span>{b.asal === 'indonesia' ? 'Indonesia' : 'Global'}</span>
                   <span>Lisensi {b.lisensi}</span>
                   {b.mirror && <span>Punya mirror</span>}
                 </span>
               </Link>
             </li>
-          ))}
-        </ul>
+            ))}
+          </ul>
+          <div className="pt-1">
+            <Pager halaman={halamanAktif} total={totalHalaman} onPilih={setHalaman} />
+          </div>
+        </>
       )}
     </div>
   )

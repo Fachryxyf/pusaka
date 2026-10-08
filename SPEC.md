@@ -146,7 +146,7 @@ somethinggood/
 │
 ├── public/
 │   ├── mirror/<slug>.json          # snapshot data — alasan lokasinya di §3.1
-│   ├── status.json                 # riwayat probe 90 hari + status publik (§9)
+│   ├── status.json                 # riwayat probe 45 hari + status publik (§9)
 │   ├── CNAME                       # domain kustom GitHub Pages
 │   └── .nojekyll                   # supaya _next/ tidak dibuang Jekyll
 │
@@ -183,6 +183,7 @@ export const EndpointSchema = z.object({
   headers: z.record(z.string()).default({}),        // header wajib selain User-Agent
   contohPath: z.string(),                           // path lengkap siap panggil, WAJIB — dipakai probe
   minUkuranByte: z.number().int().positive(),       // ambang bawah; di bawah ini = scraper mati
+  pantauUmur: z.boolean().default(true),            // false = stempel di body metadata rekaman
   contohResponse: z.unknown().optional(),           // dipotong, buat docs
 })
 
@@ -194,6 +195,7 @@ export const ApiSchema = z.object({
   developer: z.object({ nama: z.string(), profil: z.string().url().nullable() }),
   dokumentasi: z.string().url(),
   upstreamName: z.string().nullable(),              // buat pemetaan balik ke data farizdotid
+  asal: z.enum(['indonesia', 'global']).default('global'), // asal katalog; filter default di /dev
   auth: z.enum(['none', 'apikey', 'oauth']),
   cors: z.enum(['open', 'locked', 'none', 'unknown']).default('unknown'),
   baseUrl: z.string().url(),
@@ -631,13 +633,17 @@ ber-`contents: write` plus hak melewati ruleset branch, dan keduanya sengaja dih
 (§3.1).
 
 Yang dipakai sekarang: **situs yang sudah terbit adalah penyimpanannya.** Sebelum
-memprobe, `scripts/probe.ts` mengunduh `status.json` versi live, menambahkan hasil baru,
-memangkas ke 90 hari, lalu menulis ulang ke `public/status.json`. Riwayat ikut terbawa
-tiap deploy, dan **tidak ada satu pun workflow yang butuh izin tulis ke repo.**
+memprobe, `scripts/probe.ts` mengunduh `status.json` versi live (3× percobaan), jatuh
+ke berkas lokal kalau live tak terjangkau, dan **menggagalkan job** kalau dua-duanya
+hilang — deploy dengan riwayat kosong akan menimpa 45 hari data. Hasil baru ditambahkan,
+lalu dipangkas ke 45 hari + maks 200 titik per endpoint (anggaran ukuran), dan ditulis
+ulang ke `public/status.json`. **Tidak ada satu pun workflow yang butuh izin tulis ke repo.**
 
-Konsekuensi yang harus diingat: **`npm run probe` wajib ikut dijalankan di `pages.yml`,
-bukan hanya di `probe.yml`.** Kalau tidak, setiap push biasa akan menerbitkan artefak
-tanpa `status.json`, dan seluruh riwayat hilang bersamanya.
+Konsekuensi yang harus diingat: **`npm run probe` HANYA di `probe.yml` (terjadwal 6 jam)
+dan jalan manual — BUKAN di `pages.yml`.** Setiap push yang ikut memprobe menambah beban
+ke hulu dan berisiko kena batas laju (pernah: 3 API tebak-nama kena 100/hari). Deploy
+push membawa `status.json` versi commit apa adanya; endpoint baru menunggu maksimal
+satu jadwal untuk cek pertamanya. Itu disengaja, bukan kelalaian.
 
 Probe juga **mengisi ulang field `cors`** berdasarkan header asli, dan mencatat
 `umurDataHari` untuk endpoint yang memuat stempel waktu.

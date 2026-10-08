@@ -6,6 +6,7 @@ developer:
   nama: Muhammad Syifa
   profil: 'https://github.com/emsifa'
 dokumentasi: 'https://github.com/emsifa/api-wilayah-indonesia'
+asal: indonesia
 upstreamName: Nama Provinsi, Kota, Kabupaten Seluruh Indonesia
 auth: none
 cors: open

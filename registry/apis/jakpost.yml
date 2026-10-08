@@ -6,6 +6,7 @@ developer:
   nama: Faruq Maulana
   profil: 'https://github.com/faruqmaulana'
 dokumentasi: 'https://github.com/faruqmaulana/JAKARTA-POST-API'
+asal: indonesia
 upstreamName: Jakarta Post API
 auth: none
 cors: open

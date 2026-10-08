@@ -15,17 +15,17 @@
 | [`BACKLOG-API.md`](./BACKLOG-API.md) | Inventaris 151 API, bertingkat menurut kesiapan | Tahap 7, dan tiap kali nambah API |
 | `TASKS.md` (ini) | Urutan pekerjaan + kriteria selesai | Terus-menerus |
 
-## Status per 2026-08-21
+## Status per 2026-10-08
 
 | Tahap | Keadaan |
 |---|---|
 | 1 — Fondasi | **selesai** |
-| 2 — Muka awam | **selesai**, 10 alat (target 6) |
-| 3 — Probe & status | **selesai**, 57 endpoint diprobe tiap 6 jam |
+| 2 — Muka awam | **selesai**, 16 alat (target 6) |
+| 3 — Probe & status | **selesai**, 233 endpoint diprobe tiap 6 jam |
 | 4 — Muka developer | **selesai**, katalog + dokumentasi tergenerate + playground |
 | 5 — Proxy & mirror | **selesai sejauh yang mungkin.** Mirror jalan; proxy **DITUTUP** karena hosting tidak dipindah |
 | 6 — Sync & kontributor | sebagian: dokumen & berkas kontributor **selesai** (T6.3), sinkronisasi otomatis belum (T6.1, T6.2) |
-| 7 — Ekspansi ke 151 API | sebagian: 23 API terdaftar, 39 tier C perlu riset manual |
+| 7 — Ekspansi ke 151 API | sebagian: 119 API terdaftar (19 warisan inventaris + 100 global), 39 tier C perlu riset manual |
 
 Angka yang hidup ada di [`status.json`](https://pusaka.fachryxyf.com/status.json), bukan di
 dokumen ini. Kalau keduanya berbeda, yang benar `status.json`.
@@ -481,7 +481,7 @@ diperiksa **sebelum** `Content-Type` karena body 429 belum tentu JSON.
 >
 > Gantinya: **situs yang sudah terbit adalah penyimpanannya.** Sebelum memprobe,
 > `scripts/probe.ts` mengunduh `status.json` versi live, menambahkan hasil baru, lalu
-> menulis ulang ke `public/status.json`. Rolling 90 hari dipangkas di sana. Tidak ada
+> menulis ulang ke `public/status.json`. Rolling 45 hari dipangkas di sana. Tidak ada
 > satu pun workflow yang butuh izin tulis ke repo.
 >
 > Konsekuensi yang harus diketahui: **`npm run probe` wajib ikut dijalankan di

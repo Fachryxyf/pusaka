@@ -6,6 +6,7 @@ developer:
   nama: BMKG
   profil: 'https://bmkg.go.id'
 dokumentasi: 'https://data.bmkg.go.id/gempabumi/'
+asal: indonesia
 upstreamName: Data BMKG
 auth: none
 cors: open

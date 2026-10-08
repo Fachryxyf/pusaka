@@ -6,6 +6,7 @@ developer:
   nama: cacing69
   profil: 'https://github.com/cacing69'
 dokumentasi: 'https://github.com/cacing69/logam-mulia-api'
+asal: indonesia
 upstreamName: API Harga Emas/Logam Mulia
 auth: none
 cors: open

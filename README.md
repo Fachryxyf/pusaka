@@ -46,17 +46,26 @@ hidup saat kamu membacanya. Status API berubah terus — itu justru premis proje
 | Yang diklaim | Artinya |
 |---|---|
 | 119 API terdaftar | ada 119 berkas di `registry/apis/`, semuanya pernah dipanggil sungguhan dan lolos validasi skema |
-| 233 endpoint | jumlah yang diprobe tiap 6 jam; hasil terakhir 226 sehat, 7 gagal: kodepos vanmason (HTML di hulu) dan tiga API tebak-nama (agify/genderize/nationalize) kena batas 100/hari (di produksi tiap pengunjung punya kuota IP sendiri), ditambah tiga gangguan sesaat (musicbrainz 503, poetrydb & iNaturalist timeout) yang pulih saat dicek ulang |
+| 233 endpoint | diprobe tiap 6 jam; angka live ada di [dashboard status](https://pusaka.fachryxyf.com/dev/status/). Kegagalan berulang yang diketahui: kodepos vanmason (hulu membalas HTML) dan tiga API tebak-nama (agify/genderize/nationalize, batas 100/hari — di produksi tiap pengunjung punya kuota IP sendiri) |
 | 16 alat | jumlah yang benar-benar bisa dipakai orang awam, bukan jumlah API |
 | 151 API di backlog | inventaris upstream, bertingkat menurut kesiapan di [`BACKLOG-API.md`](./BACKLOG-API.md) |
-| Snapshot riset | **6 Agustus 2026** untuk katalog awal · **20 Agustus 2026** untuk NASA/JPL, batas paginasi idn-area, dan seluruh data lisensi · **21 Agustus 2026** untuk batas permintaan myQuran, bentuk dan zona waktu prakiraan BMKG, tag HTML dan ukuran response equran.id, batas hasil kodepos.vercel.app, probe ulang seluruh 14 sumber berita, 18 sumber harga emas, dan endpoint api-sekolah-indonesia · **7 Oktober 2026** untuk 18 API global dari direktori public-apis (hari libur Nager.Date, kurs Frankfurter, cuaca/geocoding/kualitas udara Open-Meteo, indikator World Bank, buku Open Library, harga kripto CoinGecko, Wikipedia Indonesia, matahari Sunrise-Sunset, resep TheMealDB, data PokéAPI, produk Open Food Facts, geolokasi ipapi.co, waktu TimeAPI, gambar Dog CEO, nasihat Advice Slip, tebak-negara Nationalize, elevasi Open-Meteo, tebak-umur Agify, tebak-gender Genderize, orang-acak Random User, Rick and Morty, acara TV TVmaze, kamus Free Dictionary, pencari kata Datamuse, berita antariksa Spaceflight News, minuman TheCocktailDB, lelucon Chuck Norris, lelucon JokeAPI, seni Art Institute of Chicago, seni The Met, pasar kripto CoinPaprika, fakta kucing Cat Facts, sejarah Wikipedia, musik MusicBrainz, gelombang laut & debit sungai Open-Meteo, gempa global USGS, posisi ISS WhereTheISS, geolokasi ipwho.is, profil GitHub; lalu geocoding alamat Nominatim/OpenStreetMap, peluncuran roket Launch Library 2, statistik COVID-19 disease.sh, film Studio Ghibli, gambar kucing TheCatAPI, cuaca historis Open-Meteo; lalu hadiah Nobel, kartu remi Deck of Cards, lelucon bapak icanhazdadjoke, kota/bendera CountriesNow, game gratis FreeToGame, jawaban ya/tidak yesno.wtf; lalu data dummy DummyJSON, toko palsu Fake Store, fakta iseng Useless Facts, karakter Genshin Impact, kutipan Kanye, lelucon Official Joke; lalu data palsu JSONPlaceholder, uji HTTP httpbin, IP publik ipify, kartu Magic The Gathering, Digimon, menu kopi SampleAPIs; lalu Star Wars SWAPI, Harry Potter, D&D 5e, kartu Yu-Gi-Oh, Game of Thrones, Dragon Ball; lalu terjemahan MyMemory, info warna The Color API, catur Chess.com, olahraga TheSportsDB, Valorant, Formula 1 Ergast; lalu hero Dota 2 OpenDota, kuis The Trivia API, puisi PoetryDB, anime Kitsu, Final Space, fakta anjing dogapi.dog; lalu biodiversitas GBIF, takson iNaturalist, templat meme Imgflip, meme Reddit, catur Lichess, tokoh Disney; lalu galeri NASA, diskon game CheapShark, kartu Pokémon TCG, Demon Slayer, game Nintendo Switch, kartu Magic Scryfall) |
+| Gelombang riset | tanggal dan isi tiap gelombang ada di tabel bawah |
+
+### Gelombang riset
+
+| Tanggal | Isi |
+|---|---|
+| 6 Agu 2026 | Katalog awal |
+| 20 Agu 2026 | NASA/JPL, batas paginasi idn-area, seluruh data lisensi |
+| 21 Agu 2026 | Batas permintaan myQuran, zona waktu BMKG, tag equran.id, batas kodepos, probe ulang berita–emas–sekolah |
+| 7 Okt 2026 | 9 batch API global dari public-apis (rincian per batch di REFERENCE.md) |
 
 **Status hidup/mati sekarang punya stempel waktu.** Sejak Tahap 3, seluruh 233 endpoint
 diprobe tiap 6 jam langsung ke alamat aslinya, dan hasilnya terbuka:
 
 - Dashboard: [pusaka.fachryxyf.com/dev/status](https://pusaka.fachryxyf.com/dev/status/)
 - Machine-readable: [`status.json`](https://pusaka.fachryxyf.com/status.json) — riwayat
-  rolling 90 hari, CORS terbuka
+  rolling 45 hari, CORS terbuka
 
 Badge di atas tetap menghitung jumlah **terdaftar**, bukan jumlah yang hidup saat ini.
 Untuk itu, lihat dashboard.
@@ -82,7 +91,7 @@ Untuk itu, lihat dashboard.
 | [Tarik Kartu Remi](https://pusaka.fachryxyf.com/alat/kartu/) | Deck of Cards API | kocok dek lalu tarik 1–10 kartu acak lengkap dengan gambarnya |
 | [Terjemahan](https://pusaka.fachryxyf.com/alat/terjemahan/) | MyMemory | terjemahkan teks antar bahasa (Inggris, Arab, Jepang, Mandarin ↔ Indonesia) |
 
-**Tahap 1 sampai 5 tuntas.** Yang tersisa di [`TASKS.md`](./TASKS.md): sinkronisasi otomatis
+**Tahap 1 sampai 5 tuntas; tahap 6 berjalan** (badge di atas). Yang tersisa di [`TASKS.md`](./TASKS.md): sinkronisasi otomatis
 dengan katalog upstream (Tahap 6) dan riset 39 API tier C yang path-nya belum ketemu (Tahap 7).
 
 ## Yang sengaja tidak dikerjakan
@@ -110,7 +119,7 @@ bisa dipanggil program. Lapisan itu yang ditambahkan di sini:
 | [`/dev`](https://pusaka.fachryxyf.com/dev/) | katalog dengan pencarian + filter kategori, autentikasi, dan status |
 | [`/dev/api/<slug>`](https://pusaka.fachryxyf.com/dev/api/gempa-bmkg/) | dokumentasi tergenerate dari registry, hak pakai data, dan playground per endpoint |
 | [`/dev/status`](https://pusaka.fachryxyf.com/dev/status/) | uptime 30 hari beserta jumlah cek, latency, riwayat per endpoint |
-| [`/status.json`](https://pusaka.fachryxyf.com/status.json) | riwayat probe 90 hari, CORS terbuka |
+| [`/status.json`](https://pusaka.fachryxyf.com/status.json) | riwayat probe 45 hari, CORS terbuka |
 
 Playground memakai `lib/client.ts` yang sama dengan alat — tidak ada jalur fetch kedua di
 project ini. Untuk API tanpa CORS, tombol Kirim dinonaktifkan dengan alasan yang disebutkan,
@@ -142,7 +151,7 @@ npm run mirror       # segarkan snapshot public/mirror/
 | `alat/<slug>/` | modul alat muka awam |
 | `scripts/mirror.ts` | menulis snapshot, menolak yang di bawah `minUkuranByte` |
 | `lib/probe.ts` | mesin health check — enam mode kematian, bisa diuji tanpa berkas |
-| `public/status.json` | riwayat probe 90 hari; ini juga **penyimpanannya**, lihat `SPEC.md` §9 |
+| `public/status.json` | riwayat probe 45 hari; ini juga **penyimpanannya**, lihat `SPEC.md` §9 |
 | `scripts/` | validasi registry, tes, probe (menyusul) |
 
 Menambah API: salin blok YAML dari [`REGISTRY-SEED.md`](./REGISTRY-SEED.md) ke

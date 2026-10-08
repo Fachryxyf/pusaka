@@ -6,6 +6,7 @@ developer:
   nama: Satya Wikananda
   profil: 'https://github.com/satyawikananda'
 dokumentasi: 'https://github.com/satyawikananda/berita-indo-api'
+asal: indonesia
 upstreamName: Berita Indo API
 auth: none
 cors: open

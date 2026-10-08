@@ -34,10 +34,10 @@ jobs:
       # balik. Artinya workflow ini tidak butuh izin tulis sama sekali, dan
       # data di produksi selalu semuda deploy terakhir.
       - run: npm run mirror
-      # Probe juga dijalankan di sini, kalau tidak status.json akan HILANG dari
-      # artefak tiap kali ada push — dan bersamanya seluruh riwayat, karena
-      # riwayat disimpan di dalam berkas itu (SPEC §3.1).
-      - run: npm run probe
+      # SENGAJA tidak ada `npm run probe` di sini (SPEC §9): tiap push yang ikut
+      # memprobe menambah beban ke hulu dan berisiko kena batas laju. Artefak membawa
+      # public/status.json versi commit apa adanya; kesegaran dijaga probe.yml tiap
+      # 6 jam. Endpoint baru menunggu maksimal satu jadwal untuk cek pertamanya.
       - run: npm run build
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5

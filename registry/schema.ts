@@ -44,6 +44,10 @@ export const ApiSchema = z.object({
   developer: z.object({ nama: z.string(), profil: z.url().nullable() }),
   dokumentasi: z.url(),
   upstreamName: z.string().nullable(),              // buat pemetaan balik ke data farizdotid
+  asal: z.enum(['indonesia', 'global']).default('global'), // indonesia = data tentang
+                                                    // Indonesia / kebutuhan harian Indonesia;
+                                                    // global = sisanya. Bukan kewarganegaraan
+                                                    // developer (SPEC §5). Filter default di /dev.
   auth: z.enum(['none', 'apikey', 'oauth']),
   cors: z.enum(['open', 'locked', 'none', 'unknown']).default('unknown'),
   baseUrl: z.url(),

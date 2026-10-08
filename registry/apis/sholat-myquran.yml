@@ -6,6 +6,7 @@ developer:
   nama: myQuran
   profil: 'https://api.myquran.com'
 dokumentasi: 'https://documenter.getpostman.com/view/841292/2s9YsGittd'
+asal: indonesia
 upstreamName: null
 auth: none
 cors: open

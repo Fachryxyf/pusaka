@@ -6,6 +6,7 @@ developer:
   nama: BMKG
   profil: 'https://bmkg.go.id'
 dokumentasi: 'https://data.bmkg.go.id/prakiraan-cuaca/'
+asal: indonesia
 upstreamName: null
 auth: none
 cors: open

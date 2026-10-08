@@ -2905,3 +2905,38 @@ manual. Lencana Sehat alat tidak diubah: yang dinilai tetap cek terakhir.
 `kamus-dictionary`, `ketinggian-open-meteo`, `kualitas-udara-open-meteo`,
 `toko-palsu-fakestore` — semuanya 200 saat diperiksa live 2026-10-08. DictionaryAPI
 dan sejenisnya memang fluktuatif; pemantauan baru di atas yang akan menangkapnya.
+
+# Penguatan riwayat & fokus lokal (2026-10-08)
+
+Bukan batch API — perbaikan risiko atas audit: riwayat bisa terhapus total, probe
+tersembunyi di tiap push, berkas raksasa, dan fokus Indonesia yang encer.
+
+## Riwayat tidak boleh mulai dari nol
+
+`scripts/probe.ts` mengambil `status.json` dari situs live dalam SATU percobaan 15 detik;
+gagal sekali → log "mulai dari nol" → deploy berikutnya menimpa 90 hari riwayat. Tidak
+ada cadangan. Perbaikan: 3× percobaan dengan jeda, jatuh ke berkas lokal kalau live tak
+terjangkau, dan **abort (exit 1, job gagal, tidak deploy)** kalau dua-duanya hilang.
+Nol hanya sah kalau live balas 404 DAN tidak ada berkas lokal (belum pernah terbit).
+
+## Anggaran ukuran status.json
+
+Terukur 2,3 MB untuk 10.410 titik (±217 byte/titik). Penuh 233×400 = ±20 MB — terlalu
+besar untuk berkas publik bercORS terbuka. Jendela 45 hari + maks 200 titik/endpoint
+(±9 MB terburuk) masih menutup jendela uptime 30 hari. Ukuran dicetak tiap jalan dan
+dijaga tes (< 12 MB).
+
+## Probe hanya dari jadwal
+
+`pages.yml` ikut menjalankan probe di tiap push — melanggar janji "tiap 6 jam" dan
+berisiko kena batas laju hulu. Probe kini HANYA di `probe.yml` terjadwal + jalan manual.
+Deploy push membawa `status.json` versi commit; endpoint baru menunggu maksimal satu
+jadwal untuk cek pertamanya.
+
+## Field `asal`: indonesia vs global
+
+20 API bertanda `asal: indonesia` (data tentang Indonesia / kebutuhan harian Indonesia),
+99 `global` (default). Kriteria didokumentasikan di skema, BUKAN kewarganegaraan
+developer. Filter "Asal katalog" ada di `/dev` dan `/dev/status`, default Indonesia —
+angka 19 warisan inventaris + global = 119 tetap dihitung saat build, bukan tulis tangan.
+Paginasi 10/halaman di kedua halaman karena daftarnya sudah ratusan baris.

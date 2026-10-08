@@ -6,6 +6,7 @@ developer:
   nama: Wikimedia Foundation
   profil: 'https://github.com/wikimedia'
 dokumentasi: 'https://id.wikipedia.org/api/rest_v1/'
+asal: indonesia
 upstreamName: null
 auth: none
 cors: open

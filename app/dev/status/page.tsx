@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import { RiwayatBatang } from '@/komponen/RiwayatBatang'
+import { DaftarStatus, type ItemStatus } from '@/komponen/DaftarStatus'
 import { muatSemuaApi } from '@/lib/registry'
-import { muatStatus, rentetanGagal, ringkasApi } from '@/lib/status'
+import { muatStatus, ringkasApi } from '@/lib/status'
 
 export const metadata: Metadata = {
   title: 'Status API',
@@ -26,8 +26,12 @@ export default function HalamanStatus() {
   }
 
   const ringkasan = status.api.map(ringkasApi)
-  const bermasalah = ringkasan.filter((r) => !r.sehat)
-  const beku = ringkasan.filter((r) => r.umurDataMaks !== null && r.umurDataMaks > 7)
+  const items: ItemStatus[] = ringkasan.map((r) => ({
+    ringkas: r,
+    asal: registry.find((a) => a.slug === r.slug)?.asal ?? 'global',
+    dokumentasi: registry.find((a) => a.slug === r.slug)?.dokumentasi,
+    endpoints: status.api.find((a) => a.slug === r.slug)?.endpoints ?? [],
+  }))
 
   return (
     <div className="space-y-10">
@@ -58,122 +62,8 @@ export default function HalamanStatus() {
         />
       </dl>
 
-      {bermasalah.length > 0 && (
-        <section className="space-y-2">
-          <h2 className="teks-mikro font-semibold uppercase text-zinc-500">
-            Sedang bermasalah
-          </h2>
-          <ul className="space-y-1 text-sm">
-            {bermasalah.map((r) => (
-              <li key={r.slug}>
-                <span className="font-medium">{r.nama}</span>{' '}
-                <span className="text-zinc-600 dark:text-zinc-400">
-                  — {r.endpointGagal.join(', ')}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
 
-      {beku.length > 0 && (
-        <section className="space-y-2">
-          <h2 className="teks-mikro font-semibold uppercase text-zinc-500">
-            Hidup tapi datanya tua
-          </h2>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400">
-            Endpoint di bawah lolos semua pemeriksaan, tapi stempel waktu terbaru di dalam
-            datanya sudah lama. Ini bukan galat — hanya sesuatu yang perlu dilihat manusia.
-          </p>
-          <ul className="space-y-1 text-sm">
-            {beku.map((r) => (
-              <li key={r.slug}>
-                <span className="font-medium">{r.nama}</span>{' '}
-                <span className="text-zinc-600 dark:text-zinc-400">
-                  — data terbaru sekitar {r.umurDataMaks} hari
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      <section className="space-y-4">
-        <h2 className="teks-mikro font-semibold uppercase text-zinc-500">
-          Semua API
-        </h2>
-
-        {ringkasan.map((r) => {
-          const api = status.api.find((a) => a.slug === r.slug)!
-          const dokumentasi = registry.find((a) => a.slug === r.slug)?.dokumentasi
-          return (
-            <article
-              key={r.slug}
-              className="space-y-3 rounded-xl border border-zinc-200 p-4 dark:border-zinc-800"
-            >
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div className="space-y-0.5">
-                  <h3 className="font-medium">
-                    {dokumentasi ? (
-                      <a
-                        href={dokumentasi}
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        className="fokus-cincin rounded hover:underline"
-                      >
-                        {r.nama}
-                      </a>
-                    ) : (
-                      r.nama
-                    )}
-                  </h3>
-                  <p className="text-xs text-zinc-500">
-                    <code className="font-mono">{r.slug}</code> · {r.kategori} · CORS {r.cors} ·{' '}
-                    {r.jumlahEndpoint} endpoint
-                  </p>
-                </div>
-                <Lencana sehat={r.sehat} gagal={r.endpointGagal.length} />
-              </div>
-
-              <dl className="flex flex-wrap gap-x-6 gap-y-1 text-xs text-zinc-600 dark:text-zinc-400">
-                <Angka label="Uptime 30 hari" nilai={r.uptime30 === null ? '—' : `${r.uptime30.toFixed(1)}% · ${r.cek30} cek`} />
-                <Angka label="Latency rata-rata" nilai={r.latencyRataRata === null ? '—' : `${r.latencyRataRata} ms`} />
-                {r.umurDataMaks !== null && <Angka label="Umur data" nilai={`${r.umurDataMaks} hari`} />}
-              </dl>
-
-              <ul className="space-y-2">
-                {api.endpoints.map((e) => {
-                  const akhir = e.catatan.at(-1)
-                  const beruntun = rentetanGagal(e.catatan)
-                  return (
-                    <li
-                      key={e.endpointId}
-                      className="flex flex-wrap items-center justify-between gap-3 border-t border-zinc-100 pt-2 dark:border-zinc-800/60"
-                    >
-                      <div className="min-w-0">
-                        <code className="font-mono text-sm">{e.endpointId}</code>
-                        <p className="text-xs text-zinc-500">
-                          {akhir
-                            ? `${akhir.status} · ${akhir.latencyMs} ms · ${akhir.ukuranByte} B${
-                                akhir.ok ? '' : ` · ${akhir.sebab ?? 'gagal'}`
-                              }`
-                            : 'belum diperiksa'}
-                          {beruntun >= 2 && (
-                            <span className="font-medium text-red-600 dark:text-red-400">
-                              {' '}· gagal {beruntun} cek beruntun
-                            </span>
-                          )}
-                        </p>
-                      </div>
-                      <RiwayatBatang catatan={e.catatan} />
-                    </li>
-                  )
-                })}
-              </ul>
-            </article>
-          )
-        })}
-      </section>
+      <DaftarStatus item={items} />
 
       <p className="text-xs text-zinc-500">
         Pemeriksaan berjalan tiap 6 jam. Tidak lebih sering — sebagian API di katalog ini
@@ -197,29 +87,6 @@ function Kotak({ label, nilai, tekan = false }: { label: string; nilai: string; 
         {nilai}
       </dd>
     </div>
-  )
-}
-
-function Angka({ label, nilai }: { label: string; nilai: string }) {
-  return (
-    <div>
-      <dt className="inline">{label}: </dt>
-      <dd className="inline font-medium tabular-nums text-zinc-900 dark:text-zinc-100">{nilai}</dd>
-    </div>
-  )
-}
-
-function Lencana({ sehat, gagal }: { sehat: boolean; gagal: number }) {
-  return (
-    <span
-      className={`shrink-0 rounded-full border px-2.5 py-1 text-xs font-medium ${
-        sehat
-          ? 'border-emerald-300 bg-emerald-50 text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-200'
-          : 'border-red-300 bg-red-50 text-red-800 dark:border-red-800 dark:bg-red-950 dark:text-red-200'
-      }`}
-    >
-      {sehat ? 'Sehat' : `${gagal} endpoint bermasalah`}
-    </span>
   )
 }
 

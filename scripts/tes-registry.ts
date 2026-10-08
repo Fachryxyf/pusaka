@@ -144,4 +144,9 @@ tes('pantauUmur default true, bisa dimatikan eksplisit', () => {
   assert.equal(mati.endpoints[0].pantauUmur, false)
 })
 
+tes('asal default global', () => {
+  const biasa = apiDari(dasar)
+  assert.equal(biasa.asal, 'global')
+})
+
 console.log(`\n${lolos} tes lolos.`)

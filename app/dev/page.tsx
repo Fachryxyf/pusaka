@@ -28,6 +28,7 @@ export default function HalamanDev() {
     jumlahEndpoint: a.endpoints.length,
     mirror: a.mirror,
     lisensi: a.provenance.lisensi,
+    asal: a.asal,
   }))
 
   const kesehatan: Record<string, RingkasApi> = Object.fromEntries(petaKesehatan())
@@ -71,7 +72,7 @@ export default function HalamanDev() {
           >
             status.json
           </a>{' '}
-          memuat riwayat pemeriksaan 90 hari dengan CORS terbuka, dan{' '}
+          memuat riwayat pemeriksaan 45 hari dengan CORS terbuka, dan{' '}
           <Link
             href="/dev/status"
             className="underline decoration-zinc-300 underline-offset-2 dark:decoration-zinc-600"
