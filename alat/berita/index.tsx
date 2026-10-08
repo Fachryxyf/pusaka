@@ -44,7 +44,6 @@ const SUMBER = [
   { nilai: 'kumparanSemua', label: 'Kumparan' },
   { nilai: 'republikaSemua', label: 'Republika' },
   { nilai: 'bbcSemua', label: 'BBC Indonesia' },
-  { nilai: 'voaSemua', label: 'VOA Indonesia' },
 ] as const
 
 // Rubrik hanya ditawarkan untuk sumber yang penyaringannya sudah dibuktikan.

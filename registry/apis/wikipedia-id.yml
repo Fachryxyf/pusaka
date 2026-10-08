@@ -32,4 +32,5 @@ endpoints:
         wajib: true
         keterangan: 'judul halaman Wikipedia'
     contohPath: /api/rest_v1/page/summary/Soekarno
+    pantauUmur: false
     minUkuranByte: 300

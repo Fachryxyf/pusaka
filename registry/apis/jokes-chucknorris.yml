@@ -28,6 +28,7 @@ endpoints:
     deskripsi: 'Satu lelucon acak. Balas {id, value, categories, url, ...}.'
     params: []
     contohPath: /jokes/random
+    pantauUmur: false
     minUkuranByte: 100
   - id: kategori
     method: GET

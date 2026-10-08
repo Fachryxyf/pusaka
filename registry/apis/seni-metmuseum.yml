@@ -32,4 +32,5 @@ endpoints:
         wajib: true
         keterangan: 'objectID (angka)'
     contohPath: /public/collection/v1/objects/436524
+    pantauUmur: false
     minUkuranByte: 300

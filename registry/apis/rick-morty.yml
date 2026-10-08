@@ -32,6 +32,7 @@ endpoints:
         wajib: true
         keterangan: 'id karakter (angka)'
     contohPath: /api/character/1
+    pantauUmur: false
     minUkuranByte: 300
   - id: daftarKarakter
     method: GET
@@ -39,4 +40,5 @@ endpoints:
     deskripsi: 'Daftar karakter berpaginasi. Objek info (count, pages, next, prev) + array results.'
     params: []
     contohPath: /api/character
+    pantauUmur: false
     minUkuranByte: 2000

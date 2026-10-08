@@ -53,4 +53,5 @@ endpoints:
         wajib: true
         keterangan: Nomor, nama, atau designation objek. '433' = 433 Eros
     contohPath: '/sbdb.api?sstr=433&phys-par=true'
+    pantauUmur: false
     minUkuranByte: 3100

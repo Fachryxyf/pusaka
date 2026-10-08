@@ -39,4 +39,5 @@ endpoints:
     deskripsi: 'Ringkasan pasar kripto global: total kapitalisasi, volume, dominasi Bitcoin.'
     params: []
     contohPath: /v1/global
+    pantauUmur: false
     minUkuranByte: 100

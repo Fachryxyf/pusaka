@@ -16,6 +16,9 @@ export const EndpointSchema = z.object({
   headers: z.record(z.string(), z.string()).default({}), // header wajib selain User-Agent
   contohPath: z.string(),                           // path lengkap siap panggil, WAJIB — dipakai probe
   minUkuranByte: z.number().int().positive(),        // ambang bawah; di bawah ini = scraper mati
+  pantauUmur: z.boolean().default(true),            // false kalau stempel waktu di body adalah
+                                                    // metadata rekaman (created_at, dateModified,
+                                                    // epoch orbit, dsb), BUKAN kesegaran data (SPEC §9)
   contohResponse: z.unknown().optional(),           // dipotong, buat docs
 })
 

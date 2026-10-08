@@ -107,7 +107,9 @@ export async function probeEndpoint(api: Api, endpoint: Endpoint): Promise<Catat
 
   // Umur data dicatat tapi TIDAK memengaruhi ok: endpointnya memang bekerja.
   // Yang beku perlu dilihat manusia, bukan divonis mati (SPEC §9).
-  return { ...dasar, ok: true, umurDataHari: umurData(teks) }
+  // Endpoint bertanda pantauUmur:false (metadata rekaman, bukan kesegaran data)
+  // selalu dicatat null supaya tidak menyesatkan.
+  return { ...dasar, ok: true, umurDataHari: endpoint.pantauUmur === false ? null : umurData(teks) }
 }
 
 async function sekaliPanggil(

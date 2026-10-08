@@ -32,6 +32,7 @@ endpoints:
         wajib: true
         keterangan: 'indeks mantra (mis. fireball)'
     contohPath: /api/2014/spells/fireball
+    pantauUmur: false
     minUkuranByte: 150
   - id: monster
     method: GET
@@ -43,4 +44,5 @@ endpoints:
         wajib: true
         keterangan: 'indeks monster (mis. goblin)'
     contohPath: /api/2014/monsters/goblin
+    pantauUmur: false
     minUkuranByte: 150

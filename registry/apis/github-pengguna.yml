@@ -32,6 +32,7 @@ endpoints:
         wajib: true
         keterangan: 'nama pengguna GitHub'
     contohPath: /users/torvalds
+    pantauUmur: false
     minUkuranByte: 300
   - id: repositori
     method: GET

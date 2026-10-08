@@ -39,6 +39,7 @@ endpoints:
         wajib: true
         keterangan: 'kata kunci pencarian produk'
     contohPath: '/products/search?q=laptop&limit=5'
+    pantauUmur: false
     minUkuranByte: 100
   - id: resep
     method: GET

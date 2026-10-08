@@ -32,4 +32,5 @@ endpoints:
         wajib: true
         keterangan: 'kata kunci pencarian'
     contohPath: '/search?q=jupiter&media_type=image'
+    pantauUmur: false
     minUkuranByte: 200

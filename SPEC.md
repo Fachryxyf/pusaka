@@ -601,6 +601,12 @@ Untuk tiap endpoint, catat:
 >
 > - Untuk endpoint bertanggal, bandingkan stempel waktu terbaru dengan waktu probe dan
 >   catat umurnya. Jangan jadikan `ok: false` — endpointnya memang bekerja.
+- Umur HANYA dipantau kalau stempel waktunya sinyal kesegaran data (tanggal terbit,
+  tanggal kejadian). Kalau yang ada cuma metadata rekaman (`created_at`, `dateModified`,
+  epoch orbit, tanggal rilis kartu, tanggal rekor ATH, dsb — terbukti: Chuck Norris,
+  JPL SBDB, CocktailDB, Rick & Morty, Scryfall, CoinPaprika), set `pantauUmur: false`
+  di endpointnya. Stempel rekaman yang dibaca sebagai umur menghasilkan angka ribuan
+  hari yang menyesatkan untuk endpoint yang sehat.
 > - Alat **wajib memberi tahu pembaca** kalau data yang ditampilkan sudah tua. Menyembunyikan
 >   sumbernya justru menutupi masalahnya; menampilkan umurnya membuat pembaca bisa menilai
 >   sendiri. Alat Berita memberi peringatan di atas 7 hari.
@@ -720,6 +726,9 @@ ada di `REFERENCE.md`.
   Ini kewajiban lisensi, bukan sopan santun.
 - **Atribusi MIT** ke `public-apis/public-apis` di README (lewat NOTICE.md) **dan** footer
   situs. Syarat lisensi MIT: pemberitahuan hak cipta dan lisensinya dipertahankan.
+- **Angka uptime selalu bersama penyebutnya.** "100% 30 hari" dari 1 cek adalah klaim
+  yang menyesatkan — tampilkan jumlah cek (`100% · 1 cek`) dan catat bahwa endpoint
+  baru memulai riwayatnya dari sedikit cek.
 - **Hormati server sumber.** Cache agresif, jangan hajar API orang tiap render.
 - **Jangan janjiin alat yang endpoint-nya belum diverifikasi.** Cek dulu, baru tulis di UI.
 - API unofficial/scraper (LK21, Filmapik, dsb) — **jangan** dijadikan alat di muka awam

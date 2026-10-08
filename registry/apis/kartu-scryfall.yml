@@ -32,6 +32,7 @@ endpoints:
         wajib: true
         keterangan: 'nama kartu persis'
     contohPath: '/cards/named?exact=Black Lotus'
+    pantauUmur: false
     minUkuranByte: 200
   - id: cari
     method: GET
@@ -43,6 +44,7 @@ endpoints:
         wajib: true
         keterangan: 'kata kunci atau sintaks pencarian Scryfall'
     contohPath: '/cards/search?q=lightning'
+    pantauUmur: false
     minUkuranByte: 300
   - id: acak
     method: GET
@@ -50,4 +52,5 @@ endpoints:
     deskripsi: 'Satu kartu Magic acak lengkap dengan gambar.'
     params: []
     contohPath: /cards/random
+    pantauUmur: false
     minUkuranByte: 200

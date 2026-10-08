@@ -109,7 +109,7 @@ bisa dipanggil program. Lapisan itu yang ditambahkan di sini:
 |---|---|
 | [`/dev`](https://pusaka.fachryxyf.com/dev/) | katalog dengan pencarian + filter kategori, autentikasi, dan status |
 | [`/dev/api/<slug>`](https://pusaka.fachryxyf.com/dev/api/gempa-bmkg/) | dokumentasi tergenerate dari registry, hak pakai data, dan playground per endpoint |
-| [`/dev/status`](https://pusaka.fachryxyf.com/dev/status/) | uptime 30 hari, latency, riwayat per endpoint |
+| [`/dev/status`](https://pusaka.fachryxyf.com/dev/status/) | uptime 30 hari beserta jumlah cek, latency, riwayat per endpoint |
 | [`/status.json`](https://pusaka.fachryxyf.com/status.json) | riwayat probe 90 hari, CORS terbuka |
 
 Playground memakai `lib/client.ts` yang sama dengan alat — tidak ada jalur fetch kedua di

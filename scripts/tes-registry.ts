@@ -137,4 +137,11 @@ tes('contohPath yang masih menyisakan {placeholder} ditolak', () => {
   assert.ok(salah.some((s) => s.includes('contohPath')), `tidak terdeteksi: ${JSON.stringify(salah)}`)
 })
 
+tes('pantauUmur default true, bisa dimatikan eksplisit', () => {
+  const biasa = apiDari(dasar)
+  assert.equal(biasa.endpoints[0].pantauUmur, true)
+  const mati = apiDari(dasar.replace('    minUkuranByte: 10\n', '    minUkuranByte: 10\n    pantauUmur: false\n'))
+  assert.equal(mati.endpoints[0].pantauUmur, false)
+})
+
 console.log(`\n${lolos} tes lolos.`)

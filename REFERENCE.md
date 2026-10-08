@@ -2848,3 +2848,60 @@ prices,image_uris:{normal,large},set_name,...}`. `GET /cards/search?q={kata}` �
 total_cards,data:[...]}` (sintaks pencarian Scryfall, bisa besar). `GET /cards/random` → satu
 kartu acak. Scryfall meminta jeda ~100 ms antar permintaan. Teks & gambar milik Wizards of the
 Coast. Lisensi → `unknown`.
+
+# Perbaikan keadilan angka (2026-10-08)
+
+Bukan batch API baru — audit atas kritik: angka uptime menyesatkan, umur data salah
+baca, dan API fluktuatif tanpa tanda. Semua diverifikasi terhadap `status.json` dan
+respons live sebelum diubah.
+
+## Uptime tanpa penyebut itu klaim kosong
+
+176 dari 233 endpoint hanya punya 1 titik riwayat (semuanya ditambahkan 2026-10-07 dan
+baru terbit hari ini), tapi halaman status menulis "Uptime 30 hari 100%". Dua cek —
+apalagi satu — belum cukup untuk klaim itu. Perbaikan: `ringkasApi` kini mengembalikan
+`cek30`/`gagal30` (isi jendela 30 hari), halaman menulis `100% · 1 cek`, dan ada catatan
+kaki bahwa angka endpoint baru menguat seiring waktu.
+
+## Umur data: 21 endpoint di-opt-out via `pantauUmur: false`
+
+Heuristik "stempel ISO terbaru di body" membaca metadata rekaman sebagai kesegaran data.
+Kasus yang dibuktikan satu per satu (respons live, bukan tebakan):
+
+- `jokes-chucknorris/acak` (2467 hari): `created_at` lelucon, 2020-01-05.
+- `jpl-ssd/objek` (1961 hari): epoch solusi orbit `2021-05-24 17:55:05` di SBDB — catatan
+  basis data, bukan kebekuan. Data pendekatan (masa depan) tetap terpantau.
+- `minuman-cocktaildb/*` (3321–4068 hari): `dateModified` 2015.
+- `orang-acak-randomuser/acak` (3207 hari): `registered.date` orang acak.
+- `rick-morty/*` (3258 hari): `created` 2017-11-04.
+- `nasa-gambar/cari` (1755 hari): `date_created` foto arsip.
+- `kartu-scryfall/*` (86 hari): `released_at`/`image_updated_at` kartu.
+- `kripto-coinpaprika/global` (367 hari): `market_cap_ath_date` — tanggal rekor, bukan
+  data pasar; `last_updated`-nya segar (Okt 2026). Alat Kripto memakai CoinGecko.
+- `github-pengguna/pengguna` (78 hari): `updated_at` akun.
+- `dnd-5e/*`, `buku-openlibrary/karya`, `seni-metmuseum/objek`, `valorant-api/agen`,
+  `data-dummyjson/cariProduk`, `wikipedia-id/ringkasan`: metadata rekaman statis.
+
+Yang TETAP dipantau karena sinyalnya asli: `berita-indo/voaSemua` (beku 2025-03-15,
+dipin tes), `jpl-ssd/bolaApi` (tanggal kejadian fireball). Aturan barunya di SPEC §9.
+
+## VOA keluar dari pilihan alat Berita
+
+Umpan VOA di hulu (`berita-indo-api`) beku sejak 2025-03-15 — 20 item, semuanya Maret
+2025 (VOA Indonesia berhenti terbit). Endpoint `voaSemua` tetap di registry untuk
+dipantau (status "datanya tua" + pin tes), tapi tidak lagi ditawarkan sejajar sumber
+segar di alat. Kalau umpannya hidup lagi, kembalikan opsinya.
+
+## Tanda otomatis untuk yang fluktuatif
+
+`rentetanGagal()` di `lib/status.ts`: endpoint dengan ≥2 gagal beruntun di ujung
+riwayat mendapat lencana merah "gagal N cek beruntun" di halaman status. Ini yang
+seharusnya menandai kasus `myinstants` (15× 503 beruntun 1–6 Okt, sudah pulih) dan
+`lambang-daerah` ("JSON sah tapi kosong" 19× — hulu fluktuatif) tanpa perlu dilihat
+manual. Lencana Sehat alat tidak diubah: yang dinilai tetap cek terakhir.
+
+## Diverifikasi sehat saat audit (tidak diubah)
+
+`kamus-dictionary`, `ketinggian-open-meteo`, `kualitas-udara-open-meteo`,
+`toko-palsu-fakestore` — semuanya 200 saat diperiksa live 2026-10-08. DictionaryAPI
+dan sejenisnya memang fluktuatif; pemantauan baru di atas yang akan menangkapnya.

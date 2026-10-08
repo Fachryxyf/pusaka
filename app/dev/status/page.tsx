@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { RiwayatBatang } from '@/komponen/RiwayatBatang'
 import { muatSemuaApi } from '@/lib/registry'
-import { muatStatus, ringkasApi } from '@/lib/status'
+import { muatStatus, rentetanGagal, ringkasApi } from '@/lib/status'
 
 export const metadata: Metadata = {
   title: 'Status API',
@@ -136,7 +136,7 @@ export default function HalamanStatus() {
               </div>
 
               <dl className="flex flex-wrap gap-x-6 gap-y-1 text-xs text-zinc-600 dark:text-zinc-400">
-                <Angka label="Uptime 30 hari" nilai={r.uptime30 === null ? '—' : `${r.uptime30.toFixed(1)}%`} />
+                <Angka label="Uptime 30 hari" nilai={r.uptime30 === null ? '—' : `${r.uptime30.toFixed(1)}% · ${r.cek30} cek`} />
                 <Angka label="Latency rata-rata" nilai={r.latencyRataRata === null ? '—' : `${r.latencyRataRata} ms`} />
                 {r.umurDataMaks !== null && <Angka label="Umur data" nilai={`${r.umurDataMaks} hari`} />}
               </dl>
@@ -144,6 +144,7 @@ export default function HalamanStatus() {
               <ul className="space-y-2">
                 {api.endpoints.map((e) => {
                   const akhir = e.catatan.at(-1)
+                  const beruntun = rentetanGagal(e.catatan)
                   return (
                     <li
                       key={e.endpointId}
@@ -157,6 +158,11 @@ export default function HalamanStatus() {
                                 akhir.ok ? '' : ` · ${akhir.sebab ?? 'gagal'}`
                               }`
                             : 'belum diperiksa'}
+                          {beruntun >= 2 && (
+                            <span className="font-medium text-red-600 dark:text-red-400">
+                              {' '}· gagal {beruntun} cek beruntun
+                            </span>
+                          )}
                         </p>
                       </div>
                       <RiwayatBatang catatan={e.catatan} />
@@ -171,7 +177,9 @@ export default function HalamanStatus() {
 
       <p className="text-xs text-zinc-500">
         Pemeriksaan berjalan tiap 6 jam. Tidak lebih sering — sebagian API di katalog ini
-        dibiayai pengembangnya sendiri.
+        dibiayai pengembangnya sendiri. Persentase uptime dihitung dari pemeriksaan 30
+        hari terakhir; endpoint yang baru ditambahkan memulai riwayatnya dari sedikit cek,
+        jadi angkanya menguat seiring waktu.
       </p>
     </div>
   )

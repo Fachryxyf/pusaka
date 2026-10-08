@@ -28,6 +28,7 @@ endpoints:
     deskripsi: 'Daftar agen: nama, peran, kemampuan, deskripsi.'
     params: []
     contohPath: '/v1/agents?language=en-US'
+    pantauUmur: false
     minUkuranByte: 500
   - id: peta
     method: GET

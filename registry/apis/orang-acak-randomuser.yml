@@ -36,4 +36,5 @@ endpoints:
         wajib: false
         keterangan: 'kode negara untuk gaya data'
     contohPath: '/api/?nat=us&results=1'
+    pantauUmur: false
     minUkuranByte: 300

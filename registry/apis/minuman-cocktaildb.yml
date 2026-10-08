@@ -32,6 +32,7 @@ endpoints:
         wajib: true
         keterangan: 'kata kunci nama minuman'
     contohPath: '/api/json/v1/1/search.php?s=margarita'
+    pantauUmur: false
     minUkuranByte: 300
   - id: detail
     method: GET
@@ -43,6 +44,7 @@ endpoints:
         wajib: true
         keterangan: 'idDrink'
     contohPath: '/api/json/v1/1/lookup.php?i=11007'
+    pantauUmur: false
     minUkuranByte: 300
   - id: acak
     method: GET
@@ -50,4 +52,5 @@ endpoints:
     deskripsi: Satu minuman acak.
     params: []
     contohPath: /api/json/v1/1/random.php
+    pantauUmur: false
     minUkuranByte: 300

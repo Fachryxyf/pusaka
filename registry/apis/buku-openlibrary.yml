@@ -51,4 +51,5 @@ endpoints:
         wajib: true
         keterangan: 'ID works Open Library'
     contohPath: /works/OL45804W.json
+    pantauUmur: false
     minUkuranByte: 200

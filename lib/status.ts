@@ -42,9 +42,24 @@ export type RingkasApi = {
   jumlahEndpoint: number
   endpointGagal: string[]
   uptime30: number | null
+  // Penyebut uptime30: berapa pemeriksaan yang masuk jendela 30 hari. Endpoint
+  // baru mulai dari 1 — persentase tanpa angka ini menyesatkan (2026-10-08).
+  cek30: number
+  gagal30: number
   latencyRataRata: number | null
   umurDataMaks: number | null
   terakhir: string | null
+}
+
+// Deretan gagal di ujung riwayat (cek terakhir dan sebelumnya tanpa putus).
+// Dipakai halaman status sebagai tanda otomatis API yang terus-terusan mati.
+export function rentetanGagal(catatan: Catatan[]): number {
+  let n = 0
+  for (let i = catatan.length - 1; i >= 0; i--) {
+    if (catatan[i].ok) break
+    n++
+  }
+  return n
 }
 
 // Ringkasan per API untuk dashboard dan penanda di muka awam.
@@ -79,6 +94,8 @@ export function ringkasApi(api: StatusApi): RingkasApi {
     jumlahEndpoint: api.endpoints.length,
     endpointGagal: gagal,
     uptime30: dalam30.length === 0 ? null : (dalam30.filter((c) => c.ok).length / dalam30.length) * 100,
+    cek30: dalam30.length,
+    gagal30: dalam30.filter((c) => !c.ok).length,
     latencyRataRata: latency.length === 0 ? null : Math.round(latency.reduce((a, b) => a + b, 0) / latency.length),
     umurDataMaks: umur.length === 0 ? null : Math.max(...umur),
     terakhir: terakhirTiap.length === 0 ? null : (terakhirTiap.map((c) => c.waktu).sort().at(-1) ?? null),
