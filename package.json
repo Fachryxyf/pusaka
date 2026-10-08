@@ -16,10 +16,10 @@
     "tes:terbit": "tsx scripts/tes-dev.ts"
   },
   "dependencies": {
-    "next": "16.3.1",
+    "next": "16.3.8",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "yaml": "2.9.0",
+    "yaml": "2.9.1",
     "zod": "4.4.3"
   },
   "devDependencies": {
@@ -28,9 +28,9 @@
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.4",
     "eslint": "9.39.5",
-    "eslint-config-next": "16.3.1",
+    "eslint-config-next": "16.3.8",
     "tailwindcss": "4.3.3",
-    "tsx": "4.23.12",
+    "tsx": "4.23.15",
     "typescript": "6.0.3"
   }
 }
