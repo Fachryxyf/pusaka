@@ -47,8 +47,8 @@ export function KatalogApi({
   const [kategori, setKategori] = useState('')
   const [auth, setAuth] = useState('')
   const [status, setStatus] = useState('')
-  // Default Indonesia: katalog berawal dari inventaris lokal; global ikut ada tapi tidak mendominasi.
-  const [asal, setAsal] = useState('indonesia')
+  // Default Semua (2026-10-08): menampilkan seluruh katalog; filter Indonesia/Global mempersempit.
+  const [asal, setAsal] = useState('semua')
   const [halaman, setHalaman] = useState(1)
 
   useEffect(() => {

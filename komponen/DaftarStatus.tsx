@@ -16,8 +16,8 @@ export type ItemStatus = {
 const PER_HALAMAN = 10
 
 export function DaftarStatus({ item }: { item: ItemStatus[] }) {
-  // Default Indonesia: sama seperti katalog — fokus lokal dulu.
-  const [asal, setAsal] = useState('indonesia')
+  // Default Semua (2026-10-08): sama seperti katalog.
+  const [asal, setAsal] = useState('semua')
   const [halaman, setHalaman] = useState(1)
 
   useEffect(() => {
